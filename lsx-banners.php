@@ -36,6 +36,8 @@ class Lsx_Banners {
 	private function __construct() {	
 		//Enqueue the scrips
 		add_filter( 'cmb_meta_boxes', array($this,'metaboxes') );	
+		
+		add_action('storefront_before_content',array($this,'banner'));
 	}
 	
 	/**
@@ -69,8 +71,8 @@ class Lsx_Banners {
 						array( 'id' => 'banner_x', 'name' => 'X Position', 'type' => 'select', 'options' => array( 'left' => 'Left', 'right' => 'Right', 'Center' => 'Center' ), 'allow_none' => true, 'sortable' => false, 'repeatable' => false ),
 						array( 'id' => 'banner_y', 'name' => 'Y Position', 'type' => 'select', 'options' => array( 'top' => 'Top', 'bottom' => 'Bottom', 'Center' => 'Center' ), 'allow_none' => true, 'sortable' => false, 'repeatable' => false ),
 				) ),				
-				array( 'id' => 'banner_title',  'name' => 'Title', 'type' => 'text' ),
-				array( 'id' => 'banner_subtitle',  'name' => 'Sub Title', 'type' => 'text' ),
+				/*array( 'id' => 'banner_title',  'name' => 'Title', 'type' => 'text' ),
+				array( 'id' => 'banner_subtitle',  'name' => 'Sub Title', 'type' => 'text' ),*/
 
 		);
 		
@@ -81,6 +83,49 @@ class Lsx_Banners {
 		);			
 
 		return $meta_boxes;
+	}
+	
+	
+	function banner(){ 
+		$img_group = get_post_meta(get_the_ID(),'image_group',true);
+		
+		$banner_image = false;
+		if(false !== $img_group && is_array($img_group) && isset($img_group['banner_image'])){
+			$banner_image_id = $img_group['banner_image'];
+	        $banner_image = wp_get_attachment_image_src($banner_image_id,'full');
+	        $banner_image = $banner_image[0];
+		}
+		
+		
+		$image_bg_group = get_post_meta(get_the_ID(),'image_bg_group',true);
+		print_r($image_bg_group);
+		if(false !== $image_bg_group && is_array($image_bg_group)){
+			
+			$size = 'cover';
+			if(isset($image_bg_group['banner_height'])){
+				$size = $image_bg_group['banner_height'];
+			}
+			$x_position = 'center';
+			if(isset($image_bg_group['banner_x'])){
+				$x_position = $image_bg_group['banner_x'];
+			}			
+			$y_position = 'center';
+			if(isset($image_bg_group['banner_y'])){
+				$y_position = $image_bg_group['banner_y'];
+			}
+		}
+		
+		if(false !== $banner_image){
+		?>
+			<div class="page-banner" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-image:url(<?php echo $banner_image; ?>); background-size:<?php echo $size; ?>;">
+	        	<div class="container">
+		            <header class="page-header">
+		            	<h1 class="page-title"><?php the_title(); ?></h1> 
+		            </header><!-- .entry-header -->
+		        </div>
+	        </div>		
+	<?php 
+		}
 	}
 }
 $lst_banners = Lsx_Banners::get_instance();
