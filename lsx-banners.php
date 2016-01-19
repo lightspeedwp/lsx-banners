@@ -38,6 +38,8 @@ class Lsx_Banners {
 		add_filter( 'cmb_meta_boxes', array($this,'metaboxes') );	
 		
 		add_action('storefront_before_content',array($this,'banner'));
+		
+		add_filter('body_class', array($this,'body_class'));
 	}
 	
 	/**
@@ -96,9 +98,7 @@ class Lsx_Banners {
 	        $banner_image = $banner_image[0];
 		}
 		
-		
 		$image_bg_group = get_post_meta(get_the_ID(),'image_bg_group',true);
-		print_r($image_bg_group);
 		if(false !== $image_bg_group && is_array($image_bg_group)){
 			
 			$size = 'cover';
@@ -127,5 +127,19 @@ class Lsx_Banners {
 	<?php 
 		}
 	}
+	
+	/**
+	 * Add <body> classes
+	 */
+	function body_class($classes) {
+		// Add page slug if it doesn't exist
+		$banner_image = false;
+		$img_group = get_post_meta(get_the_ID(),'image_group',true);
+		if(false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && false !== $img_group['banner_image']){
+			$classes[] = 'has-banner';
+		}	
+		return $classes;
+	}
+	
 }
 $lst_banners = Lsx_Banners::get_instance();
