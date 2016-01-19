@@ -11,7 +11,7 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
 */
 
 if(!function_exists('CMB_Meta_Box')){
-	require 'vendor/Custom-Meta-Boxes.php';
+	require 'vendor/Custom-Meta-Boxes/custom-meta-boxes.php';
 }
 
 /**
@@ -61,13 +61,24 @@ class Lsx_Banners {
 		
 		// Example of all available fields
 		$fields = array(
-				array( 'id' => 'banner_image', 'name' => 'Image', 'type' => 'image', 'repeatable' => false, 'show_size' => true ),
+				array( 'id' => 'image_group', 'name' => '', 'type' => 'group', 'cols' => 4, 'fields' => array(
+						array( 'id' => 'banner_image', 'name' => 'Image', 'type' => 'image', 'repeatable' => false, 'show_size' => false, 'size' => array(350,200))
+				) ),
+				array( 'id' => 'image_bg_group', 'name' => '', 'type' => 'group', 'cols' => 8, 'fields' => array(
+						array( 'id' => 'banner_height',  'name' => 'Height', 'type' => 'text' ),
+						array( 'id' => 'banner_x', 'name' => 'X Position', 'type' => 'select', 'options' => array( 'left' => 'Left', 'right' => 'Right', 'Center' => 'Center' ), 'allow_none' => true, 'sortable' => false, 'repeatable' => false ),
+						array( 'id' => 'banner_y', 'name' => 'Y Position', 'type' => 'select', 'options' => array( 'top' => 'Top', 'bottom' => 'Bottom', 'Center' => 'Center' ), 'allow_none' => true, 'sortable' => false, 'repeatable' => false ),
+				) ),				
 				array( 'id' => 'banner_title',  'name' => 'Title', 'type' => 'text' ),
 				array( 'id' => 'banner_subtitle',  'name' => 'Sub Title', 'type' => 'text' ),
-				array( 'id' => 'banner_height',  'name' => 'Height', 'type' => 'text' ),
-				array( 'id' => 'banner_x', 'name' => 'X Position', 'type' => 'select', 'options' => array( 'left' => 'Left', 'right' => 'Right', 'Center' => 'Center' ), 'allow_none' => true, 'sortable' => false, 'repeatable' => false ),
-				array( 'id' => 'banner_y', 'name' => 'Y Position', 'type' => 'select', 'options' => array( 'top' => 'Top', 'bottom' => 'Bottom', 'Center' => 'Center' ), 'allow_none' => true, 'sortable' => false, 'repeatable' => false )		
+
 		);
+		
+		$meta_boxes[] = array(
+				'title' => 'Banner',
+				'pages' => array('post','page'),
+				'fields' => $fields
+		);			
 
 		return $meta_boxes;
 	}
