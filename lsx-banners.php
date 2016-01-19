@@ -10,7 +10,9 @@ Text Domain: lsx-banners
 License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 */
 
-//require 'inc/template-tags.php';
+if(!function_exists('CMB_Meta_Box')){
+	require 'vendor/Custom-Meta-Boxes.php';
+}
 
 /**
  * Main plugin class.
@@ -33,7 +35,7 @@ class Lsx_Banners {
 	 */
 	private function __construct() {	
 		//Enqueue the scrips
-		add_action( 'wp_enqueue_scripts', array($this,'scripts') ,100 );
+		add_filter( 'cmb_meta_boxes', array($this,'metaboxes') );	
 	}
 	
 	/**
@@ -50,23 +52,24 @@ class Lsx_Banners {
 	}
 	
 	/**
-	 * Enqueue scripts and styles.
+	 * Define the metabox and field configurations.
 	 *
+	 * @param  array $meta_boxes
+	 * @return array
 	 */
-	function scripts() {
-		if(!is_user_logged_in()){
-			wp_enqueue_style('lsx_login_style', plugin_dir_url(__FILE__) . 'assets/css/lsx-login.css');
-			wp_enqueue_script('lsx_login_script', plugin_dir_url(__FILE__) . 'assets/js/lsx-login.js', array('jquery'), null, false);
-			$param_array = array(
-					'ajax_url' 			=> admin_url('admin-ajax.php'),
-					'empty_username'	=> __('The username field is empty.','lsx-login'),
-					'empty_password'	=> __('The password field is empty.','lsx-login'),
-					'empty_reset'		=> __('Enter a username or e-mail address.','lsx-login'),
-					'no_match'		=> __('Passwords do not match','lsx-login'),
-					'ajax_spinner'		=> plugin_dir_url( __FILE__ ) . "assets/images/ajax-spinner.gif"
-			);
-			wp_localize_script( 'lsx_login_script', 'lsx_login_params', $param_array );
-		}		
+	function metaboxes( array $meta_boxes ) {		
+		
+		// Example of all available fields
+		$fields = array(
+				array( 'id' => 'banner_image', 'name' => 'Image', 'type' => 'image', 'repeatable' => false, 'show_size' => true ),
+				array( 'id' => 'banner_title',  'name' => 'Title', 'type' => 'text' ),
+				array( 'id' => 'banner_subtitle',  'name' => 'Sub Title', 'type' => 'text' ),
+				array( 'id' => 'banner_height',  'name' => 'Height', 'type' => 'text' ),
+				array( 'id' => 'banner_x', 'name' => 'X Position', 'type' => 'select', 'options' => array( 'left' => 'Left', 'right' => 'Right', 'Center' => 'Center' ), 'allow_none' => true, 'sortable' => false, 'repeatable' => false ),
+				array( 'id' => 'banner_y', 'name' => 'Y Position', 'type' => 'select', 'options' => array( 'top' => 'Top', 'bottom' => 'Bottom', 'Center' => 'Center' ), 'allow_none' => true, 'sortable' => false, 'repeatable' => false )		
+		);
+
+		return $meta_boxes;
 	}
 }
 $lst_banners = Lsx_Banners::get_instance();
