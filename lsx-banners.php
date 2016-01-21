@@ -92,7 +92,7 @@ class Lsx_Banners {
 		$img_group = get_post_meta(get_the_ID(),'image_group',true);
 		
 		$banner_image = false;
-		if(false !== $img_group && is_array($img_group) && isset($img_group['banner_image'])){
+		if(false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && '' !== $img_group['banner_image']){
 			$banner_image_id = $img_group['banner_image'];
 	        $banner_image = wp_get_attachment_image_src($banner_image_id,'full');
 	        $banner_image = $banner_image[0];
@@ -133,9 +133,13 @@ class Lsx_Banners {
 	 */
 	function body_class($classes) {
 		// Add page slug if it doesn't exist
+		
+				
+
 		$banner_image = false;
 		$img_group = get_post_meta(get_the_ID(),'image_group',true);
-		if(false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && false !== $img_group['banner_image']){
+		
+		if(false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && '' !== $img_group['banner_image']){
 			$classes[] = 'has-banner';
 		}	
 		return $classes;
