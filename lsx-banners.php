@@ -11,7 +11,7 @@ Tags: LSX, Storefront, Sage
 License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 */
 
-if(!function_exists('CMB_Meta_Box')){
+if(!function_exists('cmb_init')){
 	require 'vendor/Custom-Meta-Boxes/custom-meta-boxes.php';
 }
 
