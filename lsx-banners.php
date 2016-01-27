@@ -109,7 +109,7 @@ class Lsx_Banners {
 		);
 		
 		$meta_boxes[] = array(
-				'title' => 'Banner',
+				'title' => 'Banners',
 				'pages' => array('post','page'),
 				'fields' => $fields
 		);			
