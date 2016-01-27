@@ -112,7 +112,9 @@ class Lsx_Banners {
 				'title' => 'Banners',
 				'pages' => array('post','page'),
 				'fields' => $fields
-		);			
+		);		
+
+		$meta_boxes = apply_filters('lsx_banner_meta_boxes', $meta_boxes);
 
 		return $meta_boxes;
 	}
