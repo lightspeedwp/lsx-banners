@@ -5,7 +5,7 @@ Plugin URI: {add_in}
 Description: A full width responsive banner solution. Compatabile with LSX, Storefront and Sage themes
 Author: Warwick
 Author URI: http://wordpress.org/
-Version: 1.1
+Version: 1.2
 Text Domain: lsx-banners
 Tags: LSX, Storefront, Sage
 License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
@@ -96,7 +96,7 @@ class Lsx_Banners {
 		
 		$fields = array(
 				array( 'id' => 'image_group', 'name' => '', 'type' => 'group', 'cols' => 4, 'fields' => array(
-						array( 'id' => 'banner_image', 'name' => 'Image', 'type' => 'image', 'repeatable' => false, 'show_size' => false, 'size' => array(350,200))
+						array( 'id' => 'banner_image', 'name' => 'Image', 'type' => 'image', 'repeatable' => true, 'show_size' => false, 'size' => array(350,200))
 				) ),
 				array( 'id' => 'image_bg_group', 'name' => '', 'type' => 'group', 'cols' => 8, 'fields' => array(
 						array( 'id' => 'banner_height',  'name' => 'Height', 'type' => 'text' ),
@@ -122,10 +122,18 @@ class Lsx_Banners {
 		$img_group = get_post_meta(get_the_ID(),'image_group',true);
 		
 		$banner_image = false;
-		if(false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && '' !== $img_group['banner_image']){
-			$banner_image_id = $img_group['banner_image'];
-	        $banner_image = wp_get_attachment_image_src($banner_image_id,'full');
-	        $banner_image = $banner_image[0];
+		$show_slider = false;
+		
+		if(false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && !empty($img_group['banner_image'])){
+			
+			if(!is_array($img_group['banner_image'])){
+				$banner_image_id = $img_group['banner_image'];
+			}else{
+				$banner_image_id = $img_group['banner_image']['cmb-field-0'];
+			}
+			$banner_image = wp_get_attachment_image_src($banner_image_id,'full');
+			$banner_image = $banner_image[0];			
+	    
 		}
 		
 		if('lsx' === $this->theme && false === $banner_image && has_post_thumbnail()){
@@ -133,6 +141,7 @@ class Lsx_Banners {
 			$banner_image = $banner_image[0];			
 		}
 		
+		//Get the meta for the background image
 		$image_bg_group = get_post_meta(get_the_ID(),'image_bg_group',true);
 		if(false !== $image_bg_group && is_array($image_bg_group)){
 			
@@ -150,17 +159,52 @@ class Lsx_Banners {
 			}
 		}
 		
+		//Check if the slider code should show
+		if('lsx' === $this->theme && is_array($img_group['banner_image']) && 1 < count($img_group['banner_image'])) {
+			$show_slider = true;
+		}		
+		
+		
 		if(false !== $banner_image){
-		?>
-			<div class="page-banner" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-image:url(<?php echo $banner_image; ?>); background-size:<?php echo $size; ?>;">
-	        	<div class="container">
-		            <header class="page-header">
-		            	<h1 class="page-title"><?php the_title(); ?></h1> 
-		            	<?php echo $this->banner_content(); ?>
-		            </header><!-- .entry-header -->
-		        </div>
-	        </div>		
-	<?php 
+			
+			//if its the lsx theme and there are more than 1 banner, then output a bootstrap carousel.
+			if($show_slider) { 
+				?>
+				<div id="page-slider" class="carousel slide" data-ride="carousel" data-interval="6000">
+					<div class="carousel-inner">
+				<?php
+			}
+			?>
+						<div class="page-banner <?php if($show_slider){ echo 'item active'; }else{}  ?>" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-image:url(<?php echo $banner_image; ?>); background-size:<?php echo $size; ?>;">
+				        	<div class="container">
+					            <header class="page-header">
+					            	<h1 class="page-title"><?php the_title(); ?></h1> 
+					            	<?php echo $this->banner_content(); ?>
+					            </header><!-- .entry-header -->
+					        </div>
+				        </div>		
+			<?php
+			//if its the lsx theme and there are more than 1 banner, then output a bootstrap carousel.
+			if($show_slider) {	?>
+			
+						<?php 
+						foreach($img_group['banner_image'] as $key => $slide_id){ if('cmb-field-0' === $key){continue;}
+							$slide = wp_get_attachment_image_src($slide_id,'full');
+							?>
+							<div class="page-banner item" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-image:url(<?php echo $slide[0]; ?>); background-size:<?php echo $size; ?>;">
+					        	<div class="container">
+						            <header class="page-header">
+						            	<h1 class="page-title"><?php the_title(); ?></h1> 
+						            	<?php echo $this->banner_content(); ?>
+						            </header><!-- .entry-header -->
+						        </div>
+					        </div>
+						<?php }	?>
+					</div>					
+				</div>
+				<?php
+			}			
+		
 		}
 	}
 	
@@ -168,9 +212,7 @@ class Lsx_Banners {
 	 * Add <body> classes
 	 */
 	function body_class($classes) {
-		// Add page slug if it doesn't exist
-		
-				
+		// Add page slug if it doesn't exist		
 
 		$banner_image = false;
 		$img_group = get_post_meta(get_the_ID(),'image_group',true);
