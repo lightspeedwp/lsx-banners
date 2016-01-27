@@ -2,11 +2,12 @@
 /*
 Plugin Name: LSX Banners
 Plugin URI: {add_in}
-Description: A full width responsive banner solution. Compatabile with LSX and StoreFront themes
+Description: A full width responsive banner solution. Compatabile with LSX, Storefront and Sage themes
 Author: Warwick
 Author URI: http://wordpress.org/
-Version: 1.0
+Version: 1.1
 Text Domain: lsx-banners
+Tags: LSX, Storefront, Sage
 License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 */
 
@@ -30,6 +31,15 @@ class Lsx_Banners {
 	 */
 	protected static $instance = null;	
 	
+	
+	/**
+	 * Holds class instance
+	 *
+	 * @var      string|Lsx_Banners
+	 */
+	public $theme = null;
+
+	
 	/**
 	 * Initialize the plugin by setting localization, filters, and administration functions.
 	 */
@@ -37,9 +47,9 @@ class Lsx_Banners {
 		//Enqueue the scrips
 		add_filter( 'cmb_meta_boxes', array($this,'metaboxes') );	
 		
-		add_action('storefront_before_content',array($this,'banner'));
-		
 		add_filter('body_class', array($this,'body_class'));
+
+		add_action('init',array($this,'init'));	
 	}
 	
 	/**
@@ -54,6 +64,25 @@ class Lsx_Banners {
 		}
 		return self::$instance;
 	}
+
+	/**
+	 * Initializes the variables we need.
+	 *
+	 */
+	function init() {
+		//$theme = wp_get_theme();
+		if(defined('LSX_VERSION')){
+			$this->theme = 'lsx';
+			remove_action( 'lsx_header_after', 'lsx_page_banner' );
+			add_action('lsx_header_after',array($this,'banner'));
+		}elseif(function_exists('storefront_setup')){
+			$this->theme = 'storefront';
+			add_action('storefront_before_content',array($this,'banner'));
+		}else{
+			$this->theme = 'other';
+		}
+	}	
+	
 	
 	/**
 	 * Define the metabox and field configurations.
@@ -64,6 +93,7 @@ class Lsx_Banners {
 	function metaboxes( array $meta_boxes ) {		
 		
 		// Example of all available fields
+		
 		$fields = array(
 				array( 'id' => 'image_group', 'name' => '', 'type' => 'group', 'cols' => 4, 'fields' => array(
 						array( 'id' => 'banner_image', 'name' => 'Image', 'type' => 'image', 'repeatable' => false, 'show_size' => false, 'size' => array(350,200))
@@ -98,6 +128,11 @@ class Lsx_Banners {
 	        $banner_image = $banner_image[0];
 		}
 		
+		if('lsx' === $this->theme && false === $banner_image && has_post_thumbnail()){
+			$banner_image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()),'full');
+			$banner_image = $banner_image[0];			
+		}
+		
 		$image_bg_group = get_post_meta(get_the_ID(),'image_bg_group',true);
 		if(false !== $image_bg_group && is_array($image_bg_group)){
 			
@@ -121,6 +156,7 @@ class Lsx_Banners {
 	        	<div class="container">
 		            <header class="page-header">
 		            	<h1 class="page-title"><?php the_title(); ?></h1> 
+		            	<?php echo $this->banner_content(); ?>
 		            </header><!-- .entry-header -->
 		        </div>
 	        </div>		
@@ -143,6 +179,23 @@ class Lsx_Banners {
 			$classes[] = 'has-banner';
 		}	
 		return $classes;
+	}
+	
+	/**
+	 * Outputs the banner content, usually a short tagline.
+	 */
+	function banner_content() {
+		switch($this->theme){
+			case 'lsx':
+				ob_start();
+				lsx_banner_content();
+				$retval = ob_get_clean();
+			break;
+			
+			default:
+				$retval = '';
+			break;
+		}	
 	}
 	
 }
