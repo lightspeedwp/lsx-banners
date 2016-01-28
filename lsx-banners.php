@@ -94,6 +94,11 @@ class Lsx_Banners {
 		
 		// Example of all available fields
 		
+		$allowed_post_types = array('page','post');
+		if(in_array('jetpack-portfolio', get_post_types())){
+			$allowed_post_types[] = 'jetpack-portfolio';
+		}
+		
 		$fields = array(
 				array( 'id' => 'image_group', 'name' => '', 'type' => 'group', 'cols' => 4, 'fields' => array(
 						array( 'id' => 'banner_image', 'name' => 'Image', 'type' => 'image', 'repeatable' => true, 'show_size' => false, 'size' => array(350,200))
@@ -110,7 +115,7 @@ class Lsx_Banners {
 		
 		$meta_boxes[] = array(
 				'title' => 'Banners',
-				'pages' => array('post','page'),
+				'pages' => $allowed_post_types,
 				'fields' => $fields
 		);		
 
