@@ -136,23 +136,16 @@ class Lsx_Banners {
 			if(!is_array($img_group['banner_image'])){
 				$banner_image_id = $img_group['banner_image'];
 			}else{
-				
-				if('lsx' !== $this->theme){
-					
-					$banners_length = count($img_group['banner_image'])-1;
+				$banners_length = count($img_group['banner_image'])-1;
+				if('lsx' !== $this->theme && $banners_length > 0){
 					$banner_index = rand('0', $banners_length);
 					$banner_image_id = $img_group['banner_image']['cmb-field-'.$banner_index];
-					
 				}else{				
 					$banner_image_id = $img_group['banner_image']['cmb-field-0'];
-				}
-				
-				
+				}	
 			}
-			
 			$banner_image = wp_get_attachment_image_src($banner_image_id,'full');
-			$banner_image = $banner_image[0];			
-	    
+			$banner_image = $banner_image[0];
 		}
 		
 		if('lsx' === $this->theme && false === $banner_image && has_post_thumbnail()){
@@ -260,4 +253,15 @@ class Lsx_Banners {
 	}
 	
 }
-$lst_banners = Lsx_Banners::get_instance();
+$lsx_banners = Lsx_Banners::get_instance();
+
+
+/**
+ * A template tag to output the banner bg src
+ * 
+ * @return		String
+ */
+function lsx_banner_src(){
+	global $lsx_banners;
+	$lsx_banners->banner();
+}
