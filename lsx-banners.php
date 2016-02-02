@@ -5,7 +5,7 @@ Plugin URI: {add_in}
 Description: A full width responsive banner solution. Compatabile with LSX, Storefront and Sage themes
 Author: Warwick
 Author URI: http://wordpress.org/
-Version: 1.2
+Version: 1.3
 Text Domain: lsx-banners
 Tags: LSX, Storefront, Sage
 License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
@@ -125,14 +125,26 @@ class Lsx_Banners {
 		
 		$banner_image = false;
 		$show_slider = false;
-		
+
 		if(false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && !empty($img_group['banner_image'])){
 			
 			if(!is_array($img_group['banner_image'])){
 				$banner_image_id = $img_group['banner_image'];
 			}else{
-				$banner_image_id = $img_group['banner_image']['cmb-field-0'];
+				
+				if('lsx' !== $this->theme){
+					
+					$banners_length = count($img_group['banner_image'])-1;
+					$banner_index = rand('0', $banners_length);
+					$banner_image_id = $img_group['banner_image']['cmb-field-'.$banner_index];
+					
+				}else{				
+					$banner_image_id = $img_group['banner_image']['cmb-field-0'];
+				}
+				
+				
 			}
+			
 			$banner_image = wp_get_attachment_image_src($banner_image_id,'full');
 			$banner_image = $banner_image[0];			
 	    
