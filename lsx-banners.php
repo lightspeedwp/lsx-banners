@@ -46,11 +46,8 @@ class Lsx_Banners {
 	private function __construct() {	
 		//Enqueue the scrips
 		
-		add_filter('lsx_banner_meta_boxes',array($this,'subtitle_metabox'));
 		add_filter( 'cmb_meta_boxes', array($this,'metaboxes') );	
-		
 		add_filter('body_class', array($this,'body_class'));
-
 		add_action('init',array($this,'init'));	
 	}
 	
@@ -83,6 +80,9 @@ class Lsx_Banners {
 		}else{
 			$this->theme = 'other';
 		}
+		
+		add_filter( 'lsx_banner_title', array($this,'banner_title') );
+		add_filter('lsx_banner_meta_boxes',array($this,'subtitle_metabox'));
 	}	
 	
 	
@@ -246,11 +246,10 @@ class Lsx_Banners {
 	/**
 	 * a filter to check if a custom title has been added, if so, use that instead of the post title
 	 */
-	function banner_title($post_title) {
-		print_r();die('hello');
+	function banner_title($post_title) {	
 		if(apply_filters('lsx_banner_enable_title', false)){
 			$new_title = get_post_meta(get_the_ID(),'banner_title',true);
-			if(false !== $new_title){
+			if(false !== $new_title && '' !== $new_title){
 				$post_title = $new_title;
 			}
 		}
