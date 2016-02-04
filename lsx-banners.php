@@ -5,7 +5,7 @@ Plugin URI: {add_in}
 Description: A full width responsive banner solution. Compatabile with LSX, Storefront and Sage themes
 Author: Warwick
 Author URI: http://wordpress.org/
-Version: 1.3
+Version: 0.4.1
 Text Domain: lsx-banners
 Tags: LSX, Storefront, Sage
 License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
