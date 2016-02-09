@@ -5,7 +5,7 @@ Plugin URI: {add_in}
 Description: A full width responsive banner solution. Compatabile with LSX, Storefront and Sage themes
 Author: Warwick
 Author URI: http://wordpress.org/
-Version: 1.2
+Version: 0.4.1
 Text Domain: lsx-banners
 Tags: LSX, Storefront, Sage
 License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
@@ -45,10 +45,9 @@ class Lsx_Banners {
 	 */
 	private function __construct() {	
 		//Enqueue the scrips
-		add_filter( 'cmb_meta_boxes', array($this,'metaboxes') );	
 		
+		add_filter( 'cmb_meta_boxes', array($this,'metaboxes') );	
 		add_filter('body_class', array($this,'body_class'));
-
 		add_action('init',array($this,'init'));	
 	}
 	
@@ -81,6 +80,9 @@ class Lsx_Banners {
 		}else{
 			$this->theme = 'other';
 		}
+		
+		add_filter( 'lsx_banner_title', array($this,'banner_title') );
+		add_filter('lsx_banner_meta_boxes',array($this,'subtitle_metabox'));
 	}	
 	
 	
@@ -93,54 +95,65 @@ class Lsx_Banners {
 	function metaboxes( array $meta_boxes ) {		
 		
 		// Example of all available fields
-		
 		$allowed_post_types = array('page','post');
 		if(in_array('jetpack-portfolio', get_post_types())){
 			$allowed_post_types[] = 'jetpack-portfolio';
 		}
 		
-		$fields = array(
-				array( 'id' => 'image_group', 'name' => '', 'type' => 'group', 'cols' => 4, 'fields' => array(
-						array( 'id' => 'banner_image', 'name' => 'Image', 'type' => 'image', 'repeatable' => true, 'show_size' => false, 'size' => array(350,200))
-				) ),
-				array( 'id' => 'image_bg_group', 'name' => '', 'type' => 'group', 'cols' => 8, 'fields' => array(
-						array( 'id' => 'banner_height',  'name' => 'Height', 'type' => 'text' ),
-						array( 'id' => 'banner_x', 'name' => 'X Position', 'type' => 'select', 'options' => array( 'left' => 'Left', 'right' => 'Right', 'Center' => 'Center' ), 'allow_none' => true, 'sortable' => false, 'repeatable' => false ),
-						array( 'id' => 'banner_y', 'name' => 'Y Position', 'type' => 'select', 'options' => array( 'top' => 'Top', 'bottom' => 'Bottom', 'Center' => 'Center' ), 'allow_none' => true, 'sortable' => false, 'repeatable' => false ),
-				) ),				
-				/*array( 'id' => 'banner_title',  'name' => 'Title', 'type' => 'text' ),
-				array( 'id' => 'banner_subtitle',  'name' => 'Sub Title', 'type' => 'text' ),*/
-
-		);
+		//Allowed Meta_boxes
+		$title_enabled = apply_filters('lsx_banner_enable_title', false);
+		$subtitle_enabled = apply_filters('lsx_banner_enable_subtitle', false);
 		
+		//Create the Field array
+		$fields = array(
+			array( 'id' => 'image_group', 'name' => '', 'type' => 'group', 'cols' => 4, 'fields' => array(
+					array( 'id' => 'banner_image', 'name' => 'Image', 'type' => 'image', 'repeatable' => true, 'show_size' => false, 'size' => array(350,200))
+			) ),
+			array( 'id' => 'image_bg_group', 'name' => '', 'type' => 'group', 'cols' => 8, 'fields' => array(
+					array( 'id' => 'banner_height',  'name' => 'Height', 'type' => 'text' ),
+					array( 'id' => 'banner_x', 'name' => 'X Position', 'type' => 'select', 'options' => array( 'left' => 'Left', 'right' => 'Right', 'Center' => 'Center' ), 'allow_none' => true, 'sortable' => false, 'repeatable' => false ),
+					array( 'id' => 'banner_y', 'name' => 'Y Position', 'type' => 'select', 'options' => array( 'top' => 'Top', 'bottom' => 'Bottom', 'Center' => 'Center' ), 'allow_none' => true, 'sortable' => false, 'repeatable' => false ),
+			) )
+		);
+		if($title_enabled){
+			$fields[] = array( 'id' => 'banner_title',  'name' => 'Title', 'type' => 'text' );
+		}		
+		if($subtitle_enabled){
+			$fields[] = array( 'id' => 'banner_subtitle',  'name' => 'Tagline', 'type' => 'text' );
+		}
 		$meta_boxes[] = array(
 				'title' => 'Banners',
 				'pages' => $allowed_post_types,
 				'fields' => $fields
-		);		
-
-		$meta_boxes = apply_filters('lsx_banner_meta_boxes', $meta_boxes);
-
+		);
 		return $meta_boxes;
 	}
 	
+	/**
+	 * Outputs the Banner HTML
+	 */
 	
 	function banner(){ 
 		$img_group = get_post_meta(get_the_ID(),'image_group',true);
 		
 		$banner_image = false;
 		$show_slider = false;
-		
+
 		if(false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && !empty($img_group['banner_image'])){
 			
 			if(!is_array($img_group['banner_image'])){
 				$banner_image_id = $img_group['banner_image'];
 			}else{
-				$banner_image_id = $img_group['banner_image']['cmb-field-0'];
+				$banners_length = count($img_group['banner_image'])-1;
+				if('lsx' !== $this->theme && $banners_length > 0){
+					$banner_index = rand('0', $banners_length);
+					$banner_image_id = $img_group['banner_image']['cmb-field-'.$banner_index];
+				}else{				
+					$banner_image_id = $img_group['banner_image']['cmb-field-0'];
+				}	
 			}
 			$banner_image = wp_get_attachment_image_src($banner_image_id,'full');
-			$banner_image = $banner_image[0];			
-	    
+			$banner_image = $banner_image[0];
 		}
 		
 		if('lsx' === $this->theme && false === $banner_image && has_post_thumbnail()){
@@ -188,7 +201,7 @@ class Lsx_Banners {
 						<div class="page-banner <?php if($show_slider){ echo 'item active'; }else{}  ?>" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-image:url(<?php echo $banner_image; ?>); background-size:<?php echo $size; ?>;">
 				        	<div class="container">
 					            <header class="page-header">
-					            	<h1 class="page-title"><?php the_title(); ?></h1> 
+					            	<h1 class="page-title"><?php echo apply_filters('lsx_banner_title',get_the_title()); ?></h1> 
 					            	<?php echo $this->banner_content(); ?>
 					            </header><!-- .entry-header -->
 					        </div>
@@ -204,7 +217,7 @@ class Lsx_Banners {
 							<div class="page-banner item" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-image:url(<?php echo $slide[0]; ?>); background-size:<?php echo $size; ?>;">
 					        	<div class="container">
 						            <header class="page-header">
-						            	<h1 class="page-title"><?php the_title(); ?></h1> 
+						            	<h1 class="page-title"><?php echo apply_filters('lsx_banner_title',get_the_title()); ?></h1> 
 						            	<?php echo $this->banner_content(); ?>
 						            </header><!-- .entry-header -->
 						        </div>
@@ -233,6 +246,19 @@ class Lsx_Banners {
 	}
 	
 	/**
+	 * a filter to check if a custom title has been added, if so, use that instead of the post title
+	 */
+	function banner_title($post_title) {	
+		if(apply_filters('lsx_banner_enable_title', false)){
+			$new_title = get_post_meta(get_the_ID(),'banner_title',true);
+			if(false !== $new_title && '' !== $new_title){
+				$post_title = $new_title;
+			}
+		}
+		return $post_title;
+	}	
+	
+	/**
 	 * Outputs the banner content, usually a short tagline.
 	 */
 	function banner_content() {
@@ -244,10 +270,20 @@ class Lsx_Banners {
 			break;
 			
 			default:
-				$retval = '';
+				$retval = apply_filters('lsx_banner_content','');
 			break;
 		}	
 	}
-	
 }
-$lst_banners = Lsx_Banners::get_instance();
+$lsx_banners = Lsx_Banners::get_instance();
+
+
+/**
+ * A template tag to output the banner bg src
+ * 
+ * @return		String
+ */
+function lsx_banner_src(){
+	global $lsx_banners;
+	$lsx_banners->banner();
+}
