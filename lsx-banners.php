@@ -5,7 +5,7 @@ Plugin URI: {add_in}
 Description: A full width responsive banner solution. Compatabile with LSX, Storefront and Sage themes
 Author: Warwick
 Author URI: http://wordpress.org/
-Version: 0.4.4
+Version: 0.4.1
 Text Domain: lsx-banners
 Tags: LSX, Storefront, Sage
 License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
@@ -162,23 +162,22 @@ class Lsx_Banners {
 		}
 		
 		//Get the meta for the background image
+		$image_bg_group = get_post_meta(get_the_ID(),'image_bg_group',true);
 		$size = 'cover';
+		
 		$x_position = 'center';
 		$y_position = 'center';
-		
-		$image_bg_group = get_post_meta(get_the_ID(),'image_bg_group',true);
 		if(false !== $image_bg_group && is_array($image_bg_group)){
 			
-			
-			if(isset($image_bg_group['banner_height'])){
-				$size = $image_bg_group['banner_height'];
+			if(isset($image_bg_group['banner_size']) && '' !== $image_bg_group['banner_size']){
+				$size = $image_bg_group['banner_size'];
 			}
 			
-			if(isset($image_bg_group['banner_x'])){
+			if(isset($image_bg_group['banner_x']) && '' !== $image_bg_group['banner_x']){
 				$x_position = $image_bg_group['banner_x'];
 			}			
 			
-			if(isset($image_bg_group['banner_y'])){
+			if(isset($image_bg_group['banner_y']) && '' !== $image_bg_group['banner_y']){
 				$y_position = $image_bg_group['banner_y'];
 			}
 		}
@@ -240,8 +239,7 @@ class Lsx_Banners {
 
 		$banner_image = false;
 		$img_group = get_post_meta(get_the_ID(),'image_group',true);
-		
-		if(false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && '' !== $img_group['banner_image']){
+		if(false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && '' !== $img_group['banner_image'] && !empty($img_group['banner_image'])){
 			$classes[] = 'has-banner';
 		}	
 		return $classes;
