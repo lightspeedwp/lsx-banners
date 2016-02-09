@@ -340,7 +340,9 @@ class CMB_Meta_Box {
 			}
 
 			$field_obj = new $class( $field['id'], $field['name'], $value, $field );
-
+			if ( 'post_select' === $field['type'] || 'group' === $field['type'] ) {
+				do_action('cmb_save_custom', $post_id, $field, $value);
+			}
 			$field_obj->save( $post_id, $value );
 
 		}

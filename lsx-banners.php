@@ -162,18 +162,22 @@ class Lsx_Banners {
 		}
 		
 		//Get the meta for the background image
+		$size = 'cover';
+		$x_position = 'center';
+		$y_position = 'center';
+		
 		$image_bg_group = get_post_meta(get_the_ID(),'image_bg_group',true);
 		if(false !== $image_bg_group && is_array($image_bg_group)){
 			
-			$size = 'cover';
+			
 			if(isset($image_bg_group['banner_height'])){
 				$size = $image_bg_group['banner_height'];
 			}
-			$x_position = 'center';
+			
 			if(isset($image_bg_group['banner_x'])){
 				$x_position = $image_bg_group['banner_x'];
 			}			
-			$y_position = 'center';
+			
 			if(isset($image_bg_group['banner_y'])){
 				$y_position = $image_bg_group['banner_y'];
 			}
