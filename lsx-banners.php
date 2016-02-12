@@ -5,7 +5,7 @@ Plugin URI: {add_in}
 Description: A full width responsive banner solution. Compatabile with LSX, Storefront and Sage themes
 Author: Warwick
 Author URI: http://wordpress.org/
-Version: 0.4.1
+Version: 0.5.1
 Text Domain: lsx-banners
 Tags: LSX, Storefront, Sage
 License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
@@ -107,6 +107,8 @@ class Lsx_Banners {
 		
 		
 		//Create the Field array
+		$fields[] = array( 'id' => 'banner_disabled',  'name' => 'Disable', 'type' => 'checkbox' );
+		
 		if($title_enabled){
 			$fields[] = array( 'id' => 'banner_title',  'name' => 'Title', 'type' => 'text' );
 		}
@@ -137,8 +139,11 @@ class Lsx_Banners {
 	 */
 	
 	function banner(){ 
-		$img_group = get_post_meta(get_the_ID(),'image_group',true);
 		
+		//Test is the banner has been disabled.
+		if(get_post_meta(get_the_ID(),'banner_disabled',true)) { return ''; }
+		
+		$img_group = get_post_meta(get_the_ID(),'image_group',true);
 		$banner_image = false;
 		$show_slider = false;
 
@@ -240,11 +245,15 @@ class Lsx_Banners {
 	function body_class($classes) {
 		// Add page slug if it doesn't exist		
 
-		$banner_image = false;
-		$img_group = get_post_meta(get_the_ID(),'image_group',true);
-		if(false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && '' !== $img_group['banner_image'] && !empty($img_group['banner_image'])){
-			$classes[] = 'has-banner';
-		}	
+		//Test is the banner has been disabled.
+		if(!get_post_meta(get_the_ID(),'banner_disabled',true)) { 
+			//see if there is a banner image
+			$banner_image = false;
+			$img_group = get_post_meta(get_the_ID(),'image_group',true);
+			if(false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && '' !== $img_group['banner_image'] && !empty($img_group['banner_image'])){
+				$classes[] = 'has-banner';
+			}	
+		}
 		return $classes;
 	}
 	
