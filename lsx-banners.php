@@ -212,7 +212,7 @@ class Lsx_Banners {
 		
 		//If we have enabled the placeholders,  then force a placeholdit url
 		if(true === $this->placeholder && false === $banner_image){
-			$banner_image = apply_filters('lsx_banner_placeholder_url','https://placeholdit.imgix.net/~text?txtsize=33&txt=1920%20600&w=1920&h=600');
+			$banner_image = apply_filters('lsx_banner_placeholder_url','https://placeholdit.imgix.net/~text?txtsize=33&txt=1920x600&w=1920&h=600');
 		}
 		
 		if(false !== $banner_image){
