@@ -76,22 +76,30 @@ class Lsx_Banners {
 	 *
 	 */
 	function init() {
-		//$theme = wp_get_theme();
-		if(defined('LSX_VERSION')){
-			$this->theme = 'lsx';
-			remove_action( 'lsx_header_after', 'lsx_page_banner' );
-			add_action('lsx_header_after',array($this,'banner'));
-		}elseif(function_exists('storefront_setup')){
-			$this->theme = 'storefront';
-			add_action('storefront_before_content',array($this,'banner'));
-		}else{
-			$this->theme = 'other';
+		$allowed_post_types = array('page','post');	
+		if(in_array('jetpack-portfolio', get_post_types())){
+			$allowed_post_types[] = 'jetpack-portfolio';
 		}
-		
-		add_filter('lsx_banner_title', array($this,'banner_title') );
-		add_filter('lsx_banner_meta_boxes',array($this,'subtitle_metabox'));
-		
-		$this->placeholder = apply_filters('lsx_banner_enable_placeholder', false);
+				
+		$post_type = get_post_type();	
+		if(in_array($post_type, $allowed_post_types)){
+			//$theme = wp_get_theme();
+			if(defined('LSX_VERSION')){
+				$this->theme = 'lsx';
+				remove_action( 'lsx_header_after', 'lsx_page_banner' );
+				add_action('lsx_header_after',array($this,'banner'));
+			}elseif(function_exists('storefront_setup')){
+				$this->theme = 'storefront';
+				add_action('storefront_before_content',array($this,'banner'));
+			}else{
+				$this->theme = 'other';
+			}
+			
+			add_filter('lsx_banner_title', array($this,'banner_title') );
+			add_filter('lsx_banner_meta_boxes',array($this,'subtitle_metabox'));
+			
+			$this->placeholder = apply_filters('lsx_banner_enable_placeholder', false);
+		}
 	}	
 	
 	
