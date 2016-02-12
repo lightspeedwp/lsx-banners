@@ -33,13 +33,19 @@ class Lsx_Banners {
 	
 	
 	/**
-	 * Holds class instance
+	 * Holds the name of the theme
 	 *
 	 * @var      string|Lsx_Banners
 	 */
 	public $theme = null;
-
 	
+	/**
+	 * Holds a boolean weather or not to use placeholdit.
+	 *
+	 * @var      string|Lsx_Banners
+	 */
+	public $placeholder = false;	
+
 	/**
 	 * Initialize the plugin by setting localization, filters, and administration functions.
 	 */
@@ -81,8 +87,10 @@ class Lsx_Banners {
 			$this->theme = 'other';
 		}
 		
-		add_filter( 'lsx_banner_title', array($this,'banner_title') );
+		add_filter('lsx_banner_title', array($this,'banner_title') );
 		add_filter('lsx_banner_meta_boxes',array($this,'subtitle_metabox'));
+		
+		$this->placeholder = apply_filters('lsx_banner_enable_placeholder', false);
 	}	
 	
 	
@@ -140,8 +148,8 @@ class Lsx_Banners {
 	
 	function banner(){ 
 		
-		//Test is the banner has been disabled.
-		if(get_post_meta(get_the_ID(),'banner_disabled',true)) { return ''; }
+		//If we are using placeholders then the baner section shows all the time,  this is when the banner disabled checkbox comes into play.
+		if(true === $this->placeholder && get_post_meta(get_the_ID(),'banner_disabled',true)) { return ''; }
 		
 		$img_group = get_post_meta(get_the_ID(),'image_group',true);
 		$banner_image = false;
@@ -193,8 +201,13 @@ class Lsx_Banners {
 		//Check if the slider code should show
 		if('lsx' === $this->theme && is_array($img_group['banner_image']) && 1 < count($img_group['banner_image'])) {
 			$show_slider = true;
-		}		
+		}
+
 		
+		//If we have enabled the placeholders,  then force a placeholdit url
+		if(true === $this->placeholder && false === $banner_image){
+			$banner_image = apply_filters('lsx_banner_placeholder_url','https://placeholdit.imgix.net/~text?txtsize=33&txt=1920%20600&w=1920&h=600');
+		}
 		
 		if(false !== $banner_image){
 			
