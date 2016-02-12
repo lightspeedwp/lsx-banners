@@ -54,7 +54,8 @@ class Lsx_Banners {
 		
 		add_filter( 'cmb_meta_boxes', array($this,'metaboxes') );	
 		add_filter('body_class', array($this,'body_class'));
-		add_action('init',array($this,'init'));	
+		add_action('wp_head',array($this,'init'));	
+		
 	}
 	
 	/**
@@ -111,11 +112,16 @@ class Lsx_Banners {
 		//Allowed Meta_boxes
 		$title_enabled = apply_filters('lsx_banner_enable_title', false);
 		$subtitle_enabled = apply_filters('lsx_banner_enable_subtitle', false);
+		
+		//This runs twice in the plugin,  this is the only time it runs in the backend.
+		$this->placeholder = apply_filters('lsx_banner_enable_placeholder', false);
 		$fields = array();
 		
-		
+
 		//Create the Field array
-		$fields[] = array( 'id' => 'banner_disabled',  'name' => 'Disable', 'type' => 'checkbox' );
+		if(true === $this->placeholder) {
+			$fields[] = array( 'id' => 'banner_disabled',  'name' => 'Disable', 'type' => 'checkbox' );
+		}
 		
 		if($title_enabled){
 			$fields[] = array( 'id' => 'banner_title',  'name' => 'Title', 'type' => 'text' );
@@ -257,15 +263,16 @@ class Lsx_Banners {
 	 */
 	function body_class($classes) {
 		// Add page slug if it doesn't exist		
-
 		//Test is the banner has been disabled.
-		if(!get_post_meta(get_the_ID(),'banner_disabled',true)) { 
+		if(!$this->placeholder) { 
 			//see if there is a banner image
 			$banner_image = false;
 			$img_group = get_post_meta(get_the_ID(),'image_group',true);
 			if(false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && '' !== $img_group['banner_image'] && !empty($img_group['banner_image'])){
 				$classes[] = 'has-banner';
-			}	
+			}elseif($this->placeholder){
+				$classes[] = 'has-banner';
+			}
 		}
 		return $classes;
 	}
