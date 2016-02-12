@@ -5,7 +5,7 @@ Plugin URI: {add_in}
 Description: A full width responsive banner solution. Compatabile with LSX, Storefront and Sage themes
 Author: Warwick
 Author URI: http://wordpress.org/
-Version: 0.6.2
+Version: 0.7.0
 Text Domain: lsx-banners
 Tags: LSX, Storefront, Sage
 License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
@@ -29,8 +29,7 @@ class Lsx_Banners {
 	 *
 	 * @var      object|Lsx_Banners
 	 */
-	protected static $instance = null;	
-	
+	protected static $instance = null;
 	
 	/**
 	 * Holds the name of the theme
@@ -45,6 +44,13 @@ class Lsx_Banners {
 	 * @var      string|Lsx_Banners
 	 */
 	public $placeholder = false;	
+	
+	/**
+	 * Holds the current items ID
+	 *
+	 * @var      string|Lsx_Banners
+	 */
+	public $post_id = false;	
 
 	/**
 	 * Initialize the plugin by setting localization, filters, and administration functions.
@@ -75,14 +81,16 @@ class Lsx_Banners {
 	 * Initializes the variables we need.
 	 *
 	 */
-	function init() {
+	public function init() {
 		$allowed_post_types = array('page','post');	
 		if(in_array('jetpack-portfolio', get_post_types())){
 			$allowed_post_types[] = 'jetpack-portfolio';
 		}
-				
+		
 		$post_type = get_post_type();	
-		if(in_array($post_type, $allowed_post_types)){
+		$this->post_id = get_queried_object_id();
+		
+		if((is_singular($allowed_post_types) && in_array($post_type, $allowed_post_types)) || (is_post_type_archive() && 0 !== $this->post_id) ) {
 			//$theme = wp_get_theme();
 			if(defined('LSX_VERSION')){
 				$this->theme = 'lsx';
@@ -109,7 +117,7 @@ class Lsx_Banners {
 	 * @param  array $meta_boxes
 	 * @return array
 	 */
-	function metaboxes( array $meta_boxes ) {		
+	public function metaboxes( array $meta_boxes ) {		
 		
 		// Example of all available fields
 		$allowed_post_types = array('page','post');
@@ -160,12 +168,19 @@ class Lsx_Banners {
 	 * Outputs the Banner HTML
 	 */
 	
-	function banner(){ 
-		
+	public function banner(){ 
+		/*
+		 * This section gets actualy banner url.
+		*/
+		$post_id = $this->post_id;
+				
 		//If we are using placeholders then the baner section shows all the time,  this is when the banner disabled checkbox comes into play.
-		if(true === $this->placeholder && get_post_meta(get_the_ID(),'banner_disabled',true)) { return ''; }
+		if(true === $this->placeholder && get_post_meta($post_id,'banner_disabled',true)) { return ''; }
 		
-		$img_group = get_post_meta(get_the_ID(),'image_group',true);
+
+		//We change the id to the page with a matching slug ar the post_type archive.
+
+		$img_group = get_post_meta($post_id,'image_group',true);
 		$banner_image = false;
 		$show_slider = false;
 
@@ -186,13 +201,25 @@ class Lsx_Banners {
 			$banner_image = $banner_image[0];
 		}
 		
-		if('lsx' === $this->theme && false === $banner_image && has_post_thumbnail()){
-			$banner_image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()),'full');
+		if('lsx' === $this->theme && false === $banner_image && has_post_thumbnail($post_id)){
+			$banner_image = wp_get_attachment_image_src(get_post_thumbnail_id($post_id),'full');
 			$banner_image = $banner_image[0];			
 		}
 		
-		//Get the meta for the background image
-		$image_bg_group = get_post_meta(get_the_ID(),'image_bg_group',true);
+		//Check if the slider code should show
+		if('lsx' === $this->theme && is_array($img_group['banner_image']) && 1 < count($img_group['banner_image'])) {
+			$show_slider = true;
+		}
+		
+		//If we have enabled the placeholders,  then force a placeholdit url
+		if(true === $this->placeholder && false === $banner_image){
+			$banner_image = apply_filters('lsx_banner_placeholder_url','https://placeholdit.imgix.net/~text?txtsize=33&txt=1920x600&w=1920&h=600');
+		}		
+		
+		/*
+		 * This section gets the image meta, size etc.
+		 */
+		$image_bg_group = get_post_meta($post_id,'image_bg_group',true);
 		$size = 'cover';
 		
 		$x_position = 'center';
@@ -212,17 +239,6 @@ class Lsx_Banners {
 			}
 		}
 		
-		//Check if the slider code should show
-		if('lsx' === $this->theme && is_array($img_group['banner_image']) && 1 < count($img_group['banner_image'])) {
-			$show_slider = true;
-		}
-
-		
-		//If we have enabled the placeholders,  then force a placeholdit url
-		if(true === $this->placeholder && false === $banner_image){
-			$banner_image = apply_filters('lsx_banner_placeholder_url','https://placeholdit.imgix.net/~text?txtsize=33&txt=1920x600&w=1920&h=600');
-		}
-		
 		if(false !== $banner_image){
 			
 			//if its the lsx theme and there are more than 1 banner, then output a bootstrap carousel.
@@ -233,18 +249,17 @@ class Lsx_Banners {
 				<?php
 			}
 			?>
-						<div class="page-banner <?php if($show_slider){ echo 'item active'; }else{}  ?>" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-image:url(<?php echo $banner_image; ?>); background-size:<?php echo $size; ?>;">
-				        	<div class="container">
-					            <header class="page-header">
-					            	<h1 class="page-title"><?php echo apply_filters('lsx_banner_title',get_the_title()); ?></h1> 
-					            	<?php echo $this->banner_content(); ?>
-					            </header><!-- .entry-header -->
-					        </div>
-				        </div>		
+				<div class="page-banner <?php if($show_slider){ echo 'item active'; }else{}  ?>" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-image:url(<?php echo $banner_image; ?>); background-size:<?php echo $size; ?>;">
+		        	<div class="container">
+			            <header class="page-header">
+			            	<h1 class="page-title"><?php echo apply_filters('lsx_banner_title',get_the_title($post_id)); ?></h1> 
+			            	<?php echo $this->banner_content(); ?>
+			            </header><!-- .entry-header -->
+			        </div>
+		        </div>		
 			<?php
 			//if its the lsx theme and there are more than 1 banner, then output a bootstrap carousel.
 			if($show_slider) {	?>
-			
 						<?php 
 						foreach($img_group['banner_image'] as $key => $slide_id){ if('cmb-field-0' === $key){continue;}
 							$slide = wp_get_attachment_image_src($slide_id,'full');
@@ -252,7 +267,7 @@ class Lsx_Banners {
 							<div class="page-banner item" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-image:url(<?php echo $slide[0]; ?>); background-size:<?php echo $size; ?>;">
 					        	<div class="container">
 						            <header class="page-header">
-						            	<h1 class="page-title"><?php echo apply_filters('lsx_banner_title',get_the_title()); ?></h1> 
+						            	<h1 class="page-title"><?php echo apply_filters('lsx_banner_title',get_the_title($post_id)); ?></h1> 
 						            	<?php echo $this->banner_content(); ?>
 						            </header><!-- .entry-header -->
 						        </div>
@@ -269,7 +284,7 @@ class Lsx_Banners {
 	/**
 	 * Add <body> classes
 	 */
-	function body_class($classes) {
+	public function body_class($classes) {
 		// Add page slug if it doesn't exist		
 		//Test is the banner has been disabled.
 		if(!$this->placeholder) { 
@@ -288,9 +303,9 @@ class Lsx_Banners {
 	/**
 	 * a filter to check if a custom title has been added, if so, use that instead of the post title
 	 */
-	function banner_title($post_title) {	
+	public function banner_title($post_title) {	
 		if(apply_filters('lsx_banner_enable_title', false)){
-			$new_title = get_post_meta(get_the_ID(),'banner_title',true);
+			$new_title = get_post_meta($this->post_id,'banner_title',true);
 			if(false !== $new_title && '' !== $new_title){
 				$post_title = $new_title;
 			}
@@ -301,7 +316,7 @@ class Lsx_Banners {
 	/**
 	 * Outputs the banner content, usually a short tagline.
 	 */
-	function banner_content() {
+	public function banner_content() {
 		switch($this->theme){
 			case 'lsx':
 				ob_start();
@@ -314,6 +329,8 @@ class Lsx_Banners {
 			break;
 		}	
 	}
+		
+	
 }
 $lsx_banners = Lsx_Banners::get_instance();
 
