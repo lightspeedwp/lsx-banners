@@ -22,5 +22,4 @@ Enable the Use of a subtitle
 
 
 ## Adding additional content to your banner
-
 ```add_action('lsx_banner_content','your_function_name');```
