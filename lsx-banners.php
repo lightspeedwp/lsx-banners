@@ -109,7 +109,20 @@ class Lsx_Banners {
 			$this->placeholder = apply_filters('lsx_banner_enable_placeholder', false);
 		}
 	}	
-	
+
+	/**
+	 * retreives the allowed post types
+	 *
+	 * @return array
+	 */
+	public function get_allowed_post_types() {
+		// Example of all available fields
+		$allowed_post_types = array('page','post');
+		if(in_array('jetpack-portfolio', get_post_types())){
+			$allowed_post_types[] = 'jetpack-portfolio';
+		}
+		return apply_filters( 'lsx_banner_allowed_post_types', $allowed_post_types );
+	}	
 	
 	/**
 	 * Define the metabox and field configurations.
@@ -119,11 +132,8 @@ class Lsx_Banners {
 	 */
 	public function metaboxes( array $meta_boxes ) {		
 		
-		// Example of all available fields
-		$allowed_post_types = array('page','post');
-		if(in_array('jetpack-portfolio', get_post_types())){
-			$allowed_post_types[] = 'jetpack-portfolio';
-		}
+		// allowed post types 
+		$allowed_post_types = $this->get_allowed_post_types();
 		
 		//Allowed Meta_boxes
 		$title_enabled = apply_filters('lsx_banner_enable_title', false);
