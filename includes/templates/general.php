@@ -31,5 +31,5 @@
 {{#if <?php echo $type; ?>/thumbnail}}
 <button type="button" data-remove-element="#lsx-banners-<?php echo $type; ?>" class="button">Remove Default Banner</button>
 {{/if}}
-<input type="hidden" id="lsx-banners-<?php echo $type; ?>" name="product" value="{{json <?php echo $type; ?>}}" data-live-sync="true">
+<input type="hidden" id="lsx-banners-<?php echo $type; ?>" name="<?php echo $type; ?>" value="{{json <?php echo $type; ?>}}" data-live-sync="true">
 <?php } ?>
