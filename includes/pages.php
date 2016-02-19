@@ -13,11 +13,11 @@
 // This array is for the Admin Pages. each element defines a page that is seen in the admin
 return array(
 	'lsx-general' 	  => array(                                                         // this is the settings array. The key is the page slug
-		'page_title'  =>  'LSX Banners',                                                  // title of the page
-		'menu_title'  =>  'LSX Banners',                                                  // title seen on the menu link
+		'page_title'  =>  'Banners',                                                  // title of the page
+		'menu_title'  =>  'Banners',                                                  // title seen on the menu link
 		'capability'  =>  'manage_options',                                              // required capability to access page
 		'icon'        =>  'dashicons-book-alt',                                          // Icon or image to be used on admin menu
-		'parent'      =>  'options-general.php',                                         // Position priority on admin menu)
+		'parent'      =>  'themes.php',                                         // Position priority on admin menu)
 		'save_button' =>  'Save Changes',                                                // If the page required saving settings, Set the text here.
 		'scripts'	  => array(
 			'picker' => LSX_BANNERS_URL . 'includes/templates/image-picker.js'

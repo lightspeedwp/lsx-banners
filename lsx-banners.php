@@ -120,6 +120,9 @@ class Lsx_Banners {
 			add_filter('lsx_banner_meta_boxes',array($this,'subtitle_metabox'));
 			
 			$this->placeholder = apply_filters('lsx_banner_enable_placeholder', false);
+			if(false !== $this->placeholder){
+				add_filter('lsx_banner_placeholder_url', array($this,'default_placeholder') );
+			}
 		}
 	}	
 
@@ -236,21 +239,7 @@ class Lsx_Banners {
 		
 		//If we have enabled the placeholders,  then force a placeholdit url
 		if(true === $this->placeholder && false === $banner_image){
-
-			$placeholder = apply_filters('lsx_banner_placeholder_url','https://placeholdit.imgix.net/~text?txtsize=33&txt=1920x600&w=1920&h=600');
-
-			$default_id = \lsx\ui\uix::get_setting('lsx-general.general.selection.id');
-			if( !empty( $default_id ) ){
-				$banner_image = wp_get_attachment_image_src( $default_id,'full');
-				if( !empty( $banner_image ) ){
-					$banner_image = $banner_image[0];
-				}else{
-					$banner_image = $placeholder;
-				}
-				
-			}else{
-				$banner_image = $placeholder;
-			}
+			$banner_image = apply_filters('lsx_banner_placeholder_url','https://placeholdit.imgix.net/~text?txtsize=33&txt=1920x600&w=1920&h=600');
 		}		
 		
 		/*
@@ -365,6 +354,20 @@ class Lsx_Banners {
 				$retval = apply_filters('lsx_banner_content','');
 			break;
 		}	
+	}
+	
+	/**
+	 * Returns the defulat placeholder url
+	 */
+	public function default_placeholder($url) {
+		$default_id = \lsx\ui\uix::get_setting('lsx-general.general.selection.id');
+		if( !empty( $default_id ) ){
+			$banner_image = wp_get_attachment_image_src( $default_id,'full');
+			if( !empty( $banner_image ) ){
+				$url = $banner_image[0];
+			}
+		}
+		return $url;
 	}
 		
 	
