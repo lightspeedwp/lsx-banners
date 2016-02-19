@@ -11,6 +11,11 @@ Tags: LSX, Storefront, Sage
 License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 */
 
+define('LSX_BANNERS_PATH',  plugin_dir_path( __FILE__ ) );
+define('LSX_BANNERS_CORE',  __FILE__ );
+define('LSX_BANNERS_URL',  plugin_dir_url( __FILE__ ) );
+define('LSX_BANNERS_VER',  '1.0.0' );
+
 if(!function_exists('cmb_init')){
 	require 'vendor/Custom-Meta-Boxes/custom-meta-boxes.php';
 }
@@ -56,8 +61,17 @@ class Lsx_Banners {
 	 * Initialize the plugin by setting localization, filters, and administration functions.
 	 */
 	private function __construct() {	
+		// init UIX
+		// include the library
+		include_once LSX_BANNERS_PATH . 'uix/uix.php';
+		// get the pages
+		$pages = include LSX_BANNERS_PATH . 'includes/pages.php';
+
+		// initialize admin UI
+		$uix = \lsx\ui\uix::get_instance( $pages, 'lsx' );
+		$uix->register_pages( $pages );
+
 		//Enqueue the scrips
-		
 		add_filter( 'cmb_meta_boxes', array($this,'metaboxes') );	
 		add_filter('body_class', array($this,'body_class'));
 		add_action('wp_head',array($this,'init'));	
@@ -92,7 +106,7 @@ class Lsx_Banners {
 		
 		if((is_singular($allowed_post_types) && in_array($post_type, $allowed_post_types)) || (is_post_type_archive() && 0 !== $this->post_id) ) {
 			//$theme = wp_get_theme();
-			if(defined('LSX_VERSION')){
+			if(defined('LSX_BANNERS_VERSION')){
 				$this->theme = 'lsx';
 				remove_action( 'lsx_header_after', 'lsx_page_banner' );
 				add_action('lsx_header_after',array($this,'banner'));
