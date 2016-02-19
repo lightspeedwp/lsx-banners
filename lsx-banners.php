@@ -61,8 +61,8 @@ class Lsx_Banners {
 	 * Initialize the plugin by setting localization, filters, and administration functions.
 	 */
 	private function __construct() {	
-		// init UIX
 		
+		// init UIX
 		// include the library
 		include_once LSX_BANNERS_PATH . 'uix/uix.php';
 
