@@ -25,8 +25,8 @@ return array(
 		'tabs'        =>  array(                                                        // tabs array are for setting the tab / section templates
 			// each array element is a tab with the key as the slug that will be the saved object property
 			'general'		=> array(
-				'page_title'        => 'Default Banner',                                  // the tab page title 
-				'page_description'  => 'Setup Default Banner for LSX Banners',                   // the tab description
+				'page_title'        => 'Default Banners',                                  // the tab page title 
+				'page_description'  => 'Setup Default Banners for your post types',                   // the tab description
 				'menu_title'        => 'Default',                                    // the title of the tab menu item
 				'template'          => 'includes/templates/general.php',           // the template to define the tab content and values
 				'default'	 => true                                                 // defines which is the default tab

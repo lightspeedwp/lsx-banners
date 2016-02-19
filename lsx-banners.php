@@ -76,8 +76,7 @@ class Lsx_Banners {
 		//Enqueue the scrips
 		add_filter( 'cmb_meta_boxes', array($this,'metaboxes') );	
 		add_filter('body_class', array($this,'body_class'));
-		add_action('wp_head',array($this,'init'));	
-		
+		add_action('wp_head',array($this,'init'));
 	}
 	
 	/**
