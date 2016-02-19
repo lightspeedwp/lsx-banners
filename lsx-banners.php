@@ -239,7 +239,21 @@ class Lsx_Banners {
 		
 		//If we have enabled the placeholders,  then force a placeholdit url
 		if(true === $this->placeholder && false === $banner_image){
-			$banner_image = apply_filters('lsx_banner_placeholder_url','https://placeholdit.imgix.net/~text?txtsize=33&txt=1920x600&w=1920&h=600');
+
+			$placeholder = apply_filters('lsx_banner_placeholder_url','https://placeholdit.imgix.net/~text?txtsize=33&txt=1920x600&w=1920&h=600');
+
+			$defaults = get_option( '_lsx_lsx-general');
+			if( !empty( $defaults['general']['selection']['id'] ) ){
+				$banner_image = wp_get_attachment_image_src( $defaults['general']['selection']['id'],'full');
+				if( !empty( $banner_image ) ){
+					$banner_image = $banner_image[0];
+				}else{
+					$banner_image = $placeholder;
+				}
+				
+			}else{
+				$banner_image = $placeholder;
+			}
 		}		
 		
 		/*
