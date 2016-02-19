@@ -10,6 +10,7 @@
 		var latitude    = $('.latitude', fieldEl );
 		var longitude   = $('.longitude', fieldEl );
 		var elevation   = $('.elevation', fieldEl );
+		var address  	= $('.address', fieldEl );
 		var elevator    = new google.maps.ElevationService();
 
 		var mapOptions = {
@@ -61,17 +62,19 @@
 		});
 
 		// Search
+		
 		var autocomplete = new google.maps.places.Autocomplete(searchInput);
 		autocomplete.bindTo('bounds', map);
 
 		google.maps.event.addListener(autocomplete, 'place_changed', function() {
 			var place = autocomplete.getPlace();
+			
 			if (place.geometry.viewport) {
 				map.fitBounds(place.geometry.viewport);
 			}
 
 			setPosition( place.geometry.location, 17 );
-
+			$('.address').val(place.formatted_address);
 		});
 
 		$(searchInput).keypress(function(e) {

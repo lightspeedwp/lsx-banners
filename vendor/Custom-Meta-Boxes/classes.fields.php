@@ -1647,9 +1647,9 @@ class CMB_Gmap_Field extends CMB_Field {
 			array(
 				'field_width'         => '100%',
 				'field_height'        => '250px',
-				'default_lat'         => '51.5073509',
-				'default_long'        => '-0.12775829999998223',
-				'default_zoom'        => '8',
+				'default_lat'         => '-33.9296903',
+				'default_long'        => '18.4527097',
+				'default_zoom'        => '9',
 				'string-marker-title' => __( 'Drag to set the exact location', 'cmb' ),
 			)
 		);
@@ -1680,7 +1680,7 @@ class CMB_Gmap_Field extends CMB_Field {
 		// Ensure all args used are set
 		$value = wp_parse_args(
 			$this->get_value(),
-			array( 'lat' => null, 'long' => null, 'elevation' => null )
+			array( 'address' => null,'lat' => null, 'long' => null, 'elevation' => null )
 		);
 
 		$style = array(
@@ -1692,10 +1692,11 @@ class CMB_Gmap_Field extends CMB_Field {
 
 		?>
 
-		<input type="text" <?php $this->class_attr( 'map-search' ); ?> <?php $this->id_attr(); ?> />
+		<input type="text" <?php $this->class_attr( 'map-search' ); ?> <?php $this->id_attr(); ?> value="<?php echo esc_attr( $value['address'] ); ?>" />
 
 		<div class="map" style="<?php echo esc_attr( implode( ' ', $style ) ); ?>"></div>
 
+		<input type="hidden" class="address"  <?php $this->name_attr( '[address]' ); ?>    value="<?php echo esc_attr( $value['address'] ); ?>" />
 		<input type="hidden" class="latitude"  <?php $this->name_attr( '[lat]' ); ?>       value="<?php echo esc_attr( $value['lat'] ); ?>" />
 		<input type="hidden" class="longitude" <?php $this->name_attr( '[long]' ); ?>      value="<?php echo esc_attr( $value['long'] ); ?>" />
 		<input type="hidden" class="elevation" <?php $this->name_attr( '[elevation]' ); ?> value="<?php echo esc_attr( $value['elevation'] ); ?>" />
