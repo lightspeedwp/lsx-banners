@@ -359,7 +359,13 @@ class Lsx_Banners {
 	 * Returns the defulat placeholder url
 	 */
 	public function default_placeholder($url) {
-		$default_id = \lsx\ui\uix::get_setting('lsx-general.general.selection.id');
+		$post_type = get_post_type();
+		if(false !== $post_type && !is_array($post_type)){
+			$default_id = \lsx\ui\uix::get_setting('lsx-general.general.'.$post_type.'.id');
+		}
+		if( empty( $default_id ) ){
+			$default_id = \lsx\ui\uix::get_setting('lsx-general.general.selection.id');
+		}
 		if( !empty( $default_id ) ){
 			$banner_image = wp_get_attachment_image_src( $default_id,'full');
 			if( !empty( $banner_image ) ){
