@@ -62,8 +62,10 @@ class Lsx_Banners {
 	 */
 	private function __construct() {	
 		// init UIX
+		
 		// include the library
 		include_once LSX_BANNERS_PATH . 'uix/uix.php';
+
 		// get the pages
 		$pages = include LSX_BANNERS_PATH . 'includes/pages.php';
 
