@@ -70,7 +70,7 @@ class Lsx_Banners {
 		$pages = include LSX_BANNERS_PATH . 'includes/pages.php';
 
 		// initialize admin UI
-		$uix = \lsx\ui\uix::get_instance( $pages, 'lsx' );
+		$uix = \lsx\ui\uix::get_instance( 'lsx' );
 		$uix->register_pages( $pages );
 
 		//Enqueue the scrips
@@ -242,9 +242,9 @@ class Lsx_Banners {
 
 			$placeholder = apply_filters('lsx_banner_placeholder_url','https://placeholdit.imgix.net/~text?txtsize=33&txt=1920x600&w=1920&h=600');
 
-			$defaults = get_option( '_lsx_lsx-general');
-			if( !empty( $defaults['general']['selection']['id'] ) ){
-				$banner_image = wp_get_attachment_image_src( $defaults['general']['selection']['id'],'full');
+			$default_id = \lsx\ui\uix::get_setting('lsx-general.general.selection.id');
+			if( !empty( $default_id ) ){
+				$banner_image = wp_get_attachment_image_src( $default_id,'full');
 				if( !empty( $banner_image ) ){
 					$banner_image = $banner_image[0];
 				}else{
