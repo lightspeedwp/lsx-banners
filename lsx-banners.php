@@ -102,6 +102,7 @@ class Lsx_Banners {
 		if(in_array('jetpack-portfolio', get_post_types())){
 			$allowed_post_types[] = 'jetpack-portfolio';
 		}
+		$allowed_post_types = apply_filters( 'lsx_banner_allowed_post_types', $allowed_post_types );
 		
 		$post_type = get_post_type();	
 		$this->post_id = get_queried_object_id();
