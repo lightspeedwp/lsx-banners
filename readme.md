@@ -20,6 +20,10 @@ Enable the Use of a subtitle
 
 ```add_filter('lsx_banner_enable_subtitle', function( $bool ) { return true; });```
 
+Disable the content of the banner on a per post basis
+
+```add_filter('lsx_banner_disable_text', function( $bool ) { return true; });```
+
 ## Post Type Archives
 All you need to do is to create a "page" with the same "slug" as the post type archives slug, then upload the page to upload a banner image etc.
 

@@ -153,6 +153,9 @@ class Lsx_Banners {
 		//Allowed Meta_boxes
 		$title_enabled = apply_filters('lsx_banner_enable_title', false);
 		$subtitle_enabled = apply_filters('lsx_banner_enable_subtitle', false);
+
+		//If you only want to be able to disable content per banner
+		$text_disable = apply_filters('lsx_banner_disable_text', false);
 		
 		//This runs twice in the plugin,  this is the only time it runs in the backend.
 		$this->placeholder = apply_filters('lsx_banner_enable_placeholder', false);
@@ -160,10 +163,13 @@ class Lsx_Banners {
 		
 
 		//Create the Field array
+
 		if(true === $this->placeholder) {
-			$fields[] = array( 'id' => 'banner_disabled',  'name' => 'Disable', 'type' => 'checkbox' );
+			$fields[] = array( 'id' => 'banner_disabled',  'name' => 'Disable banner', 'type' => 'checkbox' );
+		}	
+		if(true === $text_disable) {
+			$fields[] = array( 'id' => 'banner_text_disabled',  'name' => 'Disable banner text', 'type' => 'checkbox' );
 		}
-		
 		if($title_enabled){
 			$fields[] = array( 'id' => 'banner_title',  'name' => 'Title', 'type' => 'text' );
 		}
@@ -263,7 +269,10 @@ class Lsx_Banners {
 				$y_position = $image_bg_group['banner_y'];
 			}
 		}
-		
+
+		//Check if the content should be disabled or not
+		$text_disable = get_post_meta($post_id,'banner_text_disabled',true);		
+
 		if(false !== $banner_image){
 			
 			//if its the lsx theme and there are more than 1 banner, then output a bootstrap carousel.
@@ -277,8 +286,10 @@ class Lsx_Banners {
 				<div class="page-banner <?php if($show_slider){ echo 'item active'; }else{}  ?>" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-image:url(<?php echo $banner_image; ?>); background-size:<?php echo $size; ?>;">
 		        	<div class="container">
 			            <header class="page-header">
-			            	<h1 class="page-title"><?php echo apply_filters('lsx_banner_title',get_the_title($post_id)); ?></h1> 
-			            	<?php echo $this->banner_content(); ?>
+			            	<?php print_r($text_disable); if(false === $text_disable) { ?>
+			            		<h1 class="page-title"><?php echo apply_filters('lsx_banner_title',get_the_title($post_id)); ?></h1> 
+			            		<?php echo $this->banner_content(); ?>
+			            	<?php } ?>
 			            </header><!-- .entry-header -->
 			        </div>
 		        </div>		
