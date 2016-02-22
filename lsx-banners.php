@@ -288,9 +288,9 @@ class Lsx_Banners {
 			            <header class="page-header">
 			            	
 			            		<h1 class="page-title">
-			            			<?php if(false === $text_disable) { ?><?php echo apply_filters('lsx_banner_title',get_the_title($post_id)); ?><?php } ?>
+			            			<?php if(false !== $text_disable) { ?><?php echo apply_filters('lsx_banner_title',get_the_title($post_id)); ?><?php } ?>
 			            		</h1> 
-			            		<?php if(false === $text_disable) { ?><?php echo $this->banner_content(); ?><?php } ?>
+			            		<?php if(false !== $text_disable) { ?><?php echo $this->banner_content(); ?><?php } ?>
 			            	
 			            </header><!-- .entry-header -->
 			        </div>
