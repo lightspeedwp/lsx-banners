@@ -436,8 +436,8 @@ class uix{
 							if( !empty( $tab['page_description'] ) ){ ?> <small><?php echo $tab['page_description']; ?></small> <?php } 
 							if( !empty( $tab['page_title'] ) ){ echo '</h4>'; }
 							// include this tabs template
-							if( !empty( $tab['template'] ) && file_exists( $template_path . $tab['template'] ) ){
-								include $template_path . $tab['template'];
+							if( !empty( $tab['template'] ) && file_exists( $tab['template'] ) ){
+								include $tab['template'];
 							}else{
 								echo esc_html__( 'Template not found: ', $this->plugin_slug ) . $tab['page_title'];
 							}

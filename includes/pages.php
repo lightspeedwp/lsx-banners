@@ -28,7 +28,7 @@ return array(
 				'page_title'        => 'Default Banners',                                  // the tab page title 
 				'page_description'  => 'Setup Default Banners for your post types',                   // the tab description
 				'menu_title'        => 'Default',                                    // the title of the tab menu item
-				'template'          => 'includes/templates/general.php',           // the template to define the tab content and values
+				'template'          => LSX_BANNERS_PATH . 'includes/templates/general.php',           // the template to define the tab content and values
 				'default'	 => true                                                 // defines which is the default tab
 			)
 		),
