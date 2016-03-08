@@ -322,8 +322,10 @@ class Lsx_Banners {
 							<div class="page-banner item" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-image:url(<?php echo $slide[0]; ?>); background-size:<?php echo $size; ?>;">
 					        	<div class="container">
 						            <header class="page-header">
-						            	<h1 class="page-title"><?php echo apply_filters('lsx_banner_title',get_the_title($post_id)); ?></h1> 
-						            	<?php echo $this->banner_content(); ?>
+						            	<h1 class="page-title">
+						            		<?php if(true !== $text_disable && '1' !== $text_disable) { ?><?php echo apply_filters('lsx_banner_title',get_the_title($post_id)); ?><?php } ?>
+						            	</h1> 
+						            	<?php if(true !== $text_disable && '1' !== $text_disable) { ?><?php echo $this->banner_content(); ?><?php } ?>
 						            </header><!-- .entry-header -->
 						        </div>
 					        </div>
