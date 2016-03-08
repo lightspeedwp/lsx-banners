@@ -24,8 +24,18 @@ Disable the content of the banner on a per post basis
 
 ```add_filter('lsx_banner_disable_text', function( $bool ) { return true; });```
 
+If your theme has bootstrap included, then you can enable the slider with the following filter.
+
+```add_filter('lsx_banner_enable_sliders', function( $bool ) { return true; });```
+
 ## Post Type Archives
 All you need to do is to create a "page" with the same "slug" as the post type archives slug, then upload the page to upload a banner image etc.
 
 ## Adding additional content to your banner
 ```add_action('lsx_banner_content','your_function_name');```
+
+## Modifying the slider settings
+You will have 1 variable, an array as follows.
+```array('transition' => 'slide','interval' => '6000',);```
+```add_filter('lsx_banner_slider_settings','your_function_name',1,10);```
+
