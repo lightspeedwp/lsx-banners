@@ -295,7 +295,7 @@ class Lsx_Banners {
 			//if its the lsx theme and there are more than 1 banner, then output a bootstrap carousel.
 			if($show_slider) { 
 				?>
-				<div id="page-slider" class="carousel <?php echo $default_slider_args['transition']; ?>" data-ride="carousel" data-interval="<?php echo $default_slider_args['interval']; ?>">
+				<div id="page-slider" class="carousel <?php echo $slider_args['transition']; ?>" data-ride="carousel" data-interval="<?php echo $slider_args['interval']; ?>">
 					<div class="carousel-inner">
 				<?php
 			}
