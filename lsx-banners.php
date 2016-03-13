@@ -103,8 +103,8 @@ class Lsx_Banners {
 		$this->post_id = get_queried_object_id();
 		
 		if((is_singular($allowed_post_types) && in_array($post_type, $allowed_post_types)) || (is_post_type_archive() && 0 !== $this->post_id) ) {
-			//$theme = wp_get_theme();
-			if(defined('LSX_BANNERS_VERSION')){
+			//if the version of the LSX theme can handle the banners plugin.
+			if(function_exists('lsx_setup')){
 				$this->theme = 'lsx';
 				remove_action( 'lsx_header_after', 'lsx_page_banner' );
 				add_action('lsx_header_after',array($this,'banner'));
