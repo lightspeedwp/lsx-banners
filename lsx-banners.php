@@ -56,13 +56,6 @@ class Lsx_Banners {
 	 * @var      string|Lsx_Banners
 	 */
 	public $post_id = false;	
-	
-	/**
-	 * A variable to say if we should enable the slider, only works if bootstrap is enabled.
-	 *
-	 * @var      string|Lsx_Banners
-	 */
-	public $show_sliders = false;	
 
 	/**
 	 * Initialize the plugin by setting localization, filters, and administration functions.
@@ -110,7 +103,7 @@ class Lsx_Banners {
 		$this->post_id = get_queried_object_id();
 		
 		if((is_singular($allowed_post_types) && in_array($post_type, $allowed_post_types)) || (is_post_type_archive() && 0 !== $this->post_id) ) {
-			//if the version of the LSX theme can handle the banners plugin.
+			//$theme = wp_get_theme();
 			if(function_exists('lsx_setup')){
 				$this->theme = 'lsx';
 				remove_action( 'lsx_header_after', 'lsx_page_banner' );
@@ -125,14 +118,10 @@ class Lsx_Banners {
 			add_filter('lsx_banner_title', array($this,'banner_title') );
 			add_filter('lsx_banner_meta_boxes',array($this,'subtitle_metabox'));
 			
-			//Are the placeholder images enabled.
 			$this->placeholder = apply_filters('lsx_banner_enable_placeholder', false);
 			if(false !== $this->placeholder){
 				add_filter('lsx_banner_placeholder_url', array($this,'default_placeholder') );
 			}
-			
-			// Are the sliders enabled
-			$this->show_sliders = apply_filters('lsx_banner_enable_sliders', false);
 		}
 	}	
 
@@ -221,22 +210,21 @@ class Lsx_Banners {
 		
 
 		//We change the id to the page with a matching slug ar the post_type archive.
-
 		$img_group = get_post_meta($post_id,'image_group',true);
 		$banner_image = false;
 		$show_slider = false;
-
 		if(false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && !empty($img_group['banner_image'])){
-			
 			if(!is_array($img_group['banner_image'])){
 				$banner_image_id = $img_group['banner_image'];
 			}else{
 				$banners_length = count($img_group['banner_image'])-1;
+				
+				$banner_ids = array_values($img_group['banner_image']);
 				if('lsx' !== $this->theme && $banners_length > 0){
 					$banner_index = rand('0', $banners_length);
-					$banner_image_id = $img_group['banner_image']['cmb-field-'.$banner_index];
+					$banner_image_id = $banner_ids[$banner_index];
 				}else{				
-					$banner_image_id = $img_group['banner_image']['cmb-field-0'];
+					$banner_image_id = $banner_ids[0];
 				}	
 			}
 			$banner_image = wp_get_attachment_image_src($banner_image_id,'full');
@@ -249,7 +237,7 @@ class Lsx_Banners {
 		}
 		
 		//Check if the slider code should show
-		if(('lsx' === $this->theme || $this->show_sliders) && is_array($img_group['banner_image']) && 1 < count($img_group['banner_image'])) {
+		if('lsx' === $this->theme && is_array($img_group['banner_image']) && 1 < count($img_group['banner_image'])) {
 			$show_slider = true;
 		}
 		
@@ -280,12 +268,6 @@ class Lsx_Banners {
 				$y_position = $image_bg_group['banner_y'];
 			}
 		}
-		
-		$default_slider_args = array(
-			'transition' => 'slide',
-			'interval' => '6000',
-		);
-		$slider_args = wp_parse_args(apply_filters('lsx_banner_slider_settings',$default_slider_args),$default_slider_args);
 
 		//Check if the content should be disabled or not
 		$text_disable = get_post_meta($post_id,'banner_text_disabled',true);		
@@ -295,7 +277,7 @@ class Lsx_Banners {
 			//if its the lsx theme and there are more than 1 banner, then output a bootstrap carousel.
 			if($show_slider) { 
 				?>
-				<div id="page-slider" class="carousel <?php echo $slider_args['transition']; ?>" data-ride="carousel" data-interval="<?php echo $slider_args['interval']; ?>">
+				<div id="page-slider" class="carousel slide" data-ride="carousel" data-interval="6000">
 					<div class="carousel-inner">
 				<?php
 			}
@@ -322,10 +304,8 @@ class Lsx_Banners {
 							<div class="page-banner item" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-image:url(<?php echo $slide[0]; ?>); background-size:<?php echo $size; ?>;">
 					        	<div class="container">
 						            <header class="page-header">
-						            	<h1 class="page-title">
-						            		<?php if(true !== $text_disable && '1' !== $text_disable) { ?><?php echo apply_filters('lsx_banner_title',get_the_title($post_id)); ?><?php } ?>
-						            	</h1> 
-						            	<?php if(true !== $text_disable && '1' !== $text_disable) { ?><?php echo $this->banner_content(); ?><?php } ?>
+						            	<h1 class="page-title"><?php echo apply_filters('lsx_banner_title',get_the_title($post_id)); ?></h1> 
+						            	<?php echo $this->banner_content(); ?>
 						            </header><!-- .entry-header -->
 						        </div>
 					        </div>
