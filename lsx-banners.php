@@ -56,6 +56,13 @@ class Lsx_Banners {
 	 * @var      string|Lsx_Banners
 	 */
 	public $post_id = false;	
+	
+	/**
+	 * A variable to say if we should enable the slider, only works if bootstrap is enabled.
+	 *
+	 * @var      string|Lsx_Banners
+	 */
+	public $show_sliders = false;	
 
 	/**
 	 * Initialize the plugin by setting localization, filters, and administration functions.
@@ -118,10 +125,14 @@ class Lsx_Banners {
 			add_filter('lsx_banner_title', array($this,'banner_title') );
 			add_filter('lsx_banner_meta_boxes',array($this,'subtitle_metabox'));
 			
+			//Are the placeholder images enabled.
 			$this->placeholder = apply_filters('lsx_banner_enable_placeholder', false);
 			if(false !== $this->placeholder){
 				add_filter('lsx_banner_placeholder_url', array($this,'default_placeholder') );
 			}
+			
+			// Are the sliders enabled
+			$this->show_sliders = apply_filters('lsx_banner_enable_sliders', false);
 		}
 	}	
 
@@ -238,7 +249,7 @@ class Lsx_Banners {
 		}
 		
 		//Check if the slider code should show
-		if('lsx' === $this->theme && is_array($img_group['banner_image']) && 1 < count($img_group['banner_image'])) {
+		if(('lsx' === $this->theme || $this->show_sliders) && is_array($img_group['banner_image']) && 1 < count($img_group['banner_image'])) {
 			$show_slider = true;
 		}
 		
@@ -269,6 +280,12 @@ class Lsx_Banners {
 				$y_position = $image_bg_group['banner_y'];
 			}
 		}
+		
+		$default_slider_args = array(
+			'transition' => 'slide',
+			'interval' => '6000',
+		);
+		$slider_args = wp_parse_args(apply_filters('lsx_banner_slider_settings',$default_slider_args),$default_slider_args);
 
 		//Check if the content should be disabled or not
 		$text_disable = get_post_meta($post_id,'banner_text_disabled',true);		
@@ -278,7 +295,7 @@ class Lsx_Banners {
 			//if its the lsx theme and there are more than 1 banner, then output a bootstrap carousel.
 			if($show_slider) { 
 				?>
-				<div id="page-slider" class="carousel slide" data-ride="carousel" data-interval="6000">
+				<div id="page-slider" class="carousel <?php echo $slider_args['transition']; ?>" data-ride="carousel" data-interval="<?php echo $slider_args['interval']; ?>">
 					<div class="carousel-inner">
 				<?php
 			}
@@ -305,8 +322,10 @@ class Lsx_Banners {
 							<div class="page-banner item" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-image:url(<?php echo $slide[0]; ?>); background-size:<?php echo $size; ?>;">
 					        	<div class="container">
 						            <header class="page-header">
-						            	<h1 class="page-title"><?php echo apply_filters('lsx_banner_title',get_the_title($post_id)); ?></h1> 
-						            	<?php echo $this->banner_content(); ?>
+						            	<h1 class="page-title">
+						            		<?php if(true !== $text_disable && '1' !== $text_disable) { ?><?php echo apply_filters('lsx_banner_title',get_the_title($post_id)); ?><?php } ?>
+						            	</h1> 
+						            	<?php if(true !== $text_disable && '1' !== $text_disable) { ?><?php echo $this->banner_content(); ?><?php } ?>
 						            </header><!-- .entry-header -->
 						        </div>
 					        </div>
