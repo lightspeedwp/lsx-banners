@@ -285,10 +285,11 @@ class Lsx_Banners {
 				<div class="page-banner <?php if($show_slider){ echo 'item active'; }else{}  ?>" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-image:url(<?php echo $banner_image; ?>); background-size:<?php echo $size; ?>;">
 		        	<div class="container">
 			            <header class="page-header">
-			            	
-			            		<h1 class="page-title">
-			            			<?php if(true !== $text_disable && '1' !== $text_disable) { ?><?php echo apply_filters('lsx_banner_title',get_the_title($post_id)); ?><?php } ?>
-			            		</h1> 
+			            		<?php if(true !== $text_disable && '1' !== $text_disable) { ?>
+			            			<h1 class="page-title">
+			            				<?php echo apply_filters('lsx_banner_title',get_the_title($post_id)); ?>
+			            			</h1> 
+			            		<?php } ?>
 			            		<?php if(true !== $text_disable && '1' !== $text_disable) { ?><?php echo $this->banner_content(); ?><?php } ?>
 			            	
 			            </header><!-- .entry-header -->
