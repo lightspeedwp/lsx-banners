@@ -102,7 +102,7 @@ class Lsx_Banners {
 		$post_type = get_post_type();	
 		$this->post_id = get_queried_object_id();
 		
-		if((is_singular($allowed_post_types) && in_array($post_type, $allowed_post_types)) || (is_post_type_archive() && 0 !== $this->post_id) ) {
+		if((is_singular($allowed_post_types) && in_array($post_type, $allowed_post_types)) || (is_post_type_archive() && 0 !== $this->post_id) || is_404() ) {
 			//$theme = wp_get_theme();
 			if(function_exists('lsx_setup')){
 				$this->theme = 'lsx';
