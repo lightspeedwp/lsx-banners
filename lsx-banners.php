@@ -64,7 +64,9 @@ class Lsx_Banners {
 		
 		// init UIX
 		// include the library
-		include_once LSX_BANNERS_PATH . 'uix/uix.php';
+		if(!class_exists('\lsx\ui\uix')){
+			include_once LSX_BANNERS_PATH . 'uix/uix.php';
+		}
 
 		// get the pages
 		$pages = include LSX_BANNERS_PATH . 'includes/pages.php';
