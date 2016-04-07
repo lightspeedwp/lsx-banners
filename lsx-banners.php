@@ -345,7 +345,7 @@ class Lsx_Banners {
 				$post_title = $new_title;
 			}
 		}
-		return $post_title;
+		return '<h1 class="page-title">'.$post_title.'</h1>';
 	}	
 	
 	/**
