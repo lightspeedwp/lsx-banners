@@ -288,8 +288,8 @@ class Lsx_Banners {
 		        	<div class="container">
 			            <header class="page-header">
 			            		<?php echo apply_filters('lsx_banner_title','<h1 class="page-title">'.get_the_title($post_id).'</h1>'); ?>
-			            		<?php if(true !== $text_disable && '1' !== $text_disable) { ?><?php echo $this->banner_content(); ?><?php } ?>
 			            </header><!-- .entry-header -->
+			            <?php if(true !== $text_disable && '1' !== $text_disable) { ?><?php echo $this->banner_content(); ?><?php } ?>
 			        </div>
 		        </div>		
 			<?php
@@ -303,8 +303,8 @@ class Lsx_Banners {
 					        	<div class="container">
 						            <header class="page-header">
 						            	<?php echo apply_filters('lsx_banner_title','<h1 class="page-title">'.get_the_title($post_id).'</h1>'); ?>
-						            	<?php echo $this->banner_content(); ?>
 						            </header><!-- .entry-header -->
+						            <?php echo $this->banner_content(); ?>
 						        </div>
 					        </div>
 						<?php }	?>
@@ -360,9 +360,11 @@ class Lsx_Banners {
 			break;
 			
 			default:
-				$retval = apply_filters('lsx_banner_content','');
+				$retval = apply_filters('lsx_banner_content','');	
 			break;
 		}	
+		
+		return $retval;
 	}
 	
 	/**
