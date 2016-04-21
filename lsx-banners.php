@@ -104,7 +104,7 @@ class Lsx_Banners {
 		$post_type = get_post_type();	
 		$this->post_id = get_queried_object_id();
 		
-		if((is_singular($allowed_post_types) && in_array($post_type, $allowed_post_types)) || (is_post_type_archive() && 0 !== $this->post_id) || is_404() ) {
+		if((is_singular($allowed_post_types) && in_array($post_type, $allowed_post_types)) || (is_post_type_archive($allowed_post_types)) || is_404() ) {
 			//$theme = wp_get_theme();
 			if(function_exists('lsx_setup')){
 				$this->theme = 'lsx';
@@ -209,7 +209,6 @@ class Lsx_Banners {
 				
 		//If we are using placeholders then the baner section shows all the time,  this is when the banner disabled checkbox comes into play.
 		if(true === $this->placeholder && get_post_meta($post_id,'banner_disabled',true)) { return ''; }
-		
 
 		//We change the id to the page with a matching slug ar the post_type archive.
 		$img_group = get_post_meta($post_id,'image_group',true);
@@ -233,13 +232,13 @@ class Lsx_Banners {
 			$banner_image = $banner_image[0];
 		}
 		
-		if('lsx' === $this->theme && false === $banner_image && has_post_thumbnail($post_id)){
+		if('lsx' === $this->theme && 0 !== $post_id && false === $banner_image && has_post_thumbnail($post_id)){
 			$banner_image = wp_get_attachment_image_src(get_post_thumbnail_id($post_id),'full');
 			$banner_image = $banner_image[0];			
 		}
 		
 		//Check if the slider code should show
-		if('lsx' === $this->theme && is_array($img_group['banner_image']) && 1 < count($img_group['banner_image'])) {
+		if('lsx' === $this->theme && isset($img_group['banner_image']) && is_array($img_group['banner_image']) && 1 < count($img_group['banner_image'])) {
 			$show_slider = true;
 		}
 		
@@ -339,7 +338,10 @@ class Lsx_Banners {
 	 * a filter to check if a custom title has been added, if so, use that instead of the post title
 	 */
 	public function banner_title($post_title) {	
-		if(apply_filters('lsx_banner_enable_title', false)){
+		if(is_post_type_archive($this->get_allowed_post_types())){
+			$post_title = get_the_archive_title();
+		}		
+		if(apply_filters('lsx_banner_enable_title', false) && 0 !== $this->post_id){
 			$new_title = get_post_meta($this->post_id,'banner_title',true);
 			if(false !== $new_title && '' !== $new_title){
 				$post_title = $new_title;
