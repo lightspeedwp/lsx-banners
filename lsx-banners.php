@@ -55,7 +55,14 @@ class Lsx_Banners {
 	 *
 	 * @var      string|Lsx_Banners
 	 */
-	public $post_id = false;	
+	public $post_id = false;
+	
+	/**
+	 * Runs on the body_class, to let you know if there is a banner or not.
+	 *
+	 * @var      string|Lsx_Banners
+	 */
+	public $has_banner = false;	
 
 	/**
 	 * Initialize the plugin by setting localization, filters, and administration functions.
@@ -77,7 +84,6 @@ class Lsx_Banners {
 
 		//Enqueue the scrips
 		add_filter( 'cmb_meta_boxes', array($this,'metaboxes') );	
-		add_filter('body_class', array($this,'body_class'));
 		add_action('wp_head',array($this,'init'));
 	}
 	
@@ -119,6 +125,7 @@ class Lsx_Banners {
 			
 			add_filter('lsx_banner_title', array($this,'banner_title') );
 			add_filter('lsx_banner_meta_boxes',array($this,'subtitle_metabox'));
+			add_filter('body_class', array($this,'body_class'));
 			
 			$this->placeholder = apply_filters('lsx_banner_enable_placeholder', false);
 			if(false !== $this->placeholder){
@@ -321,15 +328,18 @@ class Lsx_Banners {
 	public function body_class($classes) {
 		// Add page slug if it doesn't exist		
 		//Test is the banner has been disabled.
-		if(!$this->placeholder) { 
 			//see if there is a banner image
-			$banner_image = false;
+		$banner_image = false;
+		if(0 !== get_the_ID()){
 			$img_group = get_post_meta(get_the_ID(),'image_group',true);
 			if(false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && '' !== $img_group['banner_image'] && !empty($img_group['banner_image'])){
 				$classes[] = 'has-banner';
-			}elseif($this->placeholder){
-				$classes[] = 'has-banner';
+				$this->has_banner = true;
 			}
+		}	
+		if(true === $this->placeholder){
+			$classes[] = 'has-banner';
+			$this->has_banner = true;
 		}
 		return $classes;
 	}
@@ -402,4 +412,14 @@ $lsx_banners = Lsx_Banners::get_instance();
 function lsx_banner_src(){
 	global $lsx_banners;
 	$lsx_banners->banner();
+}
+
+/**
+ * Returns a true or false if there is a banner.
+ *
+ * @return		String
+ */
+function lsx_has_banner(){
+	global $lsx_banners;
+	return $lsx_banners->has_banner;
 }

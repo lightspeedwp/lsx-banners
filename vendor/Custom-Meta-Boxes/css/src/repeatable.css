@@ -10,6 +10,8 @@
 .cmb_metabox .repeat-field { 
 	display: block !important; 
 	clear: both; 
+    position: relative;
+    float: right;	
 }
 
 .CMB_Text_Small_Field.repeatable .field-item,

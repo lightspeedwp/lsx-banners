@@ -2,18 +2,26 @@
  * Title Field
  */
 .CMB_Title .field-title {
-	margin: 8px 0 !important;
+	margin: 0 !important;
 }
 
 .CMB_Title {
 	border-bottom: 0;
 	padding-bottom: 0;
 	margin-top: 16px;
+	padding: 0 0 6px 0 !important;
+	border-bottom: 1px solid #DFDFDF;
+	margin-bottom: 10px;
 }
 
 .CMB_Title h2 {
 	margin: 0 !important;
 	padding: 0 !important;
+    font-size: 1.1em !important;
+    margin: 0 !important;	
+    text-transform: uppercase !important;
+    font-weight:bold !important;
+    
 }
 
 

@@ -1,5 +1,6 @@
 .cmb_metabox .field-item {
 	position: relative;
+	display: inline-block;
 }
 
 .cmb_metabox_description { 
@@ -38,7 +39,9 @@
 	margin-top: -4px; 
 	margin-bottom: 16px; 
 	margin-top: 0; 
-	font-weight: bold; 
+	width: 175px;
+    display: inline-block;	
+    vertical-align: top;
 }
 
 .cmb_metabox .field-title label {

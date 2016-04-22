@@ -541,7 +541,7 @@ class CMB_Image_Field extends CMB_File_Field {
 			</div>
 
 			<button class="button cmb-file-upload <?php echo esc_attr( $this->get_value() ) ? 'hidden' : '' ?>" data-nonce="<?php echo wp_create_nonce( 'cmb-file-upload-nonce' ); ?>">
-				<?php esc_html_e( 'Add Image', 'cmb' ); ?>
+				<?php esc_html_e( 'Select', 'cmb' ); ?>
 			</button>
 
 			<div class="cmb-file-holder type-img <?php echo $this->get_value() ? '' : 'hidden'; ?>" data-crop="<?php echo (bool) $size['crop']; ?>">
@@ -888,12 +888,9 @@ class CMB_Radio_Field extends CMB_Field {
  */
 class CMB_Checkbox extends CMB_Field {
 
-	public function title() {}
-
 	public function html() { ?>
 
 		<input <?php $this->id_attr(); ?> <?php $this->boolean_attr(); ?> <?php $this->class_attr(); ?> type="checkbox" <?php $this->name_attr(); ?>  value="1" <?php checked( $this->get_value() ); ?> />
-		<label <?php $this->for_attr(); ?>><?php echo esc_html( $this->title ); ?></label>
 
 	<?php }
 
