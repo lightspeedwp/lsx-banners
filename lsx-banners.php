@@ -292,10 +292,15 @@ class Lsx_Banners {
 			?>
 				<div class="page-banner <?php if($show_slider){ echo 'item active'; }else{}  ?>" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-image:url(<?php echo $banner_image; ?>); background-size:<?php echo $size; ?>;">
 		        	<div class="container">
+		        		
+		        		<?php do_action('lsx_banner_container_top'); ?>
+		        		
 			            <header class="page-header">
 			            		<?php echo apply_filters('lsx_banner_title','<h1 class="page-title">'.get_the_title($post_id).'</h1>'); ?>
 			            </header><!-- .entry-header -->
 			            <?php if(true !== $text_disable && '1' !== $text_disable) { ?><?php echo $this->banner_content(); ?><?php } ?>
+			            
+			            <?php do_action('lsx_banner_container_bottom'); ?>
 			        </div>
 		        </div>		
 			<?php
