@@ -354,15 +354,15 @@ class Lsx_Banners {
 	 */
 	public function banner_title($post_title) {	
 		if(is_post_type_archive($this->get_allowed_post_types())){
-			$post_title = get_the_archive_title();
+			$post_title = '<h1 class="page-title">'.get_the_archive_title().'</h1>';
 		}		
 		if(apply_filters('lsx_banner_enable_title', false) && 0 !== $this->post_id){
 			$new_title = get_post_meta($this->post_id,'banner_title',true);
 			if(false !== $new_title && '' !== $new_title){
-				$post_title = $new_title;
+				$post_title = '<h1 class="page-title">'.$new_title.'</h1>';
 			}
 		}
-		return '<h1 class="page-title">'.$post_title.'</h1>';
+		return $post_title;
 	}	
 	
 	/**
