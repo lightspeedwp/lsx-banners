@@ -85,6 +85,7 @@ class Lsx_Banners {
 		//Enqueue the scrips
 		add_filter( 'cmb_meta_boxes', array($this,'metaboxes') );	
 		add_action('wp_head',array($this,'init'));
+		add_action('admin_init',array($this,'admin_init'));
 	}
 	
 	/**
@@ -98,6 +99,20 @@ class Lsx_Banners {
 			self::$instance = new self;
 		}
 		return self::$instance;
+	}
+	
+	/**
+	 * Initializes the variables we need.
+	 *
+	 */
+	public function admin_init() {
+		$allowed_taxonomies = $this->get_allowed_taxonomies();
+		if(is_array($allowed_taxonomies)){
+			foreach($allowed_taxonomies as $taxonomy){
+				add_action( "{$taxonomy}_add_form_fields",  array( $this, 'add_form_field'  ),1 );
+				add_action( "{$taxonomy}_edit_form_fields", array( $this, 'add_form_field' ),1 );
+			}
+		}
 	}
 
 	/**
@@ -127,6 +142,8 @@ class Lsx_Banners {
 			add_filter('lsx_banner_title', array($this,'banner_title') );
 			add_filter('lsx_banner_meta_boxes',array($this,'subtitle_metabox'));
 			add_filter('body_class', array($this,'body_class'));
+			
+			
 			
 			$this->placeholder = apply_filters('lsx_banner_enable_placeholder', false);
 			if(false !== $this->placeholder){
@@ -418,7 +435,58 @@ class Lsx_Banners {
 		}
 		return $url;
 	}
+	
+	
+	/**
+	 * Output the form field for this metadata when adding a new term
+	 *
+	 * @since 0.1.0
+	 */
+	public function add_form_field() {
+		?>
+		<tr class="form-field form-required term-banner-wrap">
+			<th scope="row"><label for="banner"><?php _e('Banner','lsx-banners');?></label></th>
+			<td>
+				<input style="display:none;" name="banner" id="banner" type="text" value="" size="40" aria-required="true">
+				<div class="banner-preview">
+				</div>				
+				<a class="button-secondary lsx-banner-image-add"><?php _e('Choose Image','lsx-banners');?></a>
+				<a style="display:none;" class="button-secondary lsx-banner-image-remove"><?php _e('Remove Image','lsx-banners');?></a>
+			</td>
+		</tr>
 		
+		<script type="text/javascript">
+			(function( $ ) {
+				$( '.lsx-banner-image-add' ).on( 'click', function() {
+					tb_show('test', 'media-upload.php?type=image&TB_iframe=1');
+					var image_thumbnail = '';
+					window.send_to_editor = function( html ) 
+					{
+						var image_thumbnail = $( 'img',html ).html();
+						$( '.banner-preview' ).append(html);
+						var imgClasses = $( 'img',html ).attr( 'class' );
+						imgClasses = imgClasses.split('wp-image-');
+						$( '#banner' ).val(imgClasses[1]);
+						tb_remove();
+					}
+					$( this ).hide();
+					$( '.lsx-banner-image-remove' ).show();
+					
+					return false;
+				});
+
+				$( '.lsx-banner-image-remove' ).on( 'click', function() {
+					$( '.banner-preview' ).html('');
+					$( '#banner' ).val('');
+					$( this ).hide();
+					$( '.lsx-banner-image-add' ).show();					
+					return false;
+				});	
+			})(jQuery);
+		</script>		
+		<?php
+	}
+			
 	
 }
 $lsx_banners = Lsx_Banners::get_instance();
