@@ -311,7 +311,7 @@ class Lsx_Banners {
 			}
 			
 			//If its the LSX theme, and there is no banner, but there is a featured image,  then use that for the banner.
-			if('lsx' === $this->theme && false === $banner_image && has_post_thumbnail($this->post_id)){
+			if('lsx' === $this->theme && is_singular() && false === $banner_image && has_post_thumbnail($this->post_id)){
 				$banner_image = wp_get_attachment_image_src(get_post_thumbnail_id($this->post_id),'full');
 				$banner_image = $banner_image[0];			
 			}
