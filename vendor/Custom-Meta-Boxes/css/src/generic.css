@@ -1,13 +1,25 @@
 .cmb_metabox .field-item {
 	position: relative;
 	display: inline-block;
-	max-width: 80%;
+}
+
+.cmb_metabox .cmb-cell-12 .field-item {
+	width: 80%;
+}
+.cmb_metabox .CMB_Group_Field.repeatable > .cmb-cell-12 .field-item {
+	width: 60% !important;
+}
+.cmb_metabox .cmb-cell-12 .CMB_Image_Field .field-item, .cmb_metabox .cmb-cell-12 .CMB_Post_Select.repeatable .field-item {
+	width: auto;
 }
 
 @media screen and (max-width: 1400px) {
 	.cmb_metabox .field-item {
-		max-width: 90%;
+		width: 70% !important;
 	}
+	.cmb_metabox .CMB_Group_Field.repeatable > .cmb-cell-12 .field-item {
+		width: 60% !important;
+	}	
 }
 
 
@@ -16,12 +28,34 @@
 	font-style: italic; 
 	margin: 0 0 16px !important;
 }
-
 .cmb_metabox input[type=text], 
 .cmb_metabox textarea, 
 .cmb_metabox select { 
 	width: 100%;
 	margin: 0;
+}
+
+.cmb_metabox .cmb-cell-12 input[type=text], 
+.cmb_metabox .cmb-cell-12 textarea, 
+.cmb_metabox .cmb-cell-12 select{ 
+	width: 25%;
+	margin: 0;
+}
+.cmb_metabox .cmb-cell-12 .select2-container {
+	width: 25% !important;
+}
+
+@media screen and (max-width: 1400px) {
+	.cmb_metabox .cmb-cell-12 input[type=text], 
+	.cmb_metabox .cmb-cell-12 textarea, 
+	.cmb_metabox .cmb-cell-12 select { 
+		width: 75%;
+		margin: 0;
+	}
+	
+	.cmb_metabox .cmb-cell-12 .select2-container { 
+		width: 75% !important;
+	}	
 }
 
 .cmb_metabox input.cmb_text_small { 
