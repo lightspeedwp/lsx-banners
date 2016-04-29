@@ -78,3 +78,10 @@ div.time-picker li.selected { background: #0063CE; color: #fff; }
 .select2-offscreen {
 	display: none;
 }
+
+/**
+ * WYSIWYG Fields
+ */
+.CMB_wysiwyg .cmb-wysiwyg .wp-media-buttons {
+	display:none;
+}

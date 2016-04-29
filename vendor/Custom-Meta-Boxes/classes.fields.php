@@ -883,6 +883,46 @@ class CMB_Radio_Field extends CMB_Field {
 }
 
 /**
+ * Standard checkbox group field.
+ *
+ * Args:
+ *  - bool "inline" - display the checkbox buttons inline
+ */
+class CMB_Checkbox_Group_Field extends CMB_Field {
+
+	/**
+	 * Return the default args for the Radio input field.
+	 *
+	 * @return array $args
+	 */
+	public function get_default_args() {
+		return array_merge(
+				parent::get_default_args(),
+				array(
+						'options' => array(),
+				)
+				);
+	}
+
+	public function html() {
+
+		if ( $this->has_data_delegate() )
+			$this->args['options'] = $this->get_delegate_data(); ?>
+
+			<?php foreach ( $this->args['options'] as $key => $value ): ?>
+			<div class="cmb-cell-2">
+			<input <?php $this->id_attr( 'item-' . $key ); ?> <?php $this->boolean_attr(); ?> <?php $this->class_attr(); ?> type="checkbox" <?php $this->name_attr(); ?>[]  value="<?php echo esc_attr( $key ); ?>" <?php checked( $key, $this->get_value() ); ?> />
+			<label <?php $this->for_attr( 'item-' . $key ); ?> style="margin-right: 20px;">
+				<?php echo esc_html( $value ); ?>
+			</label>
+			</div>
+			<?php endforeach; ?>
+
+	<?php }
+
+}
+
+/**
  * Standard checkbox field.
  *
  */

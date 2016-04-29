@@ -83,6 +83,7 @@ function _cmb_available_fields() {
 		'url'				=> 'CMB_URL_Field',
 		'radio'				=> 'CMB_Radio_Field',
 		'checkbox'			=> 'CMB_Checkbox',
+		'checkbox_group'	=> 'CMB_Checkbox_Group_Field',			
 		'file'				=> 'CMB_File_Field',
 		'image' 			=> 'CMB_Image_Field',
 		'wysiwyg'			=> 'CMB_wysiwyg',

@@ -1,7 +1,15 @@
 .cmb_metabox .field-item {
 	position: relative;
 	display: inline-block;
+	max-width: 80%;
 }
+
+@media screen and (max-width: 1400px) {
+	.cmb_metabox .field-item {
+		max-width: 90%;
+	}
+}
+
 
 .cmb_metabox_description { 
 	color: #AAA; 
