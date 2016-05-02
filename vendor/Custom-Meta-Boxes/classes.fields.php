@@ -1595,6 +1595,9 @@ class CMB_Group_Field extends CMB_Field {
 		?>
 
 		<?php if ( $this->args['repeatable'] ) : ?>
+			<button class="cmb-collapse-field">
+				<span class="cmb-collapse-field-icon">&times;</span>
+			</button>		
 			<button class="cmb-delete-field">
 				<span class="cmb-delete-field-icon">&times;</span>
 				<?php echo esc_html( $this->args['string-delete-field'] ); ?>

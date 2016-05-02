@@ -22,7 +22,7 @@
 	float: left; clear: both;
 }
 
-.cmb-delete-field { 
+.cmb-delete-field, .cmb-collapse-field  { 
 	display: inline-block;
 	text-decoration: none;
 	font-size: 11px;
