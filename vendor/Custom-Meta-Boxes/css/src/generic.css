@@ -2,6 +2,9 @@
 	position: relative;
 	display: inline-block;
 }
+.cmb_metabox .field-item.hidden {
+	display:none !important;
+}
 
 .cmb_metabox .cmb-cell-12 .field-item {
 	width: 80%;
