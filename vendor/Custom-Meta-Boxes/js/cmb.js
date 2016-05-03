@@ -26,6 +26,7 @@ var CMB = {
 		jQuery(document).unbind( 'click.CMB' );
 		jQuery(document).on( 'click.CMB', '.cmb-delete-field', CMB.deleteField );
 		jQuery(document).on( 'click.CMB', '.repeat-field', CMB.repeatField );
+		jQuery(document).on( 'click.CMB', '.cmb-collapse-field', CMB.collapseField );
 
 		// When toggling the display of the meta box container - reinitialize
 		jQuery(document).on( 'click.CMB', '.postbox h3, .postbox .handlediv', CMB.init );
@@ -52,7 +53,7 @@ var CMB = {
 			return;
 
 		templateField = field.children( '.field-item.hidden' );
-
+		templateField.find('.cmb_metabox').hide();
 		newT = templateField.clone();
 		newT.removeClass( 'hidden' );
 
@@ -98,10 +99,10 @@ var CMB = {
 
 		e.preventDefault();
 		jQuery(this).blur();
-
+		
 		if ( ! confirm( CMBData.strings.confirmDeleteField ) ) {
 			return;
-		}
+		}		
 
 		fieldItem = jQuery( this ).closest('.field-item' );
 		field     = fieldItem.closest( '.field' );
@@ -112,7 +113,29 @@ var CMB = {
 		fieldItem.remove();
 
 	},
-
+	collapseField : function( e ) {
+		var fieldMetaBox,button;
+		e.preventDefault();
+		jQuery(this).blur();
+		fieldMetaBox = jQuery( this ).closest('.field-item' ).find('.cmb_metabox');
+		button = jQuery( this ).find('span');
+		
+		if(jQuery(this).find('span').hasClass('up')){
+			CMB.closeField( fieldMetaBox,button )
+		}else{
+			CMB.openField( fieldMetaBox,button )
+		}		
+	},
+	closeField : function(fieldMetaBox,button) {
+		button.html('&darr;');
+		button.removeClass('up').addClass('down');
+		fieldMetaBox.hide();
+	},	
+	openField : function(fieldMetaBox,button) {
+		button.html('&uarr;');
+		button.removeClass('down').addClass('up');
+		fieldMetaBox.show();
+	},
 	/**
 	 * Prevent having more than the maximum number of repeatable fields.
 	 * When called, if there is the maximum, disable .repeat-field button.
