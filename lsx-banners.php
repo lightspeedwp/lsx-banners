@@ -135,7 +135,7 @@ class Lsx_Banners {
 		$post_type = get_post_type();	
 		$this->post_id = get_queried_object_id();
 		
-		if(is_singular($allowed_post_types) || is_post_type_archive($allowed_post_types) || is_tax($allowed_taxonomies) || is_404() ) {
+		if(is_singular($allowed_post_types) || is_post_type_archive($allowed_post_types) || is_tax($allowed_taxonomies) || is_404() || is_home() ) {
 			//$theme = wp_get_theme();
 			if(function_exists('lsx_setup')){
 				$this->theme = 'lsx';
@@ -259,12 +259,12 @@ class Lsx_Banners {
 		//If we are using placeholders then the baner section shows all the time,  this is when the banner disabled checkbox comes into play.
 		if(true === $this->placeholder && get_post_meta($this->post_id,'banner_disabled',true)) { return ''; }
 
-		
+		$banner_image = false;
 		//We change the id to the page with a matching slug ar the post_type archive.
 		//Singular Banners
 		if(is_singular($this->get_allowed_post_types())){
 			$img_group = get_post_meta($this->post_id,'image_group',true);
-			$banner_image = false;
+			
 			$show_slider = false;
 			if(false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && !empty($img_group['banner_image'])){
 				if(!is_array($img_group['banner_image'])){
@@ -317,12 +317,12 @@ class Lsx_Banners {
 			}
 		}
 		
-		if(is_post_type_archive($this->get_allowed_post_types())){
+		if(is_home() || is_post_type_archive($this->get_allowed_post_types())){
 			$archive_banner = apply_filters('lsx_banner_post_type_archive_url',false);
 			if(false !== $archive_banner){
 				$banner_image = $archive_banner;
 			}
-		}
+		}	
 		
 		//If its a taxonomy , then get the image from out term meta.
 		if(is_tax($this->get_allowed_taxonomies()) && false !== $this->banner_id){
