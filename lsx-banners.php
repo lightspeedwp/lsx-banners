@@ -262,7 +262,7 @@ class Lsx_Banners {
 		
 		//We change the id to the page with a matching slug ar the post_type archive.
 		//Singular Banners
-		if(is_singular($this->get_allowed_post_types()) || is_post_type_archive($this->get_allowed_post_types())){
+		if(is_singular($this->get_allowed_post_types())){
 			$img_group = get_post_meta($this->post_id,'image_group',true);
 			$banner_image = false;
 			$show_slider = false;
@@ -314,6 +314,13 @@ class Lsx_Banners {
 			if('lsx' === $this->theme && is_singular() && false === $banner_image && has_post_thumbnail($this->post_id)){
 				$banner_image = wp_get_attachment_image_src(get_post_thumbnail_id($this->post_id),'full');
 				$banner_image = $banner_image[0];			
+			}
+		}
+		
+		if(is_post_type_archive($this->get_allowed_post_types())){
+			$archive_banner = apply_filters('lsx_banner_post_type_archive_url',false);
+			if(false !== $archive_banner){
+				$banner_image = $archive_banner;
 			}
 		}
 		
