@@ -17,6 +17,7 @@
 		var mapOptions = {
 			center:    new google.maps.LatLng( CMBGmaps.defaults.latitude, CMBGmaps.defaults.longitude ),
 			zoom:      parseInt( CMBGmaps.defaults.zoom ),
+			scrollwheel: false,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
 
