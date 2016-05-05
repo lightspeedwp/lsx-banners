@@ -77,10 +77,10 @@
 			setPosition( place.geometry.location );
 			$('.address').val(place.formatted_address);
 			
-			setZoomPreview();			
+			setZoomDropDown();			
 		});
 		
-		function setZoomPreview() {
+		function setZoomDropDown() {
 			var map_zoom = map.getZoom();
 			$('.map-zoom option[selected="selected"]').attr('selected','');
 			$('.map-zoom option[value="'+map_zoom+'"]').attr('selected',map_zoom);
@@ -88,8 +88,14 @@
 		}
 		
 		google.maps.event.addListener(map, 'zoom_changed', function() {
-			setZoomPreview();
+			setZoomDropDown();
 		});
+		
+		$('.map-zoom').on('change',function() {
+			if(0 != $(this).prop('selectedIndex')){
+				map.setZoom($(this).prop('selectedIndex'));
+			}
+		});		
 
 		$(searchInput).keypress(function(e) {
 			if (e.keyCode === 13) {

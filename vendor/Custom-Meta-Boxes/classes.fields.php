@@ -1746,7 +1746,7 @@ class CMB_Gmap_Field extends CMB_Field {
 		<input type="hidden" class="address"  <?php $this->name_attr( '[address]' ); ?>    value="<?php echo esc_attr( $value['address'] ); ?>" />
 		<input type="hidden" class="latitude"  <?php $this->name_attr( '[lat]' ); ?>       value="<?php echo esc_attr( $value['lat'] ); ?>" />
 		<input type="hidden" class="longitude" <?php $this->name_attr( '[long]' ); ?>      value="<?php echo esc_attr( $value['long'] ); ?>" />
-		<input type="text" class="zoom"	 <?php $this->name_attr( '[zoom]' ); ?> value="<?php echo esc_attr( $value['zoom'] ); ?>" />
+		<input type="hidden" class="zoom"	 <?php $this->name_attr( '[zoom]' ); ?> value="<?php echo esc_attr( $value['zoom'] ); ?>" />
 		<input type="hidden" class="elevation" <?php $this->name_attr( '[elevation]' ); ?> value="<?php echo esc_attr( $value['elevation'] ); ?>" />
 
 		<?php
