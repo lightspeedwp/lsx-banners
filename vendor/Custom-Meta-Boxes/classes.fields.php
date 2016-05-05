@@ -1735,8 +1735,8 @@ class CMB_Gmap_Field extends CMB_Field {
 		<input type="text" <?php $this->class_attr( 'map-search' ); ?> <?php $this->id_attr(); ?> placeholder="Enter an address" value="<?php echo esc_attr( $value['address'] ); ?>" />
 		<select <?php $this->class_attr( 'map-zoom' ); ?>>
 			<option value="">Zoom</option>
-			<?php foreach(array('1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18') as $zoom_level) {
-				if($zoom_level === $value['zoom']) { $selected='selected="selected"'; }
+			<?php foreach(array('1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21') as $zoom_level) {
+				if($zoom_level === $value['zoom']) { $selected='selected="selected"'; }else{$selected='';}
 				echo '<option '.$selected.' value="'.$zoom_level.'">'.$zoom_level.'</option>';
 			}?>
 		</select>
@@ -1746,7 +1746,7 @@ class CMB_Gmap_Field extends CMB_Field {
 		<input type="hidden" class="address"  <?php $this->name_attr( '[address]' ); ?>    value="<?php echo esc_attr( $value['address'] ); ?>" />
 		<input type="hidden" class="latitude"  <?php $this->name_attr( '[lat]' ); ?>       value="<?php echo esc_attr( $value['lat'] ); ?>" />
 		<input type="hidden" class="longitude" <?php $this->name_attr( '[long]' ); ?>      value="<?php echo esc_attr( $value['long'] ); ?>" />
-		<input type="hidden" class="elevation" <?php $this->name_attr( '[zoom]' ); ?> value="<?php echo esc_attr( $value['zoom'] ); ?>" />
+		<input type="text" class="zoom"	 <?php $this->name_attr( '[zoom]' ); ?> value="<?php echo esc_attr( $value['zoom'] ); ?>" />
 		<input type="hidden" class="elevation" <?php $this->name_attr( '[elevation]' ); ?> value="<?php echo esc_attr( $value['elevation'] ); ?>" />
 
 		<?php

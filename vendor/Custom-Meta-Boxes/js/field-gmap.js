@@ -10,6 +10,7 @@
 		var latitude    = $('.latitude', fieldEl );
 		var longitude   = $('.longitude', fieldEl );
 		var elevation   = $('.elevation', fieldEl );
+		var zoomField  	= $('.zoom', fieldEl );
 		var address  	= $('.address', fieldEl );
 		var elevator    = new google.maps.ElevationService();
 
@@ -54,7 +55,7 @@
 		// Set stored Coordinates
 		if ( latitude.val() && longitude.val() ) {
 			latLng = new google.maps.LatLng( latitude.val(), longitude.val() );
-			setPosition( latLng, 17 )
+			setPosition( latLng, parseInt(zoomField.val()) )
 		}
 
 		google.maps.event.addListener( marker, 'dragend', function() {
@@ -73,8 +74,21 @@
 				map.fitBounds(place.geometry.viewport);
 			}
 
-			setPosition( place.geometry.location, 17 );
+			setPosition( place.geometry.location );
 			$('.address').val(place.formatted_address);
+			
+			setZoomPreview();			
+		});
+		
+		function setZoomPreview() {
+			var map_zoom = map.getZoom();
+			$('.map-zoom option[selected="selected"]').attr('selected','');
+			$('.map-zoom option[value="'+map_zoom+'"]').attr('selected',map_zoom);
+			$('.zoom').val(map_zoom);
+		}
+		
+		google.maps.event.addListener(map, 'zoom_changed', function() {
+			setZoomPreview();
 		});
 
 		$(searchInput).keypress(function(e) {
