@@ -116,7 +116,7 @@ class Lsx_Banners {
 		$allowed_taxonomies = $this->get_allowed_taxonomies();
 		if(is_array($allowed_taxonomies)){
 			foreach($allowed_taxonomies as $taxonomy){
-				add_action( "{$taxonomy}_add_form_fields",  array( $this, 'add_form_field'  ),1 );
+				//add_action( "{$taxonomy}_add_form_fields",  array( $this, 'add_form_field'  ),1 );
 				add_action( "{$taxonomy}_edit_form_fields", array( $this, 'add_form_field' ),1,1 );
 			}
 		}
