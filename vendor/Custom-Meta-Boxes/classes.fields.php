@@ -947,9 +947,9 @@ class CMB_Title extends CMB_Field {
 		?>
 
 		<div class="field-title">
-			<h2 <?php $this->class_attr(); ?>>
+			<h3 <?php $this->class_attr(); ?>>
 				<?php echo esc_html( $this->title ); ?>
-			</h2>
+			</h3>
 		</div>
 
 		<?php

@@ -1,3 +1,10 @@
+.CMB_Title h3 {
+	font-size: 14px;
+    padding: 5px 0px;
+    margin: 0;
+    line-height: 1.4;
+}
+
 .cmb_metabox .field-item {
 	position: relative;
 	display: inline-block;

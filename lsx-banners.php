@@ -152,8 +152,6 @@ class Lsx_Banners {
 			add_filter('lsx_banner_meta_boxes',array($this,'subtitle_metabox'));
 			add_filter('body_class', array($this,'body_class'));
 			
-			
-			
 			$this->placeholder = apply_filters('lsx_banner_enable_placeholder', false);
 			if(false !== $this->placeholder){
 				add_filter('lsx_banner_placeholder_url', array($this,'default_placeholder') );
