@@ -51,11 +51,25 @@ class Lsx_Banners {
 	public $placeholder = false;	
 	
 	/**
-	 * Holds the current items ID
+	 * Holds the current objects ID
 	 *
 	 * @var      string|Lsx_Banners
 	 */
-	public $post_id = false;	
+	public $post_id = false;
+	
+	/**
+	 * Holds the current banner ID
+	 *
+	 * @var      string|Lsx_Banners
+	 */
+	public $banner_id = false;	
+	
+	/**
+	 * Runs on the body_class, to let you know if there is a banner or not.
+	 *
+	 * @var      string|Lsx_Banners
+	 */
+	public $has_banner = false;	
 
 	/**
 	 * Initialize the plugin by setting localization, filters, and administration functions.
@@ -77,8 +91,8 @@ class Lsx_Banners {
 
 		//Enqueue the scrips
 		add_filter( 'cmb_meta_boxes', array($this,'metaboxes') );	
-		add_filter('body_class', array($this,'body_class'));
 		add_action('wp_head',array($this,'init'));
+		add_action('admin_init',array($this,'admin_init'));
 	}
 	
 	/**
@@ -93,6 +107,22 @@ class Lsx_Banners {
 		}
 		return self::$instance;
 	}
+	
+	/**
+	 * Initializes the variables we need.
+	 *
+	 */
+	public function admin_init() {
+		$allowed_taxonomies = $this->get_allowed_taxonomies();
+		if(is_array($allowed_taxonomies)){
+			foreach($allowed_taxonomies as $taxonomy){
+				//add_action( "{$taxonomy}_add_form_fields",  array( $this, 'add_form_field'  ),1 );
+				add_action( "{$taxonomy}_edit_form_fields", array( $this, 'add_form_field' ),1,1 );
+			}
+		}
+		add_action( 'create_term', array( $this, 'save_meta' ), 10, 2 );
+		add_action( 'edit_term',   array( $this, 'save_meta' ), 10, 2 );
+	}
 
 	/**
 	 * Initializes the variables we need.
@@ -100,11 +130,12 @@ class Lsx_Banners {
 	 */
 	public function init() {
 		$allowed_post_types = $this->get_allowed_post_types();
+		$allowed_taxonomies = $this->get_allowed_taxonomies();
 		
 		$post_type = get_post_type();	
 		$this->post_id = get_queried_object_id();
 		
-		if((is_singular($allowed_post_types) && in_array($post_type, $allowed_post_types)) || (is_post_type_archive() && 0 !== $this->post_id) || is_404() ) {
+		if(is_singular($allowed_post_types) || is_post_type_archive($allowed_post_types) || is_tax($allowed_taxonomies) || is_404() || is_home() ) {
 			//$theme = wp_get_theme();
 			if(function_exists('lsx_setup')){
 				$this->theme = 'lsx';
@@ -119,6 +150,7 @@ class Lsx_Banners {
 			
 			add_filter('lsx_banner_title', array($this,'banner_title') );
 			add_filter('lsx_banner_meta_boxes',array($this,'subtitle_metabox'));
+			add_filter('body_class', array($this,'body_class'));
 			
 			$this->placeholder = apply_filters('lsx_banner_enable_placeholder', false);
 			if(false !== $this->placeholder){
@@ -139,6 +171,17 @@ class Lsx_Banners {
 			$allowed_post_types[] = 'jetpack-portfolio';
 		}
 		return apply_filters( 'lsx_banner_allowed_post_types', $allowed_post_types );
+	}	
+	
+	/**
+	 * retreives the allowed taxonomies
+	 *
+	 * @return array
+	 */
+	public function get_allowed_taxonomies() {
+		// Example of all available fields
+		$allowed_taxonomies = array('category');
+		return apply_filters( 'lsx_banner_allowed_taxonomies', $allowed_taxonomies );
 	}	
 	
 	/**
@@ -206,41 +249,83 @@ class Lsx_Banners {
 		 * This section gets actualy banner url.
 		*/
 		$post_id = $this->post_id;
+		$size = 'cover';
+		$x_position = 'center';
+		$y_position = 'center';	
+		$show_slider = false;
 				
 		//If we are using placeholders then the baner section shows all the time,  this is when the banner disabled checkbox comes into play.
-		if(true === $this->placeholder && get_post_meta($post_id,'banner_disabled',true)) { return ''; }
-		
+		if(true === $this->placeholder && get_post_meta($this->post_id,'banner_disabled',true)) { return ''; }
 
-		//We change the id to the page with a matching slug ar the post_type archive.
-		$img_group = get_post_meta($post_id,'image_group',true);
 		$banner_image = false;
-		$show_slider = false;
-		if(false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && !empty($img_group['banner_image'])){
-			if(!is_array($img_group['banner_image'])){
-				$banner_image_id = $img_group['banner_image'];
-			}else{
-				$banners_length = count($img_group['banner_image'])-1;
+		//We change the id to the page with a matching slug ar the post_type archive.
+		//Singular Banners
+		if(is_singular($this->get_allowed_post_types())){
+			$img_group = get_post_meta($this->post_id,'image_group',true);
+			
+			$show_slider = false;
+			if(false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && !empty($img_group['banner_image'])){
+				if(!is_array($img_group['banner_image'])){
+					$banner_image_id = $img_group['banner_image'];
+				}else{
+					$banners_length = count($img_group['banner_image'])-1;
+					
+					$banner_ids = array_values($img_group['banner_image']);
+					if('lsx' !== $this->theme && $banners_length > 0){
+						$banner_index = rand('0', $banners_length);
+						$banner_image_id = $banner_ids[$banner_index];
+					}else{				
+						$banner_image_id = $banner_ids[0];
+					}	
+					
+					//Check if the slider code should show
+					if('lsx' === $this->theme && 1 < count($img_group['banner_image'])) {
+						$show_slider = true;
+					}					
+					
+				}
+				$banner_image = wp_get_attachment_image_src($banner_image_id,'full');
+				$banner_image = $banner_image[0];
 				
-				$banner_ids = array_values($img_group['banner_image']);
-				if('lsx' !== $this->theme && $banners_length > 0){
-					$banner_index = rand('0', $banners_length);
-					$banner_image_id = $banner_ids[$banner_index];
-				}else{				
-					$banner_image_id = $banner_ids[0];
-				}	
+				
+				/*
+				 * This section gets the image meta, size etc.
+				 */
+				$image_bg_group = get_post_meta($post_id,'image_bg_group',true);
+				if(false !== $image_bg_group && is_array($image_bg_group)){
+						
+					if(isset($image_bg_group['banner_size']) && '' !== $image_bg_group['banner_size']){
+						$size = $image_bg_group['banner_size'];
+					}
+						
+					if(isset($image_bg_group['banner_x']) && '' !== $image_bg_group['banner_x']){
+						$x_position = $image_bg_group['banner_x'];
+					}
+						
+					if(isset($image_bg_group['banner_y']) && '' !== $image_bg_group['banner_y']){
+						$y_position = $image_bg_group['banner_y'];
+					}
+				}				
 			}
-			$banner_image = wp_get_attachment_image_src($banner_image_id,'full');
-			$banner_image = $banner_image[0];
+			
+			//If its the LSX theme, and there is no banner, but there is a featured image,  then use that for the banner.
+			if('lsx' === $this->theme && is_singular() && false === $banner_image && has_post_thumbnail($this->post_id)){
+				$banner_image = wp_get_attachment_image_src(get_post_thumbnail_id($this->post_id),'full');
+				$banner_image = $banner_image[0];			
+			}
 		}
 		
-		if('lsx' === $this->theme && false === $banner_image && has_post_thumbnail($post_id)){
-			$banner_image = wp_get_attachment_image_src(get_post_thumbnail_id($post_id),'full');
+		if(is_home() || is_post_type_archive($this->get_allowed_post_types())){
+			$archive_banner = apply_filters('lsx_banner_post_type_archive_url',false);
+			if(false !== $archive_banner){
+				$banner_image = $archive_banner;
+			}
+		}	
+		
+		//If its a taxonomy , then get the image from out term meta.
+		if(is_tax($this->get_allowed_taxonomies()) && false !== $this->banner_id){
+			$banner_image = wp_get_attachment_image_src($this->banner_id,'full');
 			$banner_image = $banner_image[0];			
-		}
-		
-		//Check if the slider code should show
-		if('lsx' === $this->theme && is_array($img_group['banner_image']) && 1 < count($img_group['banner_image'])) {
-			$show_slider = true;
 		}
 		
 		//If we have enabled the placeholders,  then force a placeholdit url
@@ -248,29 +333,6 @@ class Lsx_Banners {
 			$banner_image = apply_filters('lsx_banner_placeholder_url','https://placeholdit.imgix.net/~text?txtsize=33&txt=1920x600&w=1920&h=600');
 		}		
 		
-		/*
-		 * This section gets the image meta, size etc.
-		 */
-		$image_bg_group = get_post_meta($post_id,'image_bg_group',true);
-		$size = 'cover';
-		
-		$x_position = 'center';
-		$y_position = 'center';
-		if(false !== $image_bg_group && is_array($image_bg_group)){
-			
-			if(isset($image_bg_group['banner_size']) && '' !== $image_bg_group['banner_size']){
-				$size = $image_bg_group['banner_size'];
-			}
-			
-			if(isset($image_bg_group['banner_x']) && '' !== $image_bg_group['banner_x']){
-				$x_position = $image_bg_group['banner_x'];
-			}			
-			
-			if(isset($image_bg_group['banner_y']) && '' !== $image_bg_group['banner_y']){
-				$y_position = $image_bg_group['banner_y'];
-			}
-		}
-
 		//Check if the content should be disabled or not
 		$text_disable = get_post_meta($post_id,'banner_text_disabled',true);		
 
@@ -286,10 +348,15 @@ class Lsx_Banners {
 			?>
 				<div class="page-banner <?php if($show_slider){ echo 'item active'; }else{}  ?>" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-image:url(<?php echo $banner_image; ?>); background-size:<?php echo $size; ?>;">
 		        	<div class="container">
+		        		
+		        		<?php do_action('lsx_banner_container_top'); ?>
+		        		
 			            <header class="page-header">
 			            		<?php echo apply_filters('lsx_banner_title','<h1 class="page-title">'.get_the_title($post_id).'</h1>'); ?>
-			            		<?php if(true !== $text_disable && '1' !== $text_disable) { ?><?php echo $this->banner_content(); ?><?php } ?>
 			            </header><!-- .entry-header -->
+			            <?php if(true !== $text_disable && '1' !== $text_disable) { ?><?php echo $this->banner_content(); ?><?php } ?>
+			            
+			            <?php do_action('lsx_banner_container_bottom'); ?>
 			        </div>
 		        </div>		
 			<?php
@@ -303,8 +370,8 @@ class Lsx_Banners {
 					        	<div class="container">
 						            <header class="page-header">
 						            	<?php echo apply_filters('lsx_banner_title','<h1 class="page-title">'.get_the_title($post_id).'</h1>'); ?>
-						            	<?php echo $this->banner_content(); ?>
 						            </header><!-- .entry-header -->
+						            <?php echo $this->banner_content(); ?>
 						        </div>
 					        </div>
 						<?php }	?>
@@ -322,15 +389,26 @@ class Lsx_Banners {
 	public function body_class($classes) {
 		// Add page slug if it doesn't exist		
 		//Test is the banner has been disabled.
-		if(!$this->placeholder) { 
 			//see if there is a banner image
-			$banner_image = false;
+		$banner_image = false;
+		if(0 !== get_the_ID()){
 			$img_group = get_post_meta(get_the_ID(),'image_group',true);
 			if(false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && '' !== $img_group['banner_image'] && !empty($img_group['banner_image'])){
 				$classes[] = 'has-banner';
-			}elseif($this->placeholder){
-				$classes[] = 'has-banner';
+				$this->has_banner = true;
 			}
+		}
+		if(is_tax($this->get_allowed_taxonomies())){
+			$term_banner_id = get_term_meta( $this->post_id, 'banner', true );
+			if('' !== $term_banner_id){
+				$classes[] = 'has-banner';
+				$this->has_banner = true;
+				$this->banner_id = $term_banner_id;
+			}
+		}
+		if(true === $this->placeholder){
+			$classes[] = 'has-banner';
+			$this->has_banner = true;
 		}
 		return $classes;
 	}
@@ -339,10 +417,16 @@ class Lsx_Banners {
 	 * a filter to check if a custom title has been added, if so, use that instead of the post title
 	 */
 	public function banner_title($post_title) {	
-		if(apply_filters('lsx_banner_enable_title', false)){
+		if(is_post_type_archive($this->get_allowed_post_types())){
+			$post_title = '<h1 class="page-title">'.get_the_archive_title().'</h1>';
+		}		
+		if(is_tax($this->get_allowed_taxonomies())){
+			$post_title = '<h1 class="page-title">'.single_term_title("", false).'</h1>';
+		}		
+		if(apply_filters('lsx_banner_enable_title', false) && 0 !== $this->post_id){
 			$new_title = get_post_meta($this->post_id,'banner_title',true);
 			if(false !== $new_title && '' !== $new_title){
-				$post_title = $new_title;
+				$post_title = '<h1 class="page-title">'.$new_title.'</h1>';
 			}
 		}
 		return $post_title;
@@ -360,9 +444,11 @@ class Lsx_Banners {
 			break;
 			
 			default:
-				$retval = apply_filters('lsx_banner_content','');
+				$retval = apply_filters('lsx_banner_content','');	
 			break;
 		}	
+		
+		return $retval;
 	}
 	
 	/**
@@ -384,7 +470,88 @@ class Lsx_Banners {
 		}
 		return $url;
 	}
+	
+	
+	/**
+	 * Output the form field for this metadata when adding a new term
+	 *
+	 * @since 0.1.0
+	 */
+	public function add_form_field($term = false) {
+
+		if(is_object($term)){
+			$value = get_term_meta( $term->term_id, 'banner', true );
+			$image_preview = wp_get_attachment_image_src($value,'thumbnail');
+			if(is_array($image_preview)){
+				$image_preview = '<img src="'.$image_preview[0].'" width="'.$image_preview[1].'" height="'.$image_preview[2].'" class="alignnone size-thumbnail wp-image-'.$value.'" />';
+			}
+		}else{
+			$image_preview = false;
+			$value = false;
+		}
+		?>
+		<tr class="form-field form-required term-banner-wrap">
+			<th scope="row"><label for="banner"><?php _e('Banner','lsx-banners');?></label></th>
+			<td>
+				<input style="display:none;" name="banner" id="banner" type="text" value="<?php echo $value; ?>" size="40" aria-required="true">
+				<div class="banner-preview">
+					<?php echo $image_preview; ?>
+				</div>				
+
+				<a style="<?php if('' !== $value && false !== $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-banner-image-add"><?php _e('Choose Image','lsx-banners');?></a>				
+				<a style="<?php if('' === $value || false === $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-banner-image-remove"><?php _e('Remove Image','lsx-banners');?></a>
+			</td>
+		</tr>
 		
+		<script type="text/javascript">
+			(function( $ ) {
+				$( '.lsx-banner-image-add' ).on( 'click', function() {
+					tb_show('Choose a Banner', 'media-upload.php?type=image&TB_iframe=1');
+					var image_thumbnail = '';
+					window.send_to_editor = function( html ) 
+					{
+						var image_thumbnail = $( 'img',html ).html();
+						$( '.banner-preview' ).append(html);
+						var imgClasses = $( 'img',html ).attr( 'class' );
+						imgClasses = imgClasses.split('wp-image-');
+						$( '#banner' ).val(imgClasses[1]);
+						tb_remove();
+					}
+					$( this ).hide();
+					$( '.lsx-banner-image-remove' ).show();
+					
+					return false;
+				});
+
+				$( '.lsx-banner-image-remove' ).on( 'click', function() {
+					$( '.banner-preview' ).html('');
+					$( '#banner' ).val('');
+					$( this ).hide();
+					$( '.lsx-banner-image-add' ).show();					
+					return false;
+				});	
+			})(jQuery);
+		</script>		
+		<?php
+	}
+	
+	/**
+	 * Saves the Taxnomy term banner image
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param  int     $term_id
+	 * @param  string  $taxonomy
+	 */
+	public function save_meta( $term_id = 0, $taxonomy = '' ) {
+		// Bail if not updating meta_key
+		$meta = ! empty( $_POST[ 'banner' ] ) ? $_POST[ 'banner' ]	: '';
+		if ( empty( $meta ) ) {
+			delete_term_meta( $term_id, 'banner' );
+		} else {
+			update_term_meta( $term_id, 'banner', $meta );
+		}
+	}	
 	
 }
 $lsx_banners = Lsx_Banners::get_instance();
@@ -398,4 +565,14 @@ $lsx_banners = Lsx_Banners::get_instance();
 function lsx_banner_src(){
 	global $lsx_banners;
 	$lsx_banners->banner();
+}
+
+/**
+ * Returns a true or false if there is a banner.
+ *
+ * @return		String
+ */
+function lsx_has_banner(){
+	global $lsx_banners;
+	return $lsx_banners->has_banner;
 }

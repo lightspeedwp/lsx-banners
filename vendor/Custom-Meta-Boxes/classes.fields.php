@@ -541,7 +541,7 @@ class CMB_Image_Field extends CMB_File_Field {
 			</div>
 
 			<button class="button cmb-file-upload <?php echo esc_attr( $this->get_value() ) ? 'hidden' : '' ?>" data-nonce="<?php echo wp_create_nonce( 'cmb-file-upload-nonce' ); ?>">
-				<?php esc_html_e( 'Add Image', 'cmb' ); ?>
+				<?php esc_html_e( 'Select', 'cmb' ); ?>
 			</button>
 
 			<div class="cmb-file-holder type-img <?php echo $this->get_value() ? '' : 'hidden'; ?>" data-crop="<?php echo (bool) $size['crop']; ?>">
@@ -883,17 +883,54 @@ class CMB_Radio_Field extends CMB_Field {
 }
 
 /**
+ * Standard checkbox group field.
+ *
+ * Args:
+ *  - bool "inline" - display the checkbox buttons inline
+ */
+class CMB_Checkbox_Group_Field extends CMB_Field {
+
+	/**
+	 * Return the default args for the Radio input field.
+	 *
+	 * @return array $args
+	 */
+	public function get_default_args() {
+		return array_merge(
+				parent::get_default_args(),
+				array(
+						'options' => array(),
+				)
+				);
+	}
+
+	public function html() {
+
+		if ( $this->has_data_delegate() )
+			$this->args['options'] = $this->get_delegate_data(); ?>
+
+			<?php foreach ( $this->args['options'] as $key => $value ): ?>
+			<div class="cmb-cell-2">
+			<input <?php $this->id_attr( 'item-' . $key ); ?> <?php $this->boolean_attr(); ?> <?php $this->class_attr(); ?> type="checkbox" <?php $this->name_attr(); ?>[]  value="<?php echo esc_attr( $key ); ?>" <?php checked( $key, $this->get_value() ); ?> />
+			<label <?php $this->for_attr( 'item-' . $key ); ?> style="margin-right: 20px;">
+				<?php echo esc_html( $value ); ?>
+			</label>
+			</div>
+			<?php endforeach; ?>
+
+	<?php }
+
+}
+
+/**
  * Standard checkbox field.
  *
  */
 class CMB_Checkbox extends CMB_Field {
 
-	public function title() {}
-
 	public function html() { ?>
 
 		<input <?php $this->id_attr(); ?> <?php $this->boolean_attr(); ?> <?php $this->class_attr(); ?> type="checkbox" <?php $this->name_attr(); ?>  value="1" <?php checked( $this->get_value() ); ?> />
-		<label <?php $this->for_attr(); ?>><?php echo esc_html( $this->title ); ?></label>
 
 	<?php }
 
@@ -910,9 +947,9 @@ class CMB_Title extends CMB_Field {
 		?>
 
 		<div class="field-title">
-			<h2 <?php $this->class_attr(); ?>>
+			<h3 <?php $this->class_attr(); ?>>
 				<?php echo esc_html( $this->title ); ?>
-			</h2>
+			</h3>
 		</div>
 
 		<?php
@@ -1558,8 +1595,11 @@ class CMB_Group_Field extends CMB_Field {
 		?>
 
 		<?php if ( $this->args['repeatable'] ) : ?>
+			<button class="cmb-collapse-field">
+				<span class="cmb-collapse-field-icon down">&darr;</span>
+			</button>		
 			<button class="cmb-delete-field">
-				<span class="cmb-delete-field-icon">&times;</span>
+				<span class="cmb-delete-field-icon ">&times;</span>
 				<?php echo esc_html( $this->args['string-delete-field'] ); ?>
 			</button>
 		<?php endif; ?>
@@ -1680,7 +1720,7 @@ class CMB_Gmap_Field extends CMB_Field {
 		// Ensure all args used are set
 		$value = wp_parse_args(
 			$this->get_value(),
-			array( 'address' => null,'lat' => null, 'long' => null, 'elevation' => null )
+			array( 'address' => null,'lat' => null, 'long' => null,'zoom' => null, 'elevation' => null )
 		);
 
 		$style = array(
@@ -1692,13 +1732,21 @@ class CMB_Gmap_Field extends CMB_Field {
 
 		?>
 
-		<input type="text" <?php $this->class_attr( 'map-search' ); ?> <?php $this->id_attr(); ?> value="<?php echo esc_attr( $value['address'] ); ?>" />
+		<input type="text" <?php $this->class_attr( 'map-search' ); ?> <?php $this->id_attr(); ?> placeholder="Enter an address" value="<?php echo esc_attr( $value['address'] ); ?>" />
+		<select <?php $this->class_attr( 'map-zoom' ); ?>>
+			<option value="">Zoom</option>
+			<?php foreach(array('1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21') as $zoom_level) {
+				if($zoom_level === $value['zoom']) { $selected='selected="selected"'; }else{$selected='';}
+				echo '<option '.$selected.' value="'.$zoom_level.'">'.$zoom_level.'</option>';
+			}?>
+		</select>
 
 		<div class="map" style="<?php echo esc_attr( implode( ' ', $style ) ); ?>"></div>
 
 		<input type="hidden" class="address"  <?php $this->name_attr( '[address]' ); ?>    value="<?php echo esc_attr( $value['address'] ); ?>" />
 		<input type="hidden" class="latitude"  <?php $this->name_attr( '[lat]' ); ?>       value="<?php echo esc_attr( $value['lat'] ); ?>" />
 		<input type="hidden" class="longitude" <?php $this->name_attr( '[long]' ); ?>      value="<?php echo esc_attr( $value['long'] ); ?>" />
+		<input type="hidden" class="zoom"	 <?php $this->name_attr( '[zoom]' ); ?> value="<?php echo esc_attr( $value['zoom'] ); ?>" />
 		<input type="hidden" class="elevation" <?php $this->name_attr( '[elevation]' ); ?> value="<?php echo esc_attr( $value['elevation'] ); ?>" />
 
 		<?php

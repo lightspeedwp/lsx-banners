@@ -44,6 +44,18 @@
 	font-size: 11px;
 	z-index: 1;
 }
+.cmb_metabox .CMB_Group_Field.repeatable > .field-item > .cmb-collapse-field {
+	top: 5px;
+	left: 5px;
+	width: auto;
+	text-indent: 0;
+	padding-left: 8px;
+	padding-right: 8px;
+	height: 22px;
+	line-height: 20px;
+	font-size: 11px;
+	z-index: 1;
+}
 
 .cmb_metabox .CMB_Group_Field.repeatable > .field-item > .cmb-delete-field .cmb-delete-field-icon {
 	left: 12px;
