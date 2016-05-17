@@ -110,7 +110,7 @@ class Lsx_Banners {
 				$this->theme = 'lsx';
 				remove_action( 'lsx_header_after', 'lsx_page_banner' );
 				add_action('lsx_header_after',array($this,'banner'));
-			}elseif(function_exists('storefront_setup')){
+			}elseif(class_exists( 'Storefront' )){
 				$this->theme = 'storefront';
 				add_action('storefront_before_content',array($this,'banner'));
 			}else{
