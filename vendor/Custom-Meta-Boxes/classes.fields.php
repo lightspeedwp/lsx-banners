@@ -907,11 +907,16 @@ class CMB_Checkbox_Group_Field extends CMB_Field {
 	public function html() {
 
 		if ( $this->has_data_delegate() )
-			$this->args['options'] = $this->get_delegate_data(); ?>
+			$this->args['options'] = $this->get_delegate_data(); 
+		
+			$saved_values = $this->get_value();
+			if(!is_array($saved_values)){$saved_values = array($saved_values); }
+			?>
 
 			<?php foreach ( $this->args['options'] as $key => $value ): ?>
 			<div class="cmb-cell-2">
-			<input <?php $this->id_attr( 'item-' . $key ); ?> <?php $this->boolean_attr(); ?> <?php $this->class_attr(); ?> type="checkbox" <?php $this->name_attr(); ?>[]  value="<?php echo esc_attr( $key ); ?>" <?php checked( $key, $this->get_value() ); ?> />
+			<input <?php $this->id_attr( 'item-' . $key ); ?> <?php $this->boolean_attr(); ?> <?php $this->class_attr(); ?> type="checkbox" <?php $this->name_attr(); ?>  value="<?php echo esc_attr( $key ); ?>"
+			 <?php if(in_array($key,$saved_values)){ echo 'checked="checked"'; } ?> />
 			<label <?php $this->for_attr( 'item-' . $key ); ?> style="margin-right: 20px;">
 				<?php echo esc_html( $value ); ?>
 			</label>
@@ -919,6 +924,10 @@ class CMB_Checkbox_Group_Field extends CMB_Field {
 			<?php endforeach; ?>
 
 	<?php }
+	
+	public function name_attr( $append = null ) {
+		printf( 'name="%s[]"', esc_attr( $this->get_the_name_attr( $append ) ) );
+	}	
 
 }
 
