@@ -53,7 +53,7 @@ var CMB = {
 			return;
 
 		templateField = field.children( '.field-item.hidden' );
-		templateField.find('.cmb_metabox').hide();
+		//templateField.find('.cmb_metabox').hide();
 		newT = templateField.clone();
 		newT.removeClass( 'hidden' );
 
