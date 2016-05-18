@@ -1714,6 +1714,23 @@ class CMB_Gmap_Field extends CMB_Field {
 		) );
 
 	}
+	
+	public function title() {
+	
+	if ( $this->title ) { ?>
+
+			<div class="field-title">
+				<label <?php $this->for_attr(); ?>>
+					<?php echo esc_html( $this->title ); ?>
+				</label>
+				<label for="zoom">
+					Zoom
+				</label>				
+			</div>
+
+		<?php }
+
+	}	
 
 	public function html() {
 
@@ -1733,6 +1750,7 @@ class CMB_Gmap_Field extends CMB_Field {
 		?>
 
 		<input type="text" <?php $this->class_attr( 'map-search' ); ?> <?php $this->id_attr(); ?> placeholder="Enter an address" value="<?php echo esc_attr( $value['address'] ); ?>" />
+		<br />
 		<select <?php $this->class_attr( 'map-zoom' ); ?>>
 			<option value="">Zoom</option>
 			<?php foreach(array('1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21') as $zoom_level) {

@@ -85,3 +85,13 @@ div.time-picker li.selected { background: #0063CE; color: #fff; }
 .CMB_wysiwyg .cmb-wysiwyg .wp-media-buttons {
 	display:none;
 }
+
+/**
+ * Map Field
+ */
+ .CMB_Gmap_Field .field-title label {
+	margin-bottom:20px;
+}
+.CMB_Gmap_Field .field-item .map-zoom {
+	margin-top:12px;
+}
