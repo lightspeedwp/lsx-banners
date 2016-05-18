@@ -1719,11 +1719,11 @@ class CMB_Gmap_Field extends CMB_Field {
 	
 	if ( $this->title ) { ?>
 
-			<div class="field-title">
+			<div class="gmap field-title">
 				<label <?php $this->for_attr(); ?>>
 					<?php echo esc_html( $this->title ); ?>
 				</label>
-				<label for="zoom">
+				<label style="margin-top:6.2em;" for="zoom">
 					Zoom
 				</label>				
 			</div>
@@ -1749,7 +1749,7 @@ class CMB_Gmap_Field extends CMB_Field {
 
 		?>
 
-		<input type="text" <?php $this->class_attr( 'map-search' ); ?> <?php $this->id_attr(); ?> placeholder="Enter an address" value="<?php echo esc_attr( $value['address'] ); ?>" />
+		<textarea rows="4" <?php $this->class_attr( 'map-search' ); ?> <?php $this->id_attr(); ?> placeholder="Enter an address"><?php echo esc_attr( $value['address'] ); ?></textarea>
 		<br />
 		<select <?php $this->class_attr( 'map-zoom' ); ?>>
 			<option value="">Zoom</option>
