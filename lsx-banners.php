@@ -94,6 +94,10 @@ class Lsx_Banners {
 		add_action('wp_head',array($this,'init'));
 		add_action('admin_init',array($this,'admin_init'));
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_stylescripts' ) );
+
+		if (!(is_admin() )) {
+		    add_filter( 'clean_url', array( $this,'defer_parsing_of_js'), 11, 1 );
+		}	
 	}
 	
 	/**
@@ -133,6 +137,15 @@ class Lsx_Banners {
 	public function enqueue_stylescripts() {
 		wp_enqueue_script( 'lsx-banners', LSX_BANNERS_URL . 'assets/js/lsx-banner.js', array( 'jquery' ) , false, true );
 	}		
+
+
+    function defer_parsing_of_js ( $url ) {
+        if ( FALSE === strpos( $url, '.js' ) ) return $url;
+        if ( strpos( $url, 'jquery.js' ) ) return $url;
+        // return "$url' defer ";
+        return "$url' defer onload='";
+    }
+
 
 	/**
 	 * Initializes the variables we need.
