@@ -616,21 +616,19 @@ function lsx_has_banner(){
 
 /**
  * Down Arrow navigation for the homepage banner
- *
- * @param		$connected_ids | array() | the array of ids
- * @param		$type | string | the post type
- * @param		$link | boolean | link the items or not
- * @param		$seperator | string | what to seperate the items by.
- *
- * @package 	lsx-framework
- * @subpackage	template-tags
- * @category 	helper
  */
-function lsx_banner_navigation($echo = false){
-	$return = '<div class="banner-easing"><a href="#main"><i class="fa fa-arrow-down" aria-hidden="true"></i></a></div>';
-	if($echo){
+function lsx_banner_navigation( $echo = false ) {
+	$atts = array( 'extra-top' => '0' );
+	
+	if ( is_array( $echo ) ) {
+		$atts = shortcode_atts( $atts, $echo, 'banner_navigation' );
+	}
+	
+	$return = '<div class="banner-easing"><a href="#main" data-extra-top="'. $atts['extra-top'] .'"><i class="fa fa-arrow-down" aria-hidden="true"></i></a></div>';
+	
+	if ( $echo === true ) {
 		echo $return;
-	}else{
+	} else {
 		return $return;
 	}
 }
