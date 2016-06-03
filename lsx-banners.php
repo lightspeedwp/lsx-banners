@@ -93,6 +93,7 @@ class Lsx_Banners {
 		add_filter( 'cmb_meta_boxes', array($this,'metaboxes') );	
 		add_action('wp_head',array($this,'init'));
 		add_action('admin_init',array($this,'admin_init'));
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_stylescripts' ) );
 	}
 	
 	/**
@@ -123,6 +124,15 @@ class Lsx_Banners {
 		add_action( 'create_term', array( $this, 'save_meta' ), 10, 2 );
 		add_action( 'edit_term',   array( $this, 'save_meta' ), 10, 2 );
 	}
+
+	/**
+	 * Register and enqueue admin-specific style sheet.
+	 *
+	 * @return    null
+	 */
+	public function enqueue_stylescripts() {
+		wp_enqueue_script( 'lsx-banners', LSX_BANNERS_URL . 'assets/js/lsx-banner.js', array( 'jquery' ) , false, true );
+	}		
 
 	/**
 	 * Initializes the variables we need.
@@ -269,7 +279,6 @@ class Lsx_Banners {
 					$banner_image_id = $img_group['banner_image'];
 				}else{
 					$banners_length = count($img_group['banner_image'])-1;
-					
 					$banner_ids = array_values($img_group['banner_image']);
 					if('lsx' !== $this->theme && $banners_length > 0){
 						$banner_index = rand('0', $banners_length);
@@ -277,16 +286,13 @@ class Lsx_Banners {
 					}else{				
 						$banner_image_id = $banner_ids[0];
 					}	
-					
 					//Check if the slider code should show
-					if('lsx' === $this->theme && 1 < count($img_group['banner_image'])) {
+					if('lsx' === $this->theme && 1 < count($img_group['banner_image']) && apply_filters('lsx_banners_slider_enable',false)) {
 						$show_slider = true;
 					}					
-					
 				}
 				$banner_image = wp_get_attachment_image_src($banner_image_id,'full');
 				$banner_image = $banner_image[0];
-				
 				
 				/*
 				 * This section gets the image meta, size etc.
@@ -332,21 +338,38 @@ class Lsx_Banners {
 		if(true === $this->placeholder && false === $banner_image){
 			$banner_image = apply_filters('lsx_banner_placeholder_url','https://placeholdit.imgix.net/~text?txtsize=33&txt=1920x600&w=1920&h=600');
 		}		
-		
 		//Check if the content should be disabled or not
 		$text_disable = get_post_meta($post_id,'banner_text_disabled',true);		
 
 		if(false !== $banner_image){
+			?>
+			<div id="lsx-banner">
 			
+			<?php
 			//if its the lsx theme and there are more than 1 banner, then output a bootstrap carousel.
+			$banner_attribute = false;
 			if($show_slider) { 
 				?>
 				<div id="page-slider" class="carousel slide" data-ride="carousel" data-interval="6000">
 					<div class="carousel-inner">
 				<?php
+			}elseif(1 < count($img_group['banner_image'])){
+				$banner_attribute = '';
+				foreach($img_group['banner_image'] as $key => $slide_id){
+					$slide = wp_get_attachment_image_src($slide_id,'full');
+					$banner_attribute[] = $slide[0];
+				}
+			}else{
+				$banner_attribute = array($banner_image);
 			}
+
+			$banner_attribute = implode(',',$banner_attribute);
+
 			?>
-				<div class="page-banner <?php if($show_slider){ echo 'item active'; }else{}  ?>" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-image:url(<?php echo $banner_image; ?>); background-size:<?php echo $size; ?>;">
+				<div class="page-banner <?php if($show_slider){ echo 'item active'; }else{ echo 'rotating'; }  ?>"
+					style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-size:<?php echo $size; ?>;"
+					data-banners="<?php echo $banner_attribute; ?>"
+					>
 		        	<div class="container">
 		        		
 		        		<?php do_action('lsx_banner_container_top'); ?>
@@ -378,8 +401,9 @@ class Lsx_Banners {
 					</div>					
 				</div>
 				<?php
-			}			
-		
+			} ?>
+			</div>
+			<?php 			
 		}
 	}
 	
