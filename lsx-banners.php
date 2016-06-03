@@ -613,3 +613,25 @@ function lsx_has_banner(){
 	global $lsx_banners;
 	return $lsx_banners->has_banner;
 }
+
+/**
+ * Down Arrow navigation for the homepage banner
+ *
+ * @param		$connected_ids | array() | the array of ids
+ * @param		$type | string | the post type
+ * @param		$link | boolean | link the items or not
+ * @param		$seperator | string | what to seperate the items by.
+ *
+ * @package 	lsx-framework
+ * @subpackage	template-tags
+ * @category 	helper
+ */
+function lsx_banner_navigation($echo = false){
+	$return = '<div class="banner-easing"><a href="#main"><i class="fa fa-arrow-down" aria-hidden="true"></i></a></div>';
+	if($echo){
+		echo $return;
+	}else{
+		return $return;
+	}
+}
+add_shortcode( 'banner_navigation', 'lsx_banner_navigation' );
