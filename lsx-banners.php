@@ -75,19 +75,6 @@ class Lsx_Banners {
 	 * Initialize the plugin by setting localization, filters, and administration functions.
 	 */
 	private function __construct() {	
-		
-		// init UIX
-		// include the library
-		if(!class_exists('\lsx\ui\uix')){
-			include_once LSX_BANNERS_PATH . 'uix/uix.php';
-		}
-
-		// get the pages
-		$pages = include LSX_BANNERS_PATH . 'includes/pages.php';
-
-		// initialize admin UI
-		$uix = \lsx\ui\uix::get_instance( 'lsx' );
-		$uix->register_pages( $pages );
 
 		//Enqueue the scrips
 		add_filter( 'cmb_meta_boxes', array($this,'metaboxes') );	
@@ -276,6 +263,7 @@ class Lsx_Banners {
 		$x_position = 'center';
 		$y_position = 'center';	
 		$show_slider = false;
+		$img_group = false;
 				
 		//If we are using placeholders then the baner section shows all the time,  this is when the banner disabled checkbox comes into play.
 		if(true === $this->placeholder && get_post_meta($this->post_id,'banner_disabled',true)) { return ''; }
@@ -366,7 +354,7 @@ class Lsx_Banners {
 				<div id="page-slider" class="carousel slide" data-ride="carousel" data-interval="6000">
 					<div class="carousel-inner">
 				<?php
-			}elseif(1 < count($img_group['banner_image'])){
+			}elseif(is_array($img_group) && 1 < count($img_group['banner_image'])){
 				$banner_attribute = '';
 				foreach($img_group['banner_image'] as $key => $slide_id){
 					$slide = wp_get_attachment_image_src($slide_id,'full');
