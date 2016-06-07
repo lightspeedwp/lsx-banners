@@ -481,17 +481,30 @@ class Lsx_Banners {
 	 */
 	public function default_placeholder($url) {
 		$post_type = get_post_type();
-		if(false !== $post_type && !is_array($post_type)){
-			$default_id = \lsx\ui\uix::get_setting('lsx-general.general.'.$post_type.'.id');
-		}
-		if( empty( $default_id ) ){
-			$default_id = \lsx\ui\uix::get_setting('lsx-general.general.selection.id');
-		}
-		if( !empty( $default_id ) ){
-			$banner_image = wp_get_attachment_image_src( $default_id,'full');
-			if( !empty( $banner_image ) ){
-				$url = $banner_image[0];
+		$default_id = false;
+		if(class_exists('Placeholders_Options')){
+			$placeholders = Placeholders_Options::get_single( 'placeholders' );
+			if(false !== $placeholders && is_array($placeholders) && isset($placeholders['image'])){
+				foreach($placeholders['image'] as $placeholder){
+					if(isset($placeholder['post_type']) && $post_type === $placeholder['post_type'] && isset($placeholder['image'])){
+						$url = $placeholder['image']['selection']['url'];
+					}
+				}
 			}
+
+			/*if(false !== $post_type && !is_array($post_type)){
+				$default_id = \lsx\ui\uix::get_setting('lsx-general.general.'.$post_type.'.id');
+			}
+
+			if( empty( $default_id ) ){
+				$default_id = \lsx\ui\uix::get_setting('lsx-general.general.selection.id');
+			}
+			if( !empty( $default_id ) ){
+				$banner_image = wp_get_attachment_image_src( $default_id,'full');
+				if( !empty( $banner_image ) ){
+					$url = $banner_image[0];
+				}
+			}*/
 		}
 		return $url;
 	}
