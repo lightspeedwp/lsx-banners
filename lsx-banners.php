@@ -17,7 +17,9 @@ define('LSX_BANNERS_URL',  plugin_dir_url( __FILE__ ) );
 define('LSX_BANNERS_VER',  '1.0.0' );
 
 if(!function_exists('cmb_init')){
-	require 'vendor/Custom-Meta-Boxes/custom-meta-boxes.php';
+	if (is_file('vendor/Custom-Meta-Boxes/custom-meta-boxes.php')) {
+		require 'vendor/Custom-Meta-Boxes/custom-meta-boxes.php';
+	}
 }
 
 /**
@@ -357,17 +359,16 @@ class Lsx_Banners {
 			$banner_attribute = implode(',',$banner_attribute);
 
 			?>
-				<div class="page-banner <?php if($show_slider){ echo 'item active'; }else{ echo 'rotating'; }  ?>"
-					style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-size:<?php echo $size; ?>;"
-					data-banners="<?php echo $banner_attribute; ?>"
-					>
-		        	<div class="container">
+				<div class="page-banner <?php if($show_slider){ echo 'item active'; }else{ echo 'rotating'; }  ?>">
+		        	<div class="page-banner-image" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-size:<?php echo $size; ?>;" data-banners="<?php echo $banner_attribute; ?>"></div>
 		        		
+		        	<div class="container">
 		        		<?php do_action('lsx_banner_container_top'); ?>
 		        		
 			            <header class="page-header">
-			            		<?php echo apply_filters('lsx_banner_title','<h1 class="page-title">'.get_the_title($post_id).'</h1>'); ?>
-			            </header><!-- .entry-header -->
+			            	<?php echo apply_filters('lsx_banner_title','<h1 class="page-title">'.get_the_title($post_id).'</h1>'); ?>
+			            </header>
+
 			            <?php if(true !== $text_disable && '1' !== $text_disable) { ?><?php echo $this->banner_content(); ?><?php } ?>
 			            
 			            <?php do_action('lsx_banner_container_bottom'); ?>
@@ -380,11 +381,14 @@ class Lsx_Banners {
 						foreach($img_group['banner_image'] as $key => $slide_id){ if('cmb-field-0' === $key){continue;}
 							$slide = wp_get_attachment_image_src($slide_id,'full');
 							?>
-							<div class="page-banner item" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-image:url(<?php echo $slide[0]; ?>); background-size:<?php echo $size; ?>;">
-					        	<div class="container">
+							<div class="page-banner item">
+					        	<div class="page-banner-image" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-image:url(<?php echo $slide[0]; ?>); background-size:<?php echo $size; ?>;"></div>
+		        		
+		        				<div class="container">
 						            <header class="page-header">
 						            	<?php echo apply_filters('lsx_banner_title','<h1 class="page-title">'.get_the_title($post_id).'</h1>'); ?>
-						            </header><!-- .entry-header -->
+						            </header>
+
 						            <?php echo $this->banner_content(); ?>
 						        </div>
 					        </div>
@@ -409,20 +413,20 @@ class Lsx_Banners {
 		if(0 !== get_the_ID()){
 			$img_group = get_post_meta(get_the_ID(),'image_group',true);
 			if(false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && '' !== $img_group['banner_image'] && !empty($img_group['banner_image'])){
-				$classes[] = 'has-banner';
+				$classes[] = 'page-has-banner';
 				$this->has_banner = true;
 			}
 		}
 		if(is_tax($this->get_allowed_taxonomies())){
 			$term_banner_id = get_term_meta( $this->post_id, 'banner', true );
 			if('' !== $term_banner_id){
-				$classes[] = 'has-banner';
+				$classes[] = 'page-has-banner';
 				$this->has_banner = true;
 				$this->banner_id = $term_banner_id;
 			}
 		}
 		if(true === $this->placeholder){
-			$classes[] = 'has-banner';
+			$classes[] = 'page-has-banner';
 			$this->has_banner = true;
 		}
 		return $classes;
