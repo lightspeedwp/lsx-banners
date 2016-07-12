@@ -409,10 +409,13 @@ class Lsx_Banners {
 		// Add page slug if it doesn't exist		
 		//Test is the banner has been disabled.
 			//see if there is a banner image
+		$banner_disabled = false;
 		$banner_image = false;
 		if(0 !== get_the_ID()){
 			$img_group = get_post_meta(get_the_ID(),'image_group',true);
-			if(false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && '' !== $img_group['banner_image'] && !empty($img_group['banner_image'])){
+			$banner_disabled = get_post_meta(get_the_ID(),'banner_disabled',true);
+      $classes[] = 'page-has-banner-'.$banner_disabled;
+			if('1' !== $banner_disabled && false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && '' !== $img_group['banner_image'] && !empty($img_group['banner_image'])){
 				$classes[] = 'page-has-banner';
 				$this->has_banner = true;
 			}
@@ -425,7 +428,7 @@ class Lsx_Banners {
 				$this->banner_id = $term_banner_id;
 			}
 		}
-		if(true === $this->placeholder){
+		if(true === $this->placeholder && '1' !== $banner_disabled){
 			$classes[] = 'page-has-banner';
 			$this->has_banner = true;
 		}
