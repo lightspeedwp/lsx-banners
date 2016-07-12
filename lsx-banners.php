@@ -414,7 +414,7 @@ class Lsx_Banners {
 		if(0 !== get_the_ID()){
 			$img_group = get_post_meta(get_the_ID(),'image_group',true);
 			$banner_disabled = get_post_meta(get_the_ID(),'banner_disabled',true);
-      $classes[] = 'page-has-banner-'.$banner_disabled;
+
 			if('1' !== $banner_disabled && false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && '' !== $img_group['banner_image'] && !empty($img_group['banner_image'])){
 				$classes[] = 'page-has-banner';
 				$this->has_banner = true;
