@@ -264,7 +264,7 @@ class Lsx_Banners {
 		$banner_image = false;
 		//We change the id to the page with a matching slug ar the post_type archive.
 		//Singular Banners
-		if(is_singular($this->get_allowed_post_types())){
+		if(is_singular($this->get_allowed_post_types()) || in_array('blog',get_body_class())){
 			$img_group = get_post_meta($this->post_id,'image_group',true);
 			
 			$show_slider = false;
