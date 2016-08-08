@@ -17,8 +17,8 @@ define('LSX_BANNERS_URL',  plugin_dir_url( __FILE__ ) );
 define('LSX_BANNERS_VER',  '1.0.0' );
 
 if(!function_exists('cmb_init')){
-	if (is_file('vendor/Custom-Meta-Boxes/custom-meta-boxes.php')) {
-		require 'vendor/Custom-Meta-Boxes/custom-meta-boxes.php';
+	if (is_file(LSX_BANNERS_PATH.'vendor/Custom-Meta-Boxes/custom-meta-boxes.php')) {
+		require LSX_BANNERS_PATH.'vendor/Custom-Meta-Boxes/custom-meta-boxes.php';
 	}
 }
 
