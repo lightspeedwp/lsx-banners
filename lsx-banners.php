@@ -360,21 +360,23 @@ class Lsx_Banners {
 			$banner_attribute = implode(',',$banner_attribute);
 
 			?>
-				<div class="page-banner <?php if($show_slider){ echo 'item active'; }else{ echo 'rotating'; }  ?>">
-		        	<div class="page-banner-image" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-size:<?php echo $size; ?>;" data-banners="<?php echo $banner_attribute; ?>"></div>
-		        		
-		        	<div class="container">
-		        		<?php do_action('lsx_banner_container_top'); ?>
-		        		
-			            <header class="page-header">
-			            	<?php echo apply_filters('lsx_banner_title','<h1 class="page-title">'.get_the_title($post_id).'</h1>'); ?>
-			            </header>
+				<div class="page-banner-wrap">
+					<div class="page-banner <?php if($show_slider){ echo 'item active'; }else{ echo 'rotating'; }  ?>">
+			        	<div class="page-banner-image" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-size:<?php echo $size; ?>;" data-banners="<?php echo $banner_attribute; ?>"></div>
+			        		
+			        	<div class="container">
+			        		<?php do_action('lsx_banner_container_top'); ?>
+			        		
+				            <header class="page-header">
+				            	<?php echo apply_filters('lsx_banner_title','<h1 class="page-title">'.get_the_title($post_id).'</h1>'); ?>
+				            </header>
 
-			            <?php if(true !== $text_disable && '1' !== $text_disable) { ?><?php echo $this->banner_content(); ?><?php } ?>
-			            
-			            <?php do_action('lsx_banner_container_bottom'); ?>
+				            <?php if(true !== $text_disable && '1' !== $text_disable) { ?><?php echo $this->banner_content(); ?><?php } ?>
+				            
+				            <?php do_action('lsx_banner_container_bottom'); ?>
+				        </div>
 			        </div>
-		        </div>		
+			    </div>
 			<?php
 			//if its the lsx theme and there are more than 1 banner, then output a bootstrap carousel.
 			if($show_slider) {	?>
