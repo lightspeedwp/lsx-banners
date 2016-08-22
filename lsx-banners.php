@@ -522,6 +522,10 @@ class Lsx_Banners {
 	 */
 	public function add_form_field($term = false) {
 
+		if(apply_filters('lsx_banners_disable_taxonomy_field',false)){
+			return true;
+		}
+
 		if(is_object($term)){
 			$value = get_term_meta( $term->term_id, 'banner', true );
 			$image_preview = wp_get_attachment_image_src($value,'thumbnail');
