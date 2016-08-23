@@ -330,7 +330,12 @@ class Lsx_Banners {
 		//If its a taxonomy , then get the image from out term meta.
 		if(is_tax($this->get_allowed_taxonomies()) && false !== $this->banner_id){
 			$banner_image = wp_get_attachment_image_src($this->banner_id,'full');
-			$banner_image = $banner_image[0];			
+			$banner_image = $banner_image[0];
+		}elseif(is_tax($this->get_allowed_taxonomies())){
+			$tax_banner = apply_filters('lsx_banner_post_type_archive_url',false);
+			if(false !== $tax_banner){
+				$banner_image = $tax_banner;
+			}
 		}
 		
 		//If we have enabled the placeholders,  then force a placeholdit url
