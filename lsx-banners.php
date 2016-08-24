@@ -562,9 +562,9 @@ class Lsx_Banners {
 					var image_thumbnail = '';
 					window.send_to_editor = function( html ) 
 					{
-						var image_thumbnail = $( 'img',html ).html();
+						var image_thumbnail = $(html).find('img').length > 0 ? $('img',html) : $(html);
 						$( '.banner-preview' ).append(html);
-						var imgClasses = $( 'img',html ).attr( 'class' );
+						var imgClasses = image_thumbnail.attr( 'class' );
 						imgClasses = imgClasses.split('wp-image-');
 						$( '#banner' ).val(imgClasses[1]);
 						tb_remove();
@@ -648,9 +648,9 @@ class Lsx_Banners {
 					var image_thumbnail = '';
 					window.send_to_editor = function( html ) 
 					{
-						var image_thumbnail = $( 'img',html ).html();
+						var image_thumbnail = $(html).find('img').length > 0 ? $('img',html) : $(html);
 						$( '.banner-preview' ).append(html);
-						var imgClasses = $( 'img',html ).attr( 'class' );
+						var imgClasses = image_thumbnail.attr( 'class' );
 						imgClasses = imgClasses.split('wp-image-');
 						$( '#banner' ).val(imgClasses[1]);
 						tb_remove();
