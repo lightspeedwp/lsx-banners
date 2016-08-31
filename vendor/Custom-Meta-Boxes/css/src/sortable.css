@@ -5,14 +5,43 @@
 
 .cmb-sortable .cmb-handle { 
 	height: 100%; 
-	width: 3px; 
 	position: absolute; 
 	top: 0; 
 	left: 0; 
-	background: transparent; 
 	cursor: move; 
-	border-left: 3px solid #DFDFDF; 
-	border-right: 3px solid #DFDFDF; 
+	width: 25px;
+    background: #eeeeee;
+    border-radius: 4px 0 0 4px;
+    border: 1px solid #aaa;
+    -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.cmb-sortable .cmb-handle:before {
+	content: '';
+	position: absolute;
+	top: 8px;
+	left: 4px;
+	right: 4px;
+	height: 2px;
+	border-top: 1px solid #aaaaaa;
+	border-bottom: 1px solid #aaaaaa;
+}
+
+.cmb-sortable .cmb-handle:after {
+	content: '';
+	position: absolute;
+	top: 14px;
+	left: 4px;
+	right: 4px;
+	height: 2px;
+	border-top: 1px solid #aaaaaa;
+	border-bottom: 1px solid #aaaaaa;
+}
+
+.cmb-sortable .select2-container {
+	margin-left: 20px;
 }
 
 .cmb-sortable .ui-sortable-helper { 

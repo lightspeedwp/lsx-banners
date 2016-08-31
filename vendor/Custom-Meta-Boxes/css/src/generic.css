@@ -25,6 +25,9 @@
 .cmb_metabox .cmb-cell-12 .CMB_Post_Select.repeatable .field-item {
 	width: 175px;
 }
+.cmb_metabox .cmb-cell-12 .CMB_Post_Select.repeatable.cmb-sortable .field-item {
+	width: 195px;
+}
 
 @media screen and (max-width: 1147px) {
 	/*.cmb_metabox .field-item {
