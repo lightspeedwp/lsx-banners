@@ -5,6 +5,18 @@
 
 .cmb-sortable .cmb-handle { 
 	height: 100%; 
+	width: 3px; 
+	position: absolute; 
+	top: 0; 
+	left: 0; 
+	background: transparent; 
+	cursor: move; 
+	border-left: 3px solid #DFDFDF; 
+	border-right: 3px solid #DFDFDF; 
+}
+
+.cmb-sortable.CMB_Post_Select .cmb-handle { 
+	height: 100%; 
 	position: absolute; 
 	top: 0; 
 	left: 0; 
@@ -18,7 +30,7 @@
 	box-sizing: border-box;
 }
 
-.cmb-sortable .cmb-handle:before {
+.cmb-sortable.CMB_Post_Select .cmb-handle:before {
 	content: '';
 	position: absolute;
 	top: 8px;
@@ -29,7 +41,7 @@
 	border-bottom: 1px solid #aaaaaa;
 }
 
-.cmb-sortable .cmb-handle:after {
+.cmb-sortable.CMB_Post_Select .cmb-handle:after {
 	content: '';
 	position: absolute;
 	top: 14px;
@@ -40,7 +52,7 @@
 	border-bottom: 1px solid #aaaaaa;
 }
 
-.cmb-sortable .select2-container {
+.cmb-sortable.CMB_Post_Select .select2-container {
 	margin-left: 20px;
 }
 
