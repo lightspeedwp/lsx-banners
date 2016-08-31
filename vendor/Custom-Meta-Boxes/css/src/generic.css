@@ -20,7 +20,7 @@
 	width: 60% !important;
 }
 .cmb_metabox .cmb-cell-12 .CMB_Image_Field .field-item, .cmb_metabox .cmb-cell-12 .CMB_Post_Select.repeatable .field-item {
-	width: auto;
+	width: 175px;
 }
 
 @media screen and (max-width: 1147px) {
