@@ -153,6 +153,7 @@ class Lsx_Banners {
 			add_filter('lsx_banner_title', array($this,'banner_title') );
 			add_filter('lsx_banner_meta_boxes',array($this,'subtitle_metabox'));
 			add_filter('body_class', array($this,'body_class'));
+			add_action('lsx_banner_content',array($this,'banner_tagline'),20);
 			
 			$this->placeholder = apply_filters('lsx_banner_enable_placeholder', false);
 			if(false !== $this->placeholder){
@@ -473,6 +474,39 @@ class Lsx_Banners {
 		
 		return $retval;
 	}
+
+	/**
+	 * A filter that outputs the tagline for the current page.
+	 */
+	public function banner_tagline() {
+
+		/*if(is_post_type_archive($this->active_post_types) && isset($this->options[get_post_type()]) && isset($this->options[get_post_type()]['tagline'])){
+			$tagline = $this->options[get_post_type()]['tagline'];
+		}	
+		if(is_singular($this->active_post_types)){
+			$tagline_value = get_post_meta(get_the_ID(),'tagline',true);
+			if(false !== $tagline_value){
+				$tagline = $tagline_value;
+			}
+		}
+		if(is_tax(array_keys($this->taxonomies))){
+			$taxonomy_tagline = get_term_meta(get_queried_object_id(), 'tagline', true);
+			if(false !== $taxonomy_tagline && '' !== $taxonomy_tagline){
+				$tagline = $taxonomy_tagline;
+			}
+		}		
+		if(false !== $tagline && '' !== $tagline){
+			$tagline = $before.$tagline.$after;
+		}*/
+		$allowed_post_types = $this->get_allowed_post_types();
+		if(is_page() || is_singular($allowed_post_types)){
+			$tagline = get_post_meta(get_the_ID(),'banner_subtitle',true);
+		}
+		if(false !== $tagline){ ?>
+			<p class="tagline"><?php echo $tagline; ?></p>
+		<?php
+		}
+	}	
 	
 	/**
 	 * Returns the defulat placeholder url
