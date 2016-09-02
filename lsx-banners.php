@@ -514,7 +514,7 @@ class Lsx_Banners {
 		if(is_page() || is_singular($allowed_post_types)){
 			$tagline = get_post_meta(get_the_ID(),'banner_subtitle',true);
 		}
-		if(false !== $tagline){ ?>
+		if(false !== $tagline && '' !== $tagline){ ?>
 			<p class="tagline"><?php echo $tagline; ?></p>
 		<?php
 		}
