@@ -511,6 +511,7 @@ class Lsx_Banners {
 			$tagline = $before.$tagline.$after;
 		}*/
 		$allowed_post_types = $this->get_allowed_post_types();
+		$tagline = false;
 		if(is_page() || is_singular($allowed_post_types)){
 			$tagline = get_post_meta(get_the_ID(),'banner_subtitle',true);
 		}
