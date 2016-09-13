@@ -34,6 +34,10 @@ All you need to do is to create a "page" with the same "slug" as the post type a
 ## Adding additional content to your banner
 ```add_action('lsx_banner_content','your_function_name');```
 
+### Inside lsx_banner_content()
+```add_action('lsx_banner_container_top','your_function_name');```
+```add_action('lsx_banner_container_bottom','your_function_name');```
+
 ## Modifying the slider settings
 You will have 1 variable, an array as follows.
 ```array('transition' => 'slide','interval' => '6000',);```
