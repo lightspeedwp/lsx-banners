@@ -399,11 +399,15 @@ class Lsx_Banners {
 					        	<div class="page-banner-image" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-image:url(<?php echo $slide[0]; ?>); background-size:<?php echo $size; ?>;"></div>
 		        		
 		        				<div class="container">
+		        					<?php do_action('lsx_banner_container_top'); ?>
+
 						            <header class="page-header">
 						            	<?php echo apply_filters('lsx_banner_title','<h1 class="page-title">'.get_the_title($post_id).'</h1>'); ?>
 						            </header>
 
 						            <?php echo $this->banner_content(); ?>
+						            
+						            <?php do_action('lsx_banner_container_bottom'); ?>
 						        </div>
 					        </div>
 						<?php }	?>
