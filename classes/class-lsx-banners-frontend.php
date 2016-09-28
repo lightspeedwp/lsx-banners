@@ -61,7 +61,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		$post_type = get_post_type();	
 		$this->post_id = get_queried_object_id();
 		
-		if(is_singular($allowed_post_types) || is_post_type_archive($allowed_post_types) || is_tax($allowed_taxonomies) || is_404() || is_home() ) {
+		if(is_singular($allowed_post_types) || is_post_type_archive($allowed_post_types) || is_tax($allowed_taxonomies) || is_category() || is_404() || is_home() ) {
 			//$theme = wp_get_theme();
 			if(function_exists('lsx_setup')){
 				$this->theme = 'lsx';
@@ -166,10 +166,10 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		}	
 		
 		//If its a taxonomy , then get the image from out term meta.
-		if(is_tax($this->get_allowed_taxonomies()) && false !== $this->banner_id){
+		if((is_category() || is_tax($this->get_allowed_taxonomies())) && false !== $this->banner_id){
 			$banner_image = wp_get_attachment_image_src($this->banner_id,'full');
 			$banner_image = $banner_image[0];
-		}elseif(is_tax($this->get_allowed_taxonomies())){
+		}elseif(is_tax($this->get_allowed_taxonomies()) || is_category()){
 			$tax_banner = apply_filters('lsx_banner_post_type_archive_url',false);
 			if(false !== $tax_banner){
 				$banner_image = $tax_banner;
@@ -266,6 +266,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			//see if there is a banner image
 		$banner_disabled = false;
 		$banner_image = false;
+
 		if(0 !== get_the_ID()){
 			$img_group = get_post_meta(get_the_ID(),'image_group',true);
 			$banner_disabled = get_post_meta(get_the_ID(),'banner_disabled',true);
@@ -275,7 +276,8 @@ class LSX_Banners_Frontend extends LSX_Banners {
 				$this->has_banner = true;
 			}
 		}
-		if(is_tax($this->get_allowed_taxonomies())){
+		if(is_category() || is_tax($this->get_allowed_taxonomies())){
+
 			$term_banner_id = get_term_meta( $this->post_id, 'banner', true );
 			if('' !== $term_banner_id){
 				$classes[] = 'page-has-banner';
@@ -297,7 +299,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		if(is_post_type_archive($this->get_allowed_post_types())){
 			$post_title = '<h1 class="page-title">'.get_the_archive_title().'</h1>';
 		}		
-		if(is_tax($this->get_allowed_taxonomies())){
+		if(is_tax($this->get_allowed_taxonomies()) || is_category()){
 			$post_title = '<h1 class="page-title">'.single_term_title("", false).'</h1>';
 		}		
 		if(apply_filters('lsx_banner_enable_title', false) && 0 !== $this->post_id){
@@ -352,10 +354,20 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			$tagline = $before.$tagline.$after;
 		}*/
 		$allowed_post_types = $this->get_allowed_post_types();
+		$allowed_taxonomies = $this->get_allowed_taxonomies();
 		$tagline = false;
-		if(is_page() || is_singular($allowed_post_types)){
+
+		if(is_post_type_archive($allowed_post_types) && isset($this->options[get_post_type()]) && isset($this->options[get_post_type()]['tagline'])){
+			$tagline = $this->options[get_post_type()]['tagline'];
+		}elseif(is_page() || is_singular($allowed_post_types)){
 			$tagline = get_post_meta(get_the_ID(),'banner_subtitle',true);
+		}elseif(is_tax($allowed_taxonomies) || is_category()){
+			$taxonomy_tagline = get_term_meta(get_queried_object_id(), 'tagline', true);
+			if(false !== $taxonomy_tagline && '' !== $taxonomy_tagline){
+				$tagline = $taxonomy_tagline;
+			}
 		}
+
 		if(false !== $tagline && '' !== $tagline){ ?>
 			<p class="tagline"><?php echo $tagline; ?></p>
 		<?php

@@ -8,7 +8,6 @@
  * @link      
  * @copyright 2015 LightSpeedDevelopment
  */
-
 /**
  * Adds in the Featured Image, the Tagline and the Select and Expert field
  *
@@ -16,6 +15,8 @@
  * @author  LightSpeed
  */
 class LSX_Taxonomy_Admin {
+
+	public $taxonomies = array('category');
 
 	/**
 	 * Initialize the plugin by setting localization, filters, and administration functions.
@@ -25,7 +26,7 @@ class LSX_Taxonomy_Admin {
 	 * @access private
 	 */
 	public function __construct($taxonomies=false) {
-		add_action('init',array($this,'init'));
+		add_action('admin_init',array($this,'init'),100);
 		$this->taxonomies = $taxonomies;
 	}
 
@@ -36,9 +37,6 @@ class LSX_Taxonomy_Admin {
 	 */
 	public function init() {
 		$this->taxonomies = apply_filters('lsx_taxonomy_admin_taxonomies',$this->taxonomies);
-		add_filter('lsx_taxonomy_widget_taxonomies', array( $this, 'widget_taxonomies' ),10,1 );
-
-		//die('hello2');
 
 		if(false !== $this->taxonomies){
 			add_action( 'create_term', array( $this, 'save_meta' ), 10, 2 );
@@ -53,7 +51,7 @@ class LSX_Taxonomy_Admin {
 				}
 				
 			}			
-		}		
+		}
 	}	
 	/**
 	 * Output the form field for this metadata when adding a new term

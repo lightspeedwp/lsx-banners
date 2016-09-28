@@ -29,7 +29,8 @@ class LSX_Banners_Admin extends LSX_Banners {
 		$this->set_vars();	
 
 		add_action('admin_init',array($this,'admin_init'));
-		add_filter( 'cmb_meta_boxes', array($this,'metaboxes') );	
+		add_filter( 'cmb_meta_boxes', array($this,'metaboxes') );
+		add_filter('lsx_taxonomy_admin_taxonomies', array( $this, 'add_taxonomies' ),10,1 );	
 	}
 
 	/**
@@ -37,7 +38,11 @@ class LSX_Banners_Admin extends LSX_Banners {
 	 *
 	 */
 	public function admin_init() {
+
+		$this->taxonomy_admin = new LSX_Taxonomy_Admin();
+
 		$allowed_taxonomies = $this->get_allowed_taxonomies();
+
 		if(is_array($allowed_taxonomies)){
 			foreach($allowed_taxonomies as $taxonomy){
 				//add_action( "{$taxonomy}_add_form_fields",  array( $this, 'add_form_field'  ),1 );
@@ -51,7 +56,23 @@ class LSX_Banners_Admin extends LSX_Banners {
 		add_action( 'edit_user_profile', array( $this, 'user_profile_fields' ), 1);
 		add_action( 'personal_options_update', array( $this, 'save_profile_fields' ));
 		add_action( 'edit_user_profile_update', array( $this, 'save_profile_fields' ));		
-	}	
+	}
+
+	/**
+	 * Output the form field for this metadata when adding a new term
+	 *
+	 * @since 0.1.0
+	 */
+	public function add_taxonomies($taxonomies) {
+
+		$allowed_taxonomies = $this->get_allowed_taxonomies();
+		if(false !== $taxonomies && is_array($taxonomies)){
+			$taxonomies = array_merge($taxonomies,$allowed_taxonomies);
+		}else{
+			$taxonomies = $allowed_taxonomies;
+		}
+		return $taxonomies;
+	}		
 
 	/**
 	 * Define the metabox and field configurations.

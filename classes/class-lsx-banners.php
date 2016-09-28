@@ -70,6 +70,10 @@ class LSX_Banners {
 		$this->options = get_option('_lsx_lsx-settings',false);	
 		$this->set_vars();	
 
+		if(!class_exists('LSX_Taxonomy_Admin')){
+			require_once( LSX_BANNERS_PATH . 'classes/class-taxonomy-administration.php' );
+		}		
+
 		require_once( LSX_BANNERS_PATH . 'classes/class-lsx-banners-admin.php' );
 		if(class_exists('LSX_Banners_Admin')){
 			$this->admin = new LSX_Banners_Admin();
@@ -78,6 +82,8 @@ class LSX_Banners {
 		if(class_exists('LSX_Banners_Frontend')){
 			$this->frontend = new LSX_Banners_Frontend();
 		}	
+
+
 
 		require_once( LSX_BANNERS_PATH . 'includes/template-tags.php' );
 	}
