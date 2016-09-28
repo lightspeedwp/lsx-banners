@@ -1,14 +1,15 @@
 <?php
 /*
 Plugin Name: LSX Banners
-Plugin URI: {add_in}
-Description: A full width responsive banner solution. Compatabile with LSX, Storefront and Sage themes
-Author: Warwick
-Author URI: http://wordpress.org/
-Version: 0.7.0
+Plugin URI: https://www.lsdev.biz/product/lsx-banners
+Description: The LSX Banners extension adds advanced banner configuration options to your WordPress site running LSX theme.
+Version: 1.0
+Author: LightSpeed WordPress Development
+Author URI: https://www.lsdev.biz/
+License:     GPL3
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: lsx-banners
-Tags: LSX, Storefront, Sage
-License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+Domain Path: /languages
 */
 
 define('LSX_BANNERS_PATH',  plugin_dir_path( __FILE__ ) );
