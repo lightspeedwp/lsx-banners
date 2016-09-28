@@ -1,15 +1,15 @@
 <?php
 /*
-Plugin Name: LSX Banners
-Plugin URI: https://www.lsdev.biz/product/lsx-banners
-Description: The LSX Banners extension adds advanced banner configuration options to your WordPress site running LSX theme.
-Version: 1.0
-Author: LightSpeed WordPress Development
-Author URI: https://www.lsdev.biz/
-License:     GPL3
-License URI: https://www.gnu.org/licenses/gpl-3.0.html
-Text Domain: lsx-banners
-Domain Path: /languages
+ * Plugin Name: LSX Banners
+ * Plugin URI: https://www.lsdev.biz/product/lsx-banners
+ * Description: The LSX Banners extension adds advanced banner configuration options to your WordPress site running LSX theme.
+ * Version: 1.0 
+ * Author: LightSpeed WordPress Development
+ * Author URI: https://www.lsdev.biz/
+ * License:     GPL3
+ * License URI: https://www.gnu.org/licenses/gpl-3.0.html
+ * Text Domain: lsx-banners
+ * Domain Path: /languages
 */
 
 define('LSX_BANNERS_PATH',  plugin_dir_path( __FILE__ ) );
