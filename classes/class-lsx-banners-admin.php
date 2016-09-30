@@ -31,6 +31,8 @@ class LSX_Banners_Admin extends LSX_Banners {
 		add_action('admin_init',array($this,'admin_init'));
 		add_filter( 'cmb_meta_boxes', array($this,'metaboxes') );
 		add_filter('lsx_taxonomy_admin_taxonomies', array( $this, 'add_taxonomies' ),10,1 );	
+
+		add_action( 'init', array( $this, 'create_settings_page'),100 );
 	}
 
 	/**
@@ -303,5 +305,83 @@ class LSX_Banners_Admin extends LSX_Banners {
 		} else {
 			update_user_meta( $user_id, 'banner', $meta );
 		}
+	}	
+
+	/**
+	 * Returns the array of settings to the UIX Class
+	 */
+	public function create_settings_page(){
+		if(is_admin()){
+			if(!class_exists('\lsx\ui\uix')){
+				include_once LSX_BANNERS_PATH.'vendor/uix/uix.php';
+			}
+			$pages = $this->settings_page_array();
+			$uix = \lsx\ui\uix::get_instance( 'lsx' );
+			$uix->register_pages( $pages );
+
+			if(false !== $this->post_types){
+				foreach($this->post_types as $post_type){
+					//add_action( 'lsx_framework_'.$post_type.'_tab_content_top', array( $this, 'general_settings' ), 5 , 1 );
+				}	
+			}		
+		}
+	}	
+
+	/**
+	 * Returns the array of settings to the UIX Class
+	 */
+	public function settings_page_array(){
+		// This array is for the Admin Pages. each element defines a page that is seen in the admin
+	
+		$tabs = array( // tabs array are for setting the tab / section templates
+				// each array element is a tab with the key as the slug that will be the saved object property
+				'general'		=> array(
+						'page_title'        => '',
+						'page_description'  => '',
+						'menu_title'        => 'General',
+						'template'          => LSX_BANNERS_PATH.'includes/settings/general.php',
+						'default'	 		=> true
+				)
+		);
+
+		$posts_page = get_option('page_for_posts',false);
+		if(false === $posts_page){
+			$tabs['post'] = array(
+				'page_title'        => 'Posts',
+				'page_description'  => '',
+				'menu_title'        => 'Posts',
+				'template'          => LSX_BANNERS_PATH.'includes/settings/post.php',
+				'default'	 		=> false
+			);
+		}
+	
+		$additional_tabs = false;
+		$additional_tabs = apply_filters('lsx_framework_settings_tabs',$additional_tabs);
+		if(false !== $additional_tabs && is_array($additional_tabs) && !empty($additional_tabs)){
+			$tabs = array_merge($tabs,$additional_tabs);
+		}
+	
+		return array(
+				'lsx-settings'  => array(                                                         // this is the settings array. The key is the page slug
+						'page_title'  =>  'LSX Settings',                                                  // title of the page
+						'menu_title'  =>  'LSX Settings',                                                  // title seen on the menu link
+						'capability'  =>  'manage_options',                                              // required capability to access page
+						'icon'        =>  'dashicons-book-alt',                                          // Icon or image to be used on admin menu
+						'parent'      =>  'options-general.php',                                         // Position priority on admin menu)
+						'save_button' =>  'Save Changes',                                                // If the page required saving settings, Set the text here.
+						'tabs'        =>  $tabs,
+						/*'help'	=> array(	// the wordpress contextual help is also included
+								// key is the help slug
+								'default-help' => array(
+										'title'		=> 	esc_html__( 'Easy to add Help' , 'uix' ),
+										'content'	=>	"Just add more items to this array with a unique slug/key."
+								),
+								'more-help' => array(
+										'title'		=> 	esc_html__( 'Makes things Easy' , 'uix' ),
+										'content'	=>	"the content can also be a file path to a template"
+								)
+						),*/
+				),
+		);
 	}		
 }
