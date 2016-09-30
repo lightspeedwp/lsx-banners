@@ -18,6 +18,8 @@ class LSX_Taxonomy_Admin {
 
 	public $taxonomies = array('category');
 
+	public $fields = false;
+
 	/**
 	 * Initialize the plugin by setting localization, filters, and administration functions.
 	 *
@@ -28,6 +30,13 @@ class LSX_Taxonomy_Admin {
 	public function __construct($taxonomies=false) {
 		add_action('admin_init',array($this,'init'),100);
 		$this->taxonomies = $taxonomies;
+
+		$this->fields = array(
+			'thumbnail'		=>	__('Thumbnail','lsx-banners'),
+			'tagline'		=>	__('Tagline','lsx-banners'),
+			'expert'		=>	__('Expert','lsx-banners'),
+			'banner_video'	=>	__('Video URL','lsx-banners')
+		);
 	}
 
 	/**
@@ -45,6 +54,7 @@ class LSX_Taxonomy_Admin {
 				//add_action( "{$taxonomy}_add_form_fields",  array( $this, 'add_thumbnail_form_field'  ),3 );
 				add_action( "{$taxonomy}_edit_form_fields", array( $this, 'add_thumbnail_form_field' ),3,1 );
 				add_action( "{$taxonomy}_edit_form_fields", array( $this, 'add_tagline_form_field' ),3,1 );
+				add_action( "{$taxonomy}_edit_form_fields", array( $this, 'add_banner_video_form_field' ),3,1 );
 
 				if(post_type_exists('team')){
 					add_action( "{$taxonomy}_edit_form_fields", array( $this, '	add_expert_form_field' ),3,1 );
@@ -134,25 +144,15 @@ class LSX_Taxonomy_Admin {
 	 * @param  string  $taxonomy
 	 */
 	public function save_meta( $term_id = 0, $taxonomy = '' ) {
-		$thumbnail_meta = ! empty( $_POST[ 'thumbnail' ] ) ? $_POST[ 'thumbnail' ]	: '';
-		if ( empty( $thumbnail_meta ) ) {
-			delete_term_meta( $term_id, 'thumbnail' );
-		} else {
-			update_term_meta( $term_id, 'thumbnail', $thumbnail_meta );
-		}
-		
-		$meta = ! empty( $_POST[ 'tagline' ] ) ? $_POST[ 'tagline' ] : '';
-		if ( empty( $meta ) ) {
-			delete_term_meta( $term_id, 'tagline' );
-		} else {
-			update_term_meta( $term_id, 'tagline', $meta );
-		}
-		
-		$meta = ! empty( $_POST[ 'expert' ] ) ? $_POST[ 'expert' ] : '';
-		if ( empty( $meta ) ) {
-			delete_term_meta( $term_id, 'expert' );
-		} else {
-			update_term_meta( $term_id, 'expert', $meta );
+		if(false !== $this->fields){
+			foreach($this->fields as $slug => $label){
+				$thumbnail_meta = ! empty( $_POST[ $slug ] ) ? $_POST[ $slug ]	: '';
+				if ( empty( $thumbnail_meta ) ) {
+					delete_term_meta( $term_id, $slug );
+				} else {
+					update_term_meta( $term_id, $slug, $thumbnail_meta );
+				}
+			}
 		}
 	}
 	
@@ -169,13 +169,34 @@ class LSX_Taxonomy_Admin {
 		}
 		?>
 		<tr class="form-field form-required term-tagline-wrap">
-			<th scope="row"><label for="tagline"><?php _e('Tagline','lsx-tour-operators');?></label></th>
+			<th scope="row"><label for="tagline"><?php _e('Tagline','lsx-banners');?></label></th>
 			<td>
 				<input name="tagline" id="tagline" type="text" value="<?php echo $value; ?>" size="40" aria-required="true">
 			</td>
 		</tr>
 		<?php
 	}
+
+	/**
+	 * Output the form field for this metadata when adding a new term
+	 *
+	 * @since 0.1.0
+	 */
+	public function add_banner_video_form_field($term = false) {
+		if(is_object($term)){
+			$value = get_term_meta( $term->term_id, 'banner_video', true );
+		}else{
+			$value = false;
+		}
+		?>
+		<tr class="form-field form-required term-youtube-wrap">
+			<th scope="row"><label for="banner_video"><?php _e('YouTube Url','lsx-banners');?></label></th>
+			<td>
+				<input name="banner_video" id="banner_video" type="text" value="<?php echo $value; ?>" size="40" aria-required="true">
+			</td>
+		</tr>
+		<?php
+	}	
 	
 	/**
 	 * Output the form field for this metadata when adding a new term
@@ -201,12 +222,12 @@ class LSX_Taxonomy_Admin {
 
 		<tr class="form-field form-required term-expert-wrap">
 			<th scope="row">
-				<label for="expert"><?php _e( 'Expert','lsx-tour-operators' ) ?></label>
+				<label for="expert"><?php _e( 'Expert','lsx-banners' ) ?></label>
 			</th>
 
 			<td>
 				<select name="expert" id="expert" aria-required="true">
-					<option value=""><?php _e( 'None','lsx-tour-operators' ) ?></option>
+					<option value=""><?php _e( 'None','lsx-banners' ) ?></option>
 
 					<?php
 						foreach ( $experts as $expert ) {
