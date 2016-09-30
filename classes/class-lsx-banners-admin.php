@@ -122,6 +122,8 @@ class LSX_Banners_Admin extends LSX_Banners {
 					array( 'id' => 'banner_image', 'name' => 'Image', 'type' => 'image', 'repeatable' => true, 'show_size' => false, 'size' => array(185,130))
 			) );
 
+		$fields[] = array( 'id' => 'banner_video',  'name' => __('YouTube','lsx-banners'), 'type' => 'text' );			
+
 
 		$meta_boxes[] = array(
 				'title' => 'Banners',
