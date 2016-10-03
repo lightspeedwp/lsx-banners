@@ -221,16 +221,18 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			?>
 				<div class="page-banner-wrap">
 					<div class="page-banner <?php if($show_slider){ echo 'item active'; }else{ echo 'rotating'; }  ?>">
+			        	<?php if(false !== $banner_attribute): ?>
+			        		<div class="page-banner-image" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-size:<?php echo $size; ?>;" data-banners="<?php echo $banner_attribute; ?>"></div>
+			        	<?php endif; ?>
+
 			        	<?php if(false !== $youtube_video): ?>
 			        		<div class="video-background">
 			        			<div class="video-foreground">
 			        				<?php echo $youtube_video; ?>
 			        			</div>
 			        		</div>
-			        	<?php elseif(false !== $banner_attribute): ?>
-			        		<div class="page-banner-image" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-size:<?php echo $size; ?>;" data-banners="<?php echo $banner_attribute; ?>"></div>
 			        	<?php endif; ?>
-
+			        	
 			        	<div class="container">
 			        		<?php do_action('lsx_banner_container_top'); ?>
 			        		
