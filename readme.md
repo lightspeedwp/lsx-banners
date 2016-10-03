@@ -20,6 +20,9 @@ Enable the Use of a subtitle
 
 ```add_filter('lsx_banner_enable_subtitle', function( $bool ) { return true; });```
 
+Enable YouTube Videos
+```add_filter('lsx_banner_enable_video', function( $bool ) { return true; });```
+
 Disable the content of the banner on a per post basis
 
 ```add_filter('lsx_banner_disable_text', function( $bool ) { return true; });```
@@ -43,3 +46,10 @@ You will have 1 variable, an array as follows.
 ```array('transition' => 'slide','interval' => '6000',);```
 ```add_filter('lsx_banner_slider_settings','your_function_name',1,10);```
 
+# Changelog
+
+## 1.1.0
+ * Fixed the disabling of banner and title not showing with the LSX Theme
+
+## 1.0
+ * First Version

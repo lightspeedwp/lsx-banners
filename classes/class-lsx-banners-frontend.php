@@ -57,11 +57,6 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	public function init() {
 		$allowed_post_types = $this->get_allowed_post_types();
 		$allowed_taxonomies = $this->get_allowed_taxonomies();
-
-		//LSX 
-		remove_action('lsx_content_top', 'lsx_breadcrumbs',100);
-		add_action('lsx_banner_container_top', 'lsx_breadcrumbs');	
-		remove_action('lsx_content_wrap_before', 'lsx_global_header');	
 		
 		$post_type = get_post_type();	
 		$this->post_id = get_queried_object_id();
@@ -293,6 +288,13 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		if(true === $this->placeholder && '1' !== $banner_disabled){
 			$classes[] = 'page-has-banner';
 			$this->has_banner = true;
+		}
+
+		if(true === $this->has_banner){
+			//LSX 
+			remove_action('lsx_content_top', 'lsx_breadcrumbs',100);
+			add_action('lsx_banner_container_top', 'lsx_breadcrumbs');	
+			remove_action('lsx_content_wrap_before', 'lsx_global_header');
 		}
 		return $classes;
 	}

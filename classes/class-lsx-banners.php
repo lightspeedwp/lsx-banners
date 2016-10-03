@@ -81,9 +81,7 @@ class LSX_Banners {
 		require_once( LSX_BANNERS_PATH . 'classes/class-lsx-banners-frontend.php' );
 		if(class_exists('LSX_Banners_Frontend')){
 			$this->frontend = new LSX_Banners_Frontend();
-		}	
-
-
+		}
 
 		require_once( LSX_BANNERS_PATH . 'includes/template-tags.php' );
 	}

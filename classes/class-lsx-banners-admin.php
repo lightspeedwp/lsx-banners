@@ -319,11 +319,11 @@ class LSX_Banners_Admin extends LSX_Banners {
 			$uix = \lsx\ui\uix::get_instance( 'lsx' );
 			$uix->register_pages( $pages );
 
-			if(false !== $this->post_types){
+			/*if(false !== $this->post_types){
 				foreach($this->post_types as $post_type){
 					//add_action( 'lsx_framework_'.$post_type.'_tab_content_top', array( $this, 'general_settings' ), 5 , 1 );
 				}	
-			}		
+			}*/	
 		}
 	}	
 
