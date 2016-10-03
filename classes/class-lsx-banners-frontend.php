@@ -413,7 +413,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		parse_str( $url_string, $id );
 		
 		if ( isset( $id['v'] ) ) {
-			return '<iframe width="'.$args['width'].'" height="'.$args['height'].'" src="http://www.youtube.com/embed/'.$id['v'].'?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&playlist='.$id['v'].'" frameborder="0" allowfullscreen></iframe>';
+			return '<iframe width="'.$args['width'].'" height="'.$args['height'].'" src="https://www.youtube.com/embed/'.$id['v'].'?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&playlist='.$id['v'].'" frameborder="0" allowfullscreen></iframe>';
 		}
 
 		return $html;
