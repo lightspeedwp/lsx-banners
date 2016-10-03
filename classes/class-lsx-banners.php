@@ -70,8 +70,14 @@ class LSX_Banners {
 		$this->options = get_option('_lsx_lsx-settings',false);	
 		$this->set_vars();	
 
+		add_action('init',array($this,'init_placeholders'));
+
 		if(!class_exists('LSX_Taxonomy_Admin')){
 			require_once( LSX_BANNERS_PATH . 'classes/class-taxonomy-administration.php' );
+		}		
+
+		if(!class_exists('LSX_Placeholders')){
+			require_once( LSX_BANNERS_PATH . 'classes/class-placeholders.php' );
 		}		
 
 		require_once( LSX_BANNERS_PATH . 'classes/class-lsx-banners-admin.php' );
@@ -91,6 +97,14 @@ class LSX_Banners {
 	 */
 	public function set_vars() {
 	}	
+
+	/**
+	 * Set the placeholders
+	 */
+	public function init_placeholders() {
+		$this->placeholders = new LSX_Placeholders($this->get_allowed_post_types());
+	}
+
 
 	/**
 	 * retreives the allowed post types

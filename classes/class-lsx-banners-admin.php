@@ -297,7 +297,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 		{{#unless disable_archives}}	
 			<tr class="form-field banner-wrap">
 				<th scope="row">
-					<label for="banner"> Banner</label>
+					<label for="banner"> Banner Image</label>
 				</th>
 				<td>
 					<input type="hidden" {{#if banner_id}} value="{{banner_id}}" {{/if}} name="banner_id" />
@@ -310,6 +310,14 @@ class LSX_Banners_Admin extends LSX_Banners {
 
 					<a {{#unless banner}}style="display:none;"{{/unless}} class="button-secondary lsx-thumbnail-image-delete" data-slug="banner">Delete</a>
 					
+				</td>
+			</tr>
+			<tr class="form-field">
+				<th scope="row">
+					<label for="banner_video"><?php _e('Banner Video URL','lsx-tour-operators'); ?></label>
+				</th>
+				<td>
+					<input type="text" {{#if banner_video}} value="{{banner_video}}" {{/if}} name="banner_video" />
 				</td>
 			</tr>
 		{{/unless}}
@@ -424,7 +432,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 			foreach($post_types as $index){
 
 				$disabled = false;
-				if(!array_key_exists($index,$tabs)){
+				if(!array_key_exists($index,$tabs) && !in_array($index,array('post','page'))){
 					$tabs[$index] = array(
 						'page_title'        => 'General',
 						'page_description'  => '',
