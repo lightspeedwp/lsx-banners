@@ -70,7 +70,7 @@ class LSX_Banners {
 		$this->options = get_option('_lsx_lsx-settings',false);	
 		$this->set_vars();	
 
-		add_action('init',array($this,'init_placeholders'));
+		add_action('init',array($this,'init_placeholders'),100);
 
 		if(!class_exists('LSX_Taxonomy_Admin')){
 			require_once( LSX_BANNERS_PATH . 'classes/class-taxonomy-administration.php' );
