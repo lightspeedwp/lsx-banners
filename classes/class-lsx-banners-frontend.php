@@ -47,7 +47,8 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	 * @return    null
 	 */
 	public function enqueue_stylescripts() {
-		wp_enqueue_script( 'lsx-banners', LSX_BANNERS_URL . 'assets/js/lsx-banner.js', array( 'jquery' ) , false, true );
+		wp_enqueue_script( 'lsx-banners', LSX_BANNERS_URL . 'assets/js/lsx-banners.min.js', array( 'jquery' ) , false, true );
+		wp_enqueue_style( 'lsx-banners-style', LSX_BANNERS_URL . 'assets/css/style.css' );
 	}
 
 	/**
@@ -181,9 +182,17 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			$banner_image = apply_filters('lsx_banner_placeholder_url','https://placeholdit.imgix.net/~text?txtsize=33&txt=1920x600&w=1920&h=600');
 		}		
 		//Check if the content should be disabled or not
-		$text_disable = get_post_meta($post_id,'banner_text_disabled',true);		
+		$text_disable = get_post_meta($post_id,'banner_text_disabled',true);
 
-		if(false !== $banner_image){
+		// Youtube video
+		$youtube_video = get_post_meta($this->post_id,'banner_video',true);
+		if(false !== $youtube_video){
+			add_filter('oembed_result', array($this,'banner_autoplay_youtube_oembed'), 10, 3);
+			$youtube_video = wp_oembed_get($youtube_video);
+			remove_filter('oembed_result', array($this,'banner_autoplay_youtube_oembed'), 10);
+		}
+
+		if(false !== $banner_image || false !== $youtube_video){
 			?>
 			<div id="lsx-banner">
 			
@@ -201,17 +210,27 @@ class LSX_Banners_Frontend extends LSX_Banners {
 					$slide = wp_get_attachment_image_src($slide_id,'full');
 					$banner_attribute[] = $slide[0];
 				}
-			}else{
+			}elseif(false !== $banner_image){
 				$banner_attribute = array($banner_image);
 			}
 
-			$banner_attribute = implode(',',$banner_attribute);
+			if(false !== $banner_attribute){
+				$banner_attribute = implode(',',$banner_attribute);
+			}
 
 			?>
 				<div class="page-banner-wrap">
 					<div class="page-banner <?php if($show_slider){ echo 'item active'; }else{ echo 'rotating'; }  ?>">
-			        	<div class="page-banner-image" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-size:<?php echo $size; ?>;" data-banners="<?php echo $banner_attribute; ?>"></div>
-			        		
+			        	<?php if(false !== $youtube_video): ?>
+			        		<div class="video-background">
+			        			<div class="video-foreground">
+			        				<?php echo $youtube_video; ?>
+			        			</div>
+			        		</div>
+			        	<?php elseif(false !== $banner_attribute): ?>
+			        		<div class="page-banner-image" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-size:<?php echo $size; ?>;" data-banners="<?php echo $banner_attribute; ?>"></div>
+			        	<?php endif; ?>
+
 			        	<div class="container">
 			        		<?php do_action('lsx_banner_container_top'); ?>
 			        		
@@ -270,15 +289,20 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		if(0 !== get_the_ID()){
 			$img_group = get_post_meta(get_the_ID(),'image_group',true);
 			$banner_disabled = get_post_meta(get_the_ID(),'banner_disabled',true);
+			$youtube_video = get_post_meta(get_the_ID(),'banner_video',true);
 
 			if('1' !== $banner_disabled && false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && '' !== $img_group['banner_image'] && !empty($img_group['banner_image'])){
 				$classes[] = 'page-has-banner';
 				$this->has_banner = true;
 			}
+			elseif('1' !== $banner_disabled && false !== $youtube_video && !empty($youtube_video)){
+				$classes[] = 'page-has-banner page-has-video-banner';
+				$this->has_banner = true;
+			}
 		}
 		if(is_category() || is_tax($this->get_allowed_taxonomies())){
-
 			$term_banner_id = get_term_meta( $this->post_id, 'banner', true );
+
 			if('' !== $term_banner_id){
 				$classes[] = 'page-has-banner';
 				$this->has_banner = true;
@@ -379,6 +403,20 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			<p class="tagline"><?php echo $tagline; ?></p>
 		<?php
 		}
-	}	
+	}
+
+	/**
+	 * Adds the query string arguments to embedded YouTube videos.
+	 */
+	function banner_autoplay_youtube_oembed( $html, $url, $args ) {
+		$url_string = parse_url( $url, PHP_URL_QUERY );
+		parse_str( $url_string, $id );
+		
+		if ( isset( $id['v'] ) ) {
+			return '<iframe width="'.$args['width'].'" height="'.$args['height'].'" src="http://www.youtube.com/embed/'.$id['v'].'?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&playlist='.$id['v'].'" frameborder="0" allowfullscreen></iframe>';
+		}
+
+		return $html;
+	}
 
 }
