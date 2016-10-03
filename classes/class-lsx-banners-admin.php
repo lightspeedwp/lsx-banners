@@ -31,7 +31,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 		add_action('admin_init',array($this,'admin_init'));
 		add_filter( 'cmb_meta_boxes', array($this,'metaboxes') );
 		add_filter('lsx_taxonomy_admin_taxonomies', array( $this, 'add_taxonomies' ),10,1 );	
-
+		add_filter( 'lsx_framework_settings_tabs', array( $this, 'register_additional_tabs'),100,1 );
 		add_action( 'init', array( $this, 'create_settings_page'),100 );
 	}
 
@@ -58,6 +58,8 @@ class LSX_Banners_Admin extends LSX_Banners {
 		add_action( 'edit_user_profile', array( $this, 'user_profile_fields' ), 1);
 		add_action( 'personal_options_update', array( $this, 'save_profile_fields' ));
 		add_action( 'edit_user_profile_update', array( $this, 'save_profile_fields' ));		
+
+		
 	}
 
 	/**
@@ -319,11 +321,13 @@ class LSX_Banners_Admin extends LSX_Banners {
 			$uix = \lsx\ui\uix::get_instance( 'lsx' );
 			$uix->register_pages( $pages );
 
-			/*if(false !== $this->post_types){
-				foreach($this->post_types as $post_type){
-					//add_action( 'lsx_framework_'.$post_type.'_tab_content_top', array( $this, 'general_settings' ), 5 , 1 );
+			$post_types = $this->get_allowed_post_types();
+
+			if(false !== $post_types){
+				foreach($post_types as $post_type){
+					add_action( 'lsx_framework_'.$post_type.'_tab_content_top', array( $this, 'general_settings' ), 5 , 1 );
 				}	
-			}*/	
+			}
 		}
 	}	
 
@@ -360,7 +364,6 @@ class LSX_Banners_Admin extends LSX_Banners {
 		if(false !== $additional_tabs && is_array($additional_tabs) && !empty($additional_tabs)){
 			$tabs = array_merge($tabs,$additional_tabs);
 		}
-	
 		return array(
 				'lsx-settings'  => array(                                                         // this is the settings array. The key is the page slug
 						'page_title'  =>  'LSX Settings',                                                  // title of the page
@@ -383,5 +386,31 @@ class LSX_Banners_Admin extends LSX_Banners {
 						),*/
 				),
 		);
-	}		
+	}
+
+	/**
+	 * Runs through the registered post types, and does a generic settings page for them.
+	 */	
+	public function register_additional_tabs($tabs){
+		// This array is for the Admin Pages. each element defines a page that is seen in the admin
+		$post_types = $this->get_allowed_post_types();
+		if(false !== $post_types && !empty($post_types)){
+			foreach($post_types as $index){
+
+				$disabled = false;
+				if(!array_key_exists($index,$tabs)){
+					$tabs[$index] = array(
+						'page_title'        => 'General',
+						'page_description'  => '',
+						'menu_title'        => ucwords(str_replace('-',' ',$index)),
+						'template'          => LSX_BANNERS_PATH.'includes/settings/placeholder.php',
+						'default'	 		=> false,
+						'disabled'			=> $disabled
+					);
+				}
+			}
+			ksort($tabs);
+		}
+		return $tabs;
+	}				
 }
