@@ -290,6 +290,32 @@ class LSX_Banners_Admin extends LSX_Banners {
 		<?php 	
 	}
 
+	/**
+	 * Adds in the settings neccesary for the archives
+	 */
+	public function archive_settings($post_type=false){ ?>
+		{{#unless disable_archives}}	
+			<tr class="form-field banner-wrap">
+				<th scope="row">
+					<label for="banner"> Banner</label>
+				</th>
+				<td>
+					<input type="hidden" {{#if banner_id}} value="{{banner_id}}" {{/if}} name="banner_id" />
+					<input type="hidden" {{#if banner}} value="{{banner}}" {{/if}} name="banner" />
+					<div class="thumbnail-preview">
+						{{#if banner}}<img src="{{banner}}" width="150" height="150" />{{/if}}	
+					</div>
+
+					<a {{#if banner}}style="display:none;"{{/if}} class="button-secondary lsx-thumbnail-image-add" data-slug="banner">Choose Image</a>
+
+					<a {{#unless banner}}style="display:none;"{{/unless}} class="button-secondary lsx-thumbnail-image-delete" data-slug="banner">Delete</a>
+					
+				</td>
+			</tr>
+		{{/unless}}
+	<?php
+	}	
+
 
 	/**
 	 * Saves the Taxnomy term banner image
@@ -325,7 +351,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 
 			if(false !== $post_types){
 				foreach($post_types as $post_type){
-					add_action( 'lsx_framework_'.$post_type.'_tab_content_top', array( $this, 'general_settings' ), 5 , 1 );
+					add_action( 'lsx_framework_'.$post_type.'_tab_content_top', array( $this, 'archive_settings' ), 11 , 1 );
 				}	
 			}
 		}
