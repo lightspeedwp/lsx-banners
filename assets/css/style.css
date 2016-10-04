@@ -1,7 +1,7 @@
 /*
  * LSX banners
  */
-@media (min-width: 1200px) {
+@media (min-width: 992px) {
   #lsx-banner .video-background iframe, #lsx-banner .video-foreground {
     height: 100%;
     left: 0;
@@ -12,7 +12,7 @@
 
 #lsx-banner .video-background {
   display: none; }
-  @media (min-width: 1200px) {
+  @media (min-width: 992px) {
     #lsx-banner .video-background {
       background-color: #000;
       bottom: 0;
@@ -24,12 +24,12 @@
       top: 0;
       z-index: 3; } }
 
-@media (min-width: 1200px) and (min-aspect-ratio: 16 / 9) {
+@media (min-width: 992px) and (min-aspect-ratio: 16 / 9) {
   #lsx-banner .video-foreground {
     height: 300%;
     top: -100%; } }
 
-@media (min-width: 1200px) and (max-aspect-ratio: 16 / 9) {
+@media (min-width: 992px) and (max-aspect-ratio: 16 / 9) {
   #lsx-banner .video-foreground {
     width: 300%;
     left: -100%; } }

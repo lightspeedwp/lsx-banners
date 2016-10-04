@@ -3,7 +3,7 @@
  */
 
 %video-iframe {
-	@media (min-width: 1200px) {
+	@media (min-width: 992px) {
 		height: 100%;
 		left: 0;
 		pointer-events: none;
@@ -17,7 +17,7 @@
 	.video-background {
 		display: none;
 
-		@media (min-width: 1200px) {
+		@media (min-width: 992px) {
 			background-color: #000;
 			bottom: 0;
 			display: block;
@@ -37,7 +37,7 @@
 	.video-foreground {
 		@extend %video-iframe;
 		
-		@media (min-width: 1200px) {
+		@media (min-width: 992px) {
 			@media (min-aspect-ratio: 16/9) {
 				height: 300%;
 				top: -100%;
