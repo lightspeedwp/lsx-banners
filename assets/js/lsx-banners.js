@@ -12,7 +12,7 @@ var LSX_Banners = {
 	},
 
 	initScrollable: function() {
-		jQuery('.scroll-easing a').on('click',function(e) {
+		jQuery('.banner-easing a').on('click',function(e) {
 			e.preventDefault();
 
 			var $from = jQuery(this),
@@ -23,19 +23,14 @@ var LSX_Banners = {
 			jQuery('html, body').animate({
 				scrollTop: (top+extra)
 			}, 1200);
+
+			return false;
 		});
 		
 		jQuery('.banner-easing a i').on('click',function(e) {
-			e.preventDefault();
-
-			var $from = jQuery(this).parent(),
-				$to = jQuery($from.attr('href')),
-				top = parseInt($to.offset().top),
-				extra = parseInt($from.data('extra-top') ? $from.data('extra-top') : '0');
-
-			jQuery('html, body').animate({
-				scrollTop: (top+extra)
-			}, 1200);
+			e.stopPropagation();
+			jQuery(this).parent().trigger('click');
+			return false;
 		});
 	}
 }
