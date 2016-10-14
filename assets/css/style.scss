@@ -38,15 +38,15 @@
 		@extend %video-iframe;
 		
 		@media (min-width: 992px) {
-			@media (min-aspect-ratio: 16/9) {
+			//@media (min-aspect-ratio: 16/9) {
 				height: 300%;
 				top: -100%;
-			}
+			//}
 
-			@media (max-aspect-ratio: 16/9) {
-				width: 300%;
-				left: -100%;
-			}
+			//@media (max-aspect-ratio: 16/9) {
+			//	width: 300%;
+			//	left: -100%;
+			//}
 		}
 	}
 }
