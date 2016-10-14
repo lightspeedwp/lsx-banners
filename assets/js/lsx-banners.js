@@ -1,5 +1,5 @@
 var LSX_Banners = {
-	initThis: function(){
+	initThis: function() {
 		if (jQuery('body').hasClass('page-has-banner')) {
 			var $bannerImage = jQuery('#lsx-banner .page-banner.rotating .page-banner-image'),
 				bannerImageObj;
@@ -9,8 +9,38 @@ var LSX_Banners = {
 				$bannerImage.css('background-image','url(' + bannerImageObj[Math.floor(Math.random() * bannerImageObj.length)] + ')');
 			}
 		}
+	},
+
+	initScrollable: function() {
+		jQuery('.scroll-easing a').on('click',function(e) {
+			e.preventDefault();
+
+			var $from = jQuery(this),
+				$to = jQuery($from.attr('href')),
+				top = parseInt($to.offset().top),
+				extra = parseInt($from.data('extra-top') ? $from.data('extra-top') : '-160');
+
+			jQuery('html, body').animate({
+				scrollTop: (top+extra)
+			}, 1200);
+		});
+		
+		jQuery('.banner-easing a i').on('click',function(e) {
+			e.preventDefault();
+
+			var $from = jQuery(this).parent(),
+				$to = jQuery($from.attr('href')),
+				top = parseInt($to.offset().top),
+				extra = parseInt($from.data('extra-top') ? $from.data('extra-top') : '0');
+
+			jQuery('html, body').animate({
+				scrollTop: (top+extra)
+			}, 1200);
+		});
 	}
 }
+
 jQuery(document).ready(function() {
-	LSX_Banners.initThis(); 
+	LSX_Banners.initThis();
+	LSX_Banners.initScrollable();
 });
