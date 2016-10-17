@@ -191,7 +191,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			$embed_video = '<video src="' . $embed_video . '" "' . ( false !== $banner_image ? ( 'poster="' . $banner_image . '"' ) : '' ) . '" width="auto" height="auto" autoplay loop preload muted>' . ( false !== $banner_image ? ( '<img class="disable-lazyload" src="' . $banner_image . '">' ) : '' ) . '</video>';
 		}
 
-		if(false !== $banner_image || false !== $embed_video){
+		if((false !== $banner_image && !empty($banner_image)) || (false !== $embed_video && !empty($embed_video))){
 			?>
 			<div id="lsx-banner">
 			
@@ -224,7 +224,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			        		<div class="page-banner-image" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-size:<?php echo $size; ?>;" data-banners="<?php echo $banner_attribute; ?>"></div>
 			        	<?php endif; ?>
 
-			        	<?php if(false !== $embed_video): ?>
+			        	<?php if(false !== $embed_video && !empty($embed_video)): ?>
 			        		<div class="video-background">
 			        			<div class="video-foreground">
 			        				<?php echo $embed_video; ?>

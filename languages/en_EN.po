@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: classes/class-lsx-banners-admin.php:129
-msgid "Video"
+msgid "Video (mp4)"
 msgstr ""
 
 #: classes/class-lsx-banners-admin.php:163, classes/class-lsx-banners-admin.php:247
@@ -37,7 +37,7 @@ msgid "Cover Image"
 msgstr ""
 
 #: classes/class-lsx-banners-admin.php:317
-msgid "Banner Video URL"
+msgid "Banner Video URL (mp4)"
 msgstr ""
 
 #: classes/class-taxonomy-administration.php:35
@@ -61,7 +61,7 @@ msgid "Featured Image"
 msgstr ""
 
 #: classes/class-taxonomy-administration.php:193
-msgid "Video Url"
+msgid "Video Url (mp4)"
 msgstr ""
 
 #: classes/class-taxonomy-administration.php:230
