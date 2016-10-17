@@ -2,7 +2,7 @@
  * LSX banners
  */
 
-%video-iframe {
+%video-embed {
 	@media (min-width: 992px) {
 		height: 100%;
 		left: 0;
@@ -29,13 +29,13 @@
 			z-index: 3;
 		}
 
-		iframe {
-			@extend %video-iframe;
+		video {
+			@extend %video-embed;
 		}
 	}
 
 	.video-foreground {
-		@extend %video-iframe;
+		@extend %video-embed;
 		
 		@media (min-width: 992px) {
 			//@media (min-aspect-ratio: 16/9) {

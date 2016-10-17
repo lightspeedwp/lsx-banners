@@ -8,7 +8,7 @@ gulp.task('default', function() {
 	console.log('gulp js				to compile the lsx-banners.js to lsx-banners.min.js');
 	console.log('gulp compile-js		to compile both of the above.');
 	console.log('gulp watch				to continue watching all files for changes, and build when changed');
-	console.log('gulp wordpress-lang	to compile the lsx-tour-operators.pot, en_EN.po and en_EN.mo');
+	console.log('gulp wordpress-lang	to compile the lsx-banners.pot, en_EN.po and en_EN.mo');
 });
 
 var sass = require('gulp-sass');

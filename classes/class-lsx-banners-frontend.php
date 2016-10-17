@@ -184,15 +184,14 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		//Check if the content should be disabled or not
 		$text_disable = get_post_meta($post_id,'banner_text_disabled',true);
 
-		// Youtube video
-		$youtube_video = get_post_meta($this->post_id,'banner_video',true);
-		if(false !== $youtube_video){
-			add_filter('oembed_result', array($this,'banner_autoplay_youtube_oembed'), 10, 3);
-			$youtube_video = wp_oembed_get($youtube_video);
-			remove_filter('oembed_result', array($this,'banner_autoplay_youtube_oembed'), 10);
+		// Embed video
+		$embed_video = get_post_meta($this->post_id,'banner_video',true);
+		if(false !== $embed_video){
+			$embed_video = wp_get_attachment_url( $embed_video );
+			$embed_video = '<video src="' . $embed_video . '" "' . ( false !== $banner_image ? ( 'poster="' . $banner_image . '"' ) : '' ) . '" width="auto" height="auto" autoplay loop preload muted>' . ( false !== $banner_image ? ( '<img class="disable-lazyload" src="' . $banner_image . '">' ) : '' ) . '</video>';
 		}
 
-		if(false !== $banner_image || false !== $youtube_video){
+		if(false !== $banner_image || false !== $embed_video){
 			?>
 			<div id="lsx-banner">
 			
@@ -225,10 +224,10 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			        		<div class="page-banner-image" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-size:<?php echo $size; ?>;" data-banners="<?php echo $banner_attribute; ?>"></div>
 			        	<?php endif; ?>
 
-			        	<?php if(false !== $youtube_video): ?>
+			        	<?php if(false !== $embed_video): ?>
 			        		<div class="video-background">
 			        			<div class="video-foreground">
-			        				<?php echo $youtube_video; ?>
+			        				<?php echo $embed_video; ?>
 			        			</div>
 			        		</div>
 			        	<?php endif; ?>
@@ -291,13 +290,13 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		if(0 !== get_the_ID()){
 			$img_group = get_post_meta(get_the_ID(),'image_group',true);
 			$banner_disabled = get_post_meta(get_the_ID(),'banner_disabled',true);
-			$youtube_video = get_post_meta(get_the_ID(),'banner_video',true);
+			$embed_video = get_post_meta(get_the_ID(),'banner_video',true);
 
 			if('1' !== $banner_disabled && false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && '' !== $img_group['banner_image'] && !empty($img_group['banner_image'])){
 				$classes[] = 'page-has-banner';
 				$this->has_banner = true;
 			}
-			elseif('1' !== $banner_disabled && false !== $youtube_video && !empty($youtube_video)){
+			elseif('1' !== $banner_disabled && false !== $embed_video && !empty($embed_video)){
 				$classes[] = 'page-has-banner page-has-video-banner';
 				$this->has_banner = true;
 			}
@@ -408,20 +407,6 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			<p class="tagline"><?php echo $tagline; ?></p>
 		<?php
 		}
-	}
-
-	/**
-	 * Adds the query string arguments to embedded YouTube videos.
-	 */
-	function banner_autoplay_youtube_oembed( $html, $url, $args ) {
-		$url_string = parse_url( $url, PHP_URL_QUERY );
-		parse_str( $url_string, $id );
-		
-		if ( isset( $id['v'] ) ) {
-			return '<iframe width="'.$args['width'].'" height="'.$args['height'].'" src="https://www.youtube.com/embed/'.$id['v'].'?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&playlist='.$id['v'].'" frameborder="0" allowfullscreen></iframe>';
-		}
-
-		return $html;
 	}
 
 }

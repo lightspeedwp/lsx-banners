@@ -2,7 +2,7 @@
  * LSX banners
  */
 @media (min-width: 992px) {
-  #lsx-banner .video-background iframe, #lsx-banner .video-foreground {
+  #lsx-banner .video-background video, #lsx-banner .video-foreground {
     height: 100%;
     left: 0;
     pointer-events: none;

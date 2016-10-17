@@ -126,7 +126,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 					array( 'id' => 'banner_image', 'name' => 'Image', 'type' => 'image', 'repeatable' => true, 'show_size' => false, 'size' => array(185,130))
 			) );
 
-		$fields[] = array( 'id' => 'banner_video',  'name' => __('YouTube','lsx-banners'), 'type' => 'text' );			
+		$fields[] = array( 'id' => 'banner_video',  'name' => __('Video (mp4)','lsx-banners'), 'type' => 'file' );			
 
 
 		$meta_boxes[] = array(
@@ -314,7 +314,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 			</tr>
 			<tr class="form-field">
 				<th scope="row">
-					<label for="banner_video"><?php _e('Banner Video URL','lsx-tour-operators'); ?></label>
+					<label for="banner_video"><?php _e('Banner Video URL (mp4)','lsx-banners'); ?></label>
 				</th>
 				<td>
 					<input type="text" {{#if banner_video}} value="{{banner_video}}" {{/if}} name="banner_video" />
