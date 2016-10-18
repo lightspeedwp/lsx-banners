@@ -28,3 +28,6 @@
   #lsx-banner .video-foreground {
     height: 300%;
     top: -100%; } }
+
+#lsx-banner + .wrap > .content > header.archive-header {
+  display: none; }

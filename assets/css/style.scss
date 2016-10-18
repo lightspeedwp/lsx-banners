@@ -50,3 +50,13 @@
 		}
 	}
 }
+
+#lsx-banner {
+	& + .wrap {
+		& > .content {
+			& > header.archive-header {
+				display: none;
+			}
+		}
+	}
+}

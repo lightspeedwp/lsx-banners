@@ -16,27 +16,27 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: classes/class-lsx-banners-admin.php:129
+#: classes/class-lsx-banners-admin.php:143
 msgid "Video (mp4)"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:163, classes/class-lsx-banners-admin.php:247
+#: classes/class-lsx-banners-admin.php:177, classes/class-lsx-banners-admin.php:261
 msgid "Banner"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:170, classes/class-lsx-banners-admin.php:254, classes/class-taxonomy-administration.php:102
+#: classes/class-lsx-banners-admin.php:184, classes/class-lsx-banners-admin.php:268, classes/class-taxonomy-administration.php:102
 msgid "Choose Image"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:171, classes/class-lsx-banners-admin.php:255, classes/class-taxonomy-administration.php:103
+#: classes/class-lsx-banners-admin.php:185, classes/class-lsx-banners-admin.php:269, classes/class-taxonomy-administration.php:103
 msgid "Remove Image"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:243
+#: classes/class-lsx-banners-admin.php:257
 msgid "Cover Image"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:317
+#: classes/class-lsx-banners-admin.php:331
 msgid "Banner Video URL (mp4)"
 msgstr ""
 
