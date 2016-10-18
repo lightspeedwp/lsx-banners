@@ -32,7 +32,10 @@ class LSX_Banners_Admin extends LSX_Banners {
 		add_filter( 'cmb_meta_boxes', array($this,'metaboxes') );
 		add_filter('lsx_taxonomy_admin_taxonomies', array( $this, 'add_taxonomies' ),10,1 );	
 		add_filter( 'lsx_framework_settings_tabs', array( $this, 'register_additional_tabs'),100,1 );
+		add_action( 'lsx_framework_dashboard_tab_bottom', array( $this, 'settings_page_scripts' ), 100 );
 		add_action( 'init', array( $this, 'create_settings_page'),100 );
+
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts') );		
 	}
 
 	/**
@@ -58,9 +61,20 @@ class LSX_Banners_Admin extends LSX_Banners {
 		add_action( 'edit_user_profile', array( $this, 'user_profile_fields' ), 1);
 		add_action( 'personal_options_update', array( $this, 'save_profile_fields' ));
 		add_action( 'edit_user_profile_update', array( $this, 'save_profile_fields' ));		
-
-		
 	}
+
+	/**
+	 * Output the form field for this metadata when adding a new term
+	 *
+	 * @since 0.1.0
+	 */
+	function admin_scripts() {
+		if(isset($_GET['page']) && 'lsx-lsx-settings' === $_GET['page']){
+	    	wp_enqueue_script('media-upload');
+	    	wp_enqueue_script('thickbox');
+	    	wp_enqueue_style('thickbox');
+		}
+	}	
 
 	/**
 	 * Output the form field for this metadata when adding a new term
@@ -446,5 +460,49 @@ class LSX_Banners_Admin extends LSX_Banners {
 			ksort($tabs);
 		}
 		return $tabs;
-	}				
+	}
+
+	/**
+	 * Allows the settings pages to upload images
+	 */
+	public function settings_page_scripts(){ ?>
+	{{#script}}
+		jQuery( function( $ ){
+			$( '.lsx-thumbnail-image-add' ).on( 'click', function() {
+
+				var slug = $(this).attr('data-slug');
+				tb_show('Choose a Featured Image', 'media-upload.php?type=image&TB_iframe=1');
+				var image_thumbnail = '';
+				var thisObj = $(this);
+				window.send_to_editor = function( html ) 
+				{
+
+					var image_thumbnail = $( 'img',html ).html();
+
+					$( thisObj ).parent('td').find('.thumbnail-preview' ).append('<img width="150" height="150" src="'+$( 'img',html ).attr( 'src' )+'" />');
+					$( thisObj ).parent('td').find('input[name="'+slug+'"]').val($( 'img',html ).attr( 'src' ));
+					
+					var imgClasses = $( 'img',html ).attr( 'class' );
+					imgClasses = imgClasses.split('wp-image-');
+					
+					$( thisObj ).parent('td').find('input[name="'+slug+'_id"]').val(imgClasses[1]);
+					$( thisObj ).hide();
+					$( thisObj ).parent('td').find('.lsx-thumbnail-image-delete' ).show();
+					tb_remove();
+					$( this ).hide();
+				}
+				return false;
+			});
+			$( '.lsx-thumbnail-image-delete' ).on( 'click', function() {
+				var slug = $(this).attr('data-slug');
+				$( this ).parent('td').find('input[name="'+slug+'_id"]').val('');
+				$( this ).parent('td').find('input[name="'+slug+'"]').val('');
+				$( this ).parent('td').find('.thumbnail-preview' ).html('');
+				$( this ).hide();
+				$( this ).parent('td').find('.lsx-thumbnail-image-add' ).show();
+			});		
+		});
+	{{/script}}
+	<?php
+	}					
 }
