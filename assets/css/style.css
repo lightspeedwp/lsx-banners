@@ -31,3 +31,33 @@
 
 #lsx-banner + .wrap > .content > header.archive-header {
   display: none; }
+
+#lsx-banner .carousel {
+  margin-bottom: 0; }
+  #lsx-banner .carousel .carousel-indicators {
+    bottom: 30px;
+    position: absolute; }
+    #lsx-banner .carousel .carousel-indicators li {
+      border: 2px solid #fff;
+      height: 15px;
+      margin: 2px;
+      width: 15px; }
+      #lsx-banner .carousel .carousel-indicators li.active {
+        background-color: #fff;
+        height: 15px;
+        margin: 2px;
+        width: 15px; }
+  #lsx-banner .carousel .carousel-control .fa {
+    color: #fff;
+    font-size: 40px;
+    margin-top: 56px;
+    position: absolute;
+    top: 50%; }
+  #lsx-banner .carousel .carousel-control.left {
+    margin-left: 0; }
+    #lsx-banner .carousel .carousel-control.left .fa {
+      left: 30px; }
+  #lsx-banner .carousel .carousel-control.right {
+    margin-right: 0; }
+    #lsx-banner .carousel .carousel-control.right .fa {
+      right: 30px; }

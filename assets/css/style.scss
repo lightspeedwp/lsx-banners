@@ -49,13 +49,60 @@
 			//}
 		}
 	}
-}
 
-#lsx-banner {
 	& + .wrap {
 		& > .content {
 			& > header.archive-header {
 				display: none;
+			}
+		}
+	}
+
+	.carousel {
+		margin-bottom: 0;
+
+		.carousel-indicators {
+			bottom: 30px;
+			position: absolute;
+
+			li {
+				border: 2px solid #fff;
+				height: 15px;
+				margin: 2px;
+				width: 15px;
+
+				&.active {
+					background-color: #fff;
+					height: 15px;
+					margin: 2px;
+					width: 15px;
+				}
+			}
+		}
+
+		.carousel-control {
+			.fa {
+				color: #fff;
+				font-size: 40px;
+				margin-top: 56px;
+				position: absolute;
+				top: 50%;
+			}
+
+			&.left {
+				margin-left: 0;
+
+				.fa {
+					left: 30px;
+				}
+			}
+
+			&.right {
+				margin-right: 0;
+
+				.fa {
+					right: 30px;
+				}
 			}
 		}
 	}

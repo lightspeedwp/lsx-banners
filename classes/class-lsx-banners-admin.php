@@ -142,7 +142,11 @@ class LSX_Banners_Admin extends LSX_Banners {
 
 		$fields[] = array( 'id' => 'banner_video',  'name' => __('Video (mp4)','lsx-banners'), 'type' => 'file' );			
 
-
+		// Envira Gallery
+		if ( class_exists( 'Envira_Gallery' ) ) {
+			$fields[] = array( 'id' => 'envira_gallery', 'name' => __( 'Envira Gallery', 'lsx-banners' ), 'type' => 'post_select', 'use_ajax' => false, 'query' => array( 'post_type' => 'envira', 'nopagin' => true, 'posts_per_page' => '-1', 'orderby' => 'title', 'order' => 'ASC' ) , 'allow_none' => true );
+		}
+		
 		$meta_boxes[] = array(
 				'title' => 'Banners',
 				'pages' => $allowed_post_types,
@@ -446,7 +450,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 			foreach($post_types as $index){
 
 				$disabled = false;
-				if(!array_key_exists($index,$tabs) && !in_array($index,array('post','page'))){
+				if(is_array($tabs) && !array_key_exists($index,$tabs) && !in_array($index,array('post','page'))){
 					$tabs[$index] = array(
 						'page_title'        => 'General',
 						'page_description'  => '',
@@ -457,7 +461,9 @@ class LSX_Banners_Admin extends LSX_Banners {
 					);
 				}
 			}
-			ksort($tabs);
+			if(is_array($tabs)) {
+				ksort($tabs);
+			}
 		}
 		return $tabs;
 	}
