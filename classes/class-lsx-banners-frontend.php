@@ -287,41 +287,41 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		$banner_disabled = false;
 		$banner_image = false;
 
-		if(0 !== get_the_ID()){
-			$img_group = get_post_meta(get_the_ID(),'image_group',true);
-			$banner_disabled = get_post_meta(get_the_ID(),'banner_disabled',true);
-			$embed_video = get_post_meta(get_the_ID(),'banner_video',true);
-
-			if('1' !== $banner_disabled && false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && '' !== $img_group['banner_image'] && !empty($img_group['banner_image'])){
-				$classes[] = 'page-has-banner';
-				$this->has_banner = true;
+		if(0 !== get_the_ID() || is_home() || is_front_page()){
+			$post_id = false;
+			if(is_home()){
+				$post_id = get_option('page_for_posts');
+			}else{
+				$post_id = get_the_ID();
 			}
-			elseif('1' !== $banner_disabled && false !== $embed_video && !empty($embed_video)){
-				$classes[] = 'page-has-banner page-has-video-banner';
+			
+			$img_group = get_post_meta($post_id,'image_group',true);
+			$banner_disabled = get_post_meta($post_id,'banner_disabled',true);
+			$embed_video = get_post_meta($post_id,'banner_video',true);
+
+			if(true !== $banner_disabled && '1' !== $banner_disabled && false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && '' !== $img_group['banner_image'] && !empty($img_group['banner_image'])){
+				$classes[] = 'page-has-banner';
 				$this->has_banner = true;
 			}
 		}
 		if(is_category() || is_tax($this->get_allowed_taxonomies())){
-			$term_banner_id = get_term_meta( $this->post_id, 'banner', true );
 
+			$term_banner_id = get_term_meta( $this->post_id, 'banner', true );
 			if('' !== $term_banner_id){
 				$classes[] = 'page-has-banner';
 				$this->has_banner = true;
 				$this->banner_id = $term_banner_id;
 			}
 		}
-		if(true === $this->placeholder && '1' !== $banner_disabled){
+		if(true === $this->placeholder && true !== $banner_disabled && '1' !== $banner_disabled){
 			$classes[] = 'page-has-banner';
 			$this->has_banner = true;
 		}
 
 		if(true === $this->has_banner){
-			//LSX
-			$this->move_breadcrumb = apply_filters('lsx_banner_move_breadcrumb_inside_banner', true);
-			if(true === $this->move_breadcrumb){
-				remove_action('lsx_content_top', 'lsx_breadcrumbs',100);
-				add_action('lsx_banner_container_top', 'lsx_breadcrumbs');
-			}
+			//LSX 
+			remove_action('lsx_content_top', 'lsx_breadcrumbs',100);
+			add_action('lsx_banner_container_top', 'lsx_breadcrumbs');	
 			remove_action('lsx_content_wrap_before', 'lsx_global_header');
 		}
 		return $classes;
