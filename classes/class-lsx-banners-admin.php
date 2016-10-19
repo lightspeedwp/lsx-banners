@@ -146,6 +146,11 @@ class LSX_Banners_Admin extends LSX_Banners {
 		if ( class_exists( 'Envira_Gallery' ) ) {
 			$fields[] = array( 'id' => 'envira_gallery', 'name' => __( 'Envira Gallery', 'lsx-banners' ), 'type' => 'post_select', 'use_ajax' => false, 'query' => array( 'post_type' => 'envira', 'nopagin' => true, 'posts_per_page' => '-1', 'orderby' => 'title', 'order' => 'ASC' ) , 'allow_none' => true );
 		}
+
+		// Soliloquy
+		if ( class_exists( 'Soliloquy' ) ) {
+			$fields[] = array( 'id' => 'soliloquy_slider', 'name' => __( 'Soliloquy Slider', 'lsx-banners' ), 'type' => 'post_select', 'use_ajax' => false, 'query' => array( 'post_type' => 'soliloquy', 'nopagin' => true, 'posts_per_page' => '-1', 'orderby' => 'title', 'order' => 'ASC' ) , 'allow_none' => true );
+		}
 		
 		$meta_boxes[] = array(
 				'title' => 'Banners',
