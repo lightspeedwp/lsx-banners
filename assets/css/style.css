@@ -10,6 +10,12 @@
     top: 0;
     width: 100%; } }
 
+#lsx-banner .banner-content {
+  color: #fff;
+  margin: 20px auto 0;
+  max-width: 600px;
+  text-align: center; }
+
 #lsx-banner .video-background {
   display: none; }
   @media (min-width: 992px) {

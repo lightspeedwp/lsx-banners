@@ -289,7 +289,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 				            	<?php echo apply_filters('lsx_banner_title','<h1 class="page-title">'.get_the_title($post_id).'</h1>'); ?>
 				            </header>
 
-				            <?php if(true !== $text_disable && '1' !== $text_disable) { ?><?php echo $this->banner_content(); ?><?php } ?>
+				            <?php if(true !== $text_disable && '1' !== $text_disable && !empty($this->banner_content())) { ?><div class="banner-content"><?php echo $this->banner_content(); ?></div><?php } ?>
 				            
 				            <?php do_action('lsx_banner_container_bottom'); ?>
 				        </div>
@@ -323,7 +323,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 								            	<?php echo apply_filters('lsx_banner_title','<h1 class="page-title">'.$title.'</h1>'); ?>
 								            </header>
 
-								            <?php if(true !== $text_disable && '1' !== $text_disable) { ?><?php echo $content; ?><?php } ?>
+								            <?php if(true !== $text_disable && '1' !== $text_disable && !empty($content)) { ?><div class="banner-content"><?php echo $content; ?></div><?php } ?>
 								            
 								            <?php do_action('lsx_banner_container_bottom'); ?>
 								        </div>
