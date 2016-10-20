@@ -267,11 +267,19 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		$banner_disabled = false;
 		$banner_image = false;
 
-		if(0 !== get_the_ID()){
-			$img_group = get_post_meta(get_the_ID(),'image_group',true);
-			$banner_disabled = get_post_meta(get_the_ID(),'banner_disabled',true);
+		if(0 !== get_the_ID() || is_home() || is_front_page()){
+			$post_id = false;
+			if(is_home()){
+				$post_id = get_option('page_for_posts');
+			}else{
+				$post_id = get_the_ID();
+			}
+			
+			$img_group = get_post_meta($post_id,'image_group',true);
+			$banner_disabled = get_post_meta($post_id,'banner_disabled',true);
+			$embed_video = get_post_meta($post_id,'banner_video',true);
 
-			if('1' !== $banner_disabled && false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && '' !== $img_group['banner_image'] && !empty($img_group['banner_image'])){
+			if(true !== $banner_disabled && '1' !== $banner_disabled && false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && '' !== $img_group['banner_image'] && !empty($img_group['banner_image'])){
 				$classes[] = 'page-has-banner';
 				$this->has_banner = true;
 			}
@@ -285,7 +293,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 				$this->banner_id = $term_banner_id;
 			}
 		}
-		if(true === $this->placeholder && '1' !== $banner_disabled){
+		if(true === $this->placeholder && true !== $banner_disabled && '1' !== $banner_disabled){
 			$classes[] = 'page-has-banner';
 			$this->has_banner = true;
 		}
