@@ -20,7 +20,7 @@ Enable the Use of a subtitle
 
 ```add_filter('lsx_banner_enable_subtitle', function( $bool ) { return true; });```
 
-Enable YouTube Videos
+Enable embed videos
 ```add_filter('lsx_banner_enable_video', function( $bool ) { return true; });```
 
 Disable the content of the banner on a per post basis

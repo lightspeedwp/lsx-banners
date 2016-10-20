@@ -92,15 +92,15 @@ class LSX_Taxonomy_Admin {
 		}
 		?>
 		<tr class="form-field form-required term-thumbnail-wrap">
-			<th scope="row"><label for="thumbnail"><?php _e('Featured Image','lsx-tour-operators');?></label></th>
+			<th scope="row"><label for="thumbnail"><?php _e('Featured Image','lsx-banners');?></label></th>
 			<td>
 				<input style="display:none;" name="thumbnail" id="thumbnail" type="text" value="<?php echo $value; ?>" size="40" aria-required="true">
 				<div class="thumbnail-preview">
 					<?php echo $image_preview; ?>
 				</div>				
 
-				<a style="<?php if('' !== $value && false !== $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-add"><?php _e('Choose Image','lsx-tour-operators');?></a>				
-				<a style="<?php if('' === $value || false === $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-remove"><?php _e('Remove Image','lsx-tour-operators');?></a>
+				<a style="<?php if('' !== $value && false !== $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-add"><?php _e('Choose Image','lsx-banners');?></a>				
+				<a style="<?php if('' === $value || false === $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-remove"><?php _e('Remove Image','lsx-banners');?></a>
 			</td>
 		</tr>
 		
@@ -190,7 +190,7 @@ class LSX_Taxonomy_Admin {
 		}
 		?>
 		<tr class="form-field form-required term-youtube-wrap">
-			<th scope="row"><label for="banner_video"><?php _e('YouTube Url','lsx-banners');?></label></th>
+			<th scope="row"><label for="banner_video"><?php _e('Video Url (mp4)','lsx-banners');?></label></th>
 			<td>
 				<input name="banner_video" id="banner_video" type="text" value="<?php echo $value; ?>" size="40" aria-required="true">
 			</td>

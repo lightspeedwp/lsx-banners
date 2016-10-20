@@ -430,7 +430,7 @@ class LSX_Placeholders {
 				<input type="checkbox" {{#if disable_blog_placeholder}} checked="checked" {{/if}} name="disable_blog_placeholder" />
 				<small>This disables the placeholder on blog posts.</small>
 			</td>
-		</tr>				
+		</tr>			
 	<?php 
 	}
 
