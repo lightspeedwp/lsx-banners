@@ -194,7 +194,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		// Envira Gallery
 		$envira_gallery_id = get_post_meta( $this->post_id, 'envira_gallery', true);
 
-		if ( class_exists( 'Envira_Gallery' ) ) {
+		if ( class_exists( 'Envira_Gallery' ) && apply_filters('lsx_banners_envira_enable',true) ) {
 			if ( false !== $envira_gallery_id && ! empty( $envira_gallery_id ) ) {
 				$envira_gallery = Envira_Gallery::get_instance();
 				$envira_gallery_images = $envira_gallery->get_gallery( $envira_gallery_id );
