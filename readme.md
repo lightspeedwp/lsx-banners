@@ -35,6 +35,8 @@ If your theme has bootstrap included, then you can enable the slider with the fo
 All you need to do is to create a "page" with the same "slug" as the post type archives slug, then upload the page to upload a banner image etc.
 
 ## Adding additional content to your banner
+```add_action('lsx_banner_top','your_function_name');```
+```add_action('lsx_banner_bottom','your_function_name');```
 ```add_action('lsx_banner_content','your_function_name');```
 
 ### Inside lsx_banner_content()

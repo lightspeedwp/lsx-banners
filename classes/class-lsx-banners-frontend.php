@@ -244,8 +244,9 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		if($show_slider || (false !== $banner_image && !empty($banner_image)) || (false !== $embed_video && !empty($embed_video))){
 			?>
 			<div id="lsx-banner">
-			
 			<?php
+			do_action('lsx_banner_top');
+
 			//if its the lsx theme and there are more than 1 banner, then output a bootstrap carousel.
 			$banner_attribute = false;
 			if($show_slider) { 
@@ -356,7 +357,9 @@ class LSX_Banners_Frontend extends LSX_Banners {
 					</div>					
 				</div>
 				<?php
-			} ?>
+			}
+			do_action('lsx_banner_bottom');
+			?>
 			</div>
 			<?php 			
 		}
