@@ -16,6 +16,58 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: classes/class-lsx-banners-admin.php:121
+msgid "Disable banner"
+msgstr ""
+
+#: classes/class-lsx-banners-admin.php:124
+msgid "Disable banner text"
+msgstr ""
+
+#: classes/class-lsx-banners-admin.php:127, includes/settings/post.php:31
+msgid "Title"
+msgstr ""
+
+#: classes/class-lsx-banners-admin.php:130, classes/class-taxonomy-administration.php:36, classes/class-taxonomy-administration.php:172, includes/settings/post.php:23
+msgid "Tagline"
+msgstr ""
+
+#: classes/class-lsx-banners-admin.php:134
+msgid "Height"
+msgstr ""
+
+#: classes/class-lsx-banners-admin.php:135
+msgid "X Position"
+msgstr ""
+
+#: classes/class-lsx-banners-admin.php:135
+msgid "Left"
+msgstr ""
+
+#: classes/class-lsx-banners-admin.php:135
+msgid "Right"
+msgstr ""
+
+#: classes/class-lsx-banners-admin.php:135, classes/class-lsx-banners-admin.php:136
+msgid "Center"
+msgstr ""
+
+#: classes/class-lsx-banners-admin.php:136
+msgid "Y Position"
+msgstr ""
+
+#: classes/class-lsx-banners-admin.php:136
+msgid "Top"
+msgstr ""
+
+#: classes/class-lsx-banners-admin.php:136
+msgid "Bottom"
+msgstr ""
+
+#: classes/class-lsx-banners-admin.php:140
+msgid "Image"
+msgstr ""
+
 #: classes/class-lsx-banners-admin.php:143
 msgid "Video (mp4)"
 msgstr ""
@@ -28,11 +80,15 @@ msgstr ""
 msgid "Soliloquy Slider"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:186, classes/class-lsx-banners-admin.php:270
+#: classes/class-lsx-banners-admin.php:156
+msgid "Banners"
+msgstr ""
+
+#: classes/class-lsx-banners-admin.php:186, classes/class-lsx-banners-admin.php:270, includes/settings/post.php:6
 msgid "Banner"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:193, classes/class-lsx-banners-admin.php:277, classes/class-taxonomy-administration.php:102
+#: classes/class-lsx-banners-admin.php:193, classes/class-lsx-banners-admin.php:277, classes/class-lsx-banners-admin.php:332, classes/class-placeholders.php:382, classes/class-placeholders.php:400, classes/class-placeholders.php:418, classes/class-placeholders.php:453, classes/class-placeholders.php:472, classes/class-taxonomy-administration.php:102, includes/settings/post.php:15
 msgid "Choose Image"
 msgstr ""
 
@@ -44,16 +100,80 @@ msgstr ""
 msgid "Cover Image"
 msgstr ""
 
+#: classes/class-lsx-banners-admin.php:287
+msgid "Choose a Banner"
+msgstr ""
+
+#: classes/class-lsx-banners-admin.php:323
+msgid "Banner Image"
+msgstr ""
+
+#: classes/class-lsx-banners-admin.php:334, classes/class-placeholders.php:384, classes/class-placeholders.php:402, classes/class-placeholders.php:420, classes/class-placeholders.php:455, classes/class-placeholders.php:474, includes/settings/post.php:17
+msgid "Delete"
+msgstr ""
+
 #: classes/class-lsx-banners-admin.php:340
 msgid "Banner Video URL (mp4)"
 msgstr ""
 
-#: classes/class-taxonomy-administration.php:35
-msgid "Thumbnail"
+#: classes/class-lsx-banners-admin.php:402, classes/class-lsx-banners-admin.php:460, includes/settings/general.php:12
+msgid "General"
 msgstr ""
 
-#: classes/class-taxonomy-administration.php:36, classes/class-taxonomy-administration.php:172
-msgid "Tagline"
+#: classes/class-lsx-banners-admin.php:411, classes/class-lsx-banners-admin.php:413
+msgid "Posts"
+msgstr ""
+
+#: classes/class-lsx-banners-admin.php:426, classes/class-lsx-banners-admin.php:427
+msgid "LSX Settings"
+msgstr ""
+
+#: classes/class-lsx-banners-admin.php:431
+msgid "Save Changes"
+msgstr ""
+
+#: classes/class-lsx-banners-admin.php:485, classes/class-taxonomy-administration.php:110
+msgid "Choose a Featured Image"
+msgstr ""
+
+#: classes/class-lsx-banners-frontend.php:351
+msgid "Previous"
+msgstr ""
+
+#: classes/class-lsx-banners-frontend.php:355
+msgid "Next"
+msgstr ""
+
+#: classes/class-placeholders.php:367
+msgid "Placeholders"
+msgstr ""
+
+#: classes/class-placeholders.php:373, classes/class-placeholders.php:444
+msgid "Banner Placeholder"
+msgstr ""
+
+#: classes/class-placeholders.php:391
+msgid "Featured Placeholder"
+msgstr ""
+
+#: classes/class-placeholders.php:409
+msgid "Blog Placeholder"
+msgstr ""
+
+#: classes/class-placeholders.php:427
+msgid "Disable Placeholder on Blog Posts"
+msgstr ""
+
+#: classes/class-placeholders.php:431
+msgid "This disables the placeholder on blog posts."
+msgstr ""
+
+#: classes/class-placeholders.php:463, classes/class-taxonomy-administration.php:95
+msgid "Featured Image"
+msgstr ""
+
+#: classes/class-taxonomy-administration.php:35
+msgid "Thumbnail"
 msgstr ""
 
 #: classes/class-taxonomy-administration.php:37, classes/class-taxonomy-administration.php:225
@@ -64,14 +184,22 @@ msgstr ""
 msgid "Video URL"
 msgstr ""
 
-#: classes/class-taxonomy-administration.php:95
-msgid "Featured Image"
-msgstr ""
-
 #: classes/class-taxonomy-administration.php:193
 msgid "Video Url (mp4)"
 msgstr ""
 
 #: classes/class-taxonomy-administration.php:230
 msgid "None"
+msgstr ""
+
+#: includes/settings/general.php:6
+msgid "API Settings"
+msgstr ""
+
+#: includes/settings/post.php:34, includes/settings/post.php:43
+msgid "Edit this on the page you have set as the \"blog\""
+msgstr ""
+
+#: includes/settings/post.php:40
+msgid "Description"
 msgstr ""
