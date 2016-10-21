@@ -143,7 +143,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 		$fields[] = array( 'id' => 'banner_video',  'name' => __('Video (mp4)','lsx-banners'), 'type' => 'file' );			
 
 		// Envira Gallery
-		if ( class_exists( 'Envira_Gallery' ) ) {
+		if ( class_exists( 'Envira_Gallery' ) && !class_exists('Tour_Operator')) {
 			$fields[] = array( 'id' => 'envira_gallery', 'name' => __( 'Envira Gallery', 'lsx-banners' ), 'type' => 'post_select', 'use_ajax' => false, 'query' => array( 'post_type' => 'envira', 'nopagin' => true, 'posts_per_page' => '-1', 'orderby' => 'title', 'order' => 'ASC' ) , 'allow_none' => true );
 		}
 
