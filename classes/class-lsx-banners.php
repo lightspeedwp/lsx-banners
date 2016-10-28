@@ -70,15 +70,15 @@ class LSX_Banners {
 		$this->options = get_option('_lsx_lsx-settings',false);	
 		$this->set_vars();	
 
-		add_action('init',array($this,'init_placeholders'),100);
+		//add_action('init',array($this,'init_placeholders'),100);
 
 		if(!class_exists('LSX_Taxonomy_Admin')){
 			require_once( LSX_BANNERS_PATH . 'classes/class-taxonomy-administration.php' );
 		}		
 
-		if(!class_exists('LSX_Placeholders')){
-			require_once( LSX_BANNERS_PATH . 'classes/class-placeholders.php' );
-		}		
+		//if(!class_exists('LSX_Placeholders')){
+		//	require_once( LSX_BANNERS_PATH . 'classes/class-placeholders.php' );
+		//}		
 
 		require_once( LSX_BANNERS_PATH . 'classes/class-lsx-banners-admin.php' );
 		if(class_exists('LSX_Banners_Admin')){

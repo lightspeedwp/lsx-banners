@@ -33,7 +33,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 		add_filter('lsx_taxonomy_admin_taxonomies', array( $this, 'add_taxonomies' ),10,1 );	
 		add_filter( 'lsx_framework_settings_tabs', array( $this, 'register_additional_tabs'),100,1 );
 		add_action( 'lsx_framework_dashboard_tab_bottom', array( $this, 'settings_page_scripts' ), 100 );
-		add_action( 'init', array( $this, 'create_settings_page'),100 );
+		//add_action( 'init', array( $this, 'create_settings_page'),100 );
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts') );		
 	}
