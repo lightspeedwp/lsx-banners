@@ -32,10 +32,10 @@ class LSX_Taxonomy_Admin {
 		$this->taxonomies = $taxonomies;
 
 		$this->fields = array(
-			'thumbnail'		=>	__('Thumbnail','lsx-banners'),
-			'tagline'		=>	__('Tagline','lsx-banners'),
-			'expert'		=>	__('Expert','lsx-banners'),
-			'banner_video'	=>	__('Video URL','lsx-banners')
+			'thumbnail'		=>	esc_html__('Thumbnail','lsx-banners'),
+			'tagline'		=>	esc_html__('Tagline','lsx-banners'),
+			'expert'		=>	esc_html__('Expert','lsx-banners'),
+			'banner_video'	=>	esc_html__('Video URL','lsx-banners')
 		);
 	}
 
@@ -92,22 +92,22 @@ class LSX_Taxonomy_Admin {
 		}
 		?>
 		<tr class="form-field form-required term-thumbnail-wrap">
-			<th scope="row"><label for="thumbnail"><?php _e('Featured Image','lsx-banners');?></label></th>
+			<th scope="row"><label for="thumbnail"><?php esc_html_e('Featured Image','lsx-banners');?></label></th>
 			<td>
 				<input style="display:none;" name="thumbnail" id="thumbnail" type="text" value="<?php echo $value; ?>" size="40" aria-required="true">
 				<div class="thumbnail-preview">
 					<?php echo $image_preview; ?>
 				</div>				
 
-				<a style="<?php if('' !== $value && false !== $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-add"><?php _e('Choose Image','lsx-banners');?></a>				
-				<a style="<?php if('' === $value || false === $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-remove"><?php _e('Remove Image','lsx-banners');?></a>
+				<a style="<?php if('' !== $value && false !== $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-add"><?php esc_html_e('Choose Image','lsx-banners');?></a>				
+				<a style="<?php if('' === $value || false === $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-remove"><?php esc_html_e('Remove Image','lsx-banners');?></a>
 			</td>
 		</tr>
 		
 		<script type="text/javascript">
 			(function( $ ) {
 				$( '.lsx-thumbnail-image-add' ).on( 'click', function() {
-					tb_show('Choose a Featured Image', 'media-upload.php?type=image&TB_iframe=1');
+					tb_show('<?php esc_html_e( 'Choose a Featured Image', 'lsx-banners' ); ?>', 'media-upload.php?type=image&TB_iframe=1');
 					var image_thumbnail = '';
 					window.send_to_editor = function( html ) 
 					{
@@ -169,7 +169,7 @@ class LSX_Taxonomy_Admin {
 		}
 		?>
 		<tr class="form-field form-required term-tagline-wrap">
-			<th scope="row"><label for="tagline"><?php _e('Tagline','lsx-banners');?></label></th>
+			<th scope="row"><label for="tagline"><?php esc_html_e('Tagline','lsx-banners');?></label></th>
 			<td>
 				<input name="tagline" id="tagline" type="text" value="<?php echo $value; ?>" size="40" aria-required="true">
 			</td>
@@ -190,7 +190,7 @@ class LSX_Taxonomy_Admin {
 		}
 		?>
 		<tr class="form-field form-required term-youtube-wrap">
-			<th scope="row"><label for="banner_video"><?php _e('Video Url (mp4)','lsx-banners');?></label></th>
+			<th scope="row"><label for="banner_video"><?php esc_html_e('Video Url (mp4)','lsx-banners');?></label></th>
 			<td>
 				<input name="banner_video" id="banner_video" type="text" value="<?php echo $value; ?>" size="40" aria-required="true">
 			</td>
@@ -222,12 +222,12 @@ class LSX_Taxonomy_Admin {
 
 		<tr class="form-field form-required term-expert-wrap">
 			<th scope="row">
-				<label for="expert"><?php _e( 'Expert','lsx-banners' ) ?></label>
+				<label for="expert"><?php esc_html_e( 'Expert','lsx-banners' ) ?></label>
 			</th>
 
 			<td>
 				<select name="expert" id="expert" aria-required="true">
-					<option value=""><?php _e( 'None','lsx-banners' ) ?></option>
+					<option value=""><?php esc_html_e( 'None','lsx-banners' ) ?></option>
 
 					<?php
 						foreach ( $experts as $expert ) {

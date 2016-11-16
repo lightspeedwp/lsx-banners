@@ -364,13 +364,13 @@ class LSX_Placeholders {
 	 */
 	public function dashboard_settings() { ?>
 		<th class="" style="padding-bottom:0px;" scope="row" colspan="2">
-			<label><h3 style="margin-bottom:0px;"> Placeholders</h3></label>			
+			<label><h3 style="margin-bottom:0px;"> <?php esc_html_e( 'Placeholders', 'lsx-banners' ); ?></h3></label>			
 		</th>
 
 		<?php if(class_exists('LSX_Banners')) { ?>
 			<tr class="form-field banner-placeholder-wrap">
 				<th scope="row">
-					<label for="banner"> Banner Placeholder</label>
+					<label for="banner"> <?php esc_html_e( 'Banner Placeholder', 'lsx-banners' ); ?></label>
 				</th>
 				<td>
 					<input type="hidden" {{#if banner_placeholder_id}} value="{{banner_placeholder_id}}" {{/if}} name="banner_placeholder_id" />
@@ -379,16 +379,16 @@ class LSX_Placeholders {
 						{{#if banner_placeholder}}<img src="{{banner_placeholder}}" width="300" height="150" />{{/if}}	
 					</div>
 
-					<a {{#if banner_placeholder}}style="display:none;"{{/if}} class="button-secondary lsx-thumbnail-image-add" data-slug="banner_placeholder">Choose Image</a>
+					<a {{#if banner_placeholder}}style="display:none;"{{/if}} class="button-secondary lsx-thumbnail-image-add" data-slug="banner_placeholder"><?php esc_html_e( 'Choose Image', 'lsx-banners' ); ?></a>
 
-					<a {{#unless banner_placeholder}}style="display:none;"{{/unless}} class="button-secondary lsx-thumbnail-image-delete" data-slug="banner_placeholder">Delete</a>
+					<a {{#unless banner_placeholder}}style="display:none;"{{/unless}} class="button-secondary lsx-thumbnail-image-delete" data-slug="banner_placeholder"><?php esc_html_e( 'Delete', 'lsx-banners' ); ?></a>
 					
 				</td>
 			</tr>
 		<?php } ?>
 		<tr class="form-field">
 			<th scope="row">
-				<label for="banner"> Featured Placeholder</label>
+				<label for="banner"> <?php esc_html_e( 'Featured Placeholder', 'lsx-banners' ); ?></label>
 			</th>
 			<td>
 				<input type="hidden" {{#if default_placeholder_id}} value="{{default_placeholder_id}}" {{/if}} name="default_placeholder_id" />
@@ -397,16 +397,16 @@ class LSX_Placeholders {
 					{{#if default_placeholder}}<img src="{{default_placeholder}}" width="150" height="150" />{{/if}}	
 				</div>
 
-				<a {{#if default_placeholder}}style="display:none;"{{/if}} class="button-secondary lsx-thumbnail-image-add" data-slug="default_placeholder">Choose Image</a>
+				<a {{#if default_placeholder}}style="display:none;"{{/if}} class="button-secondary lsx-thumbnail-image-add" data-slug="default_placeholder"><?php esc_html_e( 'Choose Image', 'lsx-banners' ); ?></a>
 
-				<a {{#unless default_placeholder}}style="display:none;"{{/unless}} class="button-secondary lsx-thumbnail-image-delete" data-slug="default_placeholder">Delete</a>
+				<a {{#unless default_placeholder}}style="display:none;"{{/unless}} class="button-secondary lsx-thumbnail-image-delete" data-slug="default_placeholder"><?php esc_html_e( 'Delete', 'lsx-banners' ); ?></a>
 				
 			</td>
 		</tr>
 		{{#unless disable_blog_placeholder}}
 			<tr class="form-field">
 				<th scope="row">
-					<label for="posts_placeholder"> Blog Placeholder</label>
+					<label for="posts_placeholder"> <?php esc_html_e( 'Blog Placeholder', 'lsx-banners' ); ?></label>
 				</th>
 				<td>
 					<input type="hidden" {{#if posts_placeholder_id}} value="{{posts_placeholder_id}}" {{/if}} name="posts_placeholder_id" />
@@ -415,20 +415,20 @@ class LSX_Placeholders {
 						{{#if posts_placeholder}}<img src="{{posts_placeholder}}" width="150" height="150" />{{/if}}	
 					</div>
 
-					<a {{#if posts_placeholder}}style="display:none;"{{/if}} class="button-secondary lsx-thumbnail-image-add" data-slug="posts_placeholder">Choose Image</a>
+					<a {{#if posts_placeholder}}style="display:none;"{{/if}} class="button-secondary lsx-thumbnail-image-add" data-slug="posts_placeholder"><?php esc_html_e( 'Choose Image', 'lsx-banners' ); ?></a>
 
-					<a {{#unless posts_placeholder}}style="display:none;"{{/unless}} class="button-secondary lsx-thumbnail-image-delete" data-slug="posts_placeholder">Delete</a>
+					<a {{#unless posts_placeholder}}style="display:none;"{{/unless}} class="button-secondary lsx-thumbnail-image-delete" data-slug="posts_placeholder"><?php esc_html_e( 'Delete', 'lsx-banners' ); ?></a>
 					
 				</td>
 			</tr>	
 		{{/unless}}	
 		<tr class="form-field">
 			<th scope="row">
-				<label for="description">Disable Placeholder on Blog Posts</label>
+				<label for="description"><?php esc_html_e( 'Disable Placeholder on Blog Posts', 'lsx-banners' ); ?></label>
 			</th>
 			<td>
 				<input type="checkbox" {{#if disable_blog_placeholder}} checked="checked" {{/if}} name="disable_blog_placeholder" />
-				<small>This disables the placeholder on blog posts.</small>
+				<small><?php esc_html_e( 'This disables the placeholder on blog posts.', 'lsx-banners' ); ?></small>
 			</td>
 		</tr>			
 	<?php 
@@ -441,7 +441,7 @@ class LSX_Placeholders {
 		<?php if(class_exists('LSX_Banners')) { ?>
 			<tr class="form-field banner-placeholder-wrap">
 				<th scope="row">
-					<label for="banner"> Banner Placeholder</label>
+					<label for="banner"> <?php esc_html_e( 'Banner Placeholder', 'lsx-banners' ); ?></label>
 				</th>
 				<td>
 					<input type="hidden" {{#if banner_placeholder_id}} value="{{banner_placeholder_id}}" {{/if}} name="banner_placeholder_id" />
@@ -450,9 +450,9 @@ class LSX_Placeholders {
 						{{#if banner_placeholder}}<img src="{{banner_placeholder}}" width="300" height="150" />{{/if}}	
 					</div>
 
-					<a {{#if banner_placeholder}}style="display:none;"{{/if}} class="button-secondary lsx-thumbnail-image-add" data-slug="banner_placeholder">Choose Image</a>
+					<a {{#if banner_placeholder}}style="display:none;"{{/if}} class="button-secondary lsx-thumbnail-image-add" data-slug="banner_placeholder"><?php esc_html_e( 'Choose Image', 'lsx-banners' ); ?></a>
 
-					<a {{#unless banner_placeholder}}style="display:none;"{{/unless}} class="button-secondary lsx-thumbnail-image-delete" data-slug="banner_placeholder">Delete</a>
+					<a {{#unless banner_placeholder}}style="display:none;"{{/unless}} class="button-secondary lsx-thumbnail-image-delete" data-slug="banner_placeholder"><?php esc_html_e( 'Delete', 'lsx-banners' ); ?></a>
 					
 				</td>
 			</tr>	
@@ -460,7 +460,7 @@ class LSX_Placeholders {
 		
 		<tr class="form-field featured-placeholder-wrap">
 			<th scope="row">
-				<label for="featured_placeholder">Featured Image</label>
+				<label for="featured_placeholder"><?php esc_html_e( 'Featured Image', 'lsx-banners' ); ?></label>
 			</th>
 			<td>
 				<input type="hidden" {{#if featured_placeholder_id}} value="{{featured_placeholder_id}}" {{/if}} name="featured_placeholder_id" />
@@ -469,9 +469,9 @@ class LSX_Placeholders {
 					{{#if featured_placeholder}}<img src="{{featured_placeholder}}" width="150" height="150" />{{/if}}	
 				</div>
 
-				<a {{#if featured_placeholder}}style="display:none;"{{/if}} class="button-secondary lsx-thumbnail-image-add" data-slug="featured_placeholder">Choose Image</a>
+				<a {{#if featured_placeholder}}style="display:none;"{{/if}} class="button-secondary lsx-thumbnail-image-add" data-slug="featured_placeholder"><?php esc_html_e( 'Choose Image', 'lsx-banners' ); ?></a>
 
-				<a {{#unless featured_placeholder}}style="display:none;"{{/unless}} class="button-secondary lsx-thumbnail-image-delete" data-slug="featured_placeholder">Delete</a>
+				<a {{#unless featured_placeholder}}style="display:none;"{{/unless}} class="button-secondary lsx-thumbnail-image-delete" data-slug="featured_placeholder"><?php esc_html_e( 'Delete', 'lsx-banners' ); ?></a>
 				
 			</td>
 		</tr>

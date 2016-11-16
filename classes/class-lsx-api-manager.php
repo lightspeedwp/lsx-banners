@@ -193,7 +193,7 @@ class LSX_API_Manager {
 
 		<tr class="form-field <?php echo $this->product_slug; ?>-api-email-wrap">
 			<th style="font-size:13px;" scope="row">
-				<i class="dashicons-before dashicons-email-alt"></i> Registered Email
+				<i class="dashicons-before dashicons-email-alt"></i> <?php esc_html_e( 'Registered Email', $this->product_slug ); ?>
 			</th>
 			<td>
 				<input type="text" {{#if <?php echo $this->product_slug; ?>_email}} value="{{<?php echo $this->product_slug; ?>_email}}" {{/if}} name="<?php echo $this->product_slug; ?>_email" /><br />
@@ -202,7 +202,7 @@ class LSX_API_Manager {
 		</tr>
 		<tr class="form-field <?php echo $this->product_slug; ?>-api-key-wrap">
 			<th style="font-size:13px;" scope="row">
-				<i class="dashicons-before dashicons-admin-network"></i> API Key
+				<i class="dashicons-before dashicons-admin-network"></i> <?php esc_html_e( 'API Key', $this->product_slug ); ?>
 			</th>
 			<td>
 				<input type="text" {{#if <?php echo $this->product_slug; ?>_api_key}} value="{{<?php echo $this->product_slug; ?>_api_key}}" {{/if}} name="<?php echo $this->product_slug; ?>_api_key" />
@@ -342,25 +342,25 @@ class LSX_API_Manager {
 	public function format_error_code($code=false){
         switch ( $code ) {
           case '101' :
-            $error = array( 'error' => __( 'Invalid API License Key. Login to your My Account page to find a valid API License Key', 'woocommerce-api-manager' ), 'code' => '101' );
+            $error = array( 'error' => esc_html__( 'Invalid API License Key. Login to your My Account page to find a valid API License Key', $this->product_slug ), 'code' => '101' );
             break;
           case '102' :
-            $error = array( 'error' => __( 'Software has been deactivated', 'woocommerce-api-manager' ), 'code' => '102' );
+            $error = array( 'error' => esc_html__( 'Software has been deactivated', $this->product_slug ), 'code' => '102' );
             break;
           case '103' :
-            $error = array( 'error' => __( 'Exceeded maximum number of activations', 'woocommerce-api-manager' ), 'code' => '103' );
+            $error = array( 'error' => esc_html__( 'Exceeded maximum number of activations', $this->product_slug ), 'code' => '103' );
             break;
           case '104' :
-            $error = array( 'error' => __( 'Invalid Instance ID', 'woocommerce-api-manager' ), 'code' => '104' );
+            $error = array( 'error' => esc_html__( 'Invalid Instance ID', $this->product_slug ), 'code' => '104' );
             break;
           case '105' :
-            $error = array( 'error' => __( 'Invalid API License Key', 'woocommerce-api-manager' ), 'code' => '105' );
+            $error = array( 'error' => esc_html__( 'Invalid API License Key', $this->product_slug ), 'code' => '105' );
             break;
           case '106' :
-            $error = array( 'error' => __( 'Subscription Is Not Active', 'woocommerce-api-manager' ), 'code' => '106' );
+            $error = array( 'error' => esc_html__( 'Subscription Is Not Active', $this->product_slug ), 'code' => '106' );
             break;
           default :
-            $error = array( 'error' => __( 'Invalid Request', 'woocommerce-api-manager' ), 'code' => '100' );
+            $error = array( 'error' => esc_html__( 'Invalid Request', $this->product_slug ), 'code' => '100' );
             break;
         }		
 	}	
@@ -426,9 +426,9 @@ class LSX_API_Manager {
 	 */
 	public function add_action_links ( $links ) {
 		 $mylinks = array(
-		 	'<a href="' . admin_url( 'options-general.php?page=lsx-lsx-settings' ) . '">'.__('Settings',$this->product_slug).'</a>',
-		 	'<a href="https://www.lsdev.biz/documentation/lsx-tour-operator-plugin/" target="_blank">'.__('Documentation',$this->product_slug).'</a>',
-		 	'<a href="https://feedmysupport.zendesk.com/home" target="_blank">'.__('Support',$this->product_slug).'</a>',
+		 	'<a href="' . admin_url( 'options-general.php?page=lsx-lsx-settings' ) . '">'.esc_html__('Settings',$this->product_slug).'</a>',
+		 	'<a href="https://www.lsdev.biz/documentation/lsx-tour-operator-plugin/" target="_blank">'.esc_html__('Documentation',$this->product_slug).'</a>',
+		 	'<a href="https://feedmysupport.zendesk.com/home" target="_blank">'.esc_html__('Support',$this->product_slug).'</a>',
 		 );
 		return array_merge( $links, $mylinks );
 	}	

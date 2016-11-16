@@ -15,7 +15,7 @@
  */
 function lsx_banner_src(){
 	global $lsx_banners;
-	$lsx_banners->banner();
+	$lsx_banners->frontend->banner();
 }
 
 /**

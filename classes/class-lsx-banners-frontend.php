@@ -348,11 +348,11 @@ class LSX_Banners_Frontend extends LSX_Banners {
 						</ol>
 						<a class="left carousel-control" href="#page-banner-slider" role="button" data-slide="prev">
 							<span class="fa fa-chevron-left" aria-hidden="true"></span>
-							<span class="sr-only">Previous</span>
+							<span class="sr-only"><?php esc_html_e( 'Previous', 'lsx-banners' ); ?></span>
 						</a>
 						<a class="right carousel-control" href="#page-banner-slider" role="button" data-slide="next">
 							<span class="fa fa-chevron-right" aria-hidden="true"></span>
-							<span class="sr-only">Next</span>
+							<span class="sr-only"><?php esc_html_e( 'Next', 'lsx-banners' ); ?></span>
 						</a>
 					</div>					
 				</div>
