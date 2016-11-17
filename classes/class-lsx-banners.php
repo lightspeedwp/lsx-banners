@@ -68,17 +68,16 @@ class LSX_Banners {
 	 */
 	public function __construct() {
 		$this->options = get_option('_lsx_lsx-settings',false);	
-		$this->set_vars();	
-
-		//add_action('init',array($this,'init_placeholders'),100);
+		$this->set_vars();
 
 		if(!class_exists('LSX_Taxonomy_Admin')){
 			require_once( LSX_BANNERS_PATH . 'classes/class-taxonomy-administration.php' );
 		}		
 
-		//if(!class_exists('LSX_Placeholders')){
-		//	require_once( LSX_BANNERS_PATH . 'classes/class-placeholders.php' );
-		//}		
+		if(!class_exists('LSX_Placeholders')){
+			require_once( LSX_BANNERS_PATH . 'classes/class-placeholders.php' );
+			add_action('init',array($this,'init_placeholders'),100);
+		}
 
 		require_once( LSX_BANNERS_PATH . 'classes/class-lsx-banners-admin.php' );
 		if(class_exists('LSX_Banners_Admin')){

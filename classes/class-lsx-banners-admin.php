@@ -481,7 +481,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 	 * Allows the settings pages to upload images
 	 */
 	public function settings_page_scripts(){ ?>
-	{{#script}}
+	<script>
 		jQuery( function( $ ){
 			$( '.lsx-thumbnail-image-add' ).on( 'click', function() {
 
@@ -517,7 +517,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 				$( this ).parent('td').find('.lsx-thumbnail-image-add' ).show();
 			});		
 		});
-	{{/script}}
+	</script>
 	<?php
 	}					
 }
