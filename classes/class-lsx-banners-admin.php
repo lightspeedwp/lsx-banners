@@ -33,7 +33,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 		add_filter('lsx_taxonomy_admin_taxonomies', array( $this, 'add_taxonomies' ),10,1 );	
 		add_filter( 'lsx_framework_settings_tabs', array( $this, 'register_additional_tabs'),100,1 );
 		add_action( 'lsx_framework_dashboard_tab_bottom', array( $this, 'settings_page_scripts' ), 100 );
-		//add_action( 'init', array( $this, 'create_settings_page'),100 );
+		add_action( 'init', array( $this, 'create_settings_page'),100 );
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts') );		
 	}
@@ -371,18 +371,22 @@ class LSX_Banners_Admin extends LSX_Banners {
 	 */
 	public function create_settings_page(){
 		if(is_admin()){
-			if(!class_exists('\lsx\ui\uix')){
+			if(!class_exists('\lsx\ui\uix') && !class_exists('Tour_Operator')){
 				include_once LSX_BANNERS_PATH.'vendor/uix/uix.php';
+				$pages = $this->settings_page_array();
+				$uix = \lsx\ui\uix::get_instance( 'lsx' );
+				$uix->register_pages( $pages );
 			}
-			$pages = $this->settings_page_array();
-			$uix = \lsx\ui\uix::get_instance( 'lsx' );
-			$uix->register_pages( $pages );
 
 			$post_types = $this->get_allowed_post_types();
-
 			if(false !== $post_types){
 				foreach($post_types as $post_type){
-					add_action( 'lsx_framework_'.$post_type.'_tab_content_top', array( $this, 'archive_settings' ), 11 , 1 );
+
+					if(class_exists('Tour_Operator')) {
+						add_action('to_framework_' . $post_type . '_tab_content_top', array($this, 'archive_settings'), 11, 1);
+					}else{
+						add_action('lsx_framework_' . $post_type . '_tab_content_top', array($this, 'archive_settings'), 11, 1);
+					}
 				}	
 			}
 		}
