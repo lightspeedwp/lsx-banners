@@ -32,10 +32,26 @@ var LSX_Banners = {
 			jQuery(this).parent().trigger('click');
 			return false;
 		});
+	},
+
+	initSliderSwiper: function() {
+		jQuery('#page-banner-slider').swipe({
+			swipeLeft:function(event, direction, distance, duration, fingerCount) {
+				$(this).carousel('prev'); 
+			},
+
+			swipeRight: function() {
+				$(this).carousel('next'); 
+			},
+			
+			threshold: 0,
+			allowPageScroll: 'vertical'
+		});
 	}
 }
 
 jQuery(document).ready(function() {
 	LSX_Banners.initThis();
 	LSX_Banners.initScrollable();
+	LSX_Banners.initSliderSwiper();
 });

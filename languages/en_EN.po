@@ -136,11 +136,11 @@ msgstr ""
 msgid "Choose a Featured Image"
 msgstr ""
 
-#: classes/class-lsx-banners-frontend.php:351
+#: classes/class-lsx-banners-frontend.php:353
 msgid "Previous"
 msgstr ""
 
-#: classes/class-lsx-banners-frontend.php:355
+#: classes/class-lsx-banners-frontend.php:357
 msgid "Next"
 msgstr ""
 
