@@ -37,11 +37,11 @@ var LSX_Banners = {
 	initSliderSwiper: function() {
 		jQuery('#page-banner-slider').swipe({
 			swipeLeft:function(event, direction, distance, duration, fingerCount) {
-				$(this).carousel('prev'); 
+				jQuery(this).carousel('prev'); 
 			},
 
 			swipeRight: function() {
-				$(this).carousel('next'); 
+				jQuery(this).carousel('next'); 
 			},
 			
 			threshold: 0,
