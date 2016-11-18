@@ -140,7 +140,7 @@ class LSX_API_Manager {
 
 		add_filter('site_transient_update_plugins', array($this,'injectUpdate'));
 		add_action( "in_plugin_update_message-".$this->file,array($this,'plugin_update_message'),10,2);
-
+		
 		if ( class_exists( 'Tour_Operator' ) ) {
 			add_action( 'to_framework_api_tab_content', array( $this, 'dashboard_tabs' ), 1, 1 );
 		} else {
@@ -180,27 +180,27 @@ class LSX_API_Manager {
 			<th class="<?php echo $this->product_slug; ?>_table_heading" style="padding-bottom:0px;" scope="row" colspan="2">
 
 				<?php
-				$colour = 'red';
-				if('active' === $this->status){
-					$colour = 'green';
-				}
+					$colour = 'red';
+					if('active' === $this->status){
+						$colour = 'green';
+					}
 				?>
 
 				<h4 style="margin-bottom:0px;">
-					<span><?php echo $this->product_id; ?></span>
-					- <span><?php echo $this->version; ?></span>
+					<span><?php echo $this->product_id; ?></span> 
+					- <span><?php echo $this->version; ?></span> 
 					- <span style="color:<?php echo $colour;?>;"><?php echo $this->status; ?></span>
 					- <?php echo $this->button; ?>
 				</h4>
 
 				<?php if(is_array($this->messages)) { ?><p><small class="messages" style="font-weight:normal;"><?php echo implode('. ',$this->messages); ?></small></p><?php } ?>
-
+		
 			</th>
 		</tr>
 
 		<tr class="form-field <?php echo $this->product_slug; ?>-api-email-wrap">
 			<th style="font-size:13px;" scope="row">
-				<i class="dashicons-before dashicons-email-alt"></i> Registered Email
+				<i class="dashicons-before dashicons-email-alt"></i> <?php esc_html_e( 'Registered Email', $this->product_slug ); ?>
 			</th>
 			<td>
 				<input type="text" {{#if <?php echo $this->product_slug; ?>_email}} value="{{<?php echo $this->product_slug; ?>_email}}" {{/if}} name="<?php echo $this->product_slug; ?>_email" /><br />
@@ -209,14 +209,14 @@ class LSX_API_Manager {
 		</tr>
 		<tr class="form-field <?php echo $this->product_slug; ?>-api-key-wrap">
 			<th style="font-size:13px;" scope="row">
-				<i class="dashicons-before dashicons-admin-network"></i> API Key
+				<i class="dashicons-before dashicons-admin-network"></i> <?php esc_html_e( 'API Key', $this->product_slug ); ?>
 			</th>
 			<td>
 				<input type="text" {{#if <?php echo $this->product_slug; ?>_api_key}} value="{{<?php echo $this->product_slug; ?>_api_key}}" {{/if}} name="<?php echo $this->product_slug; ?>_api_key" />
 			</td>
 		</tr>
 
-		<?php
+	<?php
 		$this->settings_page_scripts();
 	}
 
@@ -225,30 +225,28 @@ class LSX_API_Manager {
 	 */
 	public function settings_page_scripts(){ ?>
 		{{#script}}
-		jQuery( function( $ ){
-		$( '.<?php echo $this->product_slug; ?>-api-email-wrap input' ).on( 'change', function() {
-		$('input[name="<?php echo $this->product_slug; ?>_api_action"]').remove();
+			jQuery( function( $ ){
+				$( '.<?php echo $this->product_slug; ?>-api-email-wrap input' ).on( 'change', function() {
+					$('input[name="<?php echo $this->product_slug; ?>_api_action"]').remove();
 
-		var action = 'activate';
-		if('' == $(this).val() || undefined == $(this).val()){
-		action = 'deactivate';
-		}
-		$('.<?php echo $this->product_slug; ?>-wrap').append('<input type="hidden" value="'+action+'" name="<?php echo $this->product_slug; ?>_api_action" />');
-		});
+					var action = 'activate';
+					if('' == $(this).val() || undefined == $(this).val()){
+						action = 'deactivate';
+					}
+					$('.<?php echo $this->product_slug; ?>-wrap').append('<input type="hidden" value="'+action+'" name="<?php echo $this->product_slug; ?>_api_action" />');
+				});
 
-		$( '.activate[data-product="<?php echo $this->product_slug; ?>"]' ).on( 'click', function() {
+				$( '.activate[data-product="<?php echo $this->product_slug; ?>"]' ).on( 'click', function() {
 
-		var url = $(this).attr('href');
-		$( window ).on('uix.saved',function() {
-		window.location.href = url;
-		});
-		$('.page-title-action').click();
-		});
-
-
-		});
+					var url = $(this).attr('href');
+					$( window ).on('uix.saved',function() { 
+						window.location.href = url;
+					});
+					$('.page-title-action').click();
+				});
+			});
 		{{/script}}
-		<?php
+	<?php
 	}
 
 	/**
@@ -347,29 +345,29 @@ class LSX_API_Manager {
 	 * @return array
 	 */
 	public function format_error_code($code=false){
-		switch ( $code ) {
-			case '101' :
-				$error = array( 'error' => __( 'Invalid API License Key. Login to your My Account page to find a valid API License Key', 'woocommerce-api-manager' ), 'code' => '101' );
-				break;
-			case '102' :
-				$error = array( 'error' => __( 'Software has been deactivated', 'woocommerce-api-manager' ), 'code' => '102' );
-				break;
-			case '103' :
-				$error = array( 'error' => __( 'Exceeded maximum number of activations', 'woocommerce-api-manager' ), 'code' => '103' );
-				break;
-			case '104' :
-				$error = array( 'error' => __( 'Invalid Instance ID', 'woocommerce-api-manager' ), 'code' => '104' );
-				break;
-			case '105' :
-				$error = array( 'error' => __( 'Invalid API License Key', 'woocommerce-api-manager' ), 'code' => '105' );
-				break;
-			case '106' :
-				$error = array( 'error' => __( 'Subscription Is Not Active', 'woocommerce-api-manager' ), 'code' => '106' );
-				break;
-			default :
-				$error = array( 'error' => __( 'Invalid Request', 'woocommerce-api-manager' ), 'code' => '100' );
-				break;
-		}
+        switch ( $code ) {
+          case '101' :
+            $error = array( 'error' => esc_html__( 'Invalid API License Key. Login to your My Account page to find a valid API License Key', $this->product_slug ), 'code' => '101' );
+            break;
+          case '102' :
+            $error = array( 'error' => esc_html__( 'Software has been deactivated', $this->product_slug ), 'code' => '102' );
+            break;
+          case '103' :
+            $error = array( 'error' => esc_html__( 'Exceeded maximum number of activations', $this->product_slug ), 'code' => '103' );
+            break;
+          case '104' :
+            $error = array( 'error' => esc_html__( 'Invalid Instance ID', $this->product_slug ), 'code' => '104' );
+            break;
+          case '105' :
+            $error = array( 'error' => esc_html__( 'Invalid API License Key', $this->product_slug ), 'code' => '105' );
+            break;
+          case '106' :
+            $error = array( 'error' => esc_html__( 'Subscription Is Not Active', $this->product_slug ), 'code' => '106' );
+            break;
+          default :
+            $error = array( 'error' => esc_html__( 'Invalid Request', $this->product_slug ), 'code' => '100' );
+            break;
+        }
 	}
 
 	public static function generatePassword($length = 20) {
