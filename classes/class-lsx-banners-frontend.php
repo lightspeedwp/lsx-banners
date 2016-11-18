@@ -30,7 +30,10 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	 * @access private
 	 */
 	public function __construct() {
-		$this->options = get_option('_lsx_lsx-settings',false);	
+		$this->options = get_option('_lsx_settings',false);
+		if ( false === $this->options ) {
+			$this->options = get_option('_lsx_lsx-settings',false);
+		}
 		$this->set_vars();
 		
 		add_action('wp_head',array($this,'init'));

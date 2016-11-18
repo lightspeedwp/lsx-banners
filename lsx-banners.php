@@ -43,13 +43,16 @@ register_activation_hook( __FILE__, 'lsx_banners_activate_plugin' );
  *	Grabs the email and api key from the LSX Search Settings.
  */ 
 function lsx_banners_options_pages_filter($pages){
-	$pages[] = 'lsx-lsx-settings';
+	$pages[] = 'lsx-settings';
 	return $pages;
 }
 add_filter('lsx_api_manager_options_pages','lsx_banners_options_pages_filter',10,1);
 
 function lsx_banners_api_admin_init(){
-	$options = get_option('_lsx_lsx-settings',false);
+	$options = get_option('_lsx_settings',false);
+	if ( false === $options ) {
+		$options = get_option('_lsx_lsx-settings',false);
+	}
 	$data = array('api_key'=>'','email'=>'');
 
 	if(false !== $options && isset($options['general'])){

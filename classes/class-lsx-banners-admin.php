@@ -25,7 +25,10 @@ class LSX_Banners_Admin extends LSX_Banners {
 	 * @access private
 	 */
 	public function __construct() {
-		$this->options = get_option('_lsx_lsx-settings',false);	
+		$this->options = get_option('_lsx_settings',false);
+		if ( false === $this->options ) {
+			$this->options = get_option('_lsx_lsx-settings',false);
+		}
 		$this->set_vars();	
 
 		add_action('admin_init',array($this,'admin_init'));
@@ -71,7 +74,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 	 * @since 0.1.0
 	 */
 	function admin_scripts() {
-		if(isset($_GET['page']) && 'lsx-lsx-settings' === $_GET['page']){
+		if(isset($_GET['page']) && 'lsx-settings' === $_GET['page']){
 	    	wp_enqueue_script('media-upload');
 	    	wp_enqueue_script('thickbox');
 	    	wp_enqueue_style('thickbox');
@@ -429,12 +432,12 @@ class LSX_Banners_Admin extends LSX_Banners {
 			$tabs = array_merge($tabs,$additional_tabs);
 		}
 		return array(
-				'lsx-settings'  => array(                                                         // this is the settings array. The key is the page slug
-						'page_title'  =>  esc_html__( 'LSX Settings', 'lsx-banners' ),                                                  // title of the page
-						'menu_title'  =>  esc_html__( 'LSX Settings', 'lsx-banners' ),                                                  // title seen on the menu link
+				'settings'  => array(                                                         // this is the settings array. The key is the page slug
+						'page_title'  =>  esc_html__( 'Theme Options', 'lsx-banners' ),                                                  // title of the page
+						'menu_title'  =>  esc_html__( 'Theme Options', 'lsx-banners' ),                                                  // title seen on the menu link
 						'capability'  =>  'manage_options',                                              // required capability to access page
 						'icon'        =>  'dashicons-book-alt',                                          // Icon or image to be used on admin menu
-						'parent'      =>  'options-general.php',                                         // Position priority on admin menu)
+						'parent'      =>  'themes.php',                                         // Position priority on admin menu)
 						'save_button' =>  esc_html__( 'Save Changes', 'lsx-banners' ),                                                // If the page required saving settings, Set the text here.
 						'tabs'        =>  $tabs,
 						/*'help'	=> array(	// the wordpress contextual help is also included
