@@ -3,11 +3,11 @@
  * @package   LSX API Manager Class
  * @author     LightSpeeds
  * @license   GPL-2.0+
- * @link      
+ * @link
  * @copyright 2015  LightSpeed Team
  */
 
-class LSX_API_Manager {	
+class LSX_API_Manager {
 
 	/**
 	 * Holds the API Key
@@ -21,35 +21,35 @@ class LSX_API_Manager {
 	 *
 	 * @var      string
 	 */
-	public $email = false;	
+	public $email = false;
 
 	/**
 	 * Holds the Products Title
 	 *
 	 * @var      string
 	 */
-	public $product_id = false;	
+	public $product_id = false;
 
 	/**
 	 * Holds the Products Slug
 	 *
 	 * @var      string
 	 */
-	public $product_slug = false;		
+	public $product_slug = false;
 
 	/**
 	 * Holds the current version of the plugin
 	 *
 	 * @var      string
 	 */
-	public $version = false;	
+	public $version = false;
 
 	/**
 	 * Holds the unique password for this site.
 	 *
 	 * @var      string
 	 */
-	public $password = false;	
+	public $password = false;
 
 	/**
 	 * Holds any messages for the user.
@@ -63,14 +63,14 @@ class LSX_API_Manager {
 	 *
 	 * @var      string
 	 */
-	public $file = false;	
+	public $file = false;
 
 	/**
 	 * Holds the activate / deactivate button.
 	 *
 	 * @var      string
 	 */
-	public $button = false;	
+	public $button = false;
 
 	/**
 	 * Holds class instance
@@ -78,7 +78,7 @@ class LSX_API_Manager {
 	 * @var      string
 	 */
 	protected static $instance = null;
-	
+
 	/**
 	 * Initialize the plugin by setting localization, filters, and administration functions.
 	 */
@@ -86,7 +86,7 @@ class LSX_API_Manager {
 
 		if(isset($api_array['api_key'])){
 			$this->api_key = trim($api_array['api_key']);
-		}			
+		}
 		if(isset($api_array['email'])){
 			$this->email = trim($api_array['email']);
 		}
@@ -102,11 +102,11 @@ class LSX_API_Manager {
 		}
 		if(isset($api_array['file'])){
 			$this->file = $api_array['file'];
-		}		
+		}
 
 		$this->api_url = 'https://dev.lsdev.biz/wc-api/product-key-api';
 		$this->products_api_url = 'https://dev.lsdev.biz/';
-		$this->license_check_url = 'https://dev.lsdev.biz/wc-api/license-status-check';		
+		$this->license_check_url = 'https://dev.lsdev.biz/wc-api/license-status-check';
 
 		add_filter( 'plugin_action_links_' . plugin_basename(str_replace('.php','',$this->file).'/'.$this->file), array($this,'add_action_links'));
 
@@ -127,10 +127,10 @@ class LSX_API_Manager {
 			$button_url = '<a data-product="'.$this->product_slug.'" style="margin-top:-5px;" href="';
 			$button_label = '';
 			if('active' !== $this->status){
-				$button_url .= admin_url('options-general.php?page=lsx-lsx-settings&action=activate&product='.$this->product_slug);
+				$button_url .= admin_url('admin.php?page=to-settings&action=activate&product='.$this->product_slug);
 				$button_label = 'Activate';
 			}else{
-				$button_url .= admin_url('options-general.php?page=lsx-lsx-settings&action=deactivate&product='.$this->product_slug);
+				$button_url .= admin_url('admin.php?page=to-settings&action=deactivate&product='.$this->product_slug);
 				$button_label = 'Deactivate';
 			}
 			$button_url .= '" class="button-secondary activate">'.$button_label.'</a>';
@@ -140,12 +140,12 @@ class LSX_API_Manager {
 		add_filter('site_transient_update_plugins', array($this,'injectUpdate'));
 		add_action( "in_plugin_update_message-".$this->file,array($this,'plugin_update_message'),10,2);
 
-		add_action('lsx_framework_dashboard_tab_content_api',array($this,'dashboard_tabs'),1);
-		
-		add_action('wp_ajax_wc_api_'.$this->product_slug,array($this,'activate_deactivate'));	
+		add_action('to_framework_api_tab_content',array($this,'dashboard_tabs'),1,1);
+
+		add_action('wp_ajax_wc_api_'.$this->product_slug,array($this,'activate_deactivate'));
 		add_action('wp_ajax_nopriv_wc_api_'.$this->product_slug,array($this,'activate_deactivate'));
 	}
-	
+
 	/**
 	 * Return an instance of this class.
 	 *
@@ -159,7 +159,7 @@ class LSX_API_Manager {
 			self::$instance = new self;
 		}
 		return self::$instance;
-	}	
+	}
 
 	/**
 	 * Outputs the dashboard tab pages.
@@ -168,32 +168,34 @@ class LSX_API_Manager {
 	 *
 	 * @return    object|Module_Template    A single instance of this class.
 	 */
-	public static function dashboard_tabs() { ?>
+	public function dashboard_tabs($tab=general) {
+		if('api' !== $tab){ return false;}
+		?>
 		<tr class="form-field <?php echo $this->product_slug; ?>-wrap">
 			<th class="<?php echo $this->product_slug; ?>_table_heading" style="padding-bottom:0px;" scope="row" colspan="2">
 
 				<?php
-					$colour = 'red';
-					if('active' === $this->status){
-						$colour = 'green';
-					}
+				$colour = 'red';
+				if('active' === $this->status){
+					$colour = 'green';
+				}
 				?>
 
 				<h4 style="margin-bottom:0px;">
-					<span><?php echo $this->product_id; ?></span> 
-					 - <span><?php echo $this->version; ?></span> 
-					 - <span style="color:<?php echo $colour;?>;"><?php echo $this->status; ?></span>
-					 - <?php echo $this->button; ?>
+					<span><?php echo $this->product_id; ?></span>
+					- <span><?php echo $this->version; ?></span>
+					- <span style="color:<?php echo $colour;?>;"><?php echo $this->status; ?></span>
+					- <?php echo $this->button; ?>
 				</h4>
 
 				<?php if(is_array($this->messages)) { ?><p><small class="messages" style="font-weight:normal;"><?php echo implode('. ',$this->messages); ?></small></p><?php } ?>
-		
+
 			</th>
 		</tr>
 
 		<tr class="form-field <?php echo $this->product_slug; ?>-api-email-wrap">
 			<th style="font-size:13px;" scope="row">
-				<i class="dashicons-before dashicons-email-alt"></i> <?php esc_html_e( 'Registered Email', $this->product_slug ); ?>
+				<i class="dashicons-before dashicons-email-alt"></i> Registered Email
 			</th>
 			<td>
 				<input type="text" {{#if <?php echo $this->product_slug; ?>_email}} value="{{<?php echo $this->product_slug; ?>_email}}" {{/if}} name="<?php echo $this->product_slug; ?>_email" /><br />
@@ -202,14 +204,14 @@ class LSX_API_Manager {
 		</tr>
 		<tr class="form-field <?php echo $this->product_slug; ?>-api-key-wrap">
 			<th style="font-size:13px;" scope="row">
-				<i class="dashicons-before dashicons-admin-network"></i> <?php esc_html_e( 'API Key', $this->product_slug ); ?>
+				<i class="dashicons-before dashicons-admin-network"></i> API Key
 			</th>
 			<td>
 				<input type="text" {{#if <?php echo $this->product_slug; ?>_api_key}} value="{{<?php echo $this->product_slug; ?>_api_key}}" {{/if}} name="<?php echo $this->product_slug; ?>_api_key" />
 			</td>
 		</tr>
 
-	<?php
+		<?php
 		$this->settings_page_scripts();
 	}
 
@@ -218,30 +220,30 @@ class LSX_API_Manager {
 	 */
 	public function settings_page_scripts(){ ?>
 		{{#script}}
-			jQuery( function( $ ){
-				$( '.<?php echo $this->product_slug; ?>-api-email-wrap input' ).on( 'change', function() {
-					$('input[name="<?php echo $this->product_slug; ?>_api_action"]').remove();
+		jQuery( function( $ ){
+		$( '.<?php echo $this->product_slug; ?>-api-email-wrap input' ).on( 'change', function() {
+		$('input[name="<?php echo $this->product_slug; ?>_api_action"]').remove();
 
-					var action = 'activate';
-					if('' == $(this).val() || undefined == $(this).val()){
-						action = 'deactivate';
-					}
-					$('.<?php echo $this->product_slug; ?>-wrap').append('<input type="hidden" value="'+action+'" name="<?php echo $this->product_slug; ?>_api_action" />');
-				});
+		var action = 'activate';
+		if('' == $(this).val() || undefined == $(this).val()){
+		action = 'deactivate';
+		}
+		$('.<?php echo $this->product_slug; ?>-wrap').append('<input type="hidden" value="'+action+'" name="<?php echo $this->product_slug; ?>_api_action" />');
+		});
 
-				$( '.activate[data-product="<?php echo $this->product_slug; ?>"]' ).on( 'click', function() {
+		$( '.activate[data-product="<?php echo $this->product_slug; ?>"]' ).on( 'click', function() {
 
-					var url = $(this).attr('href');
-					$( window ).on('uix.saved',function() { 
-						window.location.href = url;
-					});
-					$('.page-title-action').click();
-				});				
+		var url = $(this).attr('href');
+		$( window ).on('uix.saved',function() {
+		window.location.href = url;
+		});
+		$('.page-title-action').click();
+		});
 
-				
-			});
-		{{/script}}				
-	<?php 
+
+		});
+		{{/script}}
+		<?php
 	}
 
 	/**
@@ -267,10 +269,10 @@ class LSX_API_Manager {
 
 			$response = $this->query('deactivation');
 			update_option($this->product_slug.'_status','inactive');
-		}		
+		}
 	}
 
-	
+
 	/**
 	 * Generates the API URL
 	 */
@@ -303,7 +305,7 @@ class LSX_API_Manager {
 				}
 				if(isset($response->message)){
 					$this->messages[] = $response->message;
-				}				
+				}
 			}
 		}
 		return $status;
@@ -316,12 +318,12 @@ class LSX_API_Manager {
 	 */
 	public function query($action='status') {
 		$args = array(
-				'request' 		=> $action,
-				'email' 		=> $this->email,
-				'licence_key'	=> $this->api_key,
-				'product_id' 	=> $this->product_id,
-				'platform' 		=> home_url(),
-				'instance' 		=> $this->password
+			'request' 		=> $action,
+			'email' 		=> $this->email,
+			'licence_key'	=> $this->api_key,
+			'product_id' 	=> $this->product_id,
+			'platform' 		=> home_url(),
+			'instance' 		=> $this->password
 		);
 		$target_url = esc_url_raw( $this->create_software_api_url( $args ) );
 
@@ -340,55 +342,55 @@ class LSX_API_Manager {
 	 * @return array
 	 */
 	public function format_error_code($code=false){
-        switch ( $code ) {
-          case '101' :
-            $error = array( 'error' => esc_html__( 'Invalid API License Key. Login to your My Account page to find a valid API License Key', $this->product_slug ), 'code' => '101' );
-            break;
-          case '102' :
-            $error = array( 'error' => esc_html__( 'Software has been deactivated', $this->product_slug ), 'code' => '102' );
-            break;
-          case '103' :
-            $error = array( 'error' => esc_html__( 'Exceeded maximum number of activations', $this->product_slug ), 'code' => '103' );
-            break;
-          case '104' :
-            $error = array( 'error' => esc_html__( 'Invalid Instance ID', $this->product_slug ), 'code' => '104' );
-            break;
-          case '105' :
-            $error = array( 'error' => esc_html__( 'Invalid API License Key', $this->product_slug ), 'code' => '105' );
-            break;
-          case '106' :
-            $error = array( 'error' => esc_html__( 'Subscription Is Not Active', $this->product_slug ), 'code' => '106' );
-            break;
-          default :
-            $error = array( 'error' => esc_html__( 'Invalid Request', $this->product_slug ), 'code' => '100' );
-            break;
-        }		
-	}	
+		switch ( $code ) {
+			case '101' :
+				$error = array( 'error' => __( 'Invalid API License Key. Login to your My Account page to find a valid API License Key', 'woocommerce-api-manager' ), 'code' => '101' );
+				break;
+			case '102' :
+				$error = array( 'error' => __( 'Software has been deactivated', 'woocommerce-api-manager' ), 'code' => '102' );
+				break;
+			case '103' :
+				$error = array( 'error' => __( 'Exceeded maximum number of activations', 'woocommerce-api-manager' ), 'code' => '103' );
+				break;
+			case '104' :
+				$error = array( 'error' => __( 'Invalid Instance ID', 'woocommerce-api-manager' ), 'code' => '104' );
+				break;
+			case '105' :
+				$error = array( 'error' => __( 'Invalid API License Key', 'woocommerce-api-manager' ), 'code' => '105' );
+				break;
+			case '106' :
+				$error = array( 'error' => __( 'Subscription Is Not Active', 'woocommerce-api-manager' ), 'code' => '106' );
+				break;
+			default :
+				$error = array( 'error' => __( 'Invalid Request', 'woocommerce-api-manager' ), 'code' => '100' );
+				break;
+		}
+	}
 
 	public static function generatePassword($length = 20) {
-	    $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-	    $count = mb_strlen($chars);
+		$chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+		$count = mb_strlen($chars);
 
-	    for ($i = 0, $result = ''; $i < $length; $i++) {
-	        $index = rand(0, $count - 1);
-	        $result .= mb_substr($chars, $index, 1);
-	    }
+		for ($i = 0, $result = ''; $i < $length; $i++) {
+			$index = rand(0, $count - 1);
+			$result .= mb_substr($chars, $index, 1);
+		}
 
-	    return $result;
-	}	
+		return $result;
+	}
 
 	public function set_update_status(){
 		if(isset($this->status) && 'active' === $this->status){
 			$args = array(
-					'request' 			=> 'pluginupdatecheck',
-					'plugin_name' 		=> $this->product_slug.'/'.$this->file,
-					'version' 			=> $this->product_slug,
-					'activation_email' 	=> $this->email,
-					'api_key'			=> $this->api_key,
-					'product_id' 		=> $this->product_id,
-					'domain' 			=> home_url(),
-					'instance' 			=> $this->password,
-					'software_version'	=> $this->version,			
+				'request' 			=> 'pluginupdatecheck',
+				'plugin_name' 		=> $this->product_slug.'/'.$this->file,
+				'version' 			=> $this->product_slug,
+				'activation_email' 	=> $this->email,
+				'api_key'			=> $this->api_key,
+				'product_id' 		=> $this->product_id,
+				'domain' 			=> home_url(),
+				'instance' 			=> $this->password,
+				'software_version'	=> $this->version,
 			);
 			$target_url = esc_url_raw( $this->create_software_api_url( $args ) );
 			$request = wp_remote_get( $target_url );
@@ -400,10 +402,10 @@ class LSX_API_Manager {
 			$this->upgrade_response = maybe_unserialize($response);
 		}
 	}
-	
+
 	/**
 	 * Insert the latest update (if any) into the update list maintained by WP.
-	 * 
+	 *
 	 * @param StdClass $updates Update list.
 	 * @return StdClass Modified update list.
 	 */
@@ -411,25 +413,25 @@ class LSX_API_Manager {
 		$this->set_update_status();
 		if(isset($this->status) && 'active' === $this->status && null !== $this->upgrade_response && is_object($this->upgrade_response) && isset($this->upgrade_response->new_version) && version_compare ( $this->upgrade_response->new_version , $this->version , '>' )){
 
-			//setup the response if our plugin is the only one that needs updating.	
+			//setup the response if our plugin is the only one that needs updating.
 			if ( !is_object($updates) ) {
 				$updates = new StdClass();
 				$updates->response = array();
 			}
-			$updates->response[$this->product_slug.'/'.$this->file] = $this->upgrade_response;		
+			$updates->response[$this->product_slug.'/'.$this->file] = $this->upgrade_response;
 		}
 		return $updates;
-	}	
+	}
 
 	/**
 	 * Adds in the "settings" link for the plugins.php page
 	 */
 	public function add_action_links ( $links ) {
-		 $mylinks = array(
-		 	'<a href="' . admin_url( 'options-general.php?page=lsx-lsx-settings' ) . '">'.esc_html__('Settings',$this->product_slug).'</a>',
-		 	'<a href="https://www.lsdev.biz/documentation/lsx-tour-operator-plugin/" target="_blank">'.esc_html__('Documentation',$this->product_slug).'</a>',
-		 	'<a href="https://feedmysupport.zendesk.com/home" target="_blank">'.esc_html__('Support',$this->product_slug).'</a>',
-		 );
+		$mylinks = array(
+			'<a href="' . admin_url( 'admin.php?page=to-settings' ) . '">'.__('Settings',$this->product_slug).'</a>',
+			'<a href="https://www.lsdev.biz/documentation/lsx-tour-operator-plugin/" target="_blank">'.__('Documentation',$this->product_slug).'</a>',
+			'<a href="https://feedmysupport.zendesk.com/home" target="_blank">'.__('Support',$this->product_slug).'</a>',
+		);
 		return array_merge( $links, $mylinks );
-	}	
+	}
 }
