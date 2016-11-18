@@ -317,35 +317,36 @@ class LSX_Banners_Admin extends LSX_Banners {
 
 	/**
 	 * Adds in the settings neccesary for the archives
+	 *
+	 * @return null
 	 */
-	public function archive_settings($post_type=false){ ?>
-		{{#unless disable_archives}}	
-			<tr class="form-field banner-wrap">
-				<th scope="row">
-					<label for="banner"> <?php esc_html_e( 'Banner Image', 'lsx-banners' ); ?></label>
-				</th>
-				<td>
-					<input type="hidden" {{#if banner_id}} value="{{banner_id}}" {{/if}} name="banner_id" />
-					<input type="hidden" {{#if banner}} value="{{banner}}" {{/if}} name="banner" />
-					<div class="thumbnail-preview">
-						{{#if banner}}<img src="{{banner}}" width="150" height="150" />{{/if}}	
-					</div>
+	public function archive_settings(){
+		?>
+		<tr class="form-field banner-wrap">
+			<th scope="row">
+				<label for="banner"> <?php esc_html_e( 'Banner Image', 'lsx-banners' ); ?></label>
+			</th>
+			<td>
+				<input type="hidden" {{#if banner_id}} value="{{banner_id}}" {{/if}} name="banner_id" />
+				<input type="hidden" {{#if banner}} value="{{banner}}" {{/if}} name="banner" />
+				<div class="thumbnail-preview">
+					{{#if banner}}<img src="{{banner}}" width="150" height="150" />{{/if}}
+				</div>
 
-					<a {{#if banner}}style="display:none;"{{/if}} class="button-secondary lsx-thumbnail-image-add" data-slug="banner"><?php esc_html_e( 'Choose Image', 'lsx-banners' ); ?></a>
+				<a {{#if banner}}style="display:none;"{{/if}} class="button-secondary lsx-thumbnail-image-add" data-slug="banner"><?php esc_html_e( 'Choose Image', 'lsx-banners' ); ?></a>
 
-					<a {{#unless banner}}style="display:none;"{{/unless}} class="button-secondary lsx-thumbnail-image-delete" data-slug="banner"><?php esc_html_e( 'Delete', 'lsx-banners' ); ?></a>
-					
-				</td>
-			</tr>
-			<tr class="form-field">
-				<th scope="row">
-					<label for="banner_video"><?php esc_html_e('Banner Video URL (mp4)','lsx-banners'); ?></label>
-				</th>
-				<td>
-					<input type="text" {{#if banner_video}} value="{{banner_video}}" {{/if}} name="banner_video" />
-				</td>
-			</tr>
-		{{/unless}}
+				<a {{#unless banner}}style="display:none;"{{/unless}} class="button-secondary lsx-thumbnail-image-delete" data-slug="banner"><?php esc_html_e( 'Delete', 'lsx-banners' ); ?></a>
+
+			</td>
+		</tr>
+		<tr class="form-field">
+			<th scope="row">
+				<label for="banner_video"><?php esc_html_e('Banner Video URL (mp4)','lsx-banners'); ?></label>
+			</th>
+			<td>
+				<input type="text" {{#if banner_video}} value="{{banner_video}}" {{/if}} name="banner_video" />
+			</td>
+		</tr>
 	<?php
 	}	
 
@@ -385,9 +386,9 @@ class LSX_Banners_Admin extends LSX_Banners {
 				foreach($post_types as $post_type){
 
 					if(class_exists('Tour_Operator')) {
-						add_action('to_framework_' . $post_type . '_tab_content_top', array($this, 'archive_settings'), 11, 1);
+						add_action('to_framework_' . $post_type . '_tab_archive_settings_top', array($this, 'archive_settings'), 11);
 					}else{
-						add_action('lsx_framework_' . $post_type . '_tab_content_top', array($this, 'archive_settings'), 11, 1);
+						add_action('lsx_framework_' . $post_type . '_tab_content_top', array($this, 'archive_settings'), 11);
 					}
 				}	
 			}
