@@ -12,12 +12,13 @@
 						{{#if banner}}<img src="{{banner}}" width="150" height="150" />{{/if}}	
 					</div>
 
-					<a {{#if banner}}style="display:none;"{{/if}} class="button-secondary lsx-thumbnail-image-add"><?php esc_html_e( 'Choose Image', 'lsx-banners' ); ?></a>
+					<a {{#if banner}}style="display:none;"{{/if}} class="button-secondary lsx-thumbnail-image-add" data-slug="banner"><?php esc_html_e( 'Choose Image', 'lsx-banners' ); ?></a>
 
-					<a {{#unless banner}}style="display:none;"{{/unless}} class="button-secondary lsx-thumbnail-image-delete"><?php esc_html_e( 'Delete', 'lsx-banners' ); ?></a>
+					<a {{#unless banner}}style="display:none;"{{/unless}} class="button-secondary lsx-thumbnail-image-delete" data-slug="banner"><?php esc_html_e( 'Delete', 'lsx-banners' ); ?></a>
 					
 				</td>
-			</tr>	
+			</tr>
+
 			<tr class="form-field">
 				<th scope="row">
 					<label for="tagline"> <?php esc_html_e( 'Tagline', 'lsx-banners' ); ?></label>
@@ -25,7 +26,8 @@
 				<td>
 					<input type="text" {{#if tagline}} value="{{tagline}}" {{/if}} name="tagline" />
 				</td>
-			</tr>			
+			</tr>
+
 			<tr class="form-field">
 				<th scope="row">
 					<label for="title"> <?php esc_html_e( 'Title', 'lsx-banners' ); ?></label>
@@ -33,7 +35,7 @@
 				<td>
 					<p><?php esc_html_e( 'Edit this on the page you have set as the "blog"', 'lsx-banners' ); ?></p>
 				</td>
-			</tr>				
+			</tr>
 
 			<tr class="form-field">
 				<th scope="row">
@@ -42,42 +44,7 @@
 				<td>
 					<p><?php esc_html_e( 'Edit this on the page you have set as the "blog"', 'lsx-banners' ); ?></p>
 				</td>
-			</tr>										
+			</tr>
 		</tbody>
 	</table>
-
-	<script>
-		jQuery(document).ready( function() {	
-			jQuery( '.lsx-thumbnail-image-add' ).on( 'click', function() {
-				tb_show('Choose a Featured Image', 'media-upload.php?type=image&TB_iframe=1');
-				var image_thumbnail = '';
-				var $this = jQuery(this);
-				window.send_to_editor = function( html ) 
-				{
-					var image_thumbnail = jQuery( 'img',html ).html();
-
-					jQuery( $this ).parent('td').find('.thumbnail-preview' ).append('<img width="150" height="150" src="'+jQuery( 'img',html ).attr( 'src' )+'" />');
-					jQuery( $this ).parent('td').find('input[name="banner"]').val(jQuery( 'img',html ).attr( 'src' ));
-					
-					var imgClasses = jQuery( 'img',html ).attr( 'class' );
-					imgClasses = imgClasses.split('wp-image-');
-					
-					jQuery( $this ).parent('td').find('input[name="banner_id"]').val(imgClasses[1]);
-					jQuery( $this ).hide();
-					jQuery( $this ).parent('td').find('.lsx-thumbnail-image-delete' ).show();
-					tb_remove();
-				}
-				jQuery( this ).hide();
-				
-				return false;
-			});	
-			jQuery( '.lsx-thumbnail-image-delete' ).on( 'click', function() {
-				jQuery( this ).parent('td').find('input[name="banner_id"]').val('');
-				jQuery( this ).parent('td').find('input[name="banner"]').val('');
-				jQuery( this ).parent('td').find('.thumbnail-preview' ).html('');
-				jQuery( this ).hide();
-				jQuery( this ).parent('td').find('.lsx-thumbnail-image-add' ).show();
-			});			
-		});
-	</script>
 </div>

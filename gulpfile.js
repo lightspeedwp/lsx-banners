@@ -3,7 +3,8 @@ var gulp = require('gulp');
 gulp.task('default', function() {	 
 	console.log('Use the following commands');
 	console.log('--------------------------');
-	console.log('gulp sass				to compile the style.scss to style.css');
+	console.log('gulp sass				to compile the lsx-banners.scss to lsx-banners.css');
+	console.log('gulp admin-sass		to compile the lsx-banners-admin.scss to lsx-banners-admin.css');
 	console.log('gulp compile-sass		to compile both of the above.');
 	console.log('gulp js				to compile the lsx-banners.js to lsx-banners.min.js');
 	console.log('gulp compile-js		to compile both of the above.');
@@ -20,9 +21,15 @@ var wppot = require('gulp-wp-pot');
 var gettext = require('gulp-gettext');
 
 gulp.task('sass', function () { 
-    gulp.src('assets/css/style.scss')
+    gulp.src('assets/css/lsx-banners.scss')
         .pipe(sass())
         .pipe(gulp.dest('assets/css/'));   
+});
+
+gulp.task('admin-sass', function () { 
+    gulp.src('assets/css/lsx-banners-admin.scss')
+        .pipe(sass())
+        .pipe(gulp.dest('assets/css/'));
 });
 
 gulp.task('js', function () {
@@ -34,11 +41,12 @@ gulp.task('js', function () {
 	.pipe(gulp.dest('assets/js'));
 });
  
-gulp.task('compile-sass', (['sass']));
+gulp.task('compile-sass', (['sass', 'admin-sass']));
 gulp.task('compile-js', (['js']));
 
 gulp.task('watch', function() {
-	gulp.watch('assets/css/style.scss', ['sass']);
+	gulp.watch('assets/css/lsx-banners.scss', ['sass']);
+	gulp.watch('assets/css/lsx-banners-admin.scss', ['admin-sass']);
 	gulp.watch('assets/js/lsx-banners.js', ['js']);
 });
 

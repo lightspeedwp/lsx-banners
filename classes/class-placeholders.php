@@ -58,10 +58,10 @@ class LSX_Placeholders {
 		$this->post_types[] = 'post';
 		$this->post_types[] = 'page';
 
-		add_action('lsx_framework_dashboard_tab_content',array($this,'dashboard_settings'),15);
+		add_action('lsx_framework_display_tab_content',array($this,'display_settings'),15,1);
 
 		foreach($this->post_types as $post_type){
-			add_action( 'lsx_framework_'.$post_type.'_tab_general_settings_top', array( $this, 'settings_page_html' ) );
+			add_action( 'lsx_framework_'.$post_type.'_tab_content', array( $this, 'placeholder_settings' ) );
 		}
 		
 		if( !is_admin() ){
@@ -147,28 +147,28 @@ class LSX_Placeholders {
 		if ( false === $options ) {
 			$options = get_option('_lsx_lsx-settings',false);
 		}
-		if($meta_key === '_thumbnail_id' && false !== $options){
+
+		//This ensures our "super" placeholder will always show.
+		$placeholder = 'lsx-placeholder';
+		if('_thumbnail_id' === $meta_key && false !== $options){
 			
 			$post_type = get_post_field( 'post_type', $post_id );
 
 			//If the post types posts placeholder has been disabled then skip.
 			if('post' === $post_type && isset($options['general']) && isset($options['general']['disable_blog_placeholder'])){ return $meta; }
 
-			//This ensures our "super" placeholder will always show.
-			$placeholder = 'lsx-placeholder';
-
 			//First Check for a default, then check if there is one set by post type.
-			if(isset($options['general']) 
-			 && isset($options['general']['default_placeholder_id'])
-			 && !empty( $options['general']['default_placeholder_id'] )){
-				$placeholder = $options['general']['default_placeholder_id'];
+			if(isset($options['display']) 
+			 && isset($options['display']['default_placeholder_id'])
+			 && !empty( $options['display']['default_placeholder_id'] )){
+				$placeholder = $options['display']['default_placeholder_id'];
 			}
 			if('post' === $post_type){
-				if(isset($options['general']) 
-				 && isset($options['general']['posts_placeholder_id'])
-				 && !empty( $options['general']['posts_placeholder_id'] )
-				 && '' !== $options['general']['posts_placeholder_id']){
-					$placeholder = $options['general']['posts_placeholder_id'];
+				if(isset($options['display']) 
+				 && isset($options['display']['posts_placeholder_id'])
+				 && !empty( $options['display']['posts_placeholder_id'] )
+				 && '' !== $options['display']['posts_placeholder_id']){
+					$placeholder = $options['display']['posts_placeholder_id'];
 				}
 			}else{
 				if(isset($options[$post_type]) 
@@ -180,7 +180,7 @@ class LSX_Placeholders {
 			}
 		}
 
-		if( $meta_key === '_thumbnail_id' && false === $this->checking_for_thumb ){
+		if( '_thumbnail_id' === $meta_key && false === $this->checking_for_thumb ){
 			$this->checking_for_thumb = true;
 			$image = get_post_meta( $post_id, '_thumbnail_id', true );
 			$this->checking_for_thumb = false;
@@ -200,7 +200,7 @@ class LSX_Placeholders {
 	 */
 	public function default_term_thumbnail( $meta, $post_id, $meta_key ){
 
-		if($meta_key === 'thumbnail'){
+		if('thumbnail' === $meta_key){
 			$options = get_option('_lsx_settings',false);
 			if ( false === $options ) {
 				$options = get_option('_lsx_lsx-settings',false);
@@ -217,7 +217,7 @@ class LSX_Placeholders {
 
 		}
 
-		if( $meta_key === 'thumbnail' && false === $this->checking_for_thumb ){
+		if( 'thumbnail' === $meta_key && false === $this->checking_for_thumb ){
 			$this->checking_for_thumb = true;
 			$image = get_term_meta( $post_id, 'thumbnail', true );
 			$this->checking_for_thumb = false;
@@ -371,12 +371,11 @@ class LSX_Placeholders {
 	/**
 	 * The placeholder settings that output on the frameworks tabs.
 	 */
-	public function dashboard_settings() { ?>
-		<th class="" style="padding-bottom:0px;" scope="row" colspan="2">
-			<label><h3 style="margin-bottom:0px;"> <?php esc_html_e( 'Placeholders', 'lsx-banners' ); ?></h3></label>			
-		</th>
+	public function display_settings($tab=false) {
 
-		<?php if(class_exists('LSX_Banners')) { ?>
+		if('placeholders' !== $tab){ return false; }
+
+		if(class_exists('LSX_Banners')) { ?>
 			<tr class="form-field banner-placeholder-wrap">
 				<th scope="row">
 					<label for="banner"> <?php esc_html_e( 'Banner Placeholder', 'lsx-banners' ); ?></label>
@@ -397,7 +396,7 @@ class LSX_Placeholders {
 		<?php } ?>
 		<tr class="form-field">
 			<th scope="row">
-				<label for="banner"> <?php esc_html_e( 'Featured Placeholder', 'lsx-banners' ); ?></label>
+				<label for="banner"> <?php esc_html_e( 'Archive Placeholder', 'lsx-banners' ); ?></label>
 			</th>
 			<td>
 				<input type="hidden" {{#if default_placeholder_id}} value="{{default_placeholder_id}}" {{/if}} name="default_placeholder_id" />
@@ -439,18 +438,58 @@ class LSX_Placeholders {
 				<input type="checkbox" {{#if disable_blog_placeholder}} checked="checked" {{/if}} name="disable_blog_placeholder" />
 				<small><?php esc_html_e( 'This disables the placeholder on blog posts.', 'lsx-banners' ); ?></small>
 			</td>
-		</tr>			
+		</tr>	
+		{{#script}}
+			(function( $ ) {
+				$( '.lsx-thumbnail-image-add' ).on( 'click', function() {
+					tb_show('Choose a Featured Image', 'media-upload.php?type=image&TB_iframe=1');
+					var image_thumbnail = '';
+					var $this = $(this);
+					window.send_to_editor = function( html )
+					{
+						var image_thumbnail = $( 'img',html ).html();
+
+						$( $this ).parent('td').find('.thumbnail-preview' ).append('<img width="150" height="150" src="'+jQuery( 'img',html ).attr( 'src' )+'" />');
+						$( $this ).parent('td').find('input[name="banner"]').val($( 'img',html ).attr( 'src' ));
+
+						var imgClasses = $( 'img',html ).attr( 'class' );
+						imgClasses = imgClasses.split('wp-image-');
+
+						$( $this ).parent('td').find('input[name="banner_id"]').val(imgClasses[1]);
+						$( $this ).hide();
+						$( $this ).parent('td').find('.lsx-thumbnail-image-delete' ).show();
+						tb_remove();
+					}
+					$( this ).hide();
+
+					return false;
+				});
+				$( '.lsx-thumbnail-image-delete' ).on( 'click', function() {
+					$( this ).parent('td').find('input[name="banner_id"]').val('');
+					$( this ).parent('td').find('input[name="banner"]').val('');
+					$( this ).parent('td').find('.thumbnail-preview' ).html('');
+					$( this ).hide();
+					$( this ).parent('td').find('.lsx-thumbnail-image-add' ).show();
+				});
+			})(jQuery);
+		{{/script}}		
 	<?php 
 	}
 
 	/**
 	 * The placeholder settings that output on the frameworks tabs.
+	 *
+	 * @param $post_type string
+	 * @param $tab string
+	 * @return null
 	 */
-	public function settings_page_html() { ?>
+	public function placeholder_settings($post_type=false,$tab=false) {
+		if('placeholders' !== $tab){return false;}
+		?>
 		<?php if(class_exists('LSX_Banners')) { ?>
 			<tr class="form-field banner-placeholder-wrap">
 				<th scope="row">
-					<label for="banner"> <?php esc_html_e( 'Banner Placeholder', 'lsx-banners' ); ?></label>
+					<label for="banner"> <?php esc_html_e( 'Banner', 'lsx-banners' ); ?></label>
 				</th>
 				<td>
 					<input type="hidden" {{#if banner_placeholder_id}} value="{{banner_placeholder_id}}" {{/if}} name="banner_placeholder_id" />
@@ -469,7 +508,7 @@ class LSX_Placeholders {
 		
 		<tr class="form-field featured-placeholder-wrap">
 			<th scope="row">
-				<label for="featured_placeholder"><?php esc_html_e( 'Featured Image', 'lsx-banners' ); ?></label>
+				<label for="featured_placeholder"><?php esc_html_e( 'Archive Image', 'lsx-banners' ); ?></label>
 			</th>
 			<td>
 				<input type="hidden" {{#if featured_placeholder_id}} value="{{featured_placeholder_id}}" {{/if}} name="featured_placeholder_id" />

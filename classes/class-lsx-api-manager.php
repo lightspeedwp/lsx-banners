@@ -144,7 +144,7 @@ class LSX_API_Manager {
 		if ( class_exists( 'Tour_Operator' ) ) {
 			add_action( 'to_framework_api_tab_content', array( $this, 'dashboard_tabs' ), 1, 1 );
 		} else {
-			add_action( 'lsx_framework_dashboard_tab_content_api', array( $this, 'dashboard_tabs' ), 1 );
+			add_action( 'lsx_framework_api_tab_content', array( $this, 'dashboard_tabs' ), 1, 1 );
 		}
 
 		add_action('wp_ajax_wc_api_'.$this->product_slug,array($this,'activate_deactivate'));
@@ -174,7 +174,7 @@ class LSX_API_Manager {
 	 * @return    object|Module_Template    A single instance of this class.
 	 */
 	public function dashboard_tabs($tab='general') {
-		if(class_exists( 'Tour_Operator' ) && 'api' !== $tab){ return false;}
+		if('api' !== $tab){ return false;}
 		?>
 		<tr class="form-field <?php echo $this->product_slug; ?>-wrap">
 			<th class="<?php echo $this->product_slug; ?>_table_heading" style="padding-bottom:0px;" scope="row" colspan="2">
@@ -432,9 +432,9 @@ class LSX_API_Manager {
 	public function add_action_links ( $links ) {
 		$admin_url_base = class_exists( 'Tour_Operator' ) ? 'admin.php?page=to-setting' : 'themes.php?page=lsx-settings';
 		$mylinks = array(
-			'<a href="' . admin_url( $admin_url_base ) . '">'.__('Settings',$this->product_slug).'</a>',
-			'<a href="https://www.lsdev.biz/documentation/lsx-tour-operator-plugin/" target="_blank">'.__('Documentation',$this->product_slug).'</a>',
-			'<a href="https://feedmysupport.zendesk.com/home" target="_blank">'.__('Support',$this->product_slug).'</a>',
+			'<a href="' . admin_url( $admin_url_base ) . '">'.esc_html__('Settings',$this->product_slug).'</a>',
+			'<a href="https://www.lsdev.biz/documentation/lsx-tour-operator-plugin/" target="_blank">'.esc_html__('Documentation',$this->product_slug).'</a>',
+			'<a href="https://feedmysupport.zendesk.com/home" target="_blank">'.esc_html__('Support',$this->product_slug).'</a>',
 		);
 		return array_merge( $links, $mylinks );
 	}

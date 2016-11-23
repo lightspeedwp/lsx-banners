@@ -1,0 +1,131 @@
+/*
+ * LSX Banners Admin
+ */
+
+/* Variables */
+
+$bg-grey: #f9f9f9;
+$bdr-grey: #cccccc;
+
+/* Placeholders */
+
+%white-box {
+	background-color: $bg-grey;
+	border: 1px solid $bdr-grey;
+	border-radius: 4px;
+	padding: 8px 20px 12px;	
+}
+
+%heading-box {
+	background-color: $bg-grey;
+	margin-bottom: 10px;
+	padding: 6px 0 6px 12px;
+}
+
+%lists {
+	margin-bottom: 20px;
+	margin-left: 35px;
+}
+
+%error-hide {
+	.error {
+		display:none;
+	}
+}
+
+%float-block {
+	display: block;
+	float: left;
+}
+
+%column-layout {
+	.primary,
+	.secondary {
+		@extend %float-block;
+	}
+}
+
+/* General */
+ 
+#banners {
+	.CMB_Group_Field {
+		display: block;
+	}
+}
+ 
+.CMB_Group_Field {
+	&.active {
+		display: block;
+	}
+}
+
+#lsx-tab-headings {
+	display: block;
+	float: left;
+	width: 10%;
+}
+ 
+#details .cmb_metabox {
+	display: block;
+	float: right;
+	width: 85%;
+
+	.cmb_metabox {
+		float:none;
+		width: 98%;
+	}
+}
+ 
+#lsx-tab-headings {
+	.tab-heading {
+		display: block;
+		text-transform:capitalize;
+		padding: 10px 15px;
+		width: 100%;
+	}
+ }
+
+/* The Tab Styling */
+
+body.appearance_page_lsx-settings {
+	.uix-field-wrapper {
+		.ui-tab-nav {
+			li {
+				display: inline-block;
+
+				&::after {
+					content: "|";
+				}
+
+				&:last-child:after {
+					content: "";
+				}
+
+				a {
+					padding: 0 5px;
+					text-decoration: none;
+
+					&.active {
+						color:black;
+					}
+
+					&:first-child {
+						padding-left: 0;
+					}
+
+					&:focus {
+						box-shadow: none;
+					}
+				}
+			}
+		}
+
+		.ui-tab {
+			display:none;
+
+			&.active {
+				display:block;
+			}
+		}
+	}
+}

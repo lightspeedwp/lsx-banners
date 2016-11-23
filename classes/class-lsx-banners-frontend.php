@@ -42,18 +42,22 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_stylescripts' ) );
 		}
 		add_shortcode( 'banner_navigation', 'lsx_banner_navigation' );
-	}	
+	}
 
 	/**
-	 * Register and enqueue admin-specific style sheet.
-	 *
-	 * @return    null
+	 * Enques the assets
 	 */
 	public function enqueue_stylescripts() {
+		if ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) {
+			$min = '';
+		 }else {
+			$min = '.min';
+		}
+
 		wp_enqueue_script( 'jquery-touchswipe', LSX_BANNERS_URL . 'assets/js/vendor/jquery.touchSwipe.min.js', array( 'jquery' ) , LSX_BANNERS_VER, true );
 		
-		wp_enqueue_script( 'lsx-banners', LSX_BANNERS_URL . 'assets/js/lsx-banners.min.js', array( 'jquery', 'jquery-touchswipe' ) , LSX_BANNERS_VER, true );
-		wp_enqueue_style( 'lsx-banners-style', LSX_BANNERS_URL . 'assets/css/style.css', LSX_BANNERS_VER );
+		wp_enqueue_script( 'lsx-banners', LSX_BANNERS_URL . 'assets/js/lsx-banners' . $min . '.js', array( 'jquery', 'jquery-touchswipe' ), LSX_BANNERS_VER, true );
+		wp_enqueue_style( 'lsx-banners', LSX_BANNERS_URL . 'assets/css/lsx-banners.css', array(), LSX_BANNERS_VER );
 	}
 
 	/**
