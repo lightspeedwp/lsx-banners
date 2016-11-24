@@ -32,15 +32,13 @@ class LSX_Banners_Admin extends LSX_Banners {
 		$this->set_vars();	
 
 		add_action('admin_init',array($this,'admin_init'));
-		add_filter( 'cmb_meta_boxes', array($this,'metaboxes') );
+		add_filter('cmb_meta_boxes', array($this,'metaboxes') );
 		add_filter('lsx_taxonomy_admin_taxonomies', array( $this, 'add_taxonomies' ),10,1 );	
-		add_filter( 'lsx_framework_settings_tabs', array( $this, 'register_additional_tabs'),100,1 );
+		
+		add_action( 'init', array( $this, 'create_settings_page' ), 200 );
+		add_filter( 'lsx_framework_settings_tabs', array( $this, 'register_tabs' ), 200, 1 );
 
-		add_action( 'lsx_framework_dashboard_tab_bottom', array( $this, 'settings_page_scripts' ), 100 );
-
-		add_action( 'init', array( $this, 'create_settings_page'),100 );
-
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts') );		
+		add_action( 'admin_enqueue_scripts', array( $this, 'assets') );		
 	}
 
 	/**
@@ -69,17 +67,24 @@ class LSX_Banners_Admin extends LSX_Banners {
 	}
 
 	/**
-	 * Output the form field for this metadata when adding a new term
-	 *
-	 * @since 0.1.0
+	 * Enques the assets
 	 */
-	function admin_scripts() {
-		if(isset($_GET['page']) && 'lsx-settings' === $_GET['page']){
-	    	wp_enqueue_script('media-upload');
-	    	wp_enqueue_script('thickbox');
-	    	wp_enqueue_style('thickbox');
+	public function assets() {
+		if ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) {
+			$min = '';
+		 }else {
+			$min = '.min';
 		}
-	}	
+
+		//wp_enqueue_script( 'lsx-banners-admin', LSX_BANNERS_URL . 'assets/js/lsx-banners-admin' . $min . '.js', array( 'jquery' ), LSX_BANNERS_VER, true );
+		wp_enqueue_style( 'lsx-banners-admin', LSX_BANNERS_URL . 'assets/css/lsx-banners-admin.css', array(), LSX_BANNERS_VER );
+
+		if ( isset( $_GET['page'] ) && 'lsx-settings' === $_GET['page'] ) {
+			wp_enqueue_script('media-upload');
+			wp_enqueue_script('thickbox');
+			wp_enqueue_style('thickbox');
+		}
+	}
 
 	/**
 	 * Output the form field for this metadata when adding a new term
@@ -323,7 +328,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 	 *
 	 * @return null
 	 */
-	public function archive_settings(){
+	public function archive_settings() {
 		?>
 		<tr class="form-field banner-wrap">
 			<th scope="row">
@@ -335,19 +340,24 @@ class LSX_Banners_Admin extends LSX_Banners {
 				<div class="thumbnail-preview">
 					{{#if banner}}<img src="{{banner}}" width="150" height="150" />{{/if}}
 				</div>
-
 				<a {{#if banner}}style="display:none;"{{/if}} class="button-secondary lsx-thumbnail-image-add" data-slug="banner"><?php esc_html_e( 'Choose Image', 'lsx-banners' ); ?></a>
-
 				<a {{#unless banner}}style="display:none;"{{/unless}} class="button-secondary lsx-thumbnail-image-delete" data-slug="banner"><?php esc_html_e( 'Delete', 'lsx-banners' ); ?></a>
-
 			</td>
 		</tr>
 		<tr class="form-field">
 			<th scope="row">
-				<label for="banner_video"><?php esc_html_e('Banner Video URL (mp4)','lsx-banners'); ?></label>
+				<label for="banner_video"><?php esc_html_e( 'Banner Video URL (mp4)', 'lsx-banners' ); ?></label>
 			</th>
 			<td>
 				<input type="text" {{#if banner_video}} value="{{banner_video}}" {{/if}} name="banner_video" />
+			</td>
+		</tr>
+		<tr class="form-field">
+			<th scope="row">
+				<label for="tagline"> <?php esc_html_e( 'Tagline', 'lsx-banners' ); ?></label>
+			</th>
+			<td>
+				<input type="text" {{#if tagline}} value="{{tagline}}" {{/if}} name="tagline" />
 			</td>
 		</tr>
 	<?php
@@ -375,23 +385,24 @@ class LSX_Banners_Admin extends LSX_Banners {
 	/**
 	 * Returns the array of settings to the UIX Class
 	 */
-	public function create_settings_page(){
-		if(is_admin()){
-			if(!class_exists('\lsx\ui\uix') && !class_exists('Tour_Operator')){
-				include_once LSX_BANNERS_PATH.'vendor/uix/uix.php';
+	public function create_settings_page() {
+		if ( is_admin() ) {
+			if ( ! class_exists( '\lsx\ui\uix' ) && ! class_exists( 'Tour_Operator' ) ) {
+				include_once LSX_BANNERS_PATH . 'vendor/uix/uix.php';
 				$pages = $this->settings_page_array();
 				$uix = \lsx\ui\uix::get_instance( 'lsx' );
 				$uix->register_pages( $pages );
 			}
 
 			$post_types = $this->get_allowed_post_types();
-			if(false !== $post_types){
-				foreach($post_types as $post_type){
-
-					if(class_exists('Tour_Operator')) {
-						add_action('to_framework_' . $post_type . '_tab_archive_settings_top', array($this, 'archive_settings'), 11);
-					}else{
-						add_action('lsx_framework_' . $post_type . '_tab_content_top', array($this, 'archive_settings'), 11);
+			if ( false !== $post_types ) {
+				foreach ( $post_types as $post_type ) {
+					if ( class_exists( 'Tour_Operator' ) ) {
+						add_action( 'to_framework_' . $post_type . '_tab_archive_settings_top', array( $this, 'archive_settings' ), 20 );
+						add_action( 'to_framework_dashboard_tab_bottom', array( $this, 'settings_scripts' ), 200 );
+					} else {
+						add_action( 'lsx_framework_' . $post_type . '_tab_content_top', array( $this, 'archive_settings' ), 20 );
+						add_action( 'lsx_framework_dashboard_tab_bottom', array( $this, 'settings_scripts' ), 200 );
 					}
 				}	
 			}
@@ -401,129 +412,121 @@ class LSX_Banners_Admin extends LSX_Banners {
 	/**
 	 * Returns the array of settings to the UIX Class
 	 */
-	public function settings_page_array(){
-		// This array is for the Admin Pages. each element defines a page that is seen in the admin
-	
-		$tabs = array( // tabs array are for setting the tab / section templates
-				// each array element is a tab with the key as the slug that will be the saved object property
-				'general'		=> array(
-						'page_title'        => '',
-						'page_description'  => '',
-						'menu_title'        => esc_html__( 'General', 'lsx-banners' ),
-						'template'          => LSX_BANNERS_PATH.'includes/settings/general.php',
-						'default'	 		=> true
-				)
-		);
-
-		$posts_page = get_option('page_for_posts',false);
-		if(false === $posts_page){
-			$tabs['post'] = array(
-				'page_title'        => esc_html__( 'Posts', 'lsx-banners' ),
-				'page_description'  => '',
-				'menu_title'        => esc_html__( 'Posts', 'lsx-banners' ),
-				'template'          => LSX_BANNERS_PATH.'includes/settings/post.php',
-				'default'	 		=> false
-			);
-		}
-	
-		$additional_tabs = false;
-		$additional_tabs = apply_filters('lsx_framework_settings_tabs',$additional_tabs);
-		if(false !== $additional_tabs && is_array($additional_tabs) && !empty($additional_tabs)){
-			$tabs = array_merge($tabs,$additional_tabs);
-		}
+	public function settings_page_array() {
+		$tabs = apply_filters( 'lsx_framework_settings_tabs', array() );
+		
 		return array(
-				'settings'  => array(                                                         // this is the settings array. The key is the page slug
-						'page_title'  =>  esc_html__( 'Theme Options', 'lsx-banners' ),                                                  // title of the page
-						'menu_title'  =>  esc_html__( 'Theme Options', 'lsx-banners' ),                                                  // title seen on the menu link
-						'capability'  =>  'manage_options',                                              // required capability to access page
-						'icon'        =>  'dashicons-book-alt',                                          // Icon or image to be used on admin menu
-						'parent'      =>  'themes.php',                                         // Position priority on admin menu)
-						'save_button' =>  esc_html__( 'Save Changes', 'lsx-banners' ),                                                // If the page required saving settings, Set the text here.
-						'tabs'        =>  $tabs,
-						/*'help'	=> array(	// the wordpress contextual help is also included
-								// key is the help slug
-								'default-help' => array(
-										'title'		=> 	esc_html__( 'Easy to add Help' , 'uix' ),
-										'content'	=>	"Just add more items to this array with a unique slug/key."
-								),
-								'more-help' => array(
-										'title'		=> 	esc_html__( 'Makes things Easy' , 'uix' ),
-										'content'	=>	"the content can also be a file path to a template"
-								)
-						),*/
-				),
+			'settings'  => array(
+				'page_title'  =>  esc_html__( 'Theme Options', 'lsx-banners' ),
+				'menu_title'  =>  esc_html__( 'Theme Options', 'lsx-banners' ),
+				'capability'  =>  'manage_options',
+				'icon'        =>  'dashicons-book-alt',
+				'parent'      =>  'themes.php',
+				'save_button' =>  esc_html__( 'Save Changes', 'lsx-banners' ),
+				'tabs'        =>  $tabs,
+			),
 		);
 	}
 
 	/**
-	 * Runs through the registered post types, and does a generic settings page for them.
+	 * Register tabs
 	 */	
-	public function register_additional_tabs($tabs){
-		// This array is for the Admin Pages. each element defines a page that is seen in the admin
-		$post_types = $this->get_allowed_post_types();
-		if(false !== $post_types && !empty($post_types)){
-			foreach($post_types as $index){
+	public function register_tabs( $tabs ) {
+		$default = true;
 
-				$disabled = false;
-				if(is_array($tabs) && !array_key_exists($index,$tabs) && !in_array($index,array('post','page'))){
+		if ( false !== $tabs && is_array( $tabs ) && count( $tabs ) > 0 ) {
+			$default = false;
+		}
+
+		if ( ! array_key_exists( 'display', $tabs ) ) {
+			$tabs['display'] = array(
+				'page_title'        => '',
+				'page_description'  => '',
+				'menu_title'        => esc_html__( 'Display', 'lsx-currencies' ),
+				'template'          => LSX_CURRENCY_PATH . 'includes/settings/display.php',
+				'default'           => $default
+			);
+
+			$default = false;
+		}
+
+		if ( ! array_key_exists( 'api', $tabs ) ) {
+			$tabs['api'] = array(
+				'page_title'        => '',
+				'page_description'  => '',
+				'menu_title'        => esc_html__( 'API', 'lsx-currencies' ),
+				'template'          => LSX_CURRENCY_PATH . 'includes/settings/api.php',
+				'default'           => $default
+			);
+
+			$default = false;
+		}
+
+		$post_types = $this->get_allowed_post_types();
+
+		if ( false !== $post_types && ! empty( $post_types ) ) {
+			foreach( $post_types as $index ) {
+				if ( ! array_key_exists( $index, $tabs ) && ! in_array( $index, array( 'page' ) ) ) {
 					$tabs[$index] = array(
-						'page_title'        => esc_html__( 'General', 'lsx-banners' ),
+						'page_title'        => esc_html__( 'Placeholders', 'lsx-banners' ),
 						'page_description'  => '',
-						'menu_title'        => ucwords(str_replace('-',' ',$index)),
-						'template'          => LSX_BANNERS_PATH.'includes/settings/placeholder.php',
-						'default'	 		=> false,
-						'disabled'			=> $disabled
+						'menu_title'        => ucwords( str_replace( '-', ' ', $index ) ),
+						'template'          => LSX_BANNERS_PATH . 'includes/settings/placeholder.php',
+						'default'	 		=> $default
 					);
+
+					$default = false;
 				}
 			}
-			if(is_array($tabs)) {
-				ksort($tabs);
-			}
 		}
+
 		return $tabs;
 	}
 
 	/**
 	 * Allows the settings pages to upload images
 	 */
-	public function settings_page_scripts(){ ?>
-	<script>
-		jQuery( function( $ ){
-			$( '.lsx-thumbnail-image-add' ).on( 'click', function() {
-
-				var slug = $(this).attr('data-slug');
-				tb_show('<?php esc_html_e( 'Choose a Featured Image', 'lsx-banners' ); ?>', 'media-upload.php?type=image&TB_iframe=1');
-				var image_thumbnail = '';
-				var thisObj = $(this);
-				window.send_to_editor = function( html ) 
-				{
-
-					var image_thumbnail = $( 'img',html ).html();
-
-					$( thisObj ).parent('td').find('.thumbnail-preview' ).append('<img width="150" height="150" src="'+$( 'img',html ).attr( 'src' )+'" />');
-					$( thisObj ).parent('td').find('input[name="'+slug+'"]').val($( 'img',html ).attr( 'src' ));
-					
-					var imgClasses = $( 'img',html ).attr( 'class' );
-					imgClasses = imgClasses.split('wp-image-');
-					
-					$( thisObj ).parent('td').find('input[name="'+slug+'_id"]').val(imgClasses[1]);
-					$( thisObj ).hide();
-					$( thisObj ).parent('td').find('.lsx-thumbnail-image-delete' ).show();
-					tb_remove();
+	public function settings_scripts() {
+		?>
+		<script>
+			jQuery(function($) {
+				$('.lsx-thumbnail-image-add').on('click', function() {
+					var slug = $(this).attr('data-slug');
+					tb_show('<?php esc_html_e( 'Choose a Featured Image', 'lsx-banners' ); ?>', 'media-upload.php?type=image&TB_iframe=1');
+					var image_thumbnail = '';
+					var thisObj = $(this);
+					window.send_to_editor = function(html) {
+						var image_thumbnail = $('img', html).html();
+						$(thisObj).parent('td').find('.thumbnail-preview' ).append('<img width="150" height="150" src="'+$( 'img',html ).attr( 'src' )+'" />');
+						$(thisObj).parent('td').find('input[name="'+slug+'"]').val($( 'img',html ).attr( 'src' ));
+						var imgClasses = $('img', html).attr('class');
+						imgClasses = imgClasses.split('wp-image-');
+						$(thisObj).parent('td').find('input[name="'+slug+'_id"]').val(imgClasses[1]);
+						$(thisObj).hide();
+						$(thisObj).parent('td').find('.lsx-thumbnail-image-delete' ).show();
+						tb_remove();
+						$( this ).hide();
+					}
+					return false;
+				});
+				$('.lsx-thumbnail-image-delete').on('click', function() {
+					var slug = $(this).attr('data-slug');
+					$( this ).parent('td').find('input[name="'+slug+'_id"]').val('');
+					$( this ).parent('td').find('input[name="'+slug+'"]').val('');
+					$( this ).parent('td').find('.thumbnail-preview' ).html('');
 					$( this ).hide();
-				}
-				return false;
+					$( this ).parent('td').find('.lsx-thumbnail-image-add' ).show();
+				});
+				jQuery(document).on('click', '.ui-tab-nav a', function(event) {
+					event.preventDefault();
+					jQuery('.ui-tab-nav a.active').removeClass('active');
+					jQuery(this).addClass('active');
+					jQuery('.ui-tab.active').removeClass('active');
+					jQuery(jQuery(this).attr('href')).addClass('active');
+				});
 			});
-			$( '.lsx-thumbnail-image-delete' ).on( 'click', function() {
-				var slug = $(this).attr('data-slug');
-				$( this ).parent('td').find('input[name="'+slug+'_id"]').val('');
-				$( this ).parent('td').find('input[name="'+slug+'"]').val('');
-				$( this ).parent('td').find('.thumbnail-preview' ).html('');
-				$( this ).hide();
-				$( this ).parent('td').find('.lsx-thumbnail-image-add' ).show();
-			});		
-		});
-	</script>
-	<?php
-	}					
+		</script>
+		<?php
+	}
+
 }

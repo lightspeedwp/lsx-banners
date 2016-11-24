@@ -47,11 +47,3 @@ All you need to do is to create a "page" with the same "slug" as the post type a
 You will have 1 variable, an array as follows.
 ```array('transition' => 'slide','interval' => '6000',);```
 ```add_filter('lsx_banner_slider_settings','your_function_name',1,10);```
-
-# Changelog
-
-## 1.1.0
- * Fixed the disabling of banner and title not showing with the LSX Theme
-
-## 1.0
- * First Version

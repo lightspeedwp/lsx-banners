@@ -3,7 +3,7 @@
  * Plugin Name: LSX Banners
  * Plugin URI: https://www.lsdev.biz/product/lsx-banners
  * Description: The LSX Banners extension adds advanced banner configuration options to your WordPress site running LSX theme.
- * Version: 1.1.0 
+ * Version: 1.2.0 
  * Author: LightSpeed WordPress Development
  * Author URI: https://www.lsdev.biz/
  * License:     GPL3
@@ -15,7 +15,7 @@
 define('LSX_BANNERS_PATH',  plugin_dir_path( __FILE__ ) );
 define('LSX_BANNERS_CORE',  __FILE__ );
 define('LSX_BANNERS_URL',  plugin_dir_url( __FILE__ ) );
-define('LSX_BANNERS_VER',  '1.1.0' );
+define('LSX_BANNERS_VER',  '1.2.0' );
 
 if(!function_exists('cmb_init')){
 	if (is_file(LSX_BANNERS_PATH.'vendor/Custom-Meta-Boxes/custom-meta-boxes.php')) {
@@ -55,18 +55,18 @@ function lsx_banners_api_admin_init(){
 	}
 	$data = array('api_key'=>'','email'=>'');
 
-	if(false !== $options && isset($options['general'])){
-		if(isset($options['general']['lsx-banners_api_key']) && '' !== $options['general']['lsx-banners_api_key']){
-			$data['api_key'] = $options['general']['lsx-banners_api_key'];
+	if(false !== $options && isset($options['api'])){
+		if(isset($options['api']['lsx-banners_api_key']) && '' !== $options['api']['lsx-banners_api_key']){
+			$data['api_key'] = $options['api']['lsx-banners_api_key'];
 		}
-		if(isset($options['general']['lsx-banners_email']) && '' !== $options['general']['lsx-banners_email']){
-			$data['email'] = $options['general']['lsx-banners_email'];
+		if(isset($options['api']['lsx-banners_email']) && '' !== $options['api']['lsx-banners_email']){
+			$data['email'] = $options['api']['lsx-banners_email'];
 		}		
 	}
 
 	$api_array = array(
 		'product_id'	=>		'LSX Banners',
-		'version'		=>		'1.1.0',
+		'version'		=>		'1.2.0',
 		'instance'		=>		get_option('lsx_api_instance',false),
 		'email'			=>		$data['email'],
 		'api_key'		=>		$data['api_key'],
