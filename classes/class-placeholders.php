@@ -108,18 +108,18 @@ class LSX_Placeholders {
 		$placeholder = 'https://placeholdit.imgix.net/~text?txtsize='.$text_size.'&txt='.urlencode(get_bloginfo('name')).$holdit_width;
 		$placeholder_id = false;
 		//First Check for a default, then check if there is one set by post type.
-		if(isset($options['general']) 
-		 && isset($options['general']['default_placeholder_id'])
-		 && !empty( $options['general']['default_placeholder_id'] )){
-			$placeholder_id = $options['general']['default_placeholder_id'];
+		if(isset($options['display']) 
+		 && isset($options['display']['default_placeholder_id'])
+		 && !empty( $options['display']['default_placeholder_id'] )){
+			$placeholder_id = $options['display']['default_placeholder_id'];
 		}
 		if('general' !== $post_type){
 			if('post' === $post_type){
-				if(isset($options['general']) 
-				 && isset($options['general']['posts_placeholder_id'])
-				 && !empty( $options['general']['posts_placeholder_id'] )
-				 && '' !== $options['general']['posts_placeholder_id']){
-					$placeholder_id = $options['general']['posts_placeholder_id'];
+				if(isset($options['display']) 
+				 && isset($options['display']['posts_placeholder_id'])
+				 && !empty( $options['display']['posts_placeholder_id'] )
+				 && '' !== $options['display']['posts_placeholder_id']){
+					$placeholder_id = $options['display']['posts_placeholder_id'];
 				}
 			}else{
 				if(isset($options[$post_type]) 
@@ -155,7 +155,7 @@ class LSX_Placeholders {
 			$post_type = get_post_field( 'post_type', $post_id );
 
 			//If the post types posts placeholder has been disabled then skip.
-			if('post' === $post_type && isset($options['general']) && isset($options['general']['disable_blog_placeholder'])){ return $meta; }
+			if('post' === $post_type && isset($options['display']) && isset($options['display']['disable_blog_placeholder'])){ return $meta; }
 
 			//First Check for a default, then check if there is one set by post type.
 			if(isset($options['display']) 
@@ -209,10 +209,10 @@ class LSX_Placeholders {
 
 			//First Check for a default, then check if there is one set by post type.
 			if(false !== $options
-			 && isset($options['general']) 
-			 && isset($options['general']['default_placeholder_id'])
-			 && !empty( $options['general']['default_placeholder_id'] )){
-				$placeholder = $options['general']['default_placeholder_id'];
+			 && isset($options['display']) 
+			 && isset($options['display']['default_placeholder_id'])
+			 && !empty( $options['display']['default_placeholder_id'] )){
+				$placeholder = $options['display']['default_placeholder_id'];
 			}
 
 		}
