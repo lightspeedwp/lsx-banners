@@ -193,7 +193,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		$embed_video = get_post_meta($this->post_id,'banner_video',true);
 		if(false !== $embed_video && !empty($embed_video)){
 			$embed_video = wp_get_attachment_url( $embed_video );
-			$embed_video = '<video src="' . $embed_video . '" "' . ( false !== $banner_image ? ( 'poster="' . $banner_image . '"' ) : '' ) . '" width="auto" height="auto" autoplay loop preload muted>' . ( false !== $banner_image ? ( '<img class="disable-lazyload" src="' . $banner_image . '">' ) : '' ) . '</video>';
+			$embed_video = '<video src="' . $embed_video . '" ' . ( ! empty( $banner_image ) ? ( 'poster="' . $banner_image . '"' ) : '' ) . ' width="auto" height="auto" autoplay loop preload muted>' . ( ! empty( $banner_image ) ? ( '<img class="disable-lazyload" src="' . $banner_image . '">' ) : '' ) . '</video>';
 		}
 
 		// Envira Gallery
