@@ -212,6 +212,10 @@ msgstr ""
 msgid "Currencies"
 msgstr ""
 
+#: includes/settings/display.php:14
+msgid "Team"
+msgstr ""
+
 #: includes/settings/post.php:36, includes/settings/post.php:45
 msgid "Edit this on the page you have set as the \"blog\""
 msgstr ""
