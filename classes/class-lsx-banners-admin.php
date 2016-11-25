@@ -76,14 +76,9 @@ class LSX_Banners_Admin extends LSX_Banners {
 			$min = '.min';
 		}
 
-		//wp_enqueue_script( 'lsx-banners-admin', LSX_BANNERS_URL . 'assets/js/lsx-banners-admin' . $min . '.js', array( 'jquery' ), LSX_BANNERS_VER, true );
+		wp_enqueue_media();
+		wp_enqueue_script( 'lsx-banners-admin', LSX_BANNERS_URL . 'assets/js/lsx-banners-admin' . $min . '.js', array( 'jquery' ), LSX_BANNERS_VER, true );
 		wp_enqueue_style( 'lsx-banners-admin', LSX_BANNERS_URL . 'assets/css/lsx-banners-admin.css', array(), LSX_BANNERS_VER );
-
-		if ( isset( $_GET['page'] ) && 'lsx-settings' === $_GET['page'] ) {
-			wp_enqueue_script('media-upload');
-			wp_enqueue_script('thickbox');
-			wp_enqueue_style('thickbox');
-		}
 	}
 
 	/**
@@ -195,45 +190,14 @@ class LSX_Banners_Admin extends LSX_Banners {
 		<tr class="form-field form-required term-banner-wrap">
 			<th scope="row"><label for="banner"><?php esc_html_e('Banner','lsx-banners');?></label></th>
 			<td>
-				<input style="display:none;" name="banner" id="banner" type="text" value="<?php echo $value; ?>" size="40" aria-required="true">
+				<input class="input_image_id" type="hidden" name="banner" value="<?php echo $value; ?>">
 				<div class="banner-preview">
 					<?php echo $image_preview; ?>
 				</div>				
-
-				<a style="<?php if('' !== $value && false !== $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-banner-image-add"><?php esc_html_e('Choose Image','lsx-banners');?></a>				
-				<a style="<?php if('' === $value || false === $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-banner-image-remove"><?php esc_html_e('Remove Image','lsx-banners');?></a>
+				<a style="<?php if('' !== $value && false !== $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-add"><?php esc_html_e('Choose Image','lsx-banners');?></a>				
+				<a style="<?php if('' === $value || false === $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-remove"><?php esc_html_e('Remove Image','lsx-banners');?></a>
 			</td>
 		</tr>
-		
-		<script>
-			(function( $ ) {
-				$( '.lsx-banner-image-add' ).on( 'click', function() {
-					tb_show('Choose a Banner', 'media-upload.php?type=image&TB_iframe=1');
-					var image_thumbnail = '';
-					window.send_to_editor = function( html ) 
-					{
-						var image_thumbnail = $(html).find('img').length > 0 ? $('img',html) : $(html);
-						$( '.banner-preview' ).append(html);
-						var imgClasses = image_thumbnail.attr( 'class' );
-						imgClasses = imgClasses.split('wp-image-');
-						$( '#banner' ).val(imgClasses[1]);
-						tb_remove();
-					}
-					$( this ).hide();
-					$( '.lsx-banner-image-remove' ).show();
-					
-					return false;
-				});
-
-				$( '.lsx-banner-image-remove' ).on( 'click', function() {
-					$( '.banner-preview' ).html('');
-					$( '#banner' ).val('');
-					$( this ).hide();
-					$( '.lsx-banner-image-add' ).show();					
-					return false;
-				});	
-			})(jQuery);
-		</script>
 		<?php
 	}
 	
@@ -279,47 +243,16 @@ class LSX_Banners_Admin extends LSX_Banners {
 				<tr>
 					<th><label for="banner"><?php esc_html_e('Banner','lsx-banners');?></label></th>
 					<td>
-						<input style="display:none;" name="banner" id="banner" type="text" value="<?php echo $value; ?>" size="40" aria-required="true">
+						<input class="input_image_id" type="hidden" name="banner" value="<?php echo $value; ?>">
 						<div class="banner-preview">
 							<?php echo $image_preview; ?>
 						</div>				
-
-						<a style="<?php if('' !== $value && false !== $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-banner-image-add"><?php esc_html_e('Choose Image','lsx-banners');?></a>				
-						<a style="<?php if('' === $value || false === $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-banner-image-remove"><?php esc_html_e('Remove Image','lsx-banners');?></a>
+						<a style="<?php if('' !== $value && false !== $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-add"><?php esc_html_e('Choose Image','lsx-banners');?></a>				
+						<a style="<?php if('' === $value || false === $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-remove"><?php esc_html_e('Remove Image','lsx-banners');?></a>
 					</td>
 				</tr>
 			</tbody>
-		</table>		
-		
-		<script type="text/javascript">
-			(function( $ ) {
-				$( '.lsx-banner-image-add' ).on( 'click', function() {
-					tb_show('<?php esc_html_e( 'Choose a Banner', 'lsx-banners' ); ?>', 'media-upload.php?type=image&TB_iframe=1');
-					var image_thumbnail = '';
-					window.send_to_editor = function( html ) 
-					{
-						var image_thumbnail = $(html).find('img').length > 0 ? $('img',html) : $(html);
-						$( '.banner-preview' ).append(html);
-						var imgClasses = image_thumbnail.attr( 'class' );
-						imgClasses = imgClasses.split('wp-image-');
-						$( '#banner' ).val(imgClasses[1]);
-						tb_remove();
-					}
-					$( this ).hide();
-					$( '.lsx-banner-image-remove' ).show();
-					
-					return false;
-				});
-
-				$( '.lsx-banner-image-remove' ).on( 'click', function() {
-					$( '.banner-preview' ).html('');
-					$( '#banner' ).val('');
-					$( this ).hide();
-					$( '.lsx-banner-image-add' ).show();					
-					return false;
-				});	
-			})(jQuery);
-		</script>
+		</table>
 		<?php 	
 	}
 
@@ -335,13 +268,13 @@ class LSX_Banners_Admin extends LSX_Banners {
 				<label for="banner"> <?php esc_html_e( 'Banner Image', 'lsx-banners' ); ?></label>
 			</th>
 			<td>
-				<input type="hidden" {{#if banner_id}} value="{{banner_id}}" {{/if}} name="banner_id" />
-				<input type="hidden" {{#if banner}} value="{{banner}}" {{/if}} name="banner" />
+				<input class="input_image_id" type="hidden" {{#if banner_id}} value="{{banner_id}}" {{/if}} name="banner_id" />
+				<input class="input_image" type="hidden" {{#if banner}} value="{{banner}}" {{/if}} name="banner" />
 				<div class="thumbnail-preview">
-					{{#if banner}}<img src="{{banner}}" width="150" height="150" />{{/if}}
+					{{#if banner}}<img src="{{banner}}" width="150" />{{/if}}
 				</div>
-				<a {{#if banner}}style="display:none;"{{/if}} class="button-secondary lsx-thumbnail-image-add" data-slug="banner"><?php esc_html_e( 'Choose Image', 'lsx-banners' ); ?></a>
-				<a {{#unless banner}}style="display:none;"{{/unless}} class="button-secondary lsx-thumbnail-image-delete" data-slug="banner"><?php esc_html_e( 'Delete', 'lsx-banners' ); ?></a>
+				<a {{#if banner}}style="display:none;"{{/if}} class="button-secondary lsx-thumbnail-image-add"><?php esc_html_e( 'Choose Image', 'lsx-banners' ); ?></a>
+				<a {{#unless banner}}style="display:none;"{{/unless}} class="button-secondary lsx-thumbnail-image-delete"><?php esc_html_e( 'Delete', 'lsx-banners' ); ?></a>
 			</td>
 		</tr>
 		<tr class="form-field">
@@ -399,10 +332,8 @@ class LSX_Banners_Admin extends LSX_Banners {
 				foreach ( $post_types as $post_type ) {
 					if ( class_exists( 'Tour_Operator' ) ) {
 						add_action( 'to_framework_' . $post_type . '_tab_archive_settings_top', array( $this, 'archive_settings' ), 20 );
-						add_action( 'to_framework_dashboard_tab_bottom', array( $this, 'settings_scripts' ), 200 );
 					} else {
 						add_action( 'lsx_framework_' . $post_type . '_tab_content_top', array( $this, 'archive_settings' ), 20 );
-						add_action( 'lsx_framework_dashboard_tab_bottom', array( $this, 'settings_scripts' ), 200 );
 					}
 				}	
 			}
@@ -443,7 +374,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 				'page_title'        => '',
 				'page_description'  => '',
 				'menu_title'        => esc_html__( 'Display', 'lsx-currencies' ),
-				'template'          => LSX_CURRENCY_PATH . 'includes/settings/display.php',
+				'template'          => LSX_BANNERS_PATH . 'includes/settings/display.php',
 				'default'           => $default
 			);
 
@@ -455,7 +386,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 				'page_title'        => '',
 				'page_description'  => '',
 				'menu_title'        => esc_html__( 'API', 'lsx-currencies' ),
-				'template'          => LSX_CURRENCY_PATH . 'includes/settings/api.php',
+				'template'          => LSX_BANNERS_PATH . 'includes/settings/api.php',
 				'default'           => $default
 			);
 
@@ -481,52 +412,6 @@ class LSX_Banners_Admin extends LSX_Banners {
 		}
 
 		return $tabs;
-	}
-
-	/**
-	 * Allows the settings pages to upload images
-	 */
-	public function settings_scripts() {
-		?>
-		<script>
-			jQuery(function($) {
-				$('.lsx-thumbnail-image-add').on('click', function() {
-					var slug = $(this).attr('data-slug');
-					tb_show('<?php esc_html_e( 'Choose a Featured Image', 'lsx-banners' ); ?>', 'media-upload.php?type=image&TB_iframe=1');
-					var image_thumbnail = '';
-					var thisObj = $(this);
-					window.send_to_editor = function(html) {
-						var image_thumbnail = $('img', html).html();
-						$(thisObj).parent('td').find('.thumbnail-preview' ).append('<img width="150" height="150" src="'+$( 'img',html ).attr( 'src' )+'" />');
-						$(thisObj).parent('td').find('input[name="'+slug+'"]').val($( 'img',html ).attr( 'src' ));
-						var imgClasses = $('img', html).attr('class');
-						imgClasses = imgClasses.split('wp-image-');
-						$(thisObj).parent('td').find('input[name="'+slug+'_id"]').val(imgClasses[1]);
-						$(thisObj).hide();
-						$(thisObj).parent('td').find('.lsx-thumbnail-image-delete' ).show();
-						tb_remove();
-						$( this ).hide();
-					}
-					return false;
-				});
-				$('.lsx-thumbnail-image-delete').on('click', function() {
-					var slug = $(this).attr('data-slug');
-					$( this ).parent('td').find('input[name="'+slug+'_id"]').val('');
-					$( this ).parent('td').find('input[name="'+slug+'"]').val('');
-					$( this ).parent('td').find('.thumbnail-preview' ).html('');
-					$( this ).hide();
-					$( this ).parent('td').find('.lsx-thumbnail-image-add' ).show();
-				});
-				jQuery(document).on('click', '.ui-tab-nav a', function(event) {
-					event.preventDefault();
-					jQuery('.ui-tab-nav a.active').removeClass('active');
-					jQuery(this).addClass('active');
-					jQuery('.ui-tab.active').removeClass('active');
-					jQuery(jQuery(this).attr('href')).addClass('active');
-				});
-			});
-		</script>
-		<?php
 	}
 
 }

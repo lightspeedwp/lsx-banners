@@ -89,45 +89,14 @@ class LSX_Taxonomy_Admin {
 		<tr class="form-field form-required term-thumbnail-wrap">
 			<th scope="row"><label for="thumbnail"><?php esc_html_e('Featured Image','lsx-banners');?></label></th>
 			<td>
-				<input style="display:none;" name="thumbnail" id="thumbnail" type="text" value="<?php echo $value; ?>" size="40" aria-required="true">
+				<input class="input_image_id" type="hidden" name="thumbnail" value="<?php echo $value; ?>">
 				<div class="thumbnail-preview">
 					<?php echo $image_preview; ?>
 				</div>				
-
 				<a style="<?php if('' !== $value && false !== $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-add"><?php esc_html_e('Choose Image','lsx-banners');?></a>				
 				<a style="<?php if('' === $value || false === $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-remove"><?php esc_html_e('Remove Image','lsx-banners');?></a>
 			</td>
 		</tr>
-		
-		<script type="text/javascript">
-			(function( $ ) {
-				$( '.lsx-thumbnail-image-add' ).on( 'click', function() {
-					tb_show('<?php esc_html_e( 'Choose a Featured Image', 'lsx-banners' ); ?>', 'media-upload.php?type=image&TB_iframe=1');
-					var image_thumbnail = '';
-					window.send_to_editor = function( html ) 
-					{
-						var image_thumbnail = $( 'img',html ).html();
-						$( '.thumbnail-preview' ).append(html);
-						var imgClasses = $( 'img',html ).attr( 'class' );
-						imgClasses = imgClasses.split('wp-image-');
-						$( '#thumbnail' ).val(imgClasses[1]);
-						tb_remove();
-					}
-					$( this ).hide();
-					$( '.lsx-thumbnail-image-remove' ).show();
-					
-					return false;
-				});
-
-				$( '.lsx-thumbnail-image-remove' ).on( 'click', function() {
-					$( '.thumbnail-preview' ).html('');
-					$( '#thumbnail' ).val('');
-					$( this ).hide();
-					$( '.lsx-thumbnail-image-add' ).show();					
-					return false;
-				});	
-			})(jQuery);
-		</script>		
 		<?php
 	}
 	/**
