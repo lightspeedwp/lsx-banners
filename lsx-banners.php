@@ -44,6 +44,7 @@ register_activation_hook( __FILE__, 'lsx_banners_activate_plugin' );
  */ 
 function lsx_banners_options_pages_filter($pages){
 	$pages[] = 'lsx-settings';
+	$pages[] = 'to-settings';
 	return $pages;
 }
 add_filter('lsx_api_manager_options_pages','lsx_banners_options_pages_filter',10,1);
@@ -60,7 +61,6 @@ function lsx_banners_api_admin_init(){
 	}
 
 	$data = array('api_key'=>'','email'=>'');
-
 	if(false !== $options && isset($options['api'])){
 		if(isset($options['api']['lsx-banners_api_key']) && '' !== $options['api']['lsx-banners_api_key']){
 			$data['api_key'] = $options['api']['lsx-banners_api_key'];
