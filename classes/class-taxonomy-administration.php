@@ -55,11 +55,6 @@ class LSX_Taxonomy_Admin {
 				add_action( "{$taxonomy}_edit_form_fields", array( $this, 'add_thumbnail_form_field' ),3,1 );
 				add_action( "{$taxonomy}_edit_form_fields", array( $this, 'add_tagline_form_field' ),3,1 );
 				add_action( "{$taxonomy}_edit_form_fields", array( $this, 'add_banner_video_form_field' ),3,1 );
-
-				if(post_type_exists('team')){
-					add_action( "{$taxonomy}_edit_form_fields", array( $this, '	add_expert_form_field' ),3,1 );
-				}
-				
 			}			
 		}
 	}	

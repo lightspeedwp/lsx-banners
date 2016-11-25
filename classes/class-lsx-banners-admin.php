@@ -205,7 +205,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 			</td>
 		</tr>
 		
-		{{#script}}
+		<script>
 			(function( $ ) {
 				$( '.lsx-banner-image-add' ).on( 'click', function() {
 					tb_show('Choose a Banner', 'media-upload.php?type=image&TB_iframe=1');
@@ -233,7 +233,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 					return false;
 				});	
 			})(jQuery);
-		{{/script}}
+		</script>
 		<?php
 	}
 	
