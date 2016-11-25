@@ -109,28 +109,25 @@ class LSX_API_Manager {
 		$this->license_check_url = 'https://dev.lsdev.biz/wc-api/license-status-check';
 
 		add_filter( 'plugin_action_links_' . plugin_basename(str_replace('.php','',$this->file).'/'.$this->file), array($this,'add_action_links'));
-
+		$this->status = get_option($this->product_slug.'_status',false);
 
 		if(isset($_GET['page']) && in_array($_GET['page'],apply_filters('lsx_api_manager_options_pages',array(false)))){
 
 			//Maybe activate the software, do this before the status checks.
 			$this->activate_deactivate();
 
-			$current_status = get_option($this->product_slug.'_status',false);
-			if(false === $current_status){
+			if(false === $this->status){
 				$this->status = $this->check_status();
 				update_option($this->product_slug.'_status',$this->status);
-			}else{
-				$this->status = $current_status;
 			}
 
 			$button_url = '<a data-product="'.$this->product_slug.'" style="margin-top:-5px;" href="';
 			$button_label = '';
-			$admin_url_base = class_exists( 'Tour_Operator' ) ? 'admin.php?page=to-setting' : 'themes.php?page=lsx-settings';
-			if('active' !== $this->status){
+			$admin_url_base = class_exists( 'Tour_Operator' ) ? 'admin.php?page=to-settings' : 'themes.php?page=lsx-settings';
+			if(false === $this->status || 'inactive' === $this->status){
 				$button_url .= admin_url($admin_url_base.'&action=activate&product='.$this->product_slug);
 				$button_label = 'Activate';
-			}else{
+			}elseif('active' === $this->status){
 				$button_url .= admin_url($admin_url_base.'&action=deactivate&product='.$this->product_slug);
 				$button_label = 'Deactivate';
 			}
@@ -156,7 +153,7 @@ class LSX_API_Manager {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return    object|Module_Template    A single instance of this class.
+	 * @return    object    A single instance of this class.
 	 */
 	public static function get_instance() {
 		// If the single instance hasn't been set, set it now.
@@ -171,10 +168,17 @@ class LSX_API_Manager {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return    object|Module_Template    A single instance of this class.
+	 * @return    object A single instance of this class.
 	 */
 	public function dashboard_tabs($tab='general') {
 		if('api' !== $tab){ return false;}
+
+		if('active' === $this->status){
+			$description = __( '<span style="color:#008000;">Your license is now active</span>', $this->product_slug );
+		}else{
+			$description = __( 'You can find your key on your <a target="_blank" href="https://www.lsdev.biz/my-account/">My Account</a> page.', $this->product_slug );
+		}
+
 		?>
 		<tr class="form-field <?php echo $this->product_slug; ?>-wrap">
 			<th class="<?php echo $this->product_slug; ?>_table_heading" style="padding-bottom:0px;" scope="row" colspan="2">
@@ -193,7 +197,7 @@ class LSX_API_Manager {
 					- <?php echo $this->button; ?>
 				</h4>
 
-				<?php if(is_array($this->messages)) { ?><p><small class="messages" style="font-weight:normal;"><?php echo implode('. ',$this->messages); ?></small></p><?php } ?>
+				<?php /*if(is_array($this->messages)) { ?><p><small class="messages" style="font-weight:normal;"><?php echo implode('. ',$this->messages); ?></small></p><?php } */ ?>
 		
 			</th>
 		</tr>
@@ -253,11 +257,11 @@ class LSX_API_Manager {
 	 * Return an instance of this class.
 	 */
 	public function activate_deactivate(){
-
 		if(isset($_GET['action']) && 'activate' === $_GET['action']
 			&& isset($_GET['product']) && $this->product_slug === $_GET['product']
 			&& false !== $this->api_key && '' !== $this->api_key
 			&& false !== $this->email && '' !== $this->email){
+
 
 			$response = $this->query('activation');
 			if(is_object($response) && isset($response->activated) && true === $response->activated){
@@ -265,16 +269,15 @@ class LSX_API_Manager {
 			}
 		}
 
-		if(isset($_GET['action']) && 'deactivate' === $_GET['action']
-			&& isset($_GET['product']) && $this->product_slug === $_GET['product']
-			&& false !== $this->api_key && '' !== $this->api_key
-			&& false !== $this->email && '' !== $this->email){
+		if((isset($_GET['action']) && 'deactivate' === $_GET['action'] && isset($_GET['product']) && $this->product_slug === $_GET['product'])
+			|| (false === $this->api_key || '' === $this->api_key || false === $this->email || '' === $this->email)){
 
-			$response = $this->query('deactivation');
-			update_option($this->product_slug.'_status','inactive');
+			if('active' === $this->status) {
+				$this->query('deactivation');
+				update_option($this->product_slug.'_status','inactive');
+			}
 		}
 	}
-
 
 	/**
 	 * Generates the API URL
@@ -383,7 +386,14 @@ class LSX_API_Manager {
 	}
 
 	public function set_update_status(){
-		if(isset($this->status) && 'active' === $this->status){
+		$this->status = $this->check_status();
+		$this->upgrade_response = get_transient($this->product_slug.'_upgrade_response',false);
+
+		if(false !== $this->upgrade_response){
+			$this->upgrade_response = maybe_unserialize($this->upgrade_response);
+		}
+
+		if(isset($this->status) && 'active' === $this->status && false === $this->upgrade_response){
 			$args = array(
 				'request' 			=> 'pluginupdatecheck',
 				'plugin_name' 		=> $this->product_slug.'/'.$this->file,
@@ -403,6 +413,7 @@ class LSX_API_Manager {
 			}
 			$response = wp_remote_retrieve_body( $request );
 			$this->upgrade_response = maybe_unserialize($response);
+			set_transient($this->product_slug . '_upgrade_response', $response, 60 * 30);
 		}
 	}
 
@@ -430,10 +441,10 @@ class LSX_API_Manager {
 	 * Adds in the "settings" link for the plugins.php page
 	 */
 	public function add_action_links ( $links ) {
-		$admin_url_base = class_exists( 'Tour_Operator' ) ? 'admin.php?page=to-setting' : 'themes.php?page=lsx-settings';
+		$admin_url_base = class_exists( 'Tour_Operator' ) ? 'admin.php?page=to-settings' : 'themes.php?page=lsx-settings';
 		$mylinks = array(
 			'<a href="' . admin_url( $admin_url_base ) . '">'.esc_html__('Settings',$this->product_slug).'</a>',
-			'<a href="https://www.lsdev.biz/documentation/lsx-tour-operator-plugin/" target="_blank">'.esc_html__('Documentation',$this->product_slug).'</a>',
+			'<a href="https://www.lsdev.biz/documentation/'.$this->product_slug.'/" target="_blank">'.esc_html__('Documentation',$this->product_slug).'</a>',
 			'<a href="https://feedmysupport.zendesk.com/home" target="_blank">'.esc_html__('Support',$this->product_slug).'</a>',
 		);
 		return array_merge( $links, $mylinks );
