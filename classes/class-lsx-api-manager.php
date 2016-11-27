@@ -122,7 +122,7 @@ class LSX_API_Manager {
 		add_filter( 'plugin_action_links_' . plugin_basename(str_replace('.php','',$this->file).'/'.$this->file), array($this,'add_action_links'));
 		$this->status = get_option($this->product_slug.'_status',false);
 
-		/*if(isset($_GET['page']) && in_array($_GET['page'],apply_filters('lsx_api_manager_options_pages',array(false)))){
+		if(isset($_GET['page']) && in_array($_GET['page'],apply_filters('lsx_api_manager_options_pages',array(false)))){
 
 			//Maybe activate the software, do this before the status checks.
 			$this->activate_deactivate();
@@ -144,10 +144,10 @@ class LSX_API_Manager {
 			}
 			$button_url .= '" class="button-secondary activate">'.$button_label.'</a>';
 			$this->button = $button_url;
-		}*/
+		}
 
-		//add_filter('site_transient_update_plugins', array($this,'injectUpdate'));
-		//add_action( "in_plugin_update_message-".$this->file,array($this,'plugin_update_message'),10,2);
+		add_filter('site_transient_update_plugins', array($this,'injectUpdate'));
+		add_action( "in_plugin_update_message-".$this->file,array($this,'plugin_update_message'),10,2);
 		
 		if ( class_exists( 'Tour_Operator' ) ) {
 			add_action( 'to_framework_api_tab_content', array( $this, 'dashboard_tabs' ), 1, 1 );

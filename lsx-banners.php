@@ -82,8 +82,7 @@ function lsx_banners_api_admin_init(){
 		'instance'		=>		$instance,
 		'email'			=>		$data['email'],
 		'api_key'		=>		$data['api_key'],
-		'file'			=>		'lsx-banners.php',
-		'documentation' =>		'lsx-banners-plugin'
+		'file'			=>		'lsx-banners.php'
 	);
 	$lsx_banners_api_manager = new LSX_API_Manager($api_array);
 }
