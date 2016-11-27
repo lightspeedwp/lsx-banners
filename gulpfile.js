@@ -7,6 +7,7 @@ gulp.task('default', function() {
 	console.log('gulp admin-sass		to compile the lsx-banners-admin.scss to lsx-banners-admin.css');
 	console.log('gulp compile-sass		to compile both of the above.');
 	console.log('gulp js				to compile the lsx-banners.js to lsx-banners.min.js');
+	console.log('gulp admin-js			to compile the lsx-banners-admin.js to lsx-banners-admin.min.js');
 	console.log('gulp compile-js		to compile both of the above.');
 	console.log('gulp watch				to continue watching all files for changes, and build when changed');
 	console.log('gulp wordpress-lang	to compile the lsx-banners.pot, en_EN.po and en_EN.mo');
@@ -40,14 +41,24 @@ gulp.task('js', function () {
 	.pipe(uglify())
 	.pipe(gulp.dest('assets/js'));
 });
+
+gulp.task('admin-js', function () {
+	gulp.src('assets/js/lsx-banners-admin.js')	 
+	//.pipe(jshint())	 
+	//.pipe(jshint.reporter('fail'))	 
+	.pipe(concat('lsx-banners-admin.min.js'))
+	.pipe(uglify())
+	.pipe(gulp.dest('assets/js'));
+});
  
 gulp.task('compile-sass', (['sass', 'admin-sass']));
-gulp.task('compile-js', (['js']));
+gulp.task('compile-js', (['js', 'admin-js']));
 
 gulp.task('watch', function() {
 	gulp.watch('assets/css/lsx-banners.scss', ['sass']);
 	gulp.watch('assets/css/lsx-banners-admin.scss', ['admin-sass']);
 	gulp.watch('assets/js/lsx-banners.js', ['js']);
+	gulp.watch('assets/js/lsx-banners-admin.js', ['admin-js']);
 });
 
 gulp.task('wordpress-pot', function () {
