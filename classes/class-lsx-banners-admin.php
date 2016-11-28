@@ -285,14 +285,16 @@ class LSX_Banners_Admin extends LSX_Banners {
 				<input type="text" {{#if banner_video}} value="{{banner_video}}" {{/if}} name="banner_video" />
 			</td>
 		</tr>
-		<tr class="form-field">
-			<th scope="row">
-				<label for="tagline"> <?php esc_html_e( 'Tagline', 'lsx-banners' ); ?></label>
-			</th>
-			<td>
-				<input type="text" {{#if tagline}} value="{{tagline}}" {{/if}} name="tagline" />
-			</td>
-		</tr>
+		<?php if(!class_exists('Tour_Operator')) { ?>
+			<tr class="form-field">
+				<th scope="row">
+					<label for="tagline"> <?php esc_html_e( 'Tagline', 'lsx-banners' ); ?></label>
+				</th>
+				<td>
+					<input type="text" {{#if tagline}} value="{{tagline}}" {{/if}} name="tagline" />
+				</td>
+			</tr>
+		<?php } ?>
 	<?php
 	}	
 

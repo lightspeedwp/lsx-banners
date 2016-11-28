@@ -34,8 +34,11 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		if ( false === $this->options ) {
 			$this->options = get_option('_lsx_lsx-settings',false);
 		}
+		//Test to see if Tour Operators is active.
+		$to_options = get_option('_to_settings',false);
+		if(false !== $to_options){ $this->options = $to_options; }
+
 		$this->set_vars();
-		
 		add_action('wp_head',array($this,'init'));
 
 		if(!is_admin()){
@@ -471,24 +474,6 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	 */
 	public function banner_tagline() {
 
-		/*if(is_post_type_archive($this->active_post_types) && isset($this->options[get_post_type()]) && isset($this->options[get_post_type()]['tagline'])){
-			$tagline = $this->options[get_post_type()]['tagline'];
-		}	
-		if(is_singular($this->active_post_types)){
-			$tagline_value = get_post_meta(get_the_ID(),'tagline',true);
-			if(false !== $tagline_value){
-				$tagline = $tagline_value;
-			}
-		}
-		if(is_tax(array_keys($this->taxonomies))){
-			$taxonomy_tagline = get_term_meta(get_queried_object_id(), 'tagline', true);
-			if(false !== $taxonomy_tagline && '' !== $taxonomy_tagline){
-				$tagline = $taxonomy_tagline;
-			}
-		}		
-		if(false !== $tagline && '' !== $tagline){
-			$tagline = $before.$tagline.$after;
-		}*/
 		$allowed_post_types = $this->get_allowed_post_types();
 		$allowed_taxonomies = $this->get_allowed_taxonomies();
 		$tagline = false;
