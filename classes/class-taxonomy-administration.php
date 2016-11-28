@@ -1,18 +1,12 @@
 <?php
 /**
- * Module Template.
+ * LSX Banners Taxonomy Class
  *
- * @package   LSX_Taxonomy_Admin
+ * @package   LSX Banners
  * @author    LightSpeed
- * @license   GPL-2.0+
+ * @license   GPL3
  * @link      
- * @copyright 2015 LightSpeedDevelopment
- */
-/**
- * Adds in the Featured Image, the Tagline and the Select and Expert field
- *
- * @package LSX_Taxonomy_Admin
- * @author  LightSpeed
+ * @copyright 2016 LightSpeed
  */
 class LSX_Taxonomy_Admin {
 
@@ -42,7 +36,7 @@ class LSX_Taxonomy_Admin {
 	/**
 	 * Output the form field for this metadata when adding a new term
 	 *
-	 * @since 0.1.0
+	 * @since 1.0.0
 	 */
 	public function init() {
 		$this->taxonomies = apply_filters('lsx_taxonomy_admin_taxonomies',$this->taxonomies);
@@ -61,7 +55,7 @@ class LSX_Taxonomy_Admin {
 	/**
 	 * Output the form field for this metadata when adding a new term
 	 *
-	 * @since 0.1.0
+	 * @since 1.0.0
 	 */
 	public function widget_taxonomies($taxonomies) {
 		if(false !== $this->taxonomies){ $taxonomies = array_merge($taxonomies,$this->taxonomies); }
@@ -71,7 +65,7 @@ class LSX_Taxonomy_Admin {
 	/**
 	 * Output the form field for this metadata when adding a new term
 	 *
-	 * @since 0.1.0
+	 * @since 1.0.0
 	 */
 	public function add_thumbnail_form_field($term = false) {
 	
@@ -102,7 +96,7 @@ class LSX_Taxonomy_Admin {
 	/**
 	 * Saves the Taxnomy term banner image
 	 *
-	 * @since 0.1.0
+	 * @since 1.0.0
 	 *
 	 * @param  int     $term_id
 	 * @param  string  $taxonomy
@@ -123,7 +117,7 @@ class LSX_Taxonomy_Admin {
 	/**
 	 * Output the form field for this metadata when adding a new term
 	 *
-	 * @since 0.1.0
+	 * @since 1.0.0
 	 */
 	public function add_tagline_form_field($term = false) {
 		if(is_object($term)){
@@ -144,7 +138,7 @@ class LSX_Taxonomy_Admin {
 	/**
 	 * Output the form field for this metadata when adding a new term
 	 *
-	 * @since 0.1.0
+	 * @since 1.0.0
 	 */
 	public function add_banner_video_form_field($term = false) {
 		if(is_object($term)){
@@ -165,7 +159,7 @@ class LSX_Taxonomy_Admin {
 	/**
 	 * Output the form field for this metadata when adding a new term
 	 *
-	 * @since 0.1.0
+	 * @since 1.0.0
 	 */
 	public function add_expert_form_field( $term = false ) {
 		if ( is_object( $term ) ) {

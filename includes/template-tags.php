@@ -2,8 +2,11 @@
 /**
  * Template Tags
  *
- * @package   LSX_Banners
- * @license   GPL-2.0+
+ * @package   LSX Banners
+ * @author    LightSpeed
+ * @license   GPL3
+ * @link      
+ * @copyright 2016 LightSpeed
  */
 
 /**

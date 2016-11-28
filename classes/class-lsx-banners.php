@@ -1,19 +1,12 @@
 <?php
 /**
- * Main Class for the LSX Banners Plugin
+ * LSX Banners Main Class
  *
- * @package   LSX_Banners_Admin
+ * @package   LSX Banners
  * @author    LightSpeed
- * @license   GPL-3+
+ * @license   GPL3
  * @link      
- * @copyright 2016 LightSpeedDevelopment
- */
-
-/**
- * Main plugin class.
- *
- * @package LSX_Banners_Admin
- * @author  LightSpeed
+ * @copyright 2016 LightSpeed
  */
 class LSX_Banners {
 

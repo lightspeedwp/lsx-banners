@@ -1,15 +1,12 @@
 <?php
 /**
- * Placeholders.
+ * LSX Banners Placeholders Class
  *
- * @package   Placeholders
- * @author    LightSpeed https://lsdev.biz
+ * @package   LSX Banners
+ * @author    LightSpeed
  * @license   GPL3
  * @link      
- */
-
-/**
- * Plugin class.
+ * @copyright 2016 LightSpeed
  */
 class LSX_Placeholders {
 
