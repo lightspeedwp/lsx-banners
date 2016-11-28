@@ -1,19 +1,12 @@
 <?php
 /**
- * Backend actions for the LSX Banners Plugin
+ * LSX Banners Admin Class
  *
- * @package   LSX_Banners_Admin
+ * @package   LSX Banners
  * @author    LightSpeed
- * @license   GPL-3+
+ * @license   GPL3
  * @link      
- * @copyright 2016 LightSpeedDevelopment
- */
-
-/**
- * Main plugin class.
- *
- * @package LSX_Banners_Admin
- * @author  LightSpeed
+ * @copyright 2016 LightSpeed
  */
 class LSX_Banners_Admin extends LSX_Banners {
 
@@ -84,7 +77,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 	/**
 	 * Output the form field for this metadata when adding a new term
 	 *
-	 * @since 0.1.0
+	 * @since 1.0.0
 	 */
 	public function add_taxonomies($taxonomies) {
 
@@ -168,7 +161,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 	/**
 	 * Output the form field for this metadata when adding a new term
 	 *
-	 * @since 0.1.0
+	 * @since 1.0.0
 	 */
 	public function add_form_field($term = false) {
 
@@ -204,7 +197,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 	/**
 	 * Saves the Taxnomy term banner image
 	 *
-	 * @since 0.1.0
+	 * @since 1.0.0
 	 *
 	 * @param  int     $term_id
 	 * @param  string  $taxonomy
@@ -223,7 +216,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 	/**
 	 * Displays the user banner field
 	 *
-	 * @since 0.1.0
+	 * @since 1.0.0
 	 */
 	public function user_profile_fields( $user ) {
 		if(is_object($user)){
@@ -302,7 +295,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 	/**
 	 * Saves the Taxnomy term banner image
 	 *
-	 * @since 0.1.0
+	 * @since 1.0.0
 	 *
 	 * @param  int     $term_id
 	 * @param  string  $taxonomy

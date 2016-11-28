@@ -1,16 +1,21 @@
 <?php
 /*
  * Plugin Name: LSX Banners
- * Plugin URI: https://www.lsdev.biz/product/lsx-banners
+ * Plugin URI:  https://www.lsdev.biz/product/lsx-banners
  * Description: The LSX Banners extension adds advanced banner configuration options to your WordPress site running LSX theme.
- * Version: 1.0.0 
- * Author: LightSpeed WordPress Development
- * Author URI: https://www.lsdev.biz/
+ * Version:     1.0.0
+ * Author:      LightSpeed WordPress Development
+ * Author URI:  https://www.lsdev.biz/
  * License:     GPL3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: lsx-banners
  * Domain Path: /languages
-*/
+ */
+
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
 
 define('LSX_BANNERS_PATH',  plugin_dir_path( __FILE__ ) );
 define('LSX_BANNERS_CORE',  __FILE__ );
@@ -24,6 +29,7 @@ if(!function_exists('cmb_init')){
 }
 
 /* ======================= The API Classes ========================= */
+
 if(!class_exists('LSX_API_Manager')){
 	require_once('classes/class-lsx-api-manager.php');
 }
@@ -62,6 +68,7 @@ function lsx_banners_api_admin_init(){
 	}
 
 	$data = array('api_key'=>'','email'=>'');
+	
 	if(false !== $options && isset($options['api'])){
 		if(isset($options['api']['lsx-banners_api_key']) && '' !== $options['api']['lsx-banners_api_key']){
 			$data['api_key'] = $options['api']['lsx-banners_api_key'];
@@ -87,7 +94,6 @@ function lsx_banners_api_admin_init(){
 	$lsx_banners_api_manager = new LSX_API_Manager($api_array);
 }
 add_action('admin_init','lsx_banners_api_admin_init');
-
 
 require_once( LSX_BANNERS_PATH . 'classes/class-lsx-banners.php' );
 $lsx_banners = new LSX_Banners();

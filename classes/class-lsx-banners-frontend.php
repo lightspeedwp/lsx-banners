@@ -1,19 +1,12 @@
 <?php
 /**
- * Frontend actions for the LSX Banners Plugin
+ * LSX Banners Frontend Class
  *
- * @package   LSX_Banners_Frontend
+ * @package   LSX Banners
  * @author    LightSpeed
- * @license   GPL-2.0+
+ * @license   GPL3
  * @link      
- * @copyright 2016 LightSpeedDevelopment
- */
-
-/**
- * Main plugin class.
- *
- * @package LSX_Banners_Frontend
- * @author  LightSpeed
+ * @copyright 2016 LightSpeed
  */
 class LSX_Banners_Frontend extends LSX_Banners {
 

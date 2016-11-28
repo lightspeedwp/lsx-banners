@@ -1,15 +1,4 @@
-## Change log
+## Changelog
 
 ### 1.0.0
-* First public version
-
-### 0.3.0
-* LSX API Manager class updated to work with LSX Theme Options and TO Settings
-
-### 0.2.0
-* Added a changelog file
-* Added jQuery TouchSwipe plugin to improve the user experience on Bootstrap sliders
-* Added plugin version to all scripts and styles included
-
-### 0.1.0
 * First Version
