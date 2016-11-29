@@ -4,7 +4,7 @@
  * Plugin URI:  https://www.lsdev.biz/product/lsx-banners
  * Description: The LSX Banners extension adds advanced banner configuration options to your WordPress site running LSX theme.
  * Version:     1.0.0
- * Author:      LightSpeed WordPress Development
+ * Author:      LightSpeed
  * Author URI:  https://www.lsdev.biz/
  * License:     GPL3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
