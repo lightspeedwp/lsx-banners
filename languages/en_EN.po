@@ -28,7 +28,7 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:128, classes/class-lsx-banners-admin.php:283, classes/class-taxonomy-administration.php:30, classes/class-taxonomy-administration.php:130, includes/settings/post.php:21
+#: classes/class-lsx-banners-admin.php:128, classes/class-lsx-banners-admin.php:284, classes/class-taxonomy-administration.php:30, classes/class-taxonomy-administration.php:130, includes/settings/post.php:21
 msgid "Tagline"
 msgstr ""
 
@@ -112,23 +112,23 @@ msgstr ""
 msgid "Banner Video URL (mp4)"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:344, classes/class-lsx-banners-admin.php:345
+#: classes/class-lsx-banners-admin.php:346, classes/class-lsx-banners-admin.php:347
 msgid "Theme Options"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:349
+#: classes/class-lsx-banners-admin.php:351
 msgid "Save Changes"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:395, includes/settings/display.php:4
+#: classes/class-lsx-banners-admin.php:397, includes/settings/display.php:4
 msgid "Placeholders"
 msgstr ""
 
-#: classes/class-lsx-banners-frontend.php:353
+#: classes/class-lsx-banners-frontend.php:356
 msgid "Previous"
 msgstr ""
 
-#: classes/class-lsx-banners-frontend.php:357
+#: classes/class-lsx-banners-frontend.php:360
 msgid "Next"
 msgstr ""
 
