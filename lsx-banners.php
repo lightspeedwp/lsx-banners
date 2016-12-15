@@ -122,7 +122,7 @@ class Lsx_Banners_old {
 	/**
 	 * Return an instance of this class.
 	 * 
-	 * @return    object|Lsx_Restrict_Access    A single instance of this class.
+	 * @return    object    A single instance of this class.
 	 */
 	public static function get_instance() {
 		// If the single instance hasn't been set, set it now.
