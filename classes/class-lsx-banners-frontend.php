@@ -28,8 +28,8 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			$this->options = get_option('_lsx_lsx-settings',false);
 		}
 		//Test to see if Tour Operators is active.
-		$to_options = get_option('_to_settings',false);
-		if(false !== $to_options){ $this->options = $to_options; }
+		$lsx_to_options = get_option('_lsx-to_settings',false);
+		if(false !== $lsx_to_options){ $this->options = $lsx_to_options; }
 
 		$this->set_vars();
 		add_action('wp_head',array($this,'init'));
