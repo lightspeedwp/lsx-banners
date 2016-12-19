@@ -260,7 +260,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 					<div class="carousel-inner">
 				<?php
 			}elseif(is_array($img_group) && 1 < count($img_group['banner_image'])){
-				$banner_attribute = '';
+				$banner_attribute = array();
 				foreach($img_group['banner_image'] as $key => $slide_id){
 					$slide = wp_get_attachment_image_src($slide_id,'full');
 					$banner_attribute[] = $slide[0];

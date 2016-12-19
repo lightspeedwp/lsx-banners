@@ -4,6 +4,9 @@ The LSX Banners extension adds advanced banner configuration options to your Wor
 
 ## Changelog
 
+### 1.0.3
+* Fix - Init variable as array and not string to avoid PHP fatal error
+
 ### 1.0.2
 * Fix - Fixed all prefixes replaces (to_ > lsx_to_, TO_ > LSX_TO_)
 
