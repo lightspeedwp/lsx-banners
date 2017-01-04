@@ -28,8 +28,8 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			$this->options = get_option('_lsx_lsx-settings',false);
 		}
 		//Test to see if Tour Operators is active.
-		$to_options = get_option('_to_settings',false);
-		if(false !== $to_options){ $this->options = $to_options; }
+		$lsx_to_options = get_option('_lsx-to_settings',false);
+		if(false !== $lsx_to_options){ $this->options = $lsx_to_options; }
 
 		$this->set_vars();
 		add_action('wp_head',array($this,'init'));
@@ -260,7 +260,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 					<div class="carousel-inner">
 				<?php
 			}elseif(is_array($img_group) && 1 < count($img_group['banner_image'])){
-				$banner_attribute = '';
+				$banner_attribute = array();
 				foreach($img_group['banner_image'] as $key => $slide_id){
 					$slide = wp_get_attachment_image_src($slide_id,'full');
 					$banner_attribute[] = $slide[0];

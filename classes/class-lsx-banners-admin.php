@@ -326,7 +326,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 			if ( false !== $post_types ) {
 				foreach ( $post_types as $post_type ) {
 					if ( class_exists( 'Tour_Operator' ) ) {
-						add_action( 'to_framework_' . $post_type . '_tab_archive_settings_top', array( $this, 'archive_settings' ), 20 );
+						add_action( 'lsx_to_framework_' . $post_type . '_tab_archive_settings_top', array( $this, 'archive_settings' ), 20 );
 					} else {
 						add_action( 'lsx_framework_' . $post_type . '_tab_content_top', array( $this, 'archive_settings' ), 20 );
 					}
