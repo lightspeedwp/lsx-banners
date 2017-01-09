@@ -254,7 +254,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 
 			//if its the lsx theme and there are more than 1 banner, then output a bootstrap carousel.
 			$banner_attribute = false;
-			if($show_slider) { 
+			if ( $show_slider && ! ( class_exists( 'Soliloquy' ) && false !== $soliloquy_slider_id && ! empty( $soliloquy_slider_id ) ) ) {
 				?>
 				<div id="page-banner-slider" class="carousel slide" data-ride="carousel" data-interval="6000">
 					<div class="carousel-inner">
@@ -303,6 +303,8 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			    </div>
 			<?php
 			//if its the lsx theme and there are more than 1 banner, then output a bootstrap carousel.
+			} elseif ( class_exists( 'Soliloquy' ) && false !== $soliloquy_slider_id && ! empty( $soliloquy_slider_id ) ) {
+				echo do_shortcode( '[soliloquy id="' . $soliloquy_slider_id . '"]' );
 			} else { ?>
 						<?php
 						$count = 0;
