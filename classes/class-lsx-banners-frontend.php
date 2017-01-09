@@ -229,7 +229,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 				$soliloquy_slider = Soliloquy::get_instance();
 				$soliloquy_slider_images = $soliloquy_slider->get_slider( $soliloquy_slider_id );
 				
-				if ( 'lsx' === $this->theme && is_array( $soliloquy_slider_images ) && count( $soliloquy_slider_images ) > 1 && apply_filters( 'lsx_banners_slider_enable', true ) ) {
+				if ( is_array( $soliloquy_slider_images ) && count( $soliloquy_slider_images ) > 1 && apply_filters( 'lsx_banners_slider_enable', true ) ) {
 					$img_group = array( 'banner_image' => array() );
 					$show_slider = true;
 
