@@ -307,7 +307,9 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			<?php
 			//if its the lsx theme and there are more than 1 banner, then output a bootstrap carousel.
 			} elseif ( class_exists( 'Soliloquy' ) && false !== $soliloquy_slider_id && ! empty( $soliloquy_slider_id ) ) {
+				echo '<div class="page-banner page-banner-soliloquy">';
 				echo do_shortcode( '[soliloquy id="' . $soliloquy_slider_id . '"]' );
+				echo '</div>';
 			} else { ?>
 						<?php
 						$count = 0;
