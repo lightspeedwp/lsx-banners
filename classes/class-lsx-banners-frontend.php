@@ -130,7 +130,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 						$banner_image_id = $banner_ids[0];
 					}	
 					//Check if the slider code should show
-					if('lsx' === $this->theme && 1 < count($img_group['banner_image']) && apply_filters('lsx_banners_slider_enable',true)) {
+					if('lsx' === $this->theme && 1 < count($img_group['banner_image']) && apply_filters('lsx_banner_enable_sliders',true)) {
 						$show_slider = true;
 					}					
 				}
@@ -187,6 +187,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			$banner_image = apply_filters('lsx_banner_placeholder_url','https://placeholdit.imgix.net/~text?txtsize=33&txt=1920x600&w=1920&h=600');
 		}		
 		//Check if the content should be disabled or not
+		$title_disable = get_post_meta($post_id,'banner_title_disabled',true);
 		$text_disable = get_post_meta($post_id,'banner_text_disabled',true);
 
 		// Embed video
@@ -204,7 +205,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 				$envira_gallery = Envira_Gallery::get_instance();
 				$envira_gallery_images = $envira_gallery->get_gallery( $envira_gallery_id );
 				
-				if ( 'lsx' === $this->theme && is_array( $envira_gallery_images ) && count( $envira_gallery_images ) > 1 && apply_filters( 'lsx_banners_slider_enable', true ) ) {
+				if ( 'lsx' === $this->theme && is_array( $envira_gallery_images ) && count( $envira_gallery_images ) > 1 && apply_filters( 'lsx_banner_enable_sliders', true ) ) {
 					$img_group = array( 'banner_image' => array() );
 					$show_slider = true;
 
@@ -229,7 +230,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 				$soliloquy_slider = Soliloquy::get_instance();
 				$soliloquy_slider_images = $soliloquy_slider->get_slider( $soliloquy_slider_id );
 				
-				if ( is_array( $soliloquy_slider_images ) && count( $soliloquy_slider_images ) > 1 && apply_filters( 'lsx_banners_slider_enable', true ) ) {
+				if ( is_array( $soliloquy_slider_images ) && count( $soliloquy_slider_images ) > 1 && apply_filters( 'lsx_banner_enable_sliders', true ) ) {
 					$img_group = array( 'banner_image' => array() );
 					$show_slider = true;
 
@@ -291,9 +292,11 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			        	<div class="container">
 			        		<?php do_action('lsx_banner_container_top'); ?>
 			        		
-				            <header class="page-header">
-				            	<?php echo apply_filters('lsx_banner_title','<h1 class="page-title">'.get_the_title($post_id).'</h1>'); ?>
-				            </header>
+				            <?php if ( true !== $title_disable && '1' !== $title_disable && ! empty( get_the_title( $post_id ) ) ) : ?>
+					            <header class="page-header">
+					            	<?php echo apply_filters('lsx_banner_title','<h1 class="page-title">'.get_the_title($post_id).'</h1>'); ?>
+					            </header>
+					        <?php endif; ?>
 
 				            <?php if(true !== $text_disable && '1' !== $text_disable && !empty($this->banner_content())) { ?><div class="banner-content"><?php echo $this->banner_content(); ?></div><?php } ?>
 				            
@@ -327,9 +330,11 @@ class LSX_Banners_Frontend extends LSX_Banners {
 				        				<div class="container">
 							        		<?php do_action('lsx_banner_container_top'); ?>
 							        		
-								            <header class="page-header">
-								            	<?php echo apply_filters('lsx_banner_title','<h1 class="page-title">'.$title.'</h1>'); ?>
-								            </header>
+								            <?php if ( true !== $title_disable && '1' !== $title_disable && ! empty( $title ) ) : ?>
+									            <header class="page-header">
+									            	<?php echo apply_filters('lsx_banner_title','<h1 class="page-title">'.$title.'</h1>'); ?>
+									            </header>
+									        <?php endif; ?>
 
 								            <?php if(true !== $text_disable && '1' !== $text_disable && !empty($content)) { ?><div class="banner-content"><?php echo $content; ?></div><?php } ?>
 								            

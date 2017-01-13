@@ -6,6 +6,7 @@ The LSX Banners extension adds advanced banner configuration options to your Wor
 
 ### 1.0.4
 * Feature - Use Soliloquy HTML in front-end slider when it's a Soliloquy slider selected in back-end
+* Feature - New option to disable the banner title per page/post
 
 ### 1.0.3
 * Fix - Init variable as array and not string to avoid PHP fatal error
@@ -54,8 +55,9 @@ Enable the Use of a subtitle
 
 ```add_filter('lsx_banner_enable_subtitle', function( $bool ) { return true; });```
 
-Enable embed videos
-```add_filter('lsx_banner_enable_video', function( $bool ) { return true; });```
+Disable the title of the banner on a per post basis
+
+```add_filter('lsx_banner_disable_title', function( $bool ) { return true; });```
 
 Disable the content of the banner on a per post basis
 
