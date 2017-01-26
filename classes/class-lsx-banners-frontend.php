@@ -482,13 +482,13 @@ class LSX_Banners_Frontend extends LSX_Banners {
 
 		if(is_post_type_archive($allowed_post_types) && isset($this->options[get_post_type()]) && isset($this->options[get_post_type()]['tagline'])){
 			$tagline = $this->options[get_post_type()]['tagline'];
-		}elseif(is_page() || is_singular($allowed_post_types)){
-			$tagline = get_post_meta(get_the_ID(),'banner_subtitle',true);
 		}elseif(is_tax($allowed_taxonomies) || is_category()){
 			$taxonomy_tagline = get_term_meta(get_queried_object_id(), 'tagline', true);
 			if(false !== $taxonomy_tagline && '' !== $taxonomy_tagline){
 				$tagline = $taxonomy_tagline;
 			}
+		}elseif(apply_filters('lsx_banner_enable_subtitle', false) && 0 !== $this->post_id){
+			$tagline = get_post_meta($this->post_id,'banner_subtitle',true);
 		}
 
 		if(false !== $tagline && '' !== $tagline){ ?>
