@@ -6,6 +6,7 @@ The LSX Banners extension adds advanced banner configuration options to your Wor
 
 ### 1.0.5
 * Fix - Display tagline in blog page
+* Fix - Adjusted the plugin settings link inside the LSX API Class
 
 ### 1.0.4
 * Feature - Use Soliloquy HTML in front-end slider when it's a Soliloquy slider selected in back-end
