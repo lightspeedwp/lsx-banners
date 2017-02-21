@@ -101,7 +101,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		 * This section gets actualy banner url.
 		*/
 		$post_id = $this->post_id;
-		$size = 'cover';
+		$height = '';
 		$x_position = 'center';
 		$y_position = 'center';	
 		$show_slider = false;
@@ -143,8 +143,8 @@ class LSX_Banners_Frontend extends LSX_Banners {
 				$image_bg_group = get_post_meta($post_id,'image_bg_group',true);
 				if(false !== $image_bg_group && is_array($image_bg_group)){
 						
-					if(isset($image_bg_group['banner_size']) && '' !== $image_bg_group['banner_size']){
-						$size = $image_bg_group['banner_size'];
+					if(isset($image_bg_group['banner_height']) && '' !== $image_bg_group['banner_height']){
+						$height = $image_bg_group['banner_height'];
 					}
 						
 					if(isset($image_bg_group['banner_x']) && '' !== $image_bg_group['banner_x']){
@@ -276,9 +276,9 @@ class LSX_Banners_Frontend extends LSX_Banners {
 
 			if(!$show_slider) { ?>
 				<div class="page-banner-wrap">
-					<div class="page-banner rotating">
+					<div class="page-banner rotating" <?php if ( ! empty( $height ) ) echo 'style="min-height:' . $height . '"'; ?>>
 			        	<?php if(false !== $banner_attribute): ?>
-			        		<div class="page-banner-image" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>; background-size:<?php echo $size; ?>;" data-banners="<?php echo $banner_attribute; ?>"></div>
+			        		<div class="page-banner-image" style="background-position: <?php echo $x_position; ?> <?php echo $y_position; ?>;" data-banners="<?php echo $banner_attribute; ?>"></div>
 			        	<?php endif; ?>
 
 			        	<?php if(false !== $embed_video && !empty($embed_video)): ?>
