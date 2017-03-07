@@ -292,10 +292,14 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			        	<div class="container">
 			        		<?php do_action('lsx_banner_container_top'); ?>
 			        		
-				            <?php if ( true !== $title_disable && '1' !== $title_disable && ! empty( get_the_title( $post_id ) ) ) : ?>
-					            <header class="page-header">
-					            	<?php echo apply_filters('lsx_banner_title','<h1 class="page-title">'.get_the_title($post_id).'</h1>'); ?>
-					            </header>
+				            <?php if ( true !== $title_disable && '1' !== $title_disable ) : ?>
+				            	<?php $title = apply_filters('lsx_banner_title','<h1 class="page-title">'.get_the_title($post_id).'</h1>'); ?>
+			        		
+				            	<?php if ( ! empty( $title ) ) : ?>
+						            <header class="page-header">
+						            	<?php echo $title; ?>
+						            </header>
+					        	<?php endif; ?>
 					        <?php endif; ?>
 
 				            <?php if(true !== $text_disable && '1' !== $text_disable && !empty($this->banner_content())) { ?><div class="banner-content"><?php echo $this->banner_content(); ?></div><?php } ?>
@@ -323,6 +327,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 								$title   = get_the_title( $post_id );
 								$content = $this->banner_content();
 							}
+							$title = apply_filters('lsx_banner_title','<h1 class="page-title">'.$title.'</h1>');
 							?>
 							<div class="item <?php if ( 0 === $count ) echo 'active'; ?>">
 								<div class="page-banner-wrap">
@@ -334,7 +339,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 							        		
 								            <?php if ( true !== $title_disable && '1' !== $title_disable && ! empty( $title ) ) : ?>
 									            <header class="page-header">
-									            	<?php echo apply_filters('lsx_banner_title','<h1 class="page-title">'.$title.'</h1>'); ?>
+									            	<?php echo $title; ?>
 									            </header>
 									        <?php endif; ?>
 
