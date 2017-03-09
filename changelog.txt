@@ -5,6 +5,7 @@
 * Fix - Adjusted the plugin settings link inside the LSX API Class
 * Fix - Fixed the "banner height" attribute on front-end
 * Fix - Fixed banner title on archives
+* Fix - Fixed the feature from add/remove images on WP term pages
 
 ### 1.0.4
 * Feature - Use Soliloquy HTML in front-end slider when it's a Soliloquy slider selected in back-end
