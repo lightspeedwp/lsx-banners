@@ -1,7 +1,15 @@
 ## Changelog
 
+### 1.0.5
+* Fix - Display tagline in blog page
+* Fix - Adjusted the plugin settings link inside the LSX API Class
+* Fix - Fixed the "banner height" attribute on front-end
+* Fix - Fixed banner title on archives
+* Fix - Fixed the feature from add/remove images on WP term pages
+
 ### 1.0.4
 * Feature - Use Soliloquy HTML in front-end slider when it's a Soliloquy slider selected in back-end
+* Feature - New option to disable the banner title per page/post
 
 ### 1.0.3
 * Fix - Init variable as array and not string to avoid PHP fatal error

@@ -106,6 +106,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 		$subtitle_enabled = apply_filters('lsx_banner_enable_subtitle', false);
 
 		//If you only want to be able to disable content per banner
+		$title_disable = apply_filters('lsx_banner_disable_title', false);
 		$text_disable = apply_filters('lsx_banner_disable_text', false);
 		
 		//This runs twice in the plugin,  this is the only time it runs in the backend.
@@ -118,6 +119,9 @@ class LSX_Banners_Admin extends LSX_Banners {
 		if(true === $this->placeholder) {
 			$fields[] = array( 'id' => 'banner_disabled',  'name' => esc_html__( 'Disable banner', 'lsx-banners' ), 'type' => 'checkbox' );
 		}	
+		if(true === $title_disable) {
+			$fields[] = array( 'id' => 'banner_title_disabled',  'name' => esc_html__( 'Disable banner title', 'lsx-banners' ), 'type' => 'checkbox' );
+		}
 		if(true === $text_disable) {
 			$fields[] = array( 'id' => 'banner_text_disabled',  'name' => esc_html__( 'Disable banner text', 'lsx-banners' ), 'type' => 'checkbox' );
 		}

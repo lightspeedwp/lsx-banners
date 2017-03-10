@@ -153,7 +153,7 @@ class LSX_API_Manager {
 
 			$button_url = '<a data-product="'.$this->product_slug.'" style="margin-top:-5px;" href="';
 			$button_label = '';
-			$admin_url_base = class_exists( 'Tour_Operator' ) ? 'admin.php?pagelsx-to-settings' : 'themes.php?page=lsx-settings';
+			$admin_url_base = class_exists( 'Tour_Operator' ) ? 'admin.php?page=lsx-to-settings' : 'themes.php?page=lsx-settings';
 			if(false === $this->status || 'inactive' === $this->status){
 				$button_url .= admin_url($admin_url_base.'&action=activate&product='.$this->product_slug);
 				$button_label = 'Activate';
@@ -482,7 +482,7 @@ class LSX_API_Manager {
 	 * Adds in the "settings" link for the plugins.php page
 	 */
 	public function add_action_links ( $links ) {
-		$admin_url_base = class_exists( 'Tour_Operator' ) ? 'admin.php?pagelsx-to-settings' : 'themes.php?page=lsx-settings';
+		$admin_url_base = class_exists( 'Tour_Operator' ) ? 'admin.php?page=lsx-to-settings' : 'themes.php?page=lsx-settings';
 		$documentation = $this->product_slug;
 		if(false !== $this->documentation){$documentation = $this->documentation; }
 		$mylinks = array(
