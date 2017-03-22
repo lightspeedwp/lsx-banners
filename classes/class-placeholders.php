@@ -241,6 +241,7 @@ class LSX_Placeholders {
 				case 'thumbnail':
 				case 'medium':
 				case 'large':
+				case 'full':
 
 					$width = get_option( "{$size}_size_w",150 );
 					$height = get_option( "{$size}_size_h",150 );
