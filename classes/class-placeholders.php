@@ -312,6 +312,12 @@ class LSX_Placeholders {
 					'width'	=> get_option( "large_size_w",1024 ),
 					'height'	=> get_option( "large_size_h",1024 ),
 					'mime-type'	=> 'image/jpeg',
+				),	
+				'full' => array(
+					'file'	=> $this->placeholder_url().'&w='.get_option( "large_size_w",1024 ).'&h='.get_option( "large_size_h",1024 ),
+					'width'	=> get_option( "large_size_w",1024 ),
+					'height'	=> get_option( "large_size_h",1024 ),
+					'mime-type'	=> 'image/jpeg',
 				),											
 				'lsx-thumbnail-single' => array(
 					'file'	=> $this->placeholder_url().'&w=750&h=350',
