@@ -135,7 +135,11 @@ class LSX_Banners_Frontend extends LSX_Banners {
 					}					
 				}
 				$banner_image = wp_get_attachment_image_src($banner_image_id,'full');
-				$banner_image = $banner_image[0];
+				if ( ! empty( $banner_image ) ) {
+					$banner_image = $banner_image[0];
+				} else {
+					$banner_image = false;
+				}
 				
 				/*
 				 * This section gets the image meta, size etc.
@@ -160,7 +164,11 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			//If its the LSX theme, and there is no banner, but there is a featured image,  then use that for the banner.
 			if('lsx' === $this->theme && is_singular(array('post','page')) && false === $banner_image && has_post_thumbnail($this->post_id)){
 				$banner_image = wp_get_attachment_image_src(get_post_thumbnail_id($this->post_id),'full');
-				$banner_image = $banner_image[0];			
+				if ( ! empty( $banner_image ) ) {
+					$banner_image = $banner_image[0];
+				} else {
+					$banner_image = false;
+				}
 			}
 		}
 		
@@ -174,7 +182,11 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		//If its a taxonomy, then get the image from out term meta.
 		if((is_category() || is_tax($this->get_allowed_taxonomies())) && false !== $this->banner_id){
 			$banner_image = wp_get_attachment_image_src($this->banner_id,'full');
-			$banner_image = $banner_image[0];
+			if ( ! empty( $banner_image ) ) {
+				$banner_image = $banner_image[0];
+			} else {
+				$banner_image = false;
+			}
 		}elseif(is_tax($this->get_allowed_taxonomies()) || is_category()){
 			$tax_banner = apply_filters('lsx_banner_post_type_archive_url',false);
 			if(false !== $tax_banner){
@@ -264,7 +276,9 @@ class LSX_Banners_Frontend extends LSX_Banners {
 				$banner_attribute = array();
 				foreach($img_group['banner_image'] as $key => $slide_id){
 					$slide = wp_get_attachment_image_src($slide_id,'full');
-					$banner_attribute[] = $slide[0];
+					if ( ! empty( $slide ) ) {
+						$banner_attribute[] = $slide[0];
+					}
 				}
 			}elseif(false !== $banner_image){
 				$banner_attribute = array($banner_image);
