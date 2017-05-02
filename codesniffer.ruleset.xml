@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ruleset name="WordPress-LSX-Theme">
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<rule ref="WordPress">
+		<exclude name="Generic.ControlStructures.InlineControlStructure.NotAllowed" />
+		<exclude name="Generic.WhiteSpace.ScopeIndent.IncorrectExact" />
+
+		<!-- WordPress VIP -->
+		<exclude name="WordPress.VIP" />
+
+		<!-- PHP Comments -->
+		<exclude name="Generic.Commenting" />
+		<exclude name="Squiz.Commenting" />
+	</rule>
+</ruleset>

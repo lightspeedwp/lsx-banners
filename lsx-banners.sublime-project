@@ -1,0 +1,26 @@
+{
+  "folders": [
+    {
+      "path": "/",
+      "folder_exclude_patterns": [".git", "node_modules", "vendor"],
+      "file_exclude_patterns": []
+    }
+  ],
+  "build_systems": [
+    {
+      "name": "build",
+      "working_dir": "${project_path}",
+      "shell_cmd": "./bin/build.command"
+    }
+  ],
+  "settings": {
+    "phpcs": {
+      "phpcs_additional_args": {
+        "--standard": "/Users/nandotess/Sites-LightSpeed/@git/lsx/codesniffer.ruleset.xml"
+      },
+      "phpcbf_additional_args": {
+        "--standard": "/Users/nandotess/Sites-LightSpeed/@git/lsx/codesniffer.ruleset.xml"
+      }
+    }
+  }
+}

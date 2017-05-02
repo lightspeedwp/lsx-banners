@@ -1,6 +1,6 @@
 var gulp = require('gulp');
 
-gulp.task('default', function() {	 
+gulp.task('default', function() {
 	console.log('Use the following commands');
 	console.log('--------------------------');
 	console.log('gulp sass				to compile the lsx-banners.scss to lsx-banners.css');
@@ -14,43 +14,38 @@ gulp.task('default', function() {
 });
 
 var sass = require('gulp-sass');
-var jshint = require('gulp-jshint');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var sort = require('gulp-sort');
 var wppot = require('gulp-wp-pot');
 var gettext = require('gulp-gettext');
 
-gulp.task('sass', function () { 
+gulp.task('sass', function () {
     gulp.src('assets/css/lsx-banners.scss')
         .pipe(sass())
-        .pipe(gulp.dest('assets/css/'));   
+        .pipe(gulp.dest('assets/css/'));
 });
 
-gulp.task('admin-sass', function () { 
+gulp.task('admin-sass', function () {
     gulp.src('assets/css/lsx-banners-admin.scss')
         .pipe(sass())
         .pipe(gulp.dest('assets/css/'));
 });
 
 gulp.task('js', function () {
-	gulp.src('assets/js/lsx-banners.js')	 
-	//.pipe(jshint())	 
-	//.pipe(jshint.reporter('fail'))	 
+	gulp.src('assets/js/lsx-banners.js')
 	.pipe(concat('lsx-banners.min.js'))
 	.pipe(uglify())
 	.pipe(gulp.dest('assets/js'));
 });
 
 gulp.task('admin-js', function () {
-	gulp.src('assets/js/lsx-banners-admin.js')	 
-	//.pipe(jshint())	 
-	//.pipe(jshint.reporter('fail'))	 
+	gulp.src('assets/js/lsx-banners-admin.js')
 	.pipe(concat('lsx-banners-admin.min.js'))
 	.pipe(uglify())
 	.pipe(gulp.dest('assets/js'));
 });
- 
+
 gulp.task('compile-sass', (['sass', 'admin-sass']));
 gulp.task('compile-js', (['js', 'admin-js']));
 
