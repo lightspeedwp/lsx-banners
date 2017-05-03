@@ -3,7 +3,7 @@
  */
 
 jQuery(document).ready(function() {
-	
+
 	/*
 	 * Choose Image
 	 */
@@ -12,11 +12,11 @@ jQuery(document).ready(function() {
 			e.preventDefault();
 			e.stopPropagation();
 
-			tb_show('Choose a Featured Image', 'media-upload.php?type=image&TB_iframe=1&width=800&height=600');
+			tb_show('Choose a Featured Image', 'media-upload.php?type=image&TB_iframe=1&width=800&height=600&feature_image_text_button=1');
 
 			var $this = jQuery(this),
 				$td = $this.parent('td');
-			
+
 			window.send_to_editor = function(html) {
 				var $image = jQuery(html).is('img') ? jQuery(html) : jQuery('img', html),
 					image_thumbnail = $image.html(),
@@ -31,7 +31,7 @@ jQuery(document).ready(function() {
 				$td.find('input.input_image_id').val(image_class[1]);
 				$this.hide();
 				$td.find('.lsx-thumbnail-image-delete, .lsx-thumbnail-image-remove').show();
-				
+
 				tb_remove();
 			}
 
@@ -51,7 +51,7 @@ jQuery(document).ready(function() {
 
 			var $this = jQuery(this),
 				$td = $this.parent('td');
-			
+
 			$td.find('input.input_image_id').val('');
 			$td.find('input.input_image').val('');
 			$td.find('.thumbnail-preview, .banner-preview' ).html('');
@@ -60,7 +60,7 @@ jQuery(document).ready(function() {
 
 			return false;
 		});
-		
+
 		window.lsx_thumbnail_image_delete = true;
 	}
 
@@ -78,10 +78,10 @@ jQuery(document).ready(function() {
 			$this.addClass('active');
 			jQuery('.ui-tab.active').removeClass('active');
 			jQuery($this.attr('href')).addClass('active');
-			
+
 			return false;
 		});
-		
+
 		window.lsx_thumbnail_subtabs_nav = true;
 	}
 
