@@ -4,6 +4,11 @@ The LSX Banners extension adds advanced banner configuration options to your Wor
 
 ## Changelog
 
+### 1.0.6
+* Fix - Added the missing "full" image size to the placeholder class.
+* Fix - Before try use the attachment URL, test if it's available
+* Dev - Changed the "Insert into Post" button text from media modal to "Select featured image"
+
 ### 1.0.5
 * Fix - Display tagline in blog page
 * Fix - Adjusted the plugin settings link inside the LSX API Class

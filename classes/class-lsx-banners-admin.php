@@ -32,6 +32,8 @@ class LSX_Banners_Admin extends LSX_Banners {
 		add_filter( 'lsx_framework_settings_tabs', array( $this, 'register_tabs' ), 200, 1 );
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'assets') );
+
+		add_filter( 'type_url_form_media', array( $this, 'change_attachment_field_button' ), 20, 1 );
 	}
 
 	/**
@@ -57,8 +59,6 @@ class LSX_Banners_Admin extends LSX_Banners {
 		add_action( 'edit_user_profile', array( $this, 'user_profile_fields' ), 1);
 		add_action( 'personal_options_update', array( $this, 'save_profile_fields' ));
 		add_action( 'edit_user_profile_update', array( $this, 'save_profile_fields' ));
-
-		add_filter( 'type_url_form_media', array( $this, 'change_attachment_field_button' ), 20, 1 );
 	}
 
 	/**
