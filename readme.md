@@ -8,10 +8,16 @@ The LSX Banners extension adds advanced banner configuration options to your Wor
 * Fix - Added the missing "full" image size to the placeholder class.
 * Fix - Before try use the attachment URL, test if it's available
 * Dev - Changed the "Insert into Post" button text from media modal to "Select featured image"
+* Fix - Fixed the destination zoom Size
+* Fix - Fixed the API connection for the CMB custom fields
 
 ### 1.0.5
 * Fix - Display tagline in blog page
 * Fix - Adjusted the plugin settings link inside the LSX API Class
+* Fix - Fixed the "banner height" attribute on front-end
+* Fix - Fixed banner title on archives
+* Fix - Fixed the feature from add/remove images on WP term pages
+* Updated the CMB class with custom Google Maps code
 
 ### 1.0.4
 * Feature - Use Soliloquy HTML in front-end slider when it's a Soliloquy slider selected in back-end
