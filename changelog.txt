@@ -4,6 +4,8 @@
 * Fix - Added the missing "full" image size to the placeholder class.
 * Fix - Before try use the attachment URL, test if it's available
 * Dev - Changed the "Insert into Post" button text from media modal to "Select featured image"
+* Fix - Fixed the destination zoom Size.
+* Fix - Fixed the API connection for the CMB custom fields.
 
 ### 1.0.5
 * Fix - Display tagline in blog page
