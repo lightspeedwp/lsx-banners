@@ -4,8 +4,8 @@
 
 /* Variables */
 
-$bg-grey: #f9f9f9;
-$bdr-grey: #cccccc;
+$bg-grey: #F9F9F9;
+$bdr-grey: #CCC;
 
 /* Placeholders */
 
@@ -13,7 +13,7 @@ $bdr-grey: #cccccc;
 	background-color: $bg-grey;
 	border: 1px solid $bdr-grey;
 	border-radius: 4px;
-	padding: 8px 20px 12px;	
+	padding: 8px 20px 12px;
 }
 
 %heading-box {
@@ -46,13 +46,13 @@ $bdr-grey: #cccccc;
 }
 
 /* General */
- 
+
 #banners {
 	.CMB_Group_Field {
 		display: block;
 	}
 }
- 
+
 .CMB_Group_Field {
 	&.active {
 		display: block;
@@ -64,7 +64,7 @@ $bdr-grey: #cccccc;
 	float: left;
 	width: 10%;
 }
- 
+
 #details .cmb_metabox {
 	display: block;
 	float: right;
@@ -75,7 +75,7 @@ $bdr-grey: #cccccc;
 		width: 98%;
 	}
 }
- 
+
 #lsx-tab-headings {
 	.tab-heading {
 		display: block;
@@ -114,9 +114,7 @@ body.appearance_page_lsx-settings {
 						font-weight: bold;
 					}
 
-					&:focus {
-						box-shadow: none;
-					}
+					&:focus { box-shadow: none; }
 				}
 			}
 		}
@@ -124,9 +122,7 @@ body.appearance_page_lsx-settings {
 		.ui-tab {
 			display:none;
 
-			&.active {
-				display:block;
-			}
+			&.active { display:block; }
 		}
 	}
 }

@@ -1,67 +1,32 @@
-/*
- * LSX banners
- */
-@media (min-width: 992px) {
-  #lsx-banner .video-background video, #lsx-banner .video-foreground {
-    height: 100%;
-    left: 0;
-    pointer-events: none;
-    position: absolute;
-    top: 0;
-    width: 100%; } }
+/* LSX banners */
+@media (min-width: 992px) { #lsx-banner .video-background video, #lsx-banner .video-foreground { height: 100%; left: 0; pointer-events: none; position: absolute; top: 0; width: 100%; } }
 
-#lsx-banner {
-  position: relative; }
-  #lsx-banner .banner-content {
-    color: #fff;
-    margin: 20px auto 0;
-    max-width: 600px;
-    text-align: center; }
-  #lsx-banner .video-background {
-    display: none; }
-    @media (min-width: 992px) {
-      #lsx-banner .video-background {
-        background-color: #000;
-        bottom: 0;
-        display: block;
-        left: 0;
-        overflow: hidden;
-        position: absolute;
-        right: 0;
-        top: 0;
-        z-index: 3; } }
-  @media (min-width: 992px) {
-    #lsx-banner .video-foreground {
-      height: 300%;
-      top: -100%; } }
-  #lsx-banner + .wrap > .content > header.archive-header {
-    display: none; }
-  #lsx-banner .carousel {
-    margin-bottom: 0; }
-    #lsx-banner .carousel .carousel-indicators {
-      bottom: 30px;
-      position: absolute; }
-      #lsx-banner .carousel .carousel-indicators li {
-        border: 2px solid #fff;
-        height: 15px;
-        margin: 2px;
-        width: 15px; }
-        #lsx-banner .carousel .carousel-indicators li.active {
-          background-color: #fff;
-          height: 15px;
-          margin: 2px;
-          width: 15px; }
-    #lsx-banner .carousel .carousel-control .fa {
-      color: #fff;
-      font-size: 40px;
-      margin-top: 56px;
-      position: absolute;
-      top: 50%; }
-    #lsx-banner .carousel .carousel-control.left {
-      margin-left: 0; }
-      #lsx-banner .carousel .carousel-control.left .fa {
-        left: 30px; }
-    #lsx-banner .carousel .carousel-control.right {
-      margin-right: 0; }
-      #lsx-banner .carousel .carousel-control.right .fa {
-        right: 30px; }
+#lsx-banner { position: relative; }
+
+#lsx-banner .banner-content { color: #FFF; margin: 20px auto 0; max-width: 600px; text-align: center; }
+
+#lsx-banner .video-background { display: none; }
+
+@media (min-width: 992px) { #lsx-banner .video-background { background-color: #000; bottom: 0; display: block; left: 0; overflow: hidden; position: absolute; right: 0; top: 0; z-index: 3; } }
+
+@media (min-width: 992px) { #lsx-banner .video-foreground { height: 300%; top: -100%; } }
+
+#lsx-banner + .wrap > .content > header.archive-header { display: none; }
+
+#lsx-banner .carousel { margin-bottom: 0; }
+
+#lsx-banner .carousel .carousel-indicators { bottom: 30px; position: absolute; }
+
+#lsx-banner .carousel .carousel-indicators li { border: 2px solid #FFF; height: 15px; margin: 2px; width: 15px; }
+
+#lsx-banner .carousel .carousel-indicators li.active { background-color: #FFF; height: 15px; margin: 2px; width: 15px; }
+
+#lsx-banner .carousel .carousel-control .fa { color: #FFF; font-size: 40px; margin-top: 56px; position: absolute; top: 50%; }
+
+#lsx-banner .carousel .carousel-control.left { margin-left: 0; }
+
+#lsx-banner .carousel .carousel-control.left .fa { left: 30px; }
+
+#lsx-banner .carousel .carousel-control.right { margin-right: 0; }
+
+#lsx-banner .carousel .carousel-control.right .fa { right: 30px; }

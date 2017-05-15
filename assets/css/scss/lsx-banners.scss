@@ -1,9 +1,11 @@
+@import 'include-media';
+
 /*
  * LSX banners
  */
 
 %video-embed {
-	@media (min-width: 992px) {
+	@include media('>=tablet') {
 		height: 100%;
 		left: 0;
 		pointer-events: none;
@@ -15,9 +17,9 @@
 
 #lsx-banner {
 	position: relative;
-	
+
 	.banner-content {
-		color: #fff;
+		color: #FFF;
 		margin: 20px auto 0;
 		max-width: 600px;
 		text-align: center;
@@ -26,7 +28,7 @@
 	.video-background {
 		display: none;
 
-		@media (min-width: 992px) {
+		@include media('>=tablet') {
 			background-color: #000;
 			bottom: 0;
 			display: block;
@@ -45,17 +47,10 @@
 
 	.video-foreground {
 		@extend %video-embed;
-		
-		@media (min-width: 992px) {
-			//@media (min-aspect-ratio: 16/9) {
-				height: 300%;
-				top: -100%;
-			//}
 
-			//@media (max-aspect-ratio: 16/9) {
-			//	width: 300%;
-			//	left: -100%;
-			//}
+		@include media('>=tablet') {
+			height: 300%;
+			top: -100%;
 		}
 	}
 
@@ -75,13 +70,13 @@
 			position: absolute;
 
 			li {
-				border: 2px solid #fff;
+				border: 2px solid #FFF;
 				height: 15px;
 				margin: 2px;
 				width: 15px;
 
 				&.active {
-					background-color: #fff;
+					background-color: #FFF;
 					height: 15px;
 					margin: 2px;
 					width: 15px;
@@ -91,7 +86,7 @@
 
 		.carousel-control {
 			.fa {
-				color: #fff;
+				color: #FFF;
 				font-size: 40px;
 				margin-top: 56px;
 				position: absolute;
@@ -101,17 +96,13 @@
 			&.left {
 				margin-left: 0;
 
-				.fa {
-					left: 30px;
-				}
+				.fa { left: 30px; }
 			}
 
 			&.right {
 				margin-right: 0;
 
-				.fa {
-					right: 30px;
-				}
+				.fa { right: 30px; }
 			}
 		}
 	}

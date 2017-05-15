@@ -14,21 +14,45 @@ gulp.task('default', function() {
 });
 
 var sass = require('gulp-sass');
+var plumber = require('gulp-plumber');
+var autoprefixer = require('gulp-autoprefixer');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var sort = require('gulp-sort');
 var wppot = require('gulp-wp-pot');
 var gettext = require('gulp-gettext');
 
+var browserlist  = ['last 2 version', '> 1%'];
+
 gulp.task('sass', function () {
-    gulp.src('assets/css/lsx-banners.scss')
-        .pipe(sass())
+    gulp.src('assets/css/scss/lsx-banners.scss')
+    	.pipe(plumber({
+			errorHandler: function(err) {
+				console.log(err);
+				this.emit('end');
+			}
+		}))
+        .pipe(sass({ outputStyle: 'compact'} ))
+        .pipe(autoprefixer({
+			browsers: browserlist,
+			casacade: true
+		}))
         .pipe(gulp.dest('assets/css/'));
 });
 
 gulp.task('admin-sass', function () {
-    gulp.src('assets/css/lsx-banners-admin.scss')
-        .pipe(sass())
+    gulp.src('assets/css/scss/lsx-banners-admin.scss')
+    	.pipe(plumber({
+			errorHandler: function(err) {
+				console.log(err);
+				this.emit('end');
+			}
+		}))
+        .pipe(sass({ outputStyle: 'compact'} ))
+        .pipe(autoprefixer({
+			browsers: browserlist,
+			casacade: true
+		}))
         .pipe(gulp.dest('assets/css/'));
 });
 
@@ -50,8 +74,8 @@ gulp.task('compile-sass', (['sass', 'admin-sass']));
 gulp.task('compile-js', (['js', 'admin-js']));
 
 gulp.task('watch', function() {
-	gulp.watch('assets/css/lsx-banners.scss', ['sass']);
-	gulp.watch('assets/css/lsx-banners-admin.scss', ['admin-sass']);
+	gulp.watch('assets/css/scss/lsx-banners.scss', ['sass']);
+	gulp.watch('assets/css/scss/lsx-banners-admin.scss', ['admin-sass']);
 	gulp.watch('assets/js/lsx-banners.js', ['js']);
 	gulp.watch('assets/js/lsx-banners-admin.js', ['admin-js']);
 });
