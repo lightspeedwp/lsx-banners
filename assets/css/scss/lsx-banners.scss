@@ -164,6 +164,19 @@
 			min-width: 290px;
 			padding: 0 15px;
 		}
+
+		.soliloquy-active-slide {
+			&:after {
+				background-color: rgba(#374750, .33);
+				bottom: 0;
+				content: '';
+				left: 0;
+				position: absolute;
+				right: 0;
+				top: 0;
+				z-index: 2;
+			}
+		}
 	}
 
 	.carousel {

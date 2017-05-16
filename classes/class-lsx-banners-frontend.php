@@ -263,9 +263,9 @@ class LSX_Banners_Frontend extends LSX_Banners {
 
 			//if its the lsx theme and there are more than 1 banner, then output a bootstrap carousel.
 			$banner_attribute = false;
-			if ( $show_slider && ! ( class_exists( 'Soliloquy' ) && false !== $soliloquy_slider_id && ! empty( $soliloquy_slider_id ) ) ) {
+			if ( $show_slider && ! ( class_exists( 'Soliloquy' ) && false !== $soliloquy_slider_id && ! empty( $soliloquy_slider_id ) ) && ! ( class_exists( 'Envira_Gallery' ) && false !== $envira_gallery_id && ! empty( $envira_gallery_id) )) {
 				?>
-				<div id="page-banner-slider" class="carousel slide" data-ride="carousel" data-interval="6000">
+				<div id="page-banner-slider" class="carousel slide" data-ride="carousel" data-interval="false">
 					<div class="carousel-inner">
 				<?php
 			}elseif(is_array($img_group) && 1 < count($img_group['banner_image'])){
@@ -322,9 +322,13 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			    </div>
 			<?php
 			//if its the lsx theme and there are more than 1 banner, then output a bootstrap carousel.
-			} elseif ( class_exists( 'Soliloquy' ) && false !== $soliloquy_slider_id && ! empty( $soliloquy_slider_id ) ) {
+			} elseif ( class_exists( 'Soliloquy' ) && ((false !== $soliloquy_slider_id && ! empty( $soliloquy_slider_id )) || (false !== $envira_gallery_id && ! empty( $envira_gallery_id )) )) {
 				echo '<div class="page-banner page-banner-soliloquy">';
-				echo do_shortcode( '[soliloquy id="' . $soliloquy_slider_id . '"]' );
+				if (false !== $soliloquy_slider_id && ! empty( $soliloquy_slider_id )) {
+					echo do_shortcode( '[soliloquy id="' . $soliloquy_slider_id . '"]' );
+				} elseif (false !== $envira_gallery_id && ! empty( $envira_gallery_id )) {
+					echo do_shortcode( '[soliloquy_dynamic id="envira-' . $envira_gallery_id . '"]' );
+				}
 				echo '</div>';
 			} else { ?>
 						<?php
