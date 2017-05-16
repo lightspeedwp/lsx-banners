@@ -47,7 +47,15 @@
 
 #lsx-banner .soliloquy-container .soliloquy-caption { bottom: auto; top: 50%; -webkit-transform: translateY(-50%); transform: translateY(-50%); }
 
-#lsx-banner .soliloquy-container .soliloquy-caption-inside { max-width: 600px; color: #FFF; margin: 0 auto; background: transparent; padding: 0 15px; }
+#lsx-banner .soliloquy-container .soliloquy-caption-inside { background: transparent; margin: 0 auto; max-width: 80%; min-width: 290px; padding: 0 15px; }
+
+#lsx-banner .carousel .carousel-inner .item { -webkit-transition-property: opacity; transition-property: opacity; }
+
+#lsx-banner .carousel .carousel-inner .item, #lsx-banner .carousel .carousel-inner .active.left, #lsx-banner .carousel .carousel-inner .active.right { opacity: 0; }
+
+#lsx-banner .carousel .carousel-inner .active, #lsx-banner .carousel .carousel-inner .next.left, #lsx-banner .carousel .carousel-inner .prev.right { opacity: 1; }
+
+#lsx-banner .carousel .carousel-inner .next, #lsx-banner .carousel .carousel-inner .prev, #lsx-banner .carousel .carousel-inner .active.left, #lsx-banner .carousel .carousel-inner .active.right { left: 0; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
 
 #lsx-banner .carousel .carousel-inner .carousel-indicators { -webkit-box-align: center; -ms-flex-align: center; align-items: center; bottom: 10px; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-orient: horizontal; -webkit-box-direction: normal; -ms-flex-flow: row wrap; flex-flow: row wrap; height: auto; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; margin-bottom: 0; }
 
