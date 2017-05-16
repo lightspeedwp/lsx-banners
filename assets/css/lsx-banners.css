@@ -3,7 +3,9 @@
 
 #lsx-banner { position: relative; }
 
-#lsx-banner .banner-content { color: #FFF; margin: 20px auto 0; max-width: 600px; text-align: center; }
+#lsx-banner .banner-content { color: #FFF; margin: 5px auto 0; max-width: 600px; text-align: center; }
+
+@media (min-width: 768px) { #lsx-banner .banner-content { margin-top: 20px; } }
 
 #lsx-banner .video-background { display: none; }
 
@@ -13,20 +15,64 @@
 
 #lsx-banner + .wrap > .content > header.archive-header { display: none; }
 
-#lsx-banner .carousel { margin-bottom: 0; }
+#lsx-banner .soliloquy-container .soliloquy-pager { -webkit-box-align: center; -ms-flex-align: center; align-items: center; bottom: 10px; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-orient: horizontal; -webkit-box-direction: normal; -ms-flex-flow: row wrap; flex-flow: row wrap; height: auto; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; }
 
-#lsx-banner .carousel .carousel-indicators { bottom: 30px; position: absolute; }
+@media (min-width: 992px) { #lsx-banner .soliloquy-container .soliloquy-pager { bottom: 25px; } }
 
-#lsx-banner .carousel .carousel-indicators li { border: 2px solid #FFF; height: 15px; margin: 2px; width: 15px; }
+#lsx-banner .soliloquy-container .soliloquy-pager .soliloquy-pager-item { margin: 0; padding: 5px; }
 
-#lsx-banner .carousel .carousel-indicators li.active { background-color: #FFF; height: 15px; margin: 2px; width: 15px; }
+@media (min-width: 992px) { #lsx-banner .soliloquy-container .soliloquy-pager .soliloquy-pager-item { padding: 0 7.5px; } }
 
-#lsx-banner .carousel .carousel-control .fa { color: #FFF; font-size: 40px; margin-top: 56px; position: absolute; top: 50%; }
+#lsx-banner .soliloquy-container .soliloquy-pager .soliloquy-pager-item .soliloquy-pager-link { background: transparent; background-clip: padding-box; border: 1px solid #FFF; height: 6px; -webkit-transition: all 300ms ease-in-out; transition: all 300ms ease-in-out; width: 40px; }
 
-#lsx-banner .carousel .carousel-control.left { margin-left: 0; }
+#lsx-banner .soliloquy-container .soliloquy-pager .soliloquy-pager-item .soliloquy-pager-link.active { background-color: rgba(255, 255, 255, 0.8); border-color: rgba(255, 255, 255, 0.8); }
 
-#lsx-banner .carousel .carousel-control.left .fa { left: 30px; }
+#lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-prev, #lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-next { background: transparent; border: 2px solid #FFF; border-radius: 50%; color: #FFF; height: 54px; margin-top: 0; top: 50%; -webkit-transform: translateY(-50%); transform: translateY(-50%); width: 54px; }
 
-#lsx-banner .carousel .carousel-control.right { margin-right: 0; }
+@media (max-width: 767px) { #lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-prev, #lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-next { display: none; } }
 
-#lsx-banner .carousel .carousel-control.right .fa { right: 30px; }
+#lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-prev:before, #lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-next:before { display: inline-block; font-family: FontAwesome; font-size: 40px; line-height: 1; position: absolute; text-rendering: auto; top: 50%; -webkit-transform: translateY(-50%); transform: translateY(-50%); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+#lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-prev { left: 15px; }
+
+@media (min-width: 992px) { #lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-prev { left: 40px; } }
+
+#lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-prev:before { content: '\f104'; left: 15px; }
+
+#lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-next { right: 15px; }
+
+@media (min-width: 992px) { #lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-next { right: 40px; } }
+
+#lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-next:before { content: '\f105'; left: 20px; }
+
+#lsx-banner .soliloquy-container .soliloquy-caption { bottom: auto; top: 50%; -webkit-transform: translateY(-50%); transform: translateY(-50%); }
+
+#lsx-banner .soliloquy-container .soliloquy-caption-inside { max-width: 600px; color: #FFF; margin: 0 auto; background: transparent; padding: 0 15px; }
+
+#lsx-banner .carousel .carousel-inner .carousel-indicators { -webkit-box-align: center; -ms-flex-align: center; align-items: center; bottom: 10px; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-orient: horizontal; -webkit-box-direction: normal; -ms-flex-flow: row wrap; flex-flow: row wrap; height: auto; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; margin-bottom: 0; }
+
+@media (min-width: 992px) { #lsx-banner .carousel .carousel-inner .carousel-indicators { bottom: 25px; } }
+
+#lsx-banner .carousel .carousel-inner .carousel-indicators > li { background: transparent; background-clip: padding-box; border: 1px solid #FFF; border-radius: 0; height: 6px; margin: 5px; -webkit-transition: all 300ms ease-in-out; transition: all 300ms ease-in-out; width: 40px; }
+
+@media (min-width: 992px) { #lsx-banner .carousel .carousel-inner .carousel-indicators > li { margin: 0 7.5px; } }
+
+#lsx-banner .carousel .carousel-inner .carousel-indicators > li.active { background-color: rgba(255, 255, 255, 0.8); border-color: rgba(255, 255, 255, 0.8); }
+
+#lsx-banner .carousel .carousel-inner .carousel-control { background: transparent; border: 2px solid #FFF; border-radius: 50%; color: #FFF; height: 54px; margin-top: 0; opacity: 1; text-shadow: none; top: 50%; -webkit-transform: translateY(-50%); transform: translateY(-50%); width: 54px; }
+
+@media (max-width: 767px) { #lsx-banner .carousel .carousel-inner .carousel-control { display: none; } }
+
+#lsx-banner .carousel .carousel-inner .carousel-control > .fa { font-size: 40px; line-height: 1; position: absolute; top: 50%; -webkit-transform: translateY(-50%); transform: translateY(-50%); }
+
+#lsx-banner .carousel .carousel-inner .carousel-control.left { left: 15px; }
+
+@media (min-width: 992px) { #lsx-banner .carousel .carousel-inner .carousel-control.left { left: 40px; } }
+
+#lsx-banner .carousel .carousel-inner .carousel-control.left > .fa { left: 15px; }
+
+#lsx-banner .carousel .carousel-inner .carousel-control.right { right: 15px; }
+
+@media (min-width: 992px) { #lsx-banner .carousel .carousel-inner .carousel-control.right { right: 40px; } }
+
+#lsx-banner .carousel .carousel-inner .carousel-control.right > .fa { left: 20px; }

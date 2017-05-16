@@ -3,7 +3,7 @@ var LSX_Banners = {
 		if (jQuery('body').hasClass('page-has-banner')) {
 			var $bannerImage = jQuery('#lsx-banner .page-banner.rotating .page-banner-image'),
 				bannerImageObj;
-			
+
 			if ($bannerImage.length > 0) {
 				bannerImageObj = $bannerImage.attr('data-banners').split(',');
 				$bannerImage.css('background-image','url(' + bannerImageObj[Math.floor(Math.random() * bannerImageObj.length)] + ')');
@@ -26,7 +26,7 @@ var LSX_Banners = {
 
 			return false;
 		});
-		
+
 		jQuery('.banner-easing a i').on('click',function(e) {
 			e.stopPropagation();
 			jQuery(this).parent().trigger('click');
@@ -37,13 +37,13 @@ var LSX_Banners = {
 	initSliderSwiper: function() {
 		jQuery('#page-banner-slider').swipe({
 			swipeLeft:function(event, direction, distance, duration, fingerCount) {
-				jQuery(this).carousel('next'); 
+				jQuery(this).carousel('next');
 			},
 
 			swipeRight: function() {
-				jQuery(this).carousel('prev'); 
+				jQuery(this).carousel('prev');
 			},
-			
+
 			threshold: 0,
 			allowPageScroll: 'vertical'
 		});

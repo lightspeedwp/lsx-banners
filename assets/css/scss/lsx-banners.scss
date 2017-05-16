@@ -20,9 +20,11 @@
 
 	.banner-content {
 		color: #FFF;
-		margin: 20px auto 0;
+		margin: 5px auto 0;
 		max-width: 600px;
 		text-align: center;
+
+		@include media('>=phone') { margin-top: 20px; }
 	}
 
 	.video-background {
@@ -62,47 +64,178 @@
 		}
 	}
 
-	.carousel {
-		margin-bottom: 0;
+	.soliloquy-container {
+		.soliloquy-pager {
+			align-items: center;
+			bottom: 10px;
+			display: flex;
+			flex-flow: row wrap;
+			height: auto;
+			justify-content: center;
 
-		.carousel-indicators {
-			bottom: 30px;
-			position: absolute;
+			@include media('>=tablet') { bottom: 25px; }
 
-			li {
-				border: 2px solid #FFF;
-				height: 15px;
-				margin: 2px;
-				width: 15px;
+			.soliloquy-pager-item {
+				margin: 0;
+				padding: 5px;
 
-				&.active {
-					background-color: #FFF;
-					height: 15px;
-					margin: 2px;
-					width: 15px;
+				@include media('>=tablet') { padding: 0 7.5px; }
+
+				.soliloquy-pager-link {
+					background: transparent;
+					background-clip: padding-box;
+					border: 1px solid #FFF;
+					height: 6px;
+					transition: all 300ms ease-in-out;
+					width: 40px;
+
+					&.active {
+						background-color: rgba(#FFF, .8);
+						border-color: rgba(#FFF, .8);
+					}
 				}
 			}
 		}
 
-		.carousel-control {
-			.fa {
+		.soliloquy-controls-direction {
+			.soliloquy-prev,
+			.soliloquy-next {
+				background: transparent;
+				border: 2px solid #FFF;
+				border-radius: 50%;
 				color: #FFF;
-				font-size: 40px;
-				margin-top: 56px;
-				position: absolute;
+				height: 54px;
+				margin-top: 0;
 				top: 50%;
+				transform: translateY(-50%);
+				width: 54px;
+
+				@include media('<phone') {
+					display: none;
+				}
+
+				&:before {
+					display: inline-block;
+					font-family: FontAwesome;
+					font-size: 40px;
+					line-height: 1;
+					position: absolute;
+					text-rendering: auto;
+					top: 50%;
+					transform: translateY(-50%);
+					-webkit-font-smoothing: antialiased;
+					-moz-osx-font-smoothing: grayscale;
+				}
 			}
 
-			&.left {
-				margin-left: 0;
+			.soliloquy-prev {
+				left: 15px;
 
-				.fa { left: 30px; }
+				@include media('>=tablet') { left: 40px; }
+
+				&:before {
+					content: '\f104';
+					left: 15px;
+				}
 			}
 
-			&.right {
-				margin-right: 0;
+			.soliloquy-next {
+				right: 15px;
 
-				.fa { right: 30px; }
+				@include media('>=tablet') { right: 40px; }
+
+				&:before {
+					content: '\f105';
+					left: 20px;
+				}
+			}
+		}
+
+		.soliloquy-caption {
+			bottom: auto;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+
+		.soliloquy-caption-inside {
+			max-width: 600px;
+			color: #FFF;
+			margin: 0 auto;
+			background: transparent;
+			padding: 0 15px;
+		}
+	}
+
+	.carousel {
+		.carousel-inner {
+			.carousel-indicators {
+				align-items: center;
+				bottom: 10px;
+				display: flex;
+				flex-flow: row wrap;
+				height: auto;
+				justify-content: center;
+				margin-bottom: 0;
+
+				@include media('>=tablet') { bottom: 25px; }
+
+				& > li {
+					background: transparent;
+					background-clip: padding-box;
+					border: 1px solid #FFF;
+					border-radius: 0;
+					height: 6px;
+					margin: 5px;
+					transition: all 300ms ease-in-out;
+					width: 40px;
+
+					@include media('>=tablet') { margin: 0 7.5px; }
+
+					&.active {
+						background-color: rgba(#FFF, .8);
+						border-color: rgba(#FFF, .8);
+					}
+				}
+			}
+
+			.carousel-control {
+				background: transparent;
+				border: 2px solid #FFF;
+				border-radius: 50%;
+				color: #FFF;
+				height: 54px;
+				margin-top: 0;
+				opacity: 1;
+				text-shadow: none;
+				top: 50%;
+				transform: translateY(-50%);
+				width: 54px;
+
+				@include media('<phone') { display: none; }
+
+				& > .fa {
+					font-size: 40px;
+					line-height: 1;
+					position: absolute;
+					top: 50%;
+					transform: translateY(-50%);
+				}
+
+				&.left {
+					left: 15px;
+
+					@include media('>=tablet') { left: 40px; }
+
+					& > .fa { left: 15px; }
+				}
+
+				&.right {
+					right: 15px;
+
+					@include media('>=tablet') { right: 40px; }
+
+					& > .fa { left: 20px; }
+				}
 			}
 		}
 	}
