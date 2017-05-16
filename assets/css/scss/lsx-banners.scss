@@ -165,8 +165,8 @@
 			padding: 0 15px;
 		}
 
-		.soliloquy-active-slide {
-			&:after {
+		.soliloquy-item {
+			&:before {
 				background-color: rgba(#374750, .33);
 				bottom: 0;
 				content: '';

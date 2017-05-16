@@ -49,7 +49,7 @@
 
 #lsx-banner .soliloquy-container .soliloquy-caption-inside { background: transparent; margin: 0 auto; max-width: 80%; min-width: 290px; padding: 0 15px; }
 
-#lsx-banner .soliloquy-container .soliloquy-active-slide:after { background-color: rgba(55, 71, 80, 0.33); bottom: 0; content: ''; left: 0; position: absolute; right: 0; top: 0; z-index: 2; }
+#lsx-banner .soliloquy-container .soliloquy-item:before { background-color: rgba(55, 71, 80, 0.33); bottom: 0; content: ''; left: 0; position: absolute; right: 0; top: 0; z-index: 2; }
 
 #lsx-banner .carousel .carousel-inner .item { -webkit-transition-property: opacity; transition-property: opacity; }
 
