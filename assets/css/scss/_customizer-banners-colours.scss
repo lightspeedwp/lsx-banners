@@ -1,5 +1,7 @@
 @mixin customizer-banners-colours ($color: #FFF) {
 	#lsx-banner {
+		.banner-content { color: $color; }
+
 		.soliloquy-container {
 			.soliloquy-pager {
 				.soliloquy-pager-item {

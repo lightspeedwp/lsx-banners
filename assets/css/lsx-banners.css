@@ -3,6 +3,10 @@
 
 #lsx-banner { position: relative; }
 
+#lsx-banner .banner-content { margin-top: 2.4rem; text-align: center; }
+
+#lsx-banner .banner-content p { margin-bottom: 0; }
+
 #lsx-banner .video-background { display: none; }
 
 @media (min-width: 992px) { #lsx-banner .video-background { background-color: #000; bottom: 0; display: block; left: 0; overflow: hidden; position: absolute; right: 0; top: 0; z-index: 3; } }
@@ -11,9 +15,7 @@
 
 #lsx-banner + .wrap > .content > header.archive-header { display: none; }
 
-#lsx-banner .soliloquy-container .soliloquy-pager { -webkit-box-align: center; -ms-flex-align: center; align-items: center; bottom: 10px; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-orient: horizontal; -webkit-box-direction: normal; -ms-flex-flow: row wrap; flex-flow: row wrap; height: auto; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; }
-
-@media (min-width: 992px) { #lsx-banner .soliloquy-container .soliloquy-pager { bottom: 25px; } }
+#lsx-banner .soliloquy-container .soliloquy-pager { -webkit-box-align: center; -ms-flex-align: center; align-items: center; bottom: 2.5rem; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-orient: horizontal; -webkit-box-direction: normal; -ms-flex-flow: row wrap; flex-flow: row wrap; height: auto; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; }
 
 #lsx-banner .soliloquy-container .soliloquy-pager .soliloquy-pager-item { margin: 0; padding: 5px; }
 
@@ -21,29 +23,31 @@
 
 #lsx-banner .soliloquy-container .soliloquy-pager .soliloquy-pager-item .soliloquy-pager-link { background: transparent; border-style: solid; border-width: 1px; height: 6px; -webkit-transition: all 300ms ease-in-out; transition: all 300ms ease-in-out; width: 40px; }
 
-#lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-prev, #lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-next { background: transparent; border-style: solid; border-width: 2px; border-radius: 50%; height: 54px; margin-top: 0; top: 50%; -webkit-transform: translateY(-50%); transform: translateY(-50%); width: 54px; }
+#lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-prev, #lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-next { background: transparent; border-style: solid; border-width: 2px; border-radius: 50%; height: 5.4rem; margin-top: 0; top: 50%; -webkit-transform: translateY(-50%); transform: translateY(-50%); width: 5.4rem; }
 
 @media (max-width: 767px) { #lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-prev, #lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-next { display: none; } }
 
-#lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-prev:before, #lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-next:before { display: inline-block; font-family: FontAwesome; font-size: 40px; line-height: 1; position: absolute; text-rendering: auto; top: 50%; -webkit-transform: translateY(-50%); transform: translateY(-50%); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+#lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-prev:before, #lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-next:before { display: inline-block; font-family: 'FontAwesome'; font-size: 4rem; line-height: 1; position: absolute; text-rendering: auto; top: 50%; -webkit-transform: translateY(-50%); transform: translateY(-50%); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
 #lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-prev { left: 15px; }
 
-@media (min-width: 992px) { #lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-prev { left: 40px; } }
+@media (min-width: 992px) { #lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-prev { left: 4rem; } }
 
-#lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-prev:before { content: '\f104'; left: 15px; }
+#lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-prev:before { content: '\f104'; left: 1.5rem; }
 
 #lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-next { right: 15px; }
 
-@media (min-width: 992px) { #lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-next { right: 40px; } }
+@media (min-width: 992px) { #lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-next { right: 4rem; } }
 
-#lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-next:before { content: '\f105'; left: 20px; }
+#lsx-banner .soliloquy-container .soliloquy-controls-direction .soliloquy-next:before { content: '\f105'; left: 2rem; }
 
 #lsx-banner .soliloquy-container .soliloquy-caption { bottom: auto; top: 50%; -webkit-transform: translateY(-50%); transform: translateY(-50%); }
 
 #lsx-banner .soliloquy-container .soliloquy-caption-inside { background: transparent; font-family: 'Lora', serif; font-size: 40px; margin: 0 auto; max-width: 80%; min-width: 290px; padding: 0 15px; }
 
 #lsx-banner .soliloquy-container .soliloquy-item:before { background-color: rgba(55, 71, 80, 0.33); bottom: 0; content: ''; left: 0; position: absolute; right: 0; top: 0; z-index: 2; }
+
+#lsx-banner .banner-content { color: #FFF; }
 
 #lsx-banner .soliloquy-container .soliloquy-pager .soliloquy-pager-item .soliloquy-pager-link { border-color: #FFF; }
 

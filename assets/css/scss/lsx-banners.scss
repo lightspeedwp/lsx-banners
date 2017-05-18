@@ -19,6 +19,13 @@
 #lsx-banner {
 	position: relative;
 
+	.banner-content {
+		margin-top: 2.4rem;
+		text-align: center;
+
+		& p { margin-bottom: 0; }
+	}
+
 	.video-background {
 		display: none;
 
