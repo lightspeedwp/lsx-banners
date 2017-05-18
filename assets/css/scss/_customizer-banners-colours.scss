@@ -1,0 +1,15 @@
+@mixin customizer-banners-colours ($color: #FFF) {
+	#lsx-banner {
+		.soliloquy-container {
+			.soliloquy-controls-direction {
+				.soliloquy-prev,
+				.soliloquy-next {
+					border-color: $color;
+					color: $color;
+				}
+			}
+
+			.soliloquy-caption-inside { color: $color; }
+		}
+	}
+}

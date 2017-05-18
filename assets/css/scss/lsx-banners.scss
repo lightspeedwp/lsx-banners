@@ -1,4 +1,5 @@
 @import 'include-media';
+@import 'customizer-banners-colours';
 
 /*
  * LSX banners
@@ -17,15 +18,6 @@
 
 #lsx-banner {
 	position: relative;
-
-	.banner-content {
-		color: #FFF;
-		margin: 5px auto 0;
-		max-width: 600px;
-		text-align: center;
-
-		@include media('>=phone') { margin-top: 20px; }
-	}
 
 	.video-background {
 		display: none;
@@ -58,9 +50,7 @@
 
 	& + .wrap {
 		& > .content {
-			& > header.archive-header {
-				display: none;
-			}
+			& > header.archive-header { display: none; }
 		}
 	}
 
@@ -101,18 +91,16 @@
 			.soliloquy-prev,
 			.soliloquy-next {
 				background: transparent;
-				border: 2px solid #FFF;
+				border-style: solid;
+				border-width: 2px;
 				border-radius: 50%;
-				color: #FFF;
 				height: 54px;
 				margin-top: 0;
 				top: 50%;
 				transform: translateY(-50%);
 				width: 54px;
 
-				@include media('<phone') {
-					display: none;
-				}
+				@include media('<phone') { display: none; }
 
 				&:before {
 					display: inline-block;
@@ -123,6 +111,7 @@
 					text-rendering: auto;
 					top: 50%;
 					transform: translateY(-50%);
+
 					-webkit-font-smoothing: antialiased;
 					-moz-osx-font-smoothing: grayscale;
 				}
@@ -159,6 +148,8 @@
 
 		.soliloquy-caption-inside {
 			background: transparent;
+			font-family: 'Lora', serif;
+			font-size: 40px;
 			margin: 0 auto;
 			max-width: 80%;
 			min-width: 290px;
@@ -178,101 +169,6 @@
 			}
 		}
 	}
-
-	.carousel {
-		.carousel-inner {
-
-			.item { transition-property: opacity; }
-
-			.item,
-			.active.left,
-			.active.right {
-				opacity: 0;
-			}
-
-			.active,
-			.next.left,
-			.prev.right {
-				opacity: 1;
-			}
-
-			.next,
-			.prev,
-			.active.left,
-			.active.right {
-				left: 0;
-				transform: translate3d(0, 0, 0);
-			}
-
-			.carousel-indicators {
-				align-items: center;
-				bottom: 10px;
-				display: flex;
-				flex-flow: row wrap;
-				height: auto;
-				justify-content: center;
-				margin-bottom: 0;
-
-				@include media('>=tablet') { bottom: 25px; }
-
-				& > li {
-					background: transparent;
-					background-clip: padding-box;
-					border: 1px solid #FFF;
-					border-radius: 0;
-					height: 6px;
-					margin: 5px;
-					transition: all 300ms ease-in-out;
-					width: 40px;
-
-					@include media('>=tablet') { margin: 0 7.5px; }
-
-					&.active {
-						background-color: rgba(#FFF, .8);
-						border-color: rgba(#FFF, .8);
-					}
-				}
-			}
-
-			.carousel-control {
-				background: transparent;
-				border: 2px solid #FFF;
-				border-radius: 50%;
-				color: #FFF;
-				height: 54px;
-				margin-top: 0;
-				opacity: 1;
-				text-shadow: none;
-				top: 50%;
-				transform: translateY(-50%);
-				width: 54px;
-
-				@include media('<phone') { display: none; }
-
-				& > .fa {
-					font-size: 40px;
-					line-height: 1;
-					position: absolute;
-					top: 50%;
-					transform: translateY(-50%);
-				}
-
-				&.left {
-					left: 15px;
-
-					@include media('>=tablet') { left: 40px; }
-
-					& > .fa { left: 15px; }
-				}
-
-				&.right {
-					right: 15px;
-
-					@include media('>=tablet') { right: 40px; }
-
-					& > .fa { left: 20px; }
-				}
-			}
-		}
-	}
 }
+
+@include customizer-banners-colours(#FFF);

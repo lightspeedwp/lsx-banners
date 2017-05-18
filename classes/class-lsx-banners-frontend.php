@@ -34,9 +34,12 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		$this->set_vars();
 		add_action('wp_head',array($this,'init'));
 
-		if(!is_admin()){
+		if ( !is_admin() ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_stylescripts' ) );
+			add_filter( 'lsx_fonts_css', array( $this, 'customizer_fonts_handler' ), 15 );
+			add_filter( 'lsx_customizer_colour_selectors_banner', array( $this, 'customizer_colours_handler' ), 15, 2 );
 		}
+
 		add_shortcode( 'banner_navigation', 'lsx_banner_navigation' );
 	}
 
@@ -520,4 +523,41 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		}
 	}
 
+	/**
+	 * Handle fonts that might be change by LSX Customiser
+	 */
+	public function customizer_fonts_handler( $css_fonts ) {
+		$css_fonts_file = LSX_BANNERS_PATH . '/assets/css/lsx-banners-fonts.css';
+
+		if ( file_exists( $css_fonts_file ) ) {
+			if ( empty( $wp_filesystem ) ) {
+				require_once( ABSPATH . 'wp-admin/includes/file.php' );
+				WP_Filesystem();
+			}
+
+			if ( $wp_filesystem ) {
+				$css_fonts .= $wp_filesystem->get_contents( $css_fonts_file );
+			}
+		}
+
+		return $css_fonts;
+	}
+
+	/**
+	 * Handle colours that might be change by LSX Customiser
+	 */
+	public function customizer_colours_handler ( $css, $colors ) {
+		$css .= '
+			@import "' . LSX_BANNERS_PATH . '/assets/css/scss/customizer-banners-colours";
+
+			/**
+			 * LSX Customizer - LSX Banners
+			 */
+			@include customizer-banners-colours (
+				$color: ' . $colors['banner_text_image_color'] . '
+			);
+		';
+
+		return $css;
+	}
 }

@@ -25,23 +25,7 @@ var gettext = require('gulp-gettext');
 var browserlist  = ['last 2 version', '> 1%'];
 
 gulp.task('sass', function () {
-    gulp.src('assets/css/scss/lsx-banners.scss')
-    	.pipe(plumber({
-			errorHandler: function(err) {
-				console.log(err);
-				this.emit('end');
-			}
-		}))
-        .pipe(sass({ outputStyle: 'compact'} ))
-        .pipe(autoprefixer({
-			browsers: browserlist,
-			casacade: true
-		}))
-        .pipe(gulp.dest('assets/css/'));
-});
-
-gulp.task('admin-sass', function () {
-    gulp.src('assets/css/scss/lsx-banners-admin.scss')
+    gulp.src('assets/css/scss/*.scss')
     	.pipe(plumber({
 			errorHandler: function(err) {
 				console.log(err);
@@ -70,7 +54,7 @@ gulp.task('admin-js', function () {
 	.pipe(gulp.dest('assets/js'));
 });
 
-gulp.task('compile-sass', (['sass', 'admin-sass']));
+gulp.task('compile-sass', (['sass']));
 gulp.task('compile-js', (['js', 'admin-js']));
 
 gulp.task('watch', function() {
