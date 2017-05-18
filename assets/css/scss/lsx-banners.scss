@@ -57,13 +57,11 @@
 	.soliloquy-container {
 		.soliloquy-pager {
 			align-items: center;
-			bottom: 10px;
+			bottom: 2.5rem;
 			display: flex;
 			flex-flow: row wrap;
 			height: auto;
 			justify-content: center;
-
-			@include media('>=tablet') { bottom: 25px; }
 
 			.soliloquy-pager-item {
 				margin: 0;
@@ -73,16 +71,11 @@
 
 				.soliloquy-pager-link {
 					background: transparent;
-					background-clip: padding-box;
-					border: 1px solid #FFF;
+					border-style: solid;
+					border-width: 1px;
 					height: 6px;
 					transition: all 300ms ease-in-out;
 					width: 40px;
-
-					&.active {
-						background-color: rgba(#FFF, .8);
-						border-color: rgba(#FFF, .8);
-					}
 				}
 			}
 		}
@@ -94,18 +87,18 @@
 				border-style: solid;
 				border-width: 2px;
 				border-radius: 50%;
-				height: 54px;
+				height: 5.4rem;
 				margin-top: 0;
 				top: 50%;
 				transform: translateY(-50%);
-				width: 54px;
+				width: 5.4rem;
 
 				@include media('<phone') { display: none; }
 
 				&:before {
 					display: inline-block;
-					font-family: FontAwesome;
-					font-size: 40px;
+					font-family: 'FontAwesome';
+					font-size: 4rem;
 					line-height: 1;
 					position: absolute;
 					text-rendering: auto;
@@ -120,22 +113,22 @@
 			.soliloquy-prev {
 				left: 15px;
 
-				@include media('>=tablet') { left: 40px; }
+				@include media('>=tablet') { left: 4rem; }
 
 				&:before {
 					content: '\f104';
-					left: 15px;
+					left: 1.5rem;
 				}
 			}
 
 			.soliloquy-next {
 				right: 15px;
 
-				@include media('>=tablet') { right: 40px; }
+				@include media('>=tablet') { right: 4rem; }
 
 				&:before {
 					content: '\f105';
-					left: 20px;
+					left: 2rem;
 				}
 			}
 		}

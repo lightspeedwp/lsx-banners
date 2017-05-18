@@ -1,6 +1,16 @@
 @mixin customizer-banners-colours ($color: #FFF) {
 	#lsx-banner {
 		.soliloquy-container {
+			.soliloquy-pager {
+				.soliloquy-pager-item {
+					.soliloquy-pager-link {
+						border-color: $color;
+
+						&.active { background-color: $color; }
+					}
+				}
+			}
+
 			.soliloquy-controls-direction {
 				.soliloquy-prev,
 				.soliloquy-next {
