@@ -47,7 +47,6 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		}
 
 		add_filter( 'lsx_fonts_css', array( $this, 'customizer_fonts_handler' ), 15 );
-
 		add_shortcode( 'banner_navigation', 'lsx_banner_navigation' );
 	}
 
@@ -596,6 +595,8 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	 * Handle fonts that might be change by LSX Customiser
 	 */
 	public function customizer_fonts_handler( $css_fonts ) {
+		global $wp_filesystem;
+
 		$css_fonts_file = LSX_BANNERS_PATH . '/assets/css/lsx-banners-fonts.css';
 
 		if ( file_exists( $css_fonts_file ) ) {
