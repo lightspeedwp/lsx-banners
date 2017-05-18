@@ -23,20 +23,27 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	 * @access private
 	 */
 	public function __construct() {
-		$this->options = get_option('_lsx_settings',false);
+		$this->options = get_option( '_lsx_settings', false );
+
 		if ( false === $this->options ) {
-			$this->options = get_option('_lsx_lsx-settings',false);
+			$this->options = get_option( '_lsx_lsx-settings', false );
 		}
+
 		//Test to see if Tour Operators is active.
-		$lsx_to_options = get_option('_lsx-to_settings',false);
-		if(false !== $lsx_to_options){ $this->options = $lsx_to_options; }
+		$lsx_to_options = get_option( '_lsx-to_settings', false );
+
+		if ( false !== $lsx_to_options ) {
+			$this->options = $lsx_to_options;
+		}
 
 		$this->set_vars();
-		add_action('wp_head',array($this,'init'));
 
-		if ( !is_admin() ) {
+		add_action( 'wp_head', array( $this, 'init' ) );
+
+		if ( ! is_admin() ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_stylescripts' ) );
 			add_filter( 'lsx_fonts_css', array( $this, 'customizer_fonts_handler' ), 15 );
+		} else {
 			add_filter( 'lsx_customizer_colour_selectors_banner', array( $this, 'customizer_colours_handler' ), 15, 2 );
 		}
 
@@ -49,7 +56,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	public function enqueue_stylescripts() {
 		if ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) {
 			$min = '';
-		 }else {
+		} else {
 			$min = '.min';
 		}
 
@@ -66,31 +73,31 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	public function init() {
 		$allowed_post_types = $this->get_allowed_post_types();
 		$allowed_taxonomies = $this->get_allowed_taxonomies();
+		$post_type          = get_post_type();
 
-		$post_type = get_post_type();
 		$this->post_id = get_queried_object_id();
 
-		if(is_singular($allowed_post_types) || is_post_type_archive($allowed_post_types) || is_tax($allowed_taxonomies) || is_category() || is_404() || is_home() ) {
-			//$theme = wp_get_theme();
-			if(function_exists('lsx_setup')){
+		if ( is_singular( $allowed_post_types ) || is_post_type_archive( $allowed_post_types ) || is_tax( $allowed_taxonomies ) || is_category() || is_author() || is_404() || is_home() ) {
+			if ( function_exists( 'lsx_setup' ) ) {
 				$this->theme = 'lsx';
 				remove_action( 'lsx_header_after', 'lsx_page_banner' );
-				add_action('lsx_header_after',array($this,'banner'));
-			}elseif(class_exists( 'Storefront' )){
+				add_action( 'lsx_header_after', array( $this, 'banner' ) );
+			} elseif ( class_exists( 'Storefront' ) ) {
 				$this->theme = 'storefront';
-				add_action('storefront_before_content',array($this,'banner'));
-			}else{
+				add_action( 'storefront_before_content', array( $this, 'banner' ) );
+			} else {
 				$this->theme = 'other';
 			}
 
-			add_filter('lsx_banner_title', array($this,'banner_title') );
-			add_filter('lsx_banner_meta_boxes',array($this,'subtitle_metabox'));
-			add_filter('body_class', array($this,'body_class'));
-			add_action('lsx_banner_content',array($this,'banner_tagline'),20);
+			add_filter( 'lsx_banner_title', array( $this, 'banner_title' ) );
+			add_filter( 'lsx_banner_meta_boxes',array( $this, 'subtitle_metabox' ) );
+			add_filter( 'body_class', array( $this, 'body_class' ) );
+			add_action( 'lsx_banner_content', array( $this, 'banner_tagline' ), 20 );
 
-			$this->placeholder = apply_filters('lsx_banner_enable_placeholder', true);
-			if(false !== $this->placeholder){
-				add_filter('lsx_banner_placeholder_url', array($this,'default_placeholder') );
+			$this->placeholder = apply_filters( 'lsx_banner_enable_placeholder', true );
+
+			if ( false !== $this->placeholder ) {
+				add_filter( 'lsx_banner_placeholder_url', array( $this, 'default_placeholder' ) );
 			}
 		}
 	}
@@ -98,8 +105,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	/**
 	 * Outputs the Banner HTML
 	 */
-
-	public function banner(){
+	public function banner() {
 		/*
 		 * This section gets actualy banner url.
 		*/
@@ -110,30 +116,36 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		$show_slider = false;
 		$img_group = false;
 
-		//If we are using placeholders then the baner section shows all the time,  this is when the banner disabled checkbox comes into play.
-		if(true === $this->placeholder && get_post_meta($this->post_id,'banner_disabled',true)) { return ''; }
+		// If we are using placeholders then the baner section shows all the time,  this is when the banner disabled checkbox comes into play.
+		if ( true === $this->placeholder && get_post_meta( $this->post_id, 'banner_disabled', true ) ) {
+			return '';
+		}
 
 		$banner_image = false;
-		//We change the id to the page with a matching slug ar the post_type archive.
-		//Singular Banners
-		if(is_home() || is_singular($this->get_allowed_post_types()) || in_array('blog',get_body_class())){
-			$img_group = get_post_meta($this->post_id,'image_group',true);
 
+		// We change the id to the page with a matching slug ar the post_type archive.
+		// Singular Banners
+		if ( is_home() || is_singular( $this->get_allowed_post_types() ) || in_array( 'blog', get_body_class(), true ) ) {
+			$img_group   = get_post_meta( $this->post_id,'image_group', true );
 			$show_slider = false;
-			if(false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && !empty($img_group['banner_image'])){
-				if(!is_array($img_group['banner_image'])){
+
+			if ( false !== $img_group && is_array( $img_group ) && isset( $img_group['banner_image'] ) && ! empty( $img_group['banner_image'] ) ) {
+				if ( ! is_array( $img_group['banner_image'] ) ) {
 					$banner_image_id = $img_group['banner_image'];
-				}else{
-					$banners_length = count($img_group['banner_image'])-1;
-					$banner_ids = array_values($img_group['banner_image']);
-					if('lsx' !== $this->theme && $banners_length > 0){
-						$banner_index = rand('0', $banners_length);
-						$banner_image_id = $banner_ids[$banner_index];
-					}else{
+				} else {
+					$banners_length = count( $img_group['banner_image'] ) - 1;
+					$banner_ids     = array_values( $img_group['banner_image'] );
+
+					if ( 'lsx' !== $this->theme && $banners_length > 0 ) {
+						$banner_index    = rand( '0', $banners_length );
+						$banner_image_id = $banner_ids[ $banner_index ];
+					} else {
 						$banner_image_id = $banner_ids[0];
 					}
 				}
-				$banner_image = wp_get_attachment_image_src($banner_image_id,'full');
+
+				$banner_image = wp_get_attachment_image_src( $banner_image_id, 'full' );
+
 				if ( ! empty( $banner_image ) ) {
 					$banner_image = $banner_image[0];
 				} else {
@@ -143,26 +155,27 @@ class LSX_Banners_Frontend extends LSX_Banners {
 				/*
 				 * This section gets the image meta, size etc.
 				 */
-				$image_bg_group = get_post_meta($post_id,'image_bg_group',true);
-				if(false !== $image_bg_group && is_array($image_bg_group)){
+				$image_bg_group = get_post_meta( $post_id, 'image_bg_group', true );
 
-					if(isset($image_bg_group['banner_height']) && '' !== $image_bg_group['banner_height']){
+				if ( false !== $image_bg_group && is_array( $image_bg_group ) ) {
+					if ( isset( $image_bg_group['banner_height'] ) && '' !== $image_bg_group['banner_height'] ) {
 						$height = $image_bg_group['banner_height'];
 					}
 
-					if(isset($image_bg_group['banner_x']) && '' !== $image_bg_group['banner_x']){
+					if ( isset( $image_bg_group['banner_x'] ) && '' !== $image_bg_group['banner_x'] ) {
 						$x_position = $image_bg_group['banner_x'];
 					}
 
-					if(isset($image_bg_group['banner_y']) && '' !== $image_bg_group['banner_y']){
+					if ( isset( $image_bg_group['banner_y'] ) && '' !== $image_bg_group['banner_y'] ) {
 						$y_position = $image_bg_group['banner_y'];
 					}
 				}
 			}
 
-			//If its the LSX theme, and there is no banner, but there is a featured image,  then use that for the banner.
-			if('lsx' === $this->theme && is_singular(array('post','page')) && false === $banner_image && has_post_thumbnail($this->post_id)){
-				$banner_image = wp_get_attachment_image_src(get_post_thumbnail_id($this->post_id),'full');
+			// If its the LSX theme, and there is no banner, but there is a featured image,  then use that for the banner.
+			if ( 'lsx' === $this->theme && is_singular( array( 'post', 'page' ) ) && false === $banner_image && has_post_thumbnail( $this->post_id ) ) {
+				$banner_image = wp_get_attachment_image_src( get_post_thumbnail_id( $this->post_id ), 'full' );
+
 				if ( ! empty( $banner_image ) ) {
 					$banner_image = $banner_image[0];
 				} else {
@@ -171,53 +184,78 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			}
 		}
 
-		if(is_post_type_archive($this->get_allowed_post_types())){
-			$archive_banner = apply_filters('lsx_banner_post_type_archive_url',false);
-			if(false !== $archive_banner){
+		if ( is_post_type_archive( $this->get_allowed_post_types() ) ) {
+			$archive_banner = apply_filters( 'lsx_banner_post_type_archive_url', false );
+
+			if ( false !== $archive_banner ) {
 				$banner_image = $archive_banner;
 			}
 		}
 
-		//If its a taxonomy, then get the image from out term meta.
-		if((is_category() || is_tax($this->get_allowed_taxonomies())) && false !== $this->banner_id){
-			$banner_image = wp_get_attachment_image_src($this->banner_id,'full');
+		// If its a taxonomy, then get the image from out term meta.
+		if ( ( is_category() || is_tax( $this->get_allowed_taxonomies() ) ) && false !== $this->banner_id ) {
+			$banner_image = wp_get_attachment_image_src( $this->banner_id, 'full' );
+
 			if ( ! empty( $banner_image ) ) {
 				$banner_image = $banner_image[0];
 			} else {
 				$banner_image = false;
 			}
-		}elseif(is_tax($this->get_allowed_taxonomies()) || is_category()){
-			$tax_banner = apply_filters('lsx_banner_post_type_archive_url',false);
-			if(false !== $tax_banner){
+		} elseif ( is_tax( $this->get_allowed_taxonomies() ) || is_category() ) {
+			$tax_banner = apply_filters( 'lsx_banner_post_type_archive_url', false );
+
+			if ( false !== $tax_banner ) {
 				$banner_image = $tax_banner;
 			}
 		}
 
-		//If we have enabled the placeholders,  then force a placeholdit url
-		if(true === $this->placeholder && false === $banner_image){
-			$banner_image = apply_filters('lsx_banner_placeholder_url','https://placeholdit.imgix.net/~text?txtsize=33&txt=1920x600&w=1920&h=600');
+		// If its a author archive, then get the image from out user meta.
+		if ( is_author() && false !== $this->banner_id ) {
+			$banner_image = wp_get_attachment_image_src( $this->banner_id, 'full' );
+
+			if ( ! empty( $banner_image ) ) {
+				$banner_image = $banner_image[0];
+			} else {
+				$banner_image = false;
+			}
+		} elseif ( is_author() ) {
+			$tax_banner = apply_filters( 'lsx_banner_post_type_archive_url', false );
+
+			if ( false !== $tax_banner ) {
+				$banner_image = $tax_banner;
+			}
 		}
-		//Check if the content should be disabled or not
-		$title_disable = get_post_meta($post_id,'banner_title_disabled',true);
-		$text_disable = get_post_meta($post_id,'banner_text_disabled',true);
+
+		// If we have enabled the placeholders,  then force a placeholdit url
+		if ( true === $this->placeholder && false === $banner_image ) {
+			$banner_image = apply_filters( 'lsx_banner_placeholder_url', 'https://placeholdit.imgix.net/~text?txtsize=33&txt=1920x600&w=1920&h=600' );
+		}
+
+		// Check if the content should be disabled or not
+		$title_disable = get_post_meta( $post_id, 'banner_title_disabled', true );
+		$text_disable  = get_post_meta( $post_id, 'banner_text_disabled', true );
 
 		// Embed video
-		$embed_video = get_post_meta($this->post_id,'banner_video',true);
-		if(false !== $embed_video && !empty($embed_video)){
+		$embed_video = get_post_meta( $this->post_id, 'banner_video', true );
+
+		if ( false !== $embed_video && ! empty( $embed_video ) ) {
 			$embed_video = wp_get_attachment_url( $embed_video );
 			$embed_video = '<video src="' . $embed_video . '" ' . ( ! empty( $banner_image ) ? ( 'poster="' . $banner_image . '"' ) : '' ) . ' width="auto" height="auto" autoplay loop preload muted>' . ( ! empty( $banner_image ) ? ( '<img class="disable-lazyload" src="' . $banner_image . '">' ) : '' ) . '</video>';
 		}
 
 		// Envira Gallery
-		$envira_gallery_id = get_post_meta( $this->post_id, 'envira_gallery', true);
+		$envira_gallery_id = get_post_meta( $this->post_id, 'envira_gallery', true );
 
-		if ( class_exists( 'Envira_Gallery' ) && apply_filters('lsx_banners_envira_enable',true) ) {
+		if ( class_exists( 'Envira_Gallery' ) && apply_filters( 'lsx_banners_envira_enable', true ) ) {
 			if ( false !== $envira_gallery_id && ! empty( $envira_gallery_id ) ) {
 				$envira_gallery = Envira_Gallery::get_instance();
 				$envira_gallery_images = $envira_gallery->get_gallery( $envira_gallery_id );
 
 				if ( 'lsx' === $this->theme && is_array( $envira_gallery_images ) && count( $envira_gallery_images ) > 1 && apply_filters( 'lsx_banner_enable_sliders', true ) ) {
-					$img_group = array( 'banner_image' => array() );
+					$img_group = array(
+						'banner_image' => array(),
+					);
+
 					$show_slider = true;
 
 					foreach ( $envira_gallery_images['gallery'] as $key => $value ) {
@@ -234,7 +272,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		}
 
 		// Soliloquy Slider
-		$soliloquy_slider_id = get_post_meta( $this->post_id, 'soliloquy_slider', true);
+		$soliloquy_slider_id = get_post_meta( $this->post_id, 'soliloquy_slider', true );
 
 		if ( class_exists( 'Soliloquy' ) ) {
 			if ( false !== $soliloquy_slider_id && ! empty( $soliloquy_slider_id ) ) {
@@ -242,7 +280,10 @@ class LSX_Banners_Frontend extends LSX_Banners {
 				$soliloquy_slider_images = $soliloquy_slider->get_slider( $soliloquy_slider_id );
 
 				if ( is_array( $soliloquy_slider_images ) && count( $soliloquy_slider_images ) > 1 && apply_filters( 'lsx_banner_enable_sliders', true ) ) {
-					$img_group = array( 'banner_image' => array() );
+					$img_group = array(
+						'banner_image' => array(),
+					);
+
 					$show_slider = true;
 
 					foreach ( $soliloquy_slider_images['slider'] as $key => $value ) {
@@ -258,7 +299,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			$soliloquy_slider_id = false;
 		}
 
-		if($show_slider || (false !== $banner_image && !empty($banner_image)) || (false !== $embed_video && !empty($embed_video))){
+		if ( $show_slider || ( false !== $banner_image && ! empty( $banner_image ) ) || ( false !== $embed_video && ! empty( $embed_video ) ) ) {
 			?>
 			<div id="lsx-banner">
 			<?php
@@ -408,52 +449,66 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	/**
 	 * Add <body> classes
 	 */
-	public function body_class($classes) {
+	public function body_class( $classes ) {
 		// Add page slug if it doesn't exist
-		//Test is the banner has been disabled.
-			//see if there is a banner image
+		// Test is the banner has been disabled.
+		// see if there is a banner image
 		$banner_disabled = false;
 		$banner_image = false;
 
-		if(0 !== get_the_ID() || is_home() || is_front_page()){
+		if ( 0 !== get_the_ID() || is_home() || is_front_page() ) {
 			$post_id = false;
-			if(is_home()){
-				$post_id = get_option('page_for_posts');
-			}else{
+
+			if ( is_home() ) {
+				$post_id = get_option( 'page_for_posts' );
+			} else {
 				$post_id = get_the_ID();
 			}
 
-			$img_group = get_post_meta($post_id,'image_group',true);
-			$banner_disabled = get_post_meta($post_id,'banner_disabled',true);
-			$embed_video = get_post_meta($post_id,'banner_video',true);
+			$img_group = get_post_meta( $post_id,'image_group', true );
+			$banner_disabled = get_post_meta( $post_id,'banner_disabled', true );
+			$embed_video = get_post_meta( $post_id,'banner_video', true );
 
-			if(true !== $banner_disabled && '1' !== $banner_disabled && false !== $img_group && is_array($img_group) && isset($img_group['banner_image']) && '' !== $img_group['banner_image'] && !empty($img_group['banner_image'])){
+			if ( true !== $banner_disabled && '1' !== $banner_disabled && false !== $img_group && is_array( $img_group ) && isset( $img_group['banner_image'] ) && '' !== $img_group['banner_image'] && ! empty( $img_group['banner_image'] ) ) {
 				$classes[] = 'page-has-banner';
 				$this->has_banner = true;
 			}
 		}
-		if(is_category() || is_tax($this->get_allowed_taxonomies())){
 
-			$term_banner_id = get_term_meta( $this->post_id, 'banner', true );
-			if('' !== $term_banner_id){
+		if ( is_author() ) {
+			$term_banner_id = get_user_meta( $this->post_id, 'banner', true );
+
+			if ( ! empty( $term_banner_id ) ) {
 				$classes[] = 'page-has-banner';
 				$this->has_banner = true;
 				$this->banner_id = $term_banner_id;
 			}
 		}
-		if(true === $this->placeholder && true !== $banner_disabled && '1' !== $banner_disabled){
+
+		if ( is_category() || is_tax( $this->get_allowed_taxonomies() ) ) {
+			$term_banner_id = get_term_meta( $this->post_id, 'banner', true );
+
+			if ( ! empty( $term_banner_id ) ) {
+				$classes[] = 'page-has-banner';
+				$this->has_banner = true;
+				$this->banner_id = $term_banner_id;
+			}
+		}
+
+		if ( true === $this->placeholder && true !== $banner_disabled && '1' !== $banner_disabled ) {
 			$classes[] = 'page-has-banner';
 			$this->has_banner = true;
 		}
 
-		if(true === $this->has_banner){
-			//LSX
-			$this->move_breadcrumb = apply_filters('lsx_banner_move_breadcrumb_inside_banner', false);
-			if(true === $this->move_breadcrumb){
-				remove_action('lsx_content_top', 'lsx_breadcrumbs',100);
-				add_action('lsx_banner_container_top', 'lsx_breadcrumbs');
+		if ( true === $this->has_banner ) {
+			$this->move_breadcrumb = apply_filters( 'lsx_banner_move_breadcrumb_inside_banner', false );
+
+			if ( true === $this->move_breadcrumb ) {
+				remove_action( 'lsx_content_top', 'lsx_breadcrumbs', 100 );
+				add_action( 'lsx_banner_container_top', 'lsx_breadcrumbs' );
 			}
-			remove_action('lsx_content_wrap_before', 'lsx_global_header');
+
+			remove_action( 'lsx_content_wrap_before', 'lsx_global_header' );
 		}
 
 		return $classes;
@@ -462,19 +517,27 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	/**
 	 * a filter to check if a custom title has been added, if so, use that instead of the post title
 	 */
-	public function banner_title($post_title) {
-		if(is_post_type_archive($this->get_allowed_post_types())){
-			$post_title = '<h1 class="page-title">'.get_the_archive_title().'</h1>';
+	public function banner_title( $post_title ) {
+		if ( is_post_type_archive( $this->get_allowed_post_types() ) ) {
+			$post_title = '<h1 class="page-title">' . get_the_archive_title() . '</h1>';
 		}
-		if(is_tax($this->get_allowed_taxonomies()) || is_category()){
-			$post_title = '<h1 class="page-title">'.single_term_title("", false).'</h1>';
+
+		if ( is_tax( $this->get_allowed_taxonomies() ) || is_category() ) {
+			$post_title = '<h1 class="page-title">' . single_term_title( '', false ) . '</h1>';
 		}
-		if(apply_filters('lsx_banner_enable_title', false) && 0 !== $this->post_id){
-			$new_title = get_post_meta($this->post_id,'banner_title',true);
-			if(false !== $new_title && '' !== $new_title){
-				$post_title = '<h1 class="page-title">'.$new_title.'</h1>';
+
+		if ( is_author() ) {
+			$post_title = '<h1 class="page-title">' . get_the_archive_title() . '</h1>';
+		}
+
+		if ( apply_filters( 'lsx_banner_enable_title', false ) && ! empty( $this->post_id ) ) {
+			$new_title = get_post_meta( $this->post_id, 'banner_title', true );
+
+			if ( ! empty( $new_title ) ) {
+				$post_title = '<h1 class="page-title">' . $new_title . '</h1>';
 			}
 		}
+
 		return $post_title;
 	}
 
@@ -482,7 +545,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	 * Outputs the banner content, usually a short tagline.
 	 */
 	public function banner_content() {
-		switch($this->theme){
+		switch ( $this->theme ) {
 			case 'lsx':
 				ob_start();
 				lsx_banner_content();
@@ -490,7 +553,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			break;
 
 			default:
-				$retval = apply_filters('lsx_banner_content','');
+				$retval = apply_filters( 'lsx_banner_content','' );
 			break;
 		}
 
@@ -501,25 +564,30 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	 * A filter that outputs the tagline for the current page.
 	 */
 	public function banner_tagline() {
-
 		$allowed_post_types = $this->get_allowed_post_types();
 		$allowed_taxonomies = $this->get_allowed_taxonomies();
-		$tagline = false;
+		$tagline            = false;
 
-		if(is_post_type_archive($allowed_post_types) && isset($this->options[get_post_type()]) && isset($this->options[get_post_type()]['tagline'])){
-			$tagline = $this->options[get_post_type()]['tagline'];
-		}elseif(is_tax($allowed_taxonomies) || is_category()){
-			$taxonomy_tagline = get_term_meta(get_queried_object_id(), 'tagline', true);
-			if(false !== $taxonomy_tagline && '' !== $taxonomy_tagline){
-				$tagline = $taxonomy_tagline;
-			}
-		}elseif(apply_filters('lsx_banner_enable_subtitle', false) && 0 !== $this->post_id){
-			$tagline = get_post_meta($this->post_id,'banner_subtitle',true);
+		if ( apply_filters( 'lsx_banner_enable_subtitle', false ) && ! empty( $this->post_id ) ) {
+			$tagline = get_post_meta( $this->post_id, 'banner_subtitle', true );
 		}
 
-		if(false !== $tagline && '' !== $tagline){ ?>
+		if ( is_post_type_archive( $allowed_post_types ) && isset( $this->options[ get_post_type() ] ) && isset( $this->options[ get_post_type() ]['tagline'] ) ) {
+			$tagline = $this->options[ get_post_type() ]['tagline'];
+		}
+
+		if ( is_tax( $allowed_taxonomies ) || is_category() ) {
+			$taxonomy_tagline = get_term_meta( get_queried_object_id(), 'tagline', true );
+
+			if ( ! empty( $taxonomy_tagline ) ) {
+				$tagline = $taxonomy_tagline;
+			}
+		}
+
+		if ( ! empty( $tagline ) ) {
+			?>
 			<p class="tagline"><?php echo $tagline; ?></p>
-		<?php
+			<?php
 		}
 	}
 
@@ -546,7 +614,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	/**
 	 * Handle colours that might be change by LSX Customiser
 	 */
-	public function customizer_colours_handler ( $css, $colors ) {
+	public function customizer_colours_handler( $css, $colors ) {
 		$css .= '
 			@import "' . LSX_BANNERS_PATH . '/assets/css/scss/customizer-banners-colours";
 
@@ -560,4 +628,5 @@ class LSX_Banners_Frontend extends LSX_Banners {
 
 		return $css;
 	}
+
 }

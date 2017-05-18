@@ -5,7 +5,7 @@
  * @package   LSX Banners
  * @author    LightSpeed
  * @license   GPL3
- * @link      
+ * @link
  * @copyright 2016 LightSpeed
  */
 class LSX_Banners_Admin extends LSX_Banners {
@@ -22,16 +22,16 @@ class LSX_Banners_Admin extends LSX_Banners {
 		if ( false === $this->options ) {
 			$this->options = get_option('_lsx_lsx-settings',false);
 		}
-		$this->set_vars();	
+		$this->set_vars();
 
 		add_action('admin_init',array($this,'admin_init'));
 		add_filter('cmb_meta_boxes', array($this,'metaboxes') );
-		add_filter('lsx_taxonomy_admin_taxonomies', array( $this, 'add_taxonomies' ),10,1 );	
-		
+		add_filter('lsx_taxonomy_admin_taxonomies', array( $this, 'add_taxonomies' ),10,1 );
+
 		add_action( 'init', array( $this, 'create_settings_page' ), 200 );
 		add_filter( 'lsx_framework_settings_tabs', array( $this, 'register_tabs' ), 200, 1 );
 
-		add_action( 'admin_enqueue_scripts', array( $this, 'assets') );		
+		add_action( 'admin_enqueue_scripts', array( $this, 'assets') );
 	}
 
 	/**
@@ -56,7 +56,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 		add_action( 'show_user_profile', array( $this, 'user_profile_fields' ), 1);
 		add_action( 'edit_user_profile', array( $this, 'user_profile_fields' ), 1);
 		add_action( 'personal_options_update', array( $this, 'save_profile_fields' ));
-		add_action( 'edit_user_profile_update', array( $this, 'save_profile_fields' ));		
+		add_action( 'edit_user_profile_update', array( $this, 'save_profile_fields' ));
 	}
 
 	/**
@@ -65,11 +65,15 @@ class LSX_Banners_Admin extends LSX_Banners {
 	public function assets() {
 		if ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) {
 			$min = '';
-		 }else {
+		} else {
 			$min = '.min';
 		}
 
-		wp_enqueue_media();
+		//wp_enqueue_media();
+		wp_enqueue_script( 'media-upload' );
+		wp_enqueue_script( 'thickbox' );
+		wp_enqueue_style( 'thickbox' );
+
 		wp_enqueue_script( 'lsx-banners-admin', LSX_BANNERS_URL . 'assets/js/lsx-banners-admin' . $min . '.js', array( 'jquery' ), LSX_BANNERS_VER, true );
 		wp_enqueue_style( 'lsx-banners-admin', LSX_BANNERS_URL . 'assets/css/lsx-banners-admin.css', array(), LSX_BANNERS_VER );
 	}
@@ -88,7 +92,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 			$taxonomies = $allowed_taxonomies;
 		}
 		return $taxonomies;
-	}		
+	}
 
 	/**
 	 * Define the metabox and field configurations.
@@ -96,11 +100,11 @@ class LSX_Banners_Admin extends LSX_Banners {
 	 * @param  array $meta_boxes
 	 * @return array
 	 */
-	public function metaboxes( array $meta_boxes ) {		
-		
-		// allowed post types 
+	public function metaboxes( array $meta_boxes ) {
+
+		// allowed post types
 		$allowed_post_types = $this->get_allowed_post_types();
-		
+
 		//Allowed Meta_boxes
 		$title_enabled = apply_filters('lsx_banner_enable_title', false);
 		$subtitle_enabled = apply_filters('lsx_banner_enable_subtitle', false);
@@ -108,17 +112,17 @@ class LSX_Banners_Admin extends LSX_Banners {
 		//If you only want to be able to disable content per banner
 		$title_disable = apply_filters('lsx_banner_disable_title', false);
 		$text_disable = apply_filters('lsx_banner_disable_text', false);
-		
+
 		//This runs twice in the plugin,  this is the only time it runs in the backend.
 		$this->placeholder = apply_filters('lsx_banner_enable_placeholder', false);
 		$fields = array();
-		
+
 
 		//Create the Field array
 
 		if(true === $this->placeholder) {
 			$fields[] = array( 'id' => 'banner_disabled',  'name' => esc_html__( 'Disable banner', 'lsx-banners' ), 'type' => 'checkbox' );
-		}	
+		}
 		if(true === $title_disable) {
 			$fields[] = array( 'id' => 'banner_title_disabled',  'name' => esc_html__( 'Disable banner title', 'lsx-banners' ), 'type' => 'checkbox' );
 		}
@@ -130,19 +134,19 @@ class LSX_Banners_Admin extends LSX_Banners {
 		}
 		if($subtitle_enabled){
 			$fields[] = array( 'id' => 'banner_subtitle',  'name' => esc_html__( 'Tagline', 'lsx-banners' ), 'type' => 'text' );
-		}		
-		$fields[] = 
+		}
+		$fields[] =
 			array( 'id' => 'image_bg_group', 'name' => '', 'type' => 'group', 'cols' => 12, 'fields' => array(
 					array( 'id' => 'banner_height',  'name' => esc_html__( 'Height', 'lsx-banners' ), 'type' => 'text' ),
 					array( 'id' => 'banner_x', 'name' => esc_html__( 'X Position', 'lsx-banners' ), 'type' => 'select', 'options' => array( 'left' => esc_html__( 'Left', 'lsx-banners' ), 'right' => esc_html__( 'Right', 'lsx-banners' ), 'Center' => esc_html__( 'Center', 'lsx-banners' ) ), 'allow_none' => true, 'sortable' => false, 'repeatable' => false ),
 					array( 'id' => 'banner_y', 'name' => esc_html__( 'Y Position', 'lsx-banners' ), 'type' => 'select', 'options' => array( 'top' => esc_html__( 'Top', 'lsx-banners' ), 'bottom' => esc_html__( 'Bottom', 'lsx-banners' ), 'Center' => esc_html__( 'Center', 'lsx-banners' ) ), 'allow_none' => true, 'sortable' => false, 'repeatable' => false ),
-			) );		
-		$fields[] = 
+			) );
+		$fields[] =
 			array( 'id' => 'image_group', 'name' => '', 'type' => 'group', 'cols' => 12, 'fields' => array(
 					array( 'id' => 'banner_image', 'name' => esc_html__( 'Image', 'lsx-banners' ), 'type' => 'image', 'repeatable' => true, 'show_size' => false, 'size' => array(185,130))
 			) );
 
-		$fields[] = array( 'id' => 'banner_video',  'name' => esc_html__('Video (mp4)','lsx-banners'), 'type' => 'file' );			
+		$fields[] = array( 'id' => 'banner_video',  'name' => esc_html__('Video (mp4)','lsx-banners'), 'type' => 'file' );
 
 		// Envira Gallery
 		if ( class_exists( 'Envira_Gallery' ) && !class_exists('Tour_Operator')) {
@@ -153,7 +157,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 		if ( class_exists( 'Soliloquy' ) ) {
 			$fields[] = array( 'id' => 'soliloquy_slider', 'name' => esc_html__( 'Soliloquy Slider', 'lsx-banners' ), 'type' => 'post_select', 'use_ajax' => false, 'query' => array( 'post_type' => 'soliloquy', 'nopagin' => true, 'posts_per_page' => '-1', 'orderby' => 'title', 'order' => 'ASC' ) , 'allow_none' => true );
 		}
-		
+
 		$meta_boxes[] = array(
 				'title' => esc_html__( 'Banners', 'lsx-banners' ),
 				'pages' => $allowed_post_types,
@@ -190,14 +194,14 @@ class LSX_Banners_Admin extends LSX_Banners {
 				<input class="input_image_id" type="hidden" name="banner" value="<?php echo $value; ?>">
 				<div class="banner-preview">
 					<?php echo $image_preview; ?>
-				</div>				
-				<a style="<?php if('' !== $value && false !== $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-add"><?php esc_html_e('Choose Image','lsx-banners');?></a>				
+				</div>
+				<a style="<?php if('' !== $value && false !== $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-add"><?php esc_html_e('Choose Image','lsx-banners');?></a>
 				<a style="<?php if('' === $value || false === $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-remove"><?php esc_html_e('Remove Image','lsx-banners');?></a>
 			</td>
 		</tr>
 		<?php
 	}
-	
+
 	/**
 	 * Saves the Taxnomy term banner image
 	 *
@@ -243,14 +247,14 @@ class LSX_Banners_Admin extends LSX_Banners {
 						<input class="input_image_id" type="hidden" name="banner" value="<?php echo $value; ?>">
 						<div class="banner-preview">
 							<?php echo $image_preview; ?>
-						</div>				
-						<a style="<?php if('' !== $value && false !== $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-add"><?php esc_html_e('Choose Image','lsx-banners');?></a>				
+						</div>
+						<a style="<?php if('' !== $value && false !== $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-add"><?php esc_html_e('Choose Image','lsx-banners');?></a>
 						<a style="<?php if('' === $value || false === $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-remove"><?php esc_html_e('Remove Image','lsx-banners');?></a>
 					</td>
 				</tr>
 			</tbody>
 		</table>
-		<?php 	
+		<?php
 	}
 
 	/**
@@ -293,7 +297,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 			</tr>
 		<?php } ?>
 	<?php
-	}	
+	}
 
 
 	/**
@@ -312,7 +316,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 		} else {
 			update_user_meta( $user_id, 'banner', $meta );
 		}
-	}	
+	}
 
 	/**
 	 * Returns the array of settings to the UIX Class
@@ -334,17 +338,17 @@ class LSX_Banners_Admin extends LSX_Banners {
 					} else {
 						add_action( 'lsx_framework_' . $post_type . '_tab_content_top', array( $this, 'archive_settings' ), 20 );
 					}
-				}	
+				}
 			}
 		}
-	}	
+	}
 
 	/**
 	 * Returns the array of settings to the UIX Class
 	 */
 	public function settings_page_array() {
 		$tabs = apply_filters( 'lsx_framework_settings_tabs', array() );
-		
+
 		return array(
 			'settings'  => array(
 				'page_title'  =>  esc_html__( 'Theme Options', 'lsx-banners' ),
@@ -360,7 +364,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 
 	/**
 	 * Register tabs
-	 */	
+	 */
 	public function register_tabs( $tabs ) {
 		$default = true;
 
