@@ -64,36 +64,32 @@ gulp.task('watch', function() {
 	gulp.watch('assets/js/lsx-banners-admin.js', ['admin-js']);
 });
 
-gulp.task('wordpress-pot', function () {
+gulp.task('wordpress-pot', function() {
 	return gulp.src('**/*.php')
 		.pipe(sort())
 		.pipe(wppot({
 			domain: 'lsx-banners',
-			destFile: 'lsx-banners.pot',
 			package: 'lsx-banners',
-			bugReport: 'https://bitbucket.org/feedmycode/lsx-banners/issues',
 			team: 'LightSpeed <webmaster@lsdev.biz>'
 		}))
-		.pipe(gulp.dest('languages'));
+		.pipe(gulp.dest('languages/lsx-banners.pot'))
 });
 
-gulp.task('wordpress-po', function () {
+gulp.task('wordpress-po', function() {
 	return gulp.src('**/*.php')
 		.pipe(sort())
 		.pipe(wppot({
 			domain: 'lsx-banners',
-			destFile: 'en_EN.po',
 			package: 'lsx-banners',
-			bugReport: 'https://bitbucket.org/feedmycode/lsx-banners/issues',
 			team: 'LightSpeed <webmaster@lsdev.biz>'
 		}))
-		.pipe(gulp.dest('languages'));
+		.pipe(gulp.dest('languages/en_EN.po'))
 });
 
 gulp.task('wordpress-po-mo', ['wordpress-po'], function() {
 	return gulp.src('languages/en_EN.po')
 		.pipe(gettext())
-		.pipe(gulp.dest('languages'));
+		.pipe(gulp.dest('languages'))
 });
 
 gulp.task('wordpress-lang', (['wordpress-pot', 'wordpress-po-mo']));
