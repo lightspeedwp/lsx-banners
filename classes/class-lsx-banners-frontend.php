@@ -109,6 +109,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	 */
 	public function banner() {
 		$post_id = $this->post_id;
+		$full_height = false;
 		$height = '';
 		$x_position = 'center';
 		$y_position = 'center';
@@ -126,7 +127,11 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		$image_bg_group = get_post_meta( $post_id, 'image_bg_group', true );
 
 		if ( false !== $image_bg_group && is_array( $image_bg_group ) ) {
-			if ( isset( $image_bg_group['banner_height'] ) && '' !== $image_bg_group['banner_height'] ) {
+			if ( isset( $image_bg_group['banner_full_height'] ) ) {
+				$full_height = $image_bg_group['banner_full_height'];
+			}
+
+			if ( empty( $full_height ) && isset( $image_bg_group['banner_height'] ) && '' !== $image_bg_group['banner_height'] ) {
 				$height = $image_bg_group['banner_height'];
 			}
 
@@ -459,9 +464,8 @@ class LSX_Banners_Frontend extends LSX_Banners {
 				$post_id = get_option( 'page_for_posts' );
 			}
 
-			$img_group = get_post_meta( $post_id,'image_group', true );
-			$banner_disabled = get_post_meta( $post_id,'banner_disabled', true );
-			$embed_video = get_post_meta( $post_id,'banner_video', true );
+			$img_group = get_post_meta( $post_id, 'image_group', true );
+			$banner_disabled = get_post_meta( $post_id, 'banner_disabled', true );
 
 			if ( true !== $banner_disabled && '1' !== $banner_disabled && false !== $img_group && is_array( $img_group ) && isset( $img_group['banner_image'] ) && '' !== $img_group['banner_image'] && ! empty( $img_group['banner_image'] ) ) {
 				$classes[] = 'page-has-banner';
@@ -495,6 +499,20 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		}
 
 		if ( true === $this->has_banner ) {
+			if ( ! empty( $this->post_id ) ) {
+				$image_bg_group = get_post_meta( $this->post_id, 'image_bg_group', true );
+
+				if ( false !== $image_bg_group && is_array( $image_bg_group ) ) {
+					if ( isset( $image_bg_group['banner_full_height'] ) ) {
+						$full_height = $image_bg_group['banner_full_height'];
+
+						if ( ! empty( $full_height ) ) {
+							$classes[] = 'page-has-banner-full';
+						}
+					}
+				}
+			}
+
 			$this->move_breadcrumb = apply_filters( 'lsx_banner_move_breadcrumb_inside_banner', false );
 
 			if ( true === $this->move_breadcrumb ) {

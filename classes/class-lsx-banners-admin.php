@@ -167,6 +167,11 @@ class LSX_Banners_Admin extends LSX_Banners {
 			'cols' => 12,
 			'fields' => array(
 				array(
+					'id'   => 'banner_full_height',
+					'name' => esc_html__( 'Full height', 'lsx-banners' ),
+					'type' => 'checkbox',
+				),
+				array(
 					'id'   => 'banner_height',
 					'name' => esc_html__( 'Height', 'lsx-banners' ),
 					'type' => 'text',
@@ -260,10 +265,11 @@ class LSX_Banners_Admin extends LSX_Banners {
 		}
 
 		$meta_boxes[] = array(
-				'title'  => esc_html__( 'Banners', 'lsx-banners' ),
-				'pages'  => $allowed_post_types,
-				'fields' => $fields,
+			'title'  => esc_html__( 'Banners', 'lsx-banners' ),
+			'pages'  => $allowed_post_types,
+			'fields' => $fields,
 		);
+
 		return $meta_boxes;
 	}
 
