@@ -77,7 +77,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 
 		$this->post_id = get_queried_object_id();
 
-		if ( is_singular( $allowed_post_types ) || is_post_type_archive( $allowed_post_types ) || is_tax( $allowed_taxonomies ) || is_category() || is_author() || is_404() || is_home() ) {
+		if ( is_singular( $allowed_post_types ) || is_post_type_archive( $allowed_post_types ) || is_tax( $allowed_taxonomies ) || is_category() || is_author() || is_404() || is_front_page() || is_home() ) {
 			if ( function_exists( 'lsx_setup' ) ) {
 				$this->theme = 'lsx';
 				remove_action( 'lsx_header_after', 'lsx_page_banner' );
@@ -118,11 +118,30 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			return '';
 		}
 
+		/*
+		 * This section gets the image meta, size etc.
+		 */
+		$image_bg_group = get_post_meta( $post_id, 'image_bg_group', true );
+
+		if ( false !== $image_bg_group && is_array( $image_bg_group ) ) {
+			if ( isset( $image_bg_group['banner_height'] ) && '' !== $image_bg_group['banner_height'] ) {
+				$height = $image_bg_group['banner_height'];
+			}
+
+			if ( isset( $image_bg_group['banner_x'] ) && '' !== $image_bg_group['banner_x'] ) {
+				$x_position = $image_bg_group['banner_x'];
+			}
+
+			if ( isset( $image_bg_group['banner_y'] ) && '' !== $image_bg_group['banner_y'] ) {
+				$y_position = $image_bg_group['banner_y'];
+			}
+		}
+
 		$banner_image = false;
 
 		// We change the id to the page with a matching slug ar the post_type archive.
 		// Singular Banners
-		if ( is_home() || is_singular( $this->get_allowed_post_types() ) || in_array( 'blog', get_body_class(), true ) ) {
+		if ( is_front_page() || is_home() || is_singular( $this->get_allowed_post_types() ) || in_array( 'blog', get_body_class(), true ) ) {
 			$img_group   = get_post_meta( $this->post_id,'image_group', true );
 			$show_slider = false;
 
@@ -147,25 +166,6 @@ class LSX_Banners_Frontend extends LSX_Banners {
 					$banner_image = $banner_image[0];
 				} else {
 					$banner_image = false;
-				}
-
-				/*
-				 * This section gets the image meta, size etc.
-				 */
-				$image_bg_group = get_post_meta( $post_id, 'image_bg_group', true );
-
-				if ( false !== $image_bg_group && is_array( $image_bg_group ) ) {
-					if ( isset( $image_bg_group['banner_height'] ) && '' !== $image_bg_group['banner_height'] ) {
-						$height = $image_bg_group['banner_height'];
-					}
-
-					if ( isset( $image_bg_group['banner_x'] ) && '' !== $image_bg_group['banner_x'] ) {
-						$x_position = $image_bg_group['banner_x'];
-					}
-
-					if ( isset( $image_bg_group['banner_y'] ) && '' !== $image_bg_group['banner_y'] ) {
-						$y_position = $image_bg_group['banner_y'];
-					}
 				}
 			}
 
@@ -450,7 +450,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		$banner_disabled = false;
 		$banner_image = false;
 
-		if ( 0 !== get_the_ID() || is_home() || is_front_page() ) {
+		if ( 0 !== get_the_ID() || is_front_page() || is_home() ) {
 			$post_id = $this->post_id;
 
 			if ( is_home() ) {
@@ -561,13 +561,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		$tagline            = false;
 
 		if ( is_front_page() ) {
-			$post_id = $this->post_id;
-
-			if ( is_home() ) {
-				$post_id = get_option( 'page_for_posts' );
-			}
-
-			$tagline = get_post( $post_id );
+			$tagline = get_post( $this->post_id );
 			$tagline = $tagline->post_content;
 			$tagline = apply_filters( 'the_content', $tagline );
 		}
