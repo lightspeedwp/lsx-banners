@@ -5,10 +5,6 @@
 
 @media (min-width: 992px) { .page-has-banner-full #lsx-banner { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-flex: 1; -ms-flex: 1; flex: 1; } }
 
-#lsx-banner .banner-content { margin-top: 2.4rem; text-align: center; }
-
-#lsx-banner .banner-content p:last-child { margin-bottom: 0; }
-
 #lsx-banner .video-background { display: none; }
 
 @media (min-width: 992px) { #lsx-banner .video-background { background-color: #000; bottom: 0; display: block; right: 0; overflow: hidden; position: absolute; left: 0; top: 0; z-index: 3; } }
