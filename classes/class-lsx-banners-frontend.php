@@ -106,9 +106,6 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	 * Outputs the Banner HTML
 	 */
 	public function banner() {
-		/*
-		 * This section gets actualy banner url.
-		*/
 		$post_id = $this->post_id;
 		$height = '';
 		$x_position = 'center';
@@ -450,19 +447,14 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	 * Add <body> classes
 	 */
 	public function body_class( $classes ) {
-		// Add page slug if it doesn't exist
-		// Test is the banner has been disabled.
-		// see if there is a banner image
 		$banner_disabled = false;
 		$banner_image = false;
 
 		if ( 0 !== get_the_ID() || is_home() || is_front_page() ) {
-			$post_id = false;
+			$post_id = $this->post_id;
 
 			if ( is_home() ) {
 				$post_id = get_option( 'page_for_posts' );
-			} else {
-				$post_id = get_the_ID();
 			}
 
 			$img_group = get_post_meta( $post_id,'image_group', true );
@@ -530,7 +522,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			$post_title = '<h1 class="page-title">' . get_the_archive_title() . '</h1>';
 		}
 
-		if ( apply_filters( 'lsx_banner_enable_title', false ) && ! empty( $this->post_id ) ) {
+		if ( apply_filters( 'lsx_banner_enable_title', true ) && ! empty( $this->post_id ) ) {
 			$new_title = get_post_meta( $this->post_id, 'banner_title', true );
 
 			if ( ! empty( $new_title ) ) {
@@ -568,26 +560,44 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		$allowed_taxonomies = $this->get_allowed_taxonomies();
 		$tagline            = false;
 
-		if ( apply_filters( 'lsx_banner_enable_subtitle', false ) && ! empty( $this->post_id ) ) {
-			$tagline = get_post_meta( $this->post_id, 'banner_subtitle', true );
+		if ( is_home() || is_front_page() ) {
+			$post_id = $this->post_id;
+
+			if ( is_home() ) {
+				$post_id = get_option( 'page_for_posts' );
+			}
+
+			$tagline = get_post( $post_id );
+			$tagline = $tagline->post_content;
+			$tagline = apply_filters( 'the_content', $tagline );
 		}
 
 		if ( is_post_type_archive( $allowed_post_types ) && isset( $this->options[ get_post_type() ] ) && isset( $this->options[ get_post_type() ]['tagline'] ) ) {
-			$tagline = $this->options[ get_post_type() ]['tagline'];
+			$new_tagline = $this->options[ get_post_type() ]['tagline'];
+
+			if ( ! empty( $new_tagline ) ) {
+				$tagline = '<p class="tagline">' . $new_tagline . '</div>';
+			}
 		}
 
 		if ( is_tax( $allowed_taxonomies ) || is_category() ) {
-			$taxonomy_tagline = get_term_meta( get_queried_object_id(), 'tagline', true );
+			$new_tagline = get_term_meta( $this->post_id, 'tagline', true );
 
-			if ( ! empty( $taxonomy_tagline ) ) {
-				$tagline = $taxonomy_tagline;
+			if ( ! empty( $new_tagline ) ) {
+				$tagline = '<p class="tagline">' . $new_tagline . '</div>';
+			}
+		}
+
+		if ( apply_filters( 'lsx_banner_enable_subtitle', true ) && ! empty( $this->post_id ) ) {
+			$new_tagline = get_post_meta( $this->post_id, 'banner_subtitle', true );
+
+			if ( ! empty( $new_tagline ) ) {
+				$tagline = '<p class="tagline">' . $new_tagline . '</div>';
 			}
 		}
 
 		if ( ! empty( $tagline ) ) {
-			?>
-			<p class="tagline"><?php echo $tagline; ?></p>
-			<?php
+			echo wp_kses_post( $tagline );
 		}
 	}
 
