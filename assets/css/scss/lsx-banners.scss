@@ -19,6 +19,13 @@
 #lsx-banner {
 	position: relative;
 
+	.page-has-banner-full & {
+		@include media ('>=tablet') {
+			display: flex;
+			flex: 1;
+		}
+	}
+
 	.banner-content {
 		margin-top: 2.4rem;
 		text-align: center;
