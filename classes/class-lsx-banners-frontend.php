@@ -561,18 +561,23 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		$allowed_post_types = $this->get_allowed_post_types();
 		$allowed_taxonomies = $this->get_allowed_taxonomies();
 		$tagline            = false;
+		$content            = '';
 
 		if ( is_front_page() ) {
-			$tagline = get_post( $this->post_id );
-			$tagline = $tagline->post_content;
-			$tagline = apply_filters( 'the_content', $tagline );
+			$content = get_post( $this->post_id );
+			$content = $content->post_content;
+
+			if ( ! empty( $content ) ) {
+				$content = apply_filters( 'the_content', $content );
+				$content = '<div class="banner-content-from-post">' . $content . '</div>';
+			}
 		}
 
 		if ( is_post_type_archive( $allowed_post_types ) && isset( $this->options[ get_post_type() ] ) && isset( $this->options[ get_post_type() ]['tagline'] ) ) {
 			$new_tagline = $this->options[ get_post_type() ]['tagline'];
 
 			if ( ! empty( $new_tagline ) ) {
-				$tagline = '<p class="tagline">' . $new_tagline . '</div>';
+				$tagline = '<p class="tagline">' . $new_tagline . '</p>';
 			}
 		}
 
@@ -580,7 +585,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			$new_tagline = get_term_meta( $this->post_id, 'tagline', true );
 
 			if ( ! empty( $new_tagline ) ) {
-				$tagline = '<p class="tagline">' . $new_tagline . '</div>';
+				$tagline = '<p class="tagline">' . $new_tagline . '</p>';
 			}
 		}
 
@@ -588,8 +593,12 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			$new_tagline = get_post_meta( $this->post_id, 'banner_subtitle', true );
 
 			if ( ! empty( $new_tagline ) ) {
-				$tagline = '<p class="tagline">' . $new_tagline . '</div>';
+				$tagline = '<p class="tagline">' . $new_tagline . '</p>';
 			}
+		}
+
+		if ( ! empty( $content ) ) {
+			$tagline = $tagline . $content;
 		}
 
 		if ( ! empty( $tagline ) ) {
