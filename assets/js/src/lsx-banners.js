@@ -48,7 +48,7 @@ var LSX_Banners = {
 			allowPageScroll: 'vertical'
 		});
 	}
-}
+};
 
 jQuery(document).ready(function() {
 	LSX_Banners.initThis();
