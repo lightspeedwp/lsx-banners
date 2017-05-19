@@ -560,7 +560,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		$allowed_taxonomies = $this->get_allowed_taxonomies();
 		$tagline            = false;
 
-		if ( is_home() || is_front_page() ) {
+		if ( is_front_page() ) {
 			$post_id = $this->post_id;
 
 			if ( is_home() ) {
