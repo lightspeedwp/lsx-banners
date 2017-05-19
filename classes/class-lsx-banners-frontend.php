@@ -366,6 +366,8 @@ class LSX_Banners_Frontend extends LSX_Banners {
 
 				            <?php do_action('lsx_banner_container_bottom'); ?>
 				        </div>
+
+				        <?php lsx_banner_inner_bottom(); ?>
 			        </div>
 			    </div>
 			<?php
@@ -511,13 +513,6 @@ class LSX_Banners_Frontend extends LSX_Banners {
 						}
 					}
 				}
-			}
-
-			$this->move_breadcrumb = apply_filters( 'lsx_banner_move_breadcrumb_inside_banner', false );
-
-			if ( true === $this->move_breadcrumb ) {
-				remove_action( 'lsx_content_top', 'lsx_breadcrumbs', 100 );
-				add_action( 'lsx_banner_container_top', 'lsx_breadcrumbs' );
 			}
 
 			remove_action( 'lsx_content_wrap_before', 'lsx_global_header' );

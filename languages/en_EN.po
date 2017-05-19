@@ -130,11 +130,11 @@ msgstr ""
 msgid "Placeholders"
 msgstr ""
 
-#: classes/class-lsx-banners-frontend.php:436
+#: classes/class-lsx-banners-frontend.php:438
 msgid "Previous"
 msgstr ""
 
-#: classes/class-lsx-banners-frontend.php:440
+#: classes/class-lsx-banners-frontend.php:442
 msgid "Next"
 msgstr ""
 
