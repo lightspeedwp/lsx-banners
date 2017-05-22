@@ -18,6 +18,11 @@
 			<?php $class_active = ( class_exists( 'LSX_Banners' ) || class_exists( 'LSX_Currencies' ) || class_exists( 'LSX_Team' ) ) ? '' : 'active' ?>
 			<li><a href="#ui-testimonials" class="<?php echo esc_attr( $class_active ) ?>"><?php esc_html_e( 'Testimonials', 'lsx-banners' ); ?></a></li>
 		<?php } ?>
+
+		<?php if ( class_exists( 'LSX_Projects' ) ) { ?>
+			<?php $class_active = ( class_exists( 'LSX_Banners' ) || class_exists( 'LSX_Currencies' ) || class_exists( 'LSX_Team' ) || class_exists( 'LSX_Testimonials' ) ) ? '' : 'active' ?>
+			<li><a href="#ui-projects" class="<?php echo esc_attr( $class_active ) ?>"><?php esc_html_e( 'Projects', 'lsx-banners' ); ?></a></li>
+		<?php } ?>
 	</ul>
 
 	<?php if ( class_exists( 'LSX_Banners' ) ) { ?>
@@ -58,6 +63,17 @@
 			<table class="form-table">
 				<tbody>
 					<?php do_action( 'lsx_framework_display_tab_content', 'testimonials' ); ?>
+				</tbody>
+			</table>
+		</div>
+	<?php } ?>
+
+	<?php if ( class_exists( 'LSX_Projects' ) ) { ?>
+		<?php $class_active = ( class_exists( 'LSX_Banners' ) || class_exists( 'LSX_Currencies' ) || class_exists( 'LSX_Team' ) || class_exists( 'LSX_Testimonials' ) ) ? '' : 'active' ?>
+		<div id="ui-projects" class="ui-tab <?php echo esc_attr( $class_active ) ?>">
+			<table class="form-table">
+				<tbody>
+					<?php do_action( 'lsx_framework_display_tab_content', 'projects' ); ?>
 				</tbody>
 			</table>
 		</div>
