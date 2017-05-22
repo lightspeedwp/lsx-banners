@@ -16,10 +16,10 @@
   "settings": {
     "phpcs": {
       "phpcs_additional_args": {
-        "--standard": "/Users/nandotess/Sites-LightSpeed/@git/lsx/codesniffer.ruleset.xml"
+        "--standard": "/Users/nandotess/Sites-LightSpeed/@git/lsx-banners/codesniffer.ruleset.xml"
       },
       "phpcbf_additional_args": {
-        "--standard": "/Users/nandotess/Sites-LightSpeed/@git/lsx/codesniffer.ruleset.xml"
+        "--standard": "/Users/nandotess/Sites-LightSpeed/@git/lsx-banners/codesniffer.ruleset.xml"
       }
     }
   }
