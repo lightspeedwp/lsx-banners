@@ -64,6 +64,12 @@ class LSX_Banners_Frontend extends LSX_Banners {
 
 		wp_enqueue_script( 'lsx-banners', LSX_BANNERS_URL . 'assets/js/lsx-banners' . $min . '.js', array( 'jquery', 'jquery-touchswipe' ), LSX_BANNERS_VER, true );
 
+		$params = apply_filters( 'lsx_banners_js_params', array(
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+		));
+
+		wp_localize_script( 'lsx-banners', 'lsx_banners_params', $params );
+
 		wp_enqueue_style( 'lsx-banners', LSX_BANNERS_URL . 'assets/css/lsx-banners.css', array(), LSX_BANNERS_VER );
 		wp_style_add_data( 'lsx-banners', 'rtl', 'replace' );
 	}
