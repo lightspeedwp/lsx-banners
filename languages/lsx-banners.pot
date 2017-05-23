@@ -222,6 +222,10 @@ msgstr ""
 msgid "Projects"
 msgstr ""
 
+#: includes/settings/display.php:29
+msgid "Blog Customizer (posts widget)"
+msgstr ""
+
 #: includes/settings/post.php:33, includes/settings/post.php:42
 msgid "Edit this on the page you have set as the \"blog\""
 msgstr ""

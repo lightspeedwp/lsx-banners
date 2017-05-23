@@ -23,6 +23,11 @@
 			<?php $class_active = ( class_exists( 'LSX_Banners' ) || class_exists( 'LSX_Currencies' ) || class_exists( 'LSX_Team' ) || class_exists( 'LSX_Testimonials' ) ) ? '' : 'active' ?>
 			<li><a href="#ui-projects" class="<?php echo esc_attr( $class_active ) ?>"><?php esc_html_e( 'Projects', 'lsx-banners' ); ?></a></li>
 		<?php } ?>
+
+		<?php if ( class_exists( 'LSX_Blog_Customizer' ) ) { ?>
+			<?php $class_active = ( class_exists( 'LSX_Banners' ) || class_exists( 'LSX_Currencies' ) || class_exists( 'LSX_Team' ) || class_exists( 'LSX_Testimonials' ) || class_exists( 'LSX_Projects' ) ) ? '' : 'active' ?>
+			<li><a href="#ui-blog-customizer" class="<?php echo esc_attr( $class_active ) ?>"><?php esc_html_e( 'Blog Customizer (posts widget)', 'lsx-banners' ); ?></a></li>
+		<?php } ?>
 	</ul>
 
 	<?php if ( class_exists( 'LSX_Banners' ) ) { ?>
@@ -74,6 +79,17 @@
 			<table class="form-table">
 				<tbody>
 					<?php do_action( 'lsx_framework_display_tab_content', 'projects' ); ?>
+				</tbody>
+			</table>
+		</div>
+	<?php } ?>
+
+	<?php if ( class_exists( 'LSX_Blog_Customizer' ) ) { ?>
+		<?php $class_active = ( class_exists( 'LSX_Banners' ) || class_exists( 'LSX_Currencies' ) || class_exists( 'LSX_Team' ) || class_exists( 'LSX_Testimonials' ) || class_exists( 'LSX_Projects' ) ) ? '' : 'active' ?>
+		<div id="ui-blog-customizer" class="ui-tab <?php echo esc_attr( $class_active ) ?>">
+			<table class="form-table">
+				<tbody>
+					<?php do_action( 'lsx_framework_display_tab_content', 'blog-customizer' ); ?>
 				</tbody>
 			</table>
 		</div>
