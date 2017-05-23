@@ -1,4 +1,4 @@
-@mixin customizer-banners-colours ($color: #FFF) {
+@mixin customizer-banners-banner-colours ($color: #FFF) {
 	#lsx-banner {
 		.banner-content { color: $color; }
 

@@ -652,12 +652,12 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	 */
 	public function customizer_colours_handler( $css, $colors ) {
 		$css .= '
-			@import "' . LSX_BANNERS_PATH . '/assets/css/scss/customizer-banners-colours";
+			@import "' . LSX_BANNERS_PATH . '/assets/css/scss/customizer-banners-banner-colours";
 
 			/**
 			 * LSX Customizer - LSX Banners
 			 */
-			@include customizer-banners-colours (
+			@include customizer-banners-banner-colours (
 				$color: ' . $colors['banner_text_image_color'] . '
 			);
 		';

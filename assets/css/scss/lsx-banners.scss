@@ -1,5 +1,5 @@
 @import 'include-media';
-@import 'customizer-banners-colours';
+@import 'customizer-banners-banner-colours';
 
 /*
  * LSX banners
@@ -171,4 +171,4 @@
 	}
 }
 
-@include customizer-banners-colours(#FFF);
+@include customizer-banners-banner-colours(#FFF);
