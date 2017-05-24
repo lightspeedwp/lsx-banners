@@ -200,6 +200,10 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			if ( false !== $archive_banner ) {
 				$banner_image = $archive_banner;
 			}
+
+			if ( isset( $this->options[ get_post_type() ] ) && ! empty( $this->options[ get_post_type() ]['banner'] ) ) {
+				$banner_image = $this->options[ get_post_type() ]['banner'];
+			}
 		}
 
 		// If its a taxonomy, then get the image from out term meta.
