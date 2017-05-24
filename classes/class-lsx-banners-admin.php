@@ -65,18 +65,12 @@ class LSX_Banners_Admin extends LSX_Banners {
 	 * Enques the assets
 	 */
 	public function assets() {
-		if ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) {
-			$min = '';
-		} else {
-			$min = '.min';
-		}
-
 		//wp_enqueue_media();
 		wp_enqueue_script( 'media-upload' );
 		wp_enqueue_script( 'thickbox' );
 		wp_enqueue_style( 'thickbox' );
 
-		wp_enqueue_script( 'lsx-banners-admin', LSX_BANNERS_URL . 'assets/js/lsx-banners-admin' . $min . '.js', array( 'jquery' ), LSX_BANNERS_VER, true );
+		wp_enqueue_script( 'lsx-banners-admin', LSX_BANNERS_URL . 'assets/js/lsx-banners-admin.min.js', array( 'jquery' ), LSX_BANNERS_VER, true );
 		wp_enqueue_style( 'lsx-banners-admin', LSX_BANNERS_URL . 'assets/css/lsx-banners-admin.css', array(), LSX_BANNERS_VER );
 	}
 

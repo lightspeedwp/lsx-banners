@@ -14,127 +14,127 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: classes/class-lsx-banners-admin.php:126
+#: classes/class-lsx-banners-admin.php:120
 msgid "Disable banner"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:134
+#: classes/class-lsx-banners-admin.php:128
 msgid "Disable banner title"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:142
+#: classes/class-lsx-banners-admin.php:136
 msgid "Disable banner text"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:150, includes/settings/post.php:30
+#: classes/class-lsx-banners-admin.php:144, includes/settings/post.php:30
 msgid "Title"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:158, classes/class-lsx-banners-admin.php:400, classes/class-taxonomy-administration.php:30, classes/class-taxonomy-administration.php:130, includes/settings/post.php:21
+#: classes/class-lsx-banners-admin.php:152, classes/class-lsx-banners-admin.php:394, classes/class-taxonomy-administration.php:30, classes/class-taxonomy-administration.php:130, includes/settings/post.php:21
 msgid "Tagline"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:171
+#: classes/class-lsx-banners-admin.php:165
 msgid "Full height"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:176
+#: classes/class-lsx-banners-admin.php:170
 msgid "Height"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:181
+#: classes/class-lsx-banners-admin.php:175
 msgid "X Position"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:187
+#: classes/class-lsx-banners-admin.php:181
 msgid "Left"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:188
+#: classes/class-lsx-banners-admin.php:182
 msgid "Right"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:189, classes/class-lsx-banners-admin.php:202
+#: classes/class-lsx-banners-admin.php:183, classes/class-lsx-banners-admin.php:196
 msgid "Center"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:194
+#: classes/class-lsx-banners-admin.php:188
 msgid "Y Position"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:200
+#: classes/class-lsx-banners-admin.php:194
 msgid "Top"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:201
+#: classes/class-lsx-banners-admin.php:195
 msgid "Bottom"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:216
+#: classes/class-lsx-banners-admin.php:210
 msgid "Image"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:227
+#: classes/class-lsx-banners-admin.php:221
 msgid "Video (mp4)"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:235
+#: classes/class-lsx-banners-admin.php:229
 msgid "Envira Gallery"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:253
+#: classes/class-lsx-banners-admin.php:247
 msgid "Soliloquy Slider"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:268
+#: classes/class-lsx-banners-admin.php:262
 msgid "Banners"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:299, classes/class-lsx-banners-admin.php:353, classes/class-placeholders.php:453, includes/settings/post.php:6
+#: classes/class-lsx-banners-admin.php:293, classes/class-lsx-banners-admin.php:347, classes/class-placeholders.php:453, includes/settings/post.php:6
 msgid "Banner"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:305, classes/class-lsx-banners-admin.php:359, classes/class-lsx-banners-admin.php:385, classes/class-placeholders.php:393, classes/class-placeholders.php:408, classes/class-placeholders.php:423, classes/class-placeholders.php:461, classes/class-placeholders.php:478, classes/class-taxonomy-administration.php:90, includes/settings/post.php:14
+#: classes/class-lsx-banners-admin.php:299, classes/class-lsx-banners-admin.php:353, classes/class-lsx-banners-admin.php:379, classes/class-placeholders.php:393, classes/class-placeholders.php:408, classes/class-placeholders.php:423, classes/class-placeholders.php:461, classes/class-placeholders.php:478, classes/class-taxonomy-administration.php:90, includes/settings/post.php:14
 msgid "Choose Image"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:306, classes/class-lsx-banners-admin.php:360, classes/class-taxonomy-administration.php:91
+#: classes/class-lsx-banners-admin.php:300, classes/class-lsx-banners-admin.php:354, classes/class-taxonomy-administration.php:91
 msgid "Remove Image"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:349
+#: classes/class-lsx-banners-admin.php:343
 msgid "Cover Image"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:377
+#: classes/class-lsx-banners-admin.php:371
 msgid "Banner Image"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:386, classes/class-placeholders.php:394, classes/class-placeholders.php:409, classes/class-placeholders.php:424, classes/class-placeholders.php:462, classes/class-placeholders.php:480, includes/settings/post.php:15
+#: classes/class-lsx-banners-admin.php:380, classes/class-placeholders.php:394, classes/class-placeholders.php:409, classes/class-placeholders.php:424, classes/class-placeholders.php:462, classes/class-placeholders.php:480, includes/settings/post.php:15
 msgid "Delete"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:391
+#: classes/class-lsx-banners-admin.php:385
 msgid "Banner Video URL (mp4)"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:462, classes/class-lsx-banners-admin.php:463
+#: classes/class-lsx-banners-admin.php:456, classes/class-lsx-banners-admin.php:457
 msgid "Theme Options"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:467
+#: classes/class-lsx-banners-admin.php:461
 msgid "Save Changes"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:513, includes/settings/display.php:4
+#: classes/class-lsx-banners-admin.php:507, includes/settings/display.php:4
 msgid "Placeholders"
 msgstr ""
 
-#: classes/class-lsx-banners-frontend.php:448
+#: classes/class-lsx-banners-frontend.php:442
 msgid "Previous"
 msgstr ""
 
-#: classes/class-lsx-banners-frontend.php:452
+#: classes/class-lsx-banners-frontend.php:446
 msgid "Next"
 msgstr ""
 
