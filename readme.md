@@ -4,6 +4,9 @@ The LSX Banners extension adds advanced banner configuration options to your Wor
 
 ## Changelog
 
+### 1.0.7
+* Fix - WordPress media modal was not working on wp-admin
+
 ### 1.0.6
 * Fix - Added the missing "full" image size to the placeholder class.
 * Fix - Before try use the attachment URL, test if it's available
