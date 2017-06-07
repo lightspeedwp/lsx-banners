@@ -289,7 +289,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 			$value = false;
 		}
 		?>
-		<tr class="form-field form-required term-banner-wrap">
+		<tr class="form-field term-banner-wrap">
 			<th scope="row"><label for="banner"><?php esc_html_e( 'Banner', 'lsx-banners' );?></label></th>
 			<td>
 				<input class="input_image_id" type="hidden" name="banner" value="<?php echo $value; ?>">
