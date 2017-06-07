@@ -80,7 +80,7 @@ class LSX_Taxonomy_Admin {
 			$value = false;
 		}
 		?>
-		<tr class="form-field form-required term-thumbnail-wrap">
+		<tr class="form-field term-thumbnail-wrap">
 			<th scope="row"><label for="thumbnail"><?php esc_html_e('Featured Image','lsx-banners');?></label></th>
 			<td>
 				<input class="input_image_id" type="hidden" name="thumbnail" value="<?php echo $value; ?>">
@@ -126,7 +126,7 @@ class LSX_Taxonomy_Admin {
 			$value = false;
 		}
 		?>
-		<tr class="form-field form-required term-tagline-wrap">
+		<tr class="form-field term-tagline-wrap">
 			<th scope="row"><label for="tagline"><?php esc_html_e('Tagline','lsx-banners');?></label></th>
 			<td>
 				<input name="tagline" id="tagline" type="text" value="<?php echo $value; ?>" size="40" aria-required="true">
@@ -147,7 +147,7 @@ class LSX_Taxonomy_Admin {
 			$value = false;
 		}
 		?>
-		<tr class="form-field form-required term-youtube-wrap">
+		<tr class="form-field term-youtube-wrap">
 			<th scope="row"><label for="banner_video"><?php esc_html_e('Video Url (mp4)','lsx-banners');?></label></th>
 			<td>
 				<input name="banner_video" id="banner_video" type="text" value="<?php echo $value; ?>" size="40" aria-required="true">
@@ -178,7 +178,7 @@ class LSX_Taxonomy_Admin {
 		);
 		?>
 
-		<tr class="form-field form-required term-expert-wrap">
+		<tr class="form-field term-expert-wrap">
 			<th scope="row">
 				<label for="expert"><?php esc_html_e( 'Expert','lsx-banners' ) ?></label>
 			</th>
