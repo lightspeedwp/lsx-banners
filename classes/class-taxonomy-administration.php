@@ -178,7 +178,7 @@ class LSX_Taxonomy_Admin {
 		);
 		?>
 
-		<tr class="form-field form-required term-expert-wrap">
+		<tr class="form-field term-expert-wrap">
 			<th scope="row">
 				<label for="expert"><?php esc_html_e( 'Expert','lsx-banners' ) ?></label>
 			</th>
