@@ -235,7 +235,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		}
 
 		// If we have enabled the placeholders,  then force a placeholdit url
-		if ( true === $this->placeholder && false === $banner_image ) {
+		if ( true === $this->placeholder && false === $banner_image && ! is_404() ) {
 			$banner_image = apply_filters( 'lsx_banner_placeholder_url', 'https://placeholdit.imgix.net/~text?txtsize=33&txt=1920x600&w=1920&h=600' );
 		}
 
@@ -499,7 +499,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			}
 		}
 
-		if ( true === $this->placeholder && true !== $banner_disabled && '1' !== $banner_disabled ) {
+		if ( true === $this->placeholder && true !== $banner_disabled && '1' !== $banner_disabled && ! is_404() ) {
 			$classes[] = 'page-has-banner';
 			$this->has_banner = true;
 		}
