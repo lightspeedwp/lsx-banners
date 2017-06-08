@@ -1724,6 +1724,10 @@ class CMB_Gmap_Field extends CMB_Field {
 			$api_key = $options['general']['googlemaps_key'];
         }
 
+		if(defined('GOOGLEMAPS_API_KEY')) {
+			$api_key = GOOGLEMAPS_API_KEY;
+		}
+
 		if(false !== $api_key) {
 
 			wp_enqueue_script( 'cmb-google-maps', 'https://maps.googleapis.com/maps/api/js?key='.$api_key.'&libraries=places' );
