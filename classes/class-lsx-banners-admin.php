@@ -474,28 +474,30 @@ class LSX_Banners_Admin extends LSX_Banners {
 			$default = false;
 		}
 
-		if ( ! array_key_exists( 'display', $tabs ) ) {
-			$tabs['display'] = array(
-				'page_title'        => '',
-				'page_description'  => '',
-				'menu_title'        => esc_html__( 'Display', 'lsx-currencies' ),
-				'template'          => LSX_BANNERS_PATH . 'includes/settings/display.php',
-				'default'           => $default,
-			);
+		if ( ! class_exists( 'Tour_Operator' ) ) {
+			if ( ! array_key_exists( 'display', $tabs ) ) {
+				$tabs['display'] = array(
+					'page_title'        => '',
+					'page_description'  => '',
+					'menu_title'        => esc_html__( 'Display', 'lsx-currencies' ),
+					'template'          => LSX_BANNERS_PATH . 'includes/settings/display.php',
+					'default'           => $default,
+				);
 
-			$default = false;
-		}
+				$default = false;
+			}
 
-		if ( ! array_key_exists( 'api', $tabs ) ) {
-			$tabs['api'] = array(
-				'page_title'        => '',
-				'page_description'  => '',
-				'menu_title'        => esc_html__( 'API', 'lsx-currencies' ),
-				'template'          => LSX_BANNERS_PATH . 'includes/settings/api.php',
-				'default'           => $default,
-			);
+			if ( ! array_key_exists( 'api', $tabs ) ) {
+				$tabs['api'] = array(
+					'page_title'        => '',
+					'page_description'  => '',
+					'menu_title'        => esc_html__( 'API', 'lsx-currencies' ),
+					'template'          => LSX_BANNERS_PATH . 'includes/settings/api.php',
+					'default'           => $default,
+				);
 
-			$default = false;
+				$default = false;
+			}
 		}
 
 		$post_types = $this->get_allowed_post_types();

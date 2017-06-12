@@ -126,7 +126,7 @@ msgstr ""
 msgid "Save Changes"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:507, includes/settings/display.php:4
+#: classes/class-lsx-banners-admin.php:509, includes/settings/display.php:4
 msgid "Placeholders"
 msgstr ""
 
@@ -224,6 +224,10 @@ msgstr ""
 
 #: includes/settings/display.php:29
 msgid "Blog Customizer (posts widget)"
+msgstr ""
+
+#: includes/settings/display.php:34
+msgid "Sharing"
 msgstr ""
 
 #: includes/settings/post.php:33, includes/settings/post.php:42
