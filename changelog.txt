@@ -2,6 +2,10 @@
 
 ### 1.0.7
 * Fix - WordPress media modal was not working on wp-admin
+* Fix - Fixed crop options
+* Dev - Added in the ability yo override the API key from Google Maps
+* Fix - Removed the banner from 404 page
+* Fix - LSX tabs working integrated with TO tabs (dashboard settings)
 
 ### 1.0.6
 * Fix - Added the missing "full" image size to the placeholder class.

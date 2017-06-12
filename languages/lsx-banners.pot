@@ -124,11 +124,11 @@ msgstr ""
 msgid "Save Changes"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:407, includes/settings/display.php:4
+#: classes/class-lsx-banners-admin.php:409, includes/settings/display.php:4
 msgid "Placeholders"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:427
+#: classes/class-lsx-banners-admin.php:429
 msgid "Select featured image"
 msgstr ""
 
@@ -218,6 +218,10 @@ msgstr ""
 
 #: includes/settings/display.php:19
 msgid "Testimonials"
+msgstr ""
+
+#: includes/settings/display.php:24
+msgid "Sharing"
 msgstr ""
 
 #: includes/settings/post.php:33, includes/settings/post.php:42
