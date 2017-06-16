@@ -1,6 +1,12 @@
 @import 'include-media';
 @import 'customizer-banners-banner-colours';
 
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-20px); }
+    60% { transform: translateY(-10px); }
+}
+
 /*
  * LSX banners
  */
@@ -167,6 +173,34 @@
 				top: 0;
 				z-index: 2;
 			}
+		}
+	}
+
+	.btn-scroll-to {
+		border: 2px solid transparent;
+		border-radius: 50%;
+		display: inline-block;
+		font-size: 40px;
+		line-height: 1;
+		padding: 5px 0;
+		margin-top: 30px;
+		width: 54px;
+
+		&:focus { outline: 0; }
+
+		@include media('>=tablet') {
+			animation: bounce 2s 4s infinite;
+
+			&:hover { animation-play-state: paused; }
+		}
+	}
+
+	.banner-easing {
+		@include media('>=tablet') {
+			bottom: 30px;
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
 		}
 	}
 }
