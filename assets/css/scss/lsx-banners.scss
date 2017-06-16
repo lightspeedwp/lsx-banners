@@ -176,6 +176,15 @@
 		}
 	}
 
+	.banner-easing {
+		@include media('>=desktop') {
+			bottom: 30px;
+			left: 50%;
+			position: absolute;
+			transform: translateX(-50%);
+		}
+	}
+
 	.btn-scroll-to {
 		border: 2px solid transparent;
 		border-radius: 50%;
@@ -188,19 +197,10 @@
 
 		&:focus { outline: 0; }
 
-		@include media('>=tablet') {
+		@include media('>=desktop') {
 			animation: bounce 2s 4s infinite;
 
 			&:hover { animation-play-state: paused; }
-		}
-	}
-
-	.banner-easing {
-		@include media('>=tablet') {
-			bottom: 30px;
-			position: absolute;
-			left: 50%;
-			transform: translateX(-50%);
 		}
 	}
 }

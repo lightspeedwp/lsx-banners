@@ -53,14 +53,14 @@
 
 #lsx-banner .soliloquy-container .soliloquy-item:before { background-color: rgba(55, 71, 80, 0.33); bottom: 0; content: ''; left: 0; position: absolute; right: 0; top: 0; z-index: 2; }
 
+@media (min-width: 1200px) { #lsx-banner .banner-easing { bottom: 30px; left: 50%; position: absolute; -webkit-transform: translateX(-50%); transform: translateX(-50%); } }
+
 #lsx-banner .btn-scroll-to { border: 2px solid transparent; border-radius: 50%; display: inline-block; font-size: 40px; line-height: 1; padding: 5px 0; margin-top: 30px; width: 54px; }
 
 #lsx-banner .btn-scroll-to:focus { outline: 0; }
 
-@media (min-width: 992px) { #lsx-banner .btn-scroll-to { -webkit-animation: bounce 2s 4s infinite; animation: bounce 2s 4s infinite; }
+@media (min-width: 1200px) { #lsx-banner .btn-scroll-to { -webkit-animation: bounce 2s 4s infinite; animation: bounce 2s 4s infinite; }
   #lsx-banner .btn-scroll-to:hover { -webkit-animation-play-state: paused; animation-play-state: paused; } }
-
-@media (min-width: 992px) { #lsx-banner .banner-easing { bottom: 30px; position: absolute; left: 50%; -webkit-transform: translateX(-50%); transform: translateX(-50%); } }
 
 #lsx-banner .banner-content { color: #FFF; }
 
