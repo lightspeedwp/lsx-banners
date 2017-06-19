@@ -12,7 +12,7 @@ jQuery(document).ready(function() {
 			e.preventDefault();
 			e.stopPropagation();
 
-			tb_show('Choose a Featured Image', 'media-upload.php?type=image&TB_iframe=1&width=800&height=600');
+			tb_show('Choose a Featured Image', 'media-upload.php?type=image&feature_image_text_button=1&TB_iframe=1');
 
 			var $this = jQuery(this),
 				$td = $this.parent('td');
@@ -77,7 +77,7 @@ jQuery(document).ready(function() {
 			jQuery('.ui-tab-nav a.active').removeClass('active');
 			$this.addClass('active');
 			jQuery('.ui-tab.active').removeClass('active');
-			jQuery($this.attr('href')).addClass('active');
+			$this.closest('.uix-field-wrapper').find($this.attr('href')).addClass('active');
 
 			return false;
 		});
