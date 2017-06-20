@@ -22,14 +22,8 @@ var LSX_Banners = {
 
 			jQuery('html, body').animate({
 				scrollTop: (top+extra)
-			}, 1200);
+			}, 800);
 
-			return false;
-		});
-
-		jQuery('.banner-easing a i').on('click',function(e) {
-			e.stopPropagation();
-			jQuery(this).parent().trigger('click');
 			return false;
 		});
 	},
