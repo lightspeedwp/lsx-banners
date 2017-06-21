@@ -5,7 +5,7 @@
  * @package   LSX Banners
  * @author    LightSpeed
  * @license   GPL3
- * @link      
+ * @link
  * @copyright 2016 LightSpeed
  */
 class LSX_Placeholders {
@@ -23,13 +23,6 @@ class LSX_Placeholders {
 	 * @var      array
 	 */
 	protected $post_types = array();
-
-	/**
-	 * A default super placeholder
-	 *
-	 * @var      array
-	 */
-	protected $super_placeholder = false;
 
 	/**
 	 * Holds class isntance
@@ -60,79 +53,101 @@ class LSX_Placeholders {
 		foreach($this->post_types as $post_type){
 			add_action( 'lsx_framework_'.$post_type.'_tab_content', array( $this, 'placeholder_settings' ) );
 		}
-		
+
 		if( !is_admin() ){
 			add_filter( 'get_post_metadata', array($this,'default_post_thumbnail') , 11, 3 );
 			add_filter( 'get_term_metadata', array($this,'default_term_thumbnail') , 11, 3 );
 
 			add_filter( 'wp_get_attachment_image_src', array($this,'super_placeholder_filter') , 20, 4 );
-			add_filter( 'wp_calculate_image_srcset_meta', array($this,'super_placeholder_srcset_filter') , 20, 4 );	
-			add_filter( 'wp_calculate_image_srcset', array($this,'super_placeholder_calculate_image_srcset_filter') , 20, 5 );	
+			add_filter( 'wp_calculate_image_srcset_meta', array($this,'super_placeholder_srcset_filter') , 20, 4 );
+			add_filter( 'wp_calculate_image_srcset', array($this,'super_placeholder_calculate_image_srcset_filter') , 20, 5 );
 		}
-
-		$this->super_placeholder = LSX_Placeholders::placeholder_url();
 	}
 
 	/**
 	 * Returns the placeholder call.
 	 */
-	public static function placeholder_url($text_size = 24,$post_type='general',$size='lsx-thumbnail-wide'){
+	public static function placeholder_url( $text_size = null, $post_type = null, $size = null ) {
+		if ( null === $text_size ) {
+			$text_size = 38;
+		}
+
+		if ( null === $post_type ) {
+			$post_type = 'general';
+		}
+
+		if ( null === $size ) {
+			$size = 'lsx-thumbnail-single';
+		}
+
 		$options = get_option('_lsx_settings',false);
+
 		if ( false === $options ) {
 			$options = get_option('_lsx_lsx-settings',false);
 		}
-		$holdit_width = '';
-		switch($size){
-			case 'thumbnail':
-			case 'medium':
-			case 'large':
-				$width = get_option( "{$size}_size_w",150 );
-				$height = get_option( "{$size}_size_h",150 );
-				$holdit_width = '&w='.$width.'&h='.$height;
-			break;	
 
-			case 'lsx-single-thumbnail':
-			case 'lsx-thumbnail-single':
-				$holdit_width = '&w=750&h=350';
-			break;
+		if ( is_array( $size ) && 2 === count( $size ) ) {
+			$holdit_width = '&w=' . $size[0] . '&h=' . $size[1];
+		} else {
+			switch ( $size ) {
+				case 'thumbnail':
+				case 'medium':
+				case 'large':
+				case 'full':
+					$width        = get_option( "{$size}_size_w", 150 );
+					$height       = get_option( "{$size}_size_h", 150 );
+					$holdit_width = '&w=' . $width . '&h=' . $height;
+					break;
 
-			case 'lsx-thumbnail-wide':
-			default:
-				$holdit_width = '&w=350&h=230';
-			break;
+				case 'lsx-thumbnail-single':
+					$holdit_width = '&w=750&h=350';
+					break;
+
+				case 'lsx-thumbnail-wide':
+				default:
+					$holdit_width = '&w=350&h=230';
+					break;
+			}
 		}
 
-		$placeholder = 'https://placeholdit.imgix.net/~text?txtsize='.$text_size.'&txt='.urlencode(get_bloginfo('name')).$holdit_width;
+		$placeholder    = 'https://placeholdit.imgix.net/~text?txtsize=' . $text_size . '&txt=' . urlencode( get_bloginfo( 'name' ) ) . $holdit_width;
 		$placeholder_id = false;
+
 		//First Check for a default, then check if there is one set by post type.
-		if(isset($options['display']) 
-		 && isset($options['display']['default_placeholder_id'])
-		 && !empty( $options['display']['default_placeholder_id'] )){
+		if ( isset( $options['display'] )
+		     && isset( $options['display']['default_placeholder_id'] )
+		     && ! empty( $options['display']['default_placeholder_id'] )
+		) {
 			$placeholder_id = $options['display']['default_placeholder_id'];
 		}
-		if('general' !== $post_type){
-			if('post' === $post_type){
-				if(isset($options['display']) 
-				 && isset($options['display']['posts_placeholder_id'])
-				 && !empty( $options['display']['posts_placeholder_id'] )
-				 && '' !== $options['display']['posts_placeholder_id']){
+
+		if ( 'general' !== $post_type ) {
+			if ( 'post' === $post_type ) {
+				if ( isset( $options['display'] )
+				     && isset( $options['display']['posts_placeholder_id'] )
+				     && ! empty( $options['display']['posts_placeholder_id'] )
+				     && '' !== $options['display']['posts_placeholder_id']
+				) {
 					$placeholder_id = $options['display']['posts_placeholder_id'];
 				}
-			}else{
-				if(isset($options[$post_type]) 
-				 && isset($options[$post_type]['featured_placeholder_id'])
-				 && !empty( $options[$post_type]['featured_placeholder_id'] )
-				 && '' !== $options[$post_type]['featured_placeholder_id']){
-					$placeholder_id = $options[$post_type]['featured_placeholder_id'];
+			} else {
+				if ( isset( $options[ $post_type ] )
+				     && isset( $options[ $post_type ]['featured_placeholder_id'] )
+				     && ! empty( $options[ $post_type ]['featured_placeholder_id'] )
+				     && '' !== $options[ $post_type ]['featured_placeholder_id']
+				) {
+					$placeholder_id = $options[ $post_type ]['featured_placeholder_id'];
 				}
 			}
 		}
-		if(false !== $placeholder_id && '' !== $placeholder_id){
-			$temp_src_array = wp_get_attachment_image_src($placeholder_id,$size);
-			if(is_array($temp_src_array) && !empty($temp_src_array)){
+
+		if ( false !== $placeholder_id && '' !== $placeholder_id ) {
+			$temp_src_array = wp_get_attachment_image_src( $placeholder_id, $size );
+			if ( is_array( $temp_src_array ) && ! empty( $temp_src_array ) ) {
 				$placeholder = $temp_src_array[0];
 			}
 		}
+
 		return $placeholder;
 	}
 
@@ -148,27 +163,27 @@ class LSX_Placeholders {
 		//This ensures our "super" placeholder will always show.
 		$placeholder = 'lsx-placeholder';
 		if('_thumbnail_id' === $meta_key && false !== $options){
-			
+
 			$post_type = get_post_field( 'post_type', $post_id );
 
 			//If the post types posts placeholder has been disabled then skip.
 			if('post' === $post_type && isset($options['display']) && isset($options['display']['disable_blog_placeholder'])){ return $meta; }
 
 			//First Check for a default, then check if there is one set by post type.
-			if(isset($options['display']) 
+			if(isset($options['display'])
 			 && isset($options['display']['default_placeholder_id'])
 			 && !empty( $options['display']['default_placeholder_id'] )){
 				$placeholder = $options['display']['default_placeholder_id'];
 			}
 			if('post' === $post_type){
-				if(isset($options['display']) 
+				if(isset($options['display'])
 				 && isset($options['display']['posts_placeholder_id'])
 				 && !empty( $options['display']['posts_placeholder_id'] )
 				 && '' !== $options['display']['posts_placeholder_id']){
 					$placeholder = $options['display']['posts_placeholder_id'];
 				}
 			}else{
-				if(isset($options[$post_type]) 
+				if(isset($options[$post_type])
 				 && isset($options[$post_type]['featured_placeholder_id'])
 				 && !empty( $options[$post_type]['featured_placeholder_id'] )
 				 && '' !== $options[$post_type]['featured_placeholder_id']){
@@ -187,8 +202,8 @@ class LSX_Placeholders {
 			// onlong but here it is. no ID
 
 			return $placeholder;
-		}				
-		
+		}
+
 		return $meta;
 	}
 
@@ -206,7 +221,7 @@ class LSX_Placeholders {
 
 			//First Check for a default, then check if there is one set by post type.
 			if(false !== $options
-			 && isset($options['display']) 
+			 && isset($options['display'])
 			 && isset($options['display']['default_placeholder_id'])
 			 && !empty( $options['display']['default_placeholder_id'] )){
 				$placeholder = $options['display']['default_placeholder_id'];
@@ -223,154 +238,143 @@ class LSX_Placeholders {
 			}
 			// onlong but here it is. no ID
 			return $placeholder;
-		}				
-		
+		}
+
 		return $meta;
-	}	
+	}
 
 	/**
 	 * The term default placeholder call.
 	 */
 	public function super_placeholder_filter( $image, $attachment_id , $size , $icon ){
+		if ( 'lsx-placeholder' === $attachment_id ) {
+			$image = array(
+				$this->placeholder_url( null, null, $size ),
+			);
 
-		if('lsx-placeholder' === $attachment_id){
-			$image = array();
-
-			switch($size){
-
+			switch ( $size ) {
 				case 'thumbnail':
 				case 'medium':
 				case 'large':
 				case 'full':
-
-					$width = get_option( "{$size}_size_w",150 );
-					$height = get_option( "{$size}_size_h",150 );
-
-					$image[] = $this->placeholder_url().'&w='.$width.'&h='.$height;
-					$image[] = $width;
-					$image[] = $height;
+					$image[] = get_option( "{$size}_size_w", 150 );
+					$image[] = get_option( "{$size}_size_h", 150 );
 					$image[] = true;
-				break;				
+					break;
 
 				case 'lsx-thumbnail-wide':
-					$image[] = $this->placeholder_url().'&w=350&h=230';
 					$image[] = 350;
 					$image[] = 230;
 					$image[] = true;
-				break;
+					break;
 
-				case 'lsx-single-thumbnail':
 				case 'lsx-thumbnail-single':
-					$image[] = $this->placeholder_url().'&w=750&h=350';
 					$image[] = 750;
 					$image[] = 350;
 					$image[] = false;
-				break;
+					break;
 
 				default:
-					if(is_array($size)){
-						$image[] = $this->placeholder_url().'&w='.$size[0].'&h='.$size[1];
+					if ( is_array( $size ) ) {
 						$image[] = $size[0];
 						$image[] = $size[1];
-						$image[] = true;				
+						$image[] = true;
 					}
-				break;
+					break;
+			}
 
-			} 
-
-			$image = apply_filters('lsx_placeholder_url',$image);
-
+			$image = apply_filters( 'lsx_placeholder_url', $image );
 		}
+
 		return $image;
 	}
 
 	/**
 	 * The term default placeholder call.
 	 */
-	public function super_placeholder_srcset_filter( $image_meta, $size_array, $image_src, $attachment_id ){
-
-		if('lsx-placeholder' === $attachment_id){
-
-			$width = '750';
-			$height = '350';
-
+	public function super_placeholder_srcset_filter( $image_meta, $size_array, $image_src, $attachment_id ) {
+		if ( 'lsx-placeholder' === $attachment_id ) {
 			$sizes = array(
 				'thumbnail' => array(
-					'file'	=> $this->placeholder_url().'&w='.get_option( "thumbnail_size_w",150 ).'&h='.get_option( "thumbnail_size_h",150 ),
-					'width'	=> get_option( "thumbnail_size_w",150 ),
-					'height'	=> get_option( "thumbnail_size_h",150 ),
-					'mime-type'	=> 'image/jpeg',
-				),	
+					'file'      => $this->placeholder_url( null, null, 'thumbnail' ),
+					'width'     => get_option( "thumbnail_size_w", 150 ),
+					'height'    => get_option( "thumbnail_size_h", 150 ),
+					'mime-type' => 'image/jpeg',
+				),
 				'medium' => array(
-					'file'	=> $this->placeholder_url().'&w='.get_option( "medium_size_w",300 ).'&h='.get_option( "medium_size_h",300 ),
-					'width'	=> get_option( "medium_size_w",300 ),
-					'height'	=> get_option( "medium_size_h",300 ),
-					'mime-type'	=> 'image/jpeg',
-				),	
+					'file'      => $this->placeholder_url( null, null, 'medium' ),
+					'width'     => get_option( "medium_size_w", 300 ),
+					'height'    => get_option( "medium_size_h", 300 ),
+					'mime-type' => 'image/jpeg',
+				),
 				'large' => array(
-					'file'	=> $this->placeholder_url().'&w='.get_option( "large_size_w",1024 ).'&h='.get_option( "large_size_h",1024 ),
-					'width'	=> get_option( "large_size_w",1024 ),
-					'height'	=> get_option( "large_size_h",1024 ),
-					'mime-type'	=> 'image/jpeg',
-				),	
+					'file'      => $this->placeholder_url( null, null, 'large' ),
+					'width'     => get_option( "large_size_w", 1024 ),
+					'height'    => get_option( "large_size_h", 1024 ),
+					'mime-type' => 'image/jpeg',
+				),
 				'full' => array(
-					'file'	=> $this->placeholder_url().'&w='.get_option( "large_size_w",1024 ).'&h='.get_option( "large_size_h",1024 ),
-					'width'	=> get_option( "large_size_w",1024 ),
-					'height'	=> get_option( "large_size_h",1024 ),
-					'mime-type'	=> 'image/jpeg',
-				),											
+					'file'      => $this->placeholder_url( null, null, 'full' ),
+					'width'     => get_option( "large_size_w", 1024 ),
+					'height'    => get_option( "large_size_h", 1024 ),
+					'mime-type' => 'image/jpeg',
+				),
 				'lsx-thumbnail-single' => array(
-					'file'	=> $this->placeholder_url().'&w=750&h=350',
-					'width'	=> '750',
-					'height'	=> '350',
-					'mime-type'	=> 'image/jpeg',
-				),				
+					'file'      => $this->placeholder_url( null, null, 'lsx-thumbnail-single' ),
+					'width'     => '750',
+					'height'    => '350',
+					'mime-type' => 'image/jpeg',
+				),
+				'lsx-thumbnail-wide' => array(
+					'file'      => $this->placeholder_url( null, null, 'lsx-thumbnail-wide' ),
+					'width'     => '350',
+					'height'    => '230',
+					'mime-type' => 'image/jpeg',
+				),
 			);
 
 			$image_meta = array(
-				'width' => $width,
-				'height' => $height,
-				'file' => $this->placeholder_url().'&w=750&h=350',
-				'sizes' => $sizes
+				'width'  => '750',
+				'height' => '350',
+				'file'   => $this->placeholder_url( null, null, 'lsx-thumbnail-single' ),
+				'sizes'  => $sizes,
 			);
-
 		}
+
 		return $image_meta;
 	}
 
 	/**
-	 * Overwrites the sources call 
+	 * Overwrites the sources call
 	 */
 	public function super_placeholder_calculate_image_srcset_filter( $sources, $size_array, $image_src, $image_meta, $attachment_id ){
-
-		if('lsx-placeholder' === $attachment_id){
-
+		if ( 'lsx-placeholder' === $attachment_id ) {
 			$sources = array(
 				'1920' => array(
-					'url' 			=> $this->super_placeholder.'&w=750&h=350',
-					'descriptor' 	=> 'w',
-					'value' 		=> '1920',
+					'url'        => $this->placeholder_url( null, null, 'lsx-thumbnail-single' ),
+					'descriptor' => 'w',
+					'value'      => '1920',
 				),
-				'300' => array(
-					'url' 			=> $this->super_placeholder.'&w=350&h=230',
-					'descriptor' 	=> 'w',
-					'value' 		=> '300',
+				'300'  => array(
+					'url'        => $this->placeholder_url( null, null, 'lsx-thumbnail-wide' ),
+					'descriptor' => 'w',
+					'value'      => '300',
 				),
-				'768' => array(
-					'url' 			=> $this->super_placeholder.'&w=750&h=350',
-					'descriptor' 	=> 'w',
-					'value' 		=> '768',
+				'768'  => array(
+					'url'        => $this->placeholder_url( null, null, 'lsx-thumbnail-single' ),
+					'descriptor' => 'w',
+					'value'      => '768',
 				),
 				'1024' => array(
-					'url' 			=> $this->super_placeholder.'&w=750&h=350',
-					'descriptor' 	=> 'w',
-					'value' 		=> '1024',
-				),												
+					'url'        => $this->placeholder_url( null, null, 'lsx-thumbnail-single' ),
+					'descriptor' => 'w',
+					'value'      => '1024',
+				),
 			);
-
 		}
+
 		return $sources;
-	}	
+	}
 
 	/**
 	 * The placeholder settings that output on the frameworks tabs.
@@ -388,7 +392,7 @@ class LSX_Placeholders {
 					<input class="input_image_id" type="hidden" {{#if banner_placeholder_id}} value="{{banner_placeholder_id}}" {{/if}} name="banner_placeholder_id" />
 					<input class="input_image" type="hidden" {{#if banner_placeholder}} value="{{banner_placeholder}}" {{/if}} name="banner_placeholder" />
 					<div class="thumbnail-preview">
-						{{#if banner_placeholder}}<img src="{{banner_placeholder}}" width="150" />{{/if}}	
+						{{#if banner_placeholder}}<img src="{{banner_placeholder}}" width="150" />{{/if}}
 					</div>
 					<a {{#if banner_placeholder}}style="display:none;"{{/if}} class="button-secondary lsx-thumbnail-image-add"><?php esc_html_e( 'Choose Image', 'lsx-banners' ); ?></a>
 					<a {{#unless banner_placeholder}}style="display:none;"{{/unless}} class="button-secondary lsx-thumbnail-image-delete"><?php esc_html_e( 'Delete', 'lsx-banners' ); ?></a>
@@ -403,7 +407,7 @@ class LSX_Placeholders {
 				<input class="input_image_id" type="hidden" {{#if default_placeholder_id}} value="{{default_placeholder_id}}" {{/if}} name="default_placeholder_id" />
 				<input class="input_image" type="hidden" {{#if default_placeholder}} value="{{default_placeholder}}" {{/if}} name="default_placeholder" />
 				<div class="thumbnail-preview">
-					{{#if default_placeholder}}<img src="{{default_placeholder}}" width="150" />{{/if}}	
+					{{#if default_placeholder}}<img src="{{default_placeholder}}" width="150" />{{/if}}
 				</div>
 				<a {{#if default_placeholder}}style="display:none;"{{/if}} class="button-secondary lsx-thumbnail-image-add"><?php esc_html_e( 'Choose Image', 'lsx-banners' ); ?></a>
 				<a {{#unless default_placeholder}}style="display:none;"{{/unless}} class="button-secondary lsx-thumbnail-image-delete"><?php esc_html_e( 'Delete', 'lsx-banners' ); ?></a>
@@ -418,13 +422,13 @@ class LSX_Placeholders {
 					<input class="input_image_id" type="hidden" {{#if posts_placeholder_id}} value="{{posts_placeholder_id}}" {{/if}} name="posts_placeholder_id" />
 					<input class="input_image" type="hidden" {{#if posts_placeholder}} value="{{posts_placeholder}}" {{/if}} name="posts_placeholder" />
 					<div class="thumbnail-preview">
-						{{#if posts_placeholder}}<img src="{{posts_placeholder}}" width="150" />{{/if}}	
+						{{#if posts_placeholder}}<img src="{{posts_placeholder}}" width="150" />{{/if}}
 					</div>
 					<a {{#if posts_placeholder}}style="display:none;"{{/if}} class="button-secondary lsx-thumbnail-image-add"><?php esc_html_e( 'Choose Image', 'lsx-banners' ); ?></a>
 					<a {{#unless posts_placeholder}}style="display:none;"{{/unless}} class="button-secondary lsx-thumbnail-image-delete"><?php esc_html_e( 'Delete', 'lsx-banners' ); ?></a>
 				</td>
-			</tr>	
-		{{/unless}}	
+			</tr>
+		{{/unless}}
 		<tr class="form-field">
 			<th scope="row">
 				<label for="description"><?php esc_html_e( 'Disable Placeholder on Blog Posts', 'lsx-banners' ); ?></label>
@@ -433,8 +437,8 @@ class LSX_Placeholders {
 				<input type="checkbox" {{#if disable_blog_placeholder}} checked="checked" {{/if}} name="disable_blog_placeholder" />
 				<small><?php esc_html_e( 'This disables the placeholder on blog posts.', 'lsx-banners' ); ?></small>
 			</td>
-		</tr>	
-	<?php 
+		</tr>
+	<?php
 	}
 
 	/**
@@ -456,14 +460,14 @@ class LSX_Placeholders {
 					<input class="input_image_id" type="hidden" {{#if banner_placeholder_id}} value="{{banner_placeholder_id}}" {{/if}} name="banner_placeholder_id" />
 					<input class="input_image" type="hidden" {{#if banner_placeholder}} value="{{banner_placeholder}}" {{/if}} name="banner_placeholder" />
 					<div class="thumbnail-preview">
-						{{#if banner_placeholder}}<img src="{{banner_placeholder}}" width="150" />{{/if}}	
+						{{#if banner_placeholder}}<img src="{{banner_placeholder}}" width="150" />{{/if}}
 					</div>
 					<a {{#if banner_placeholder}}style="display:none;"{{/if}} class="button-secondary lsx-thumbnail-image-add"><?php esc_html_e( 'Choose Image', 'lsx-banners' ); ?></a>
 					<a {{#unless banner_placeholder}}style="display:none;"{{/unless}} class="button-secondary lsx-thumbnail-image-delete"><?php esc_html_e( 'Delete', 'lsx-banners' ); ?></a>
 				</td>
-			</tr>	
+			</tr>
 		<?php } ?>
-		
+
 		<tr class="form-field featured-placeholder-wrap">
 			<th scope="row">
 				<label for="featured_placeholder"><?php esc_html_e( 'Archive Image', 'lsx-banners' ); ?></label>
@@ -472,13 +476,13 @@ class LSX_Placeholders {
 				<input class="input_image_id" type="hidden" {{#if featured_placeholder_id}} value="{{featured_placeholder_id}}" {{/if}} name="featured_placeholder_id" />
 				<input class="input_image" type="hidden" {{#if featured_placeholder}} value="{{featured_placeholder}}" {{/if}} name="featured_placeholder" />
 				<div class="thumbnail-preview">
-					{{#if featured_placeholder}}<img src="{{featured_placeholder}}" width="150" />{{/if}}	
+					{{#if featured_placeholder}}<img src="{{featured_placeholder}}" width="150" />{{/if}}
 				</div>
 
 				<a {{#if featured_placeholder}}style="display:none;"{{/if}} class="button-secondary lsx-thumbnail-image-add"><?php esc_html_e( 'Choose Image', 'lsx-banners' ); ?></a>
 
 				<a {{#unless featured_placeholder}}style="display:none;"{{/unless}} class="button-secondary lsx-thumbnail-image-delete"><?php esc_html_e( 'Delete', 'lsx-banners' ); ?></a>
-				
+
 			</td>
 		</tr>
 	<?php
