@@ -58,7 +58,7 @@ add_filter('lsx_api_manager_options_pages','lsx_banners_options_pages_filter',10
 function lsx_banners_api_admin_init(){
 	global $lsx_banners_api_manager;
 
-	if(class_exists('Tour_Operator')) {
+	if(function_exists( 'tour_operator' )) {
 		$options = get_option('_lsx-to_settings', false);
 	}else{
 		$options = get_option('_lsx_settings', false);

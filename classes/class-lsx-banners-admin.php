@@ -223,7 +223,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 		);
 
 		// Envira Gallery
-		if ( class_exists( 'Envira_Gallery' ) && ! class_exists( 'Tour_Operator' ) ) {
+		if ( class_exists( 'Envira_Gallery' ) && ! function_exists( 'tour_operator' ) ) {
 			$fields[] = array(
 				'id'         => 'envira_gallery',
 				'name'       => esc_html__( 'Envira Gallery', 'lsx-banners' ),
@@ -388,7 +388,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 				<input type="text" {{#if banner_video}} value="{{banner_video}}" {{/if}} name="banner_video" />
 			</td>
 		</tr>
-		<?php if ( ! class_exists( 'Tour_Operator' ) ) { ?>
+		<?php if ( ! function_exists( 'tour_operator' ) ) { ?>
 			<tr class="form-field">
 				<th scope="row">
 					<label for="tagline"> <?php esc_html_e( 'Tagline', 'lsx-banners' ); ?></label>
@@ -425,7 +425,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 	 */
 	public function create_settings_page() {
 		if ( is_admin() ) {
-			if ( ! class_exists( '\lsx\ui\uix' ) && ! class_exists( 'Tour_Operator' ) ) {
+			if ( ! class_exists( '\lsx\ui\uix' ) && ! function_exists( 'tour_operator' ) ) {
 				include_once LSX_BANNERS_PATH . 'vendor/uix/uix.php';
 				$pages = $this->settings_page_array();
 				$uix = \lsx\ui\uix::get_instance( 'lsx' );
@@ -435,7 +435,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 			$post_types = $this->get_allowed_post_types();
 			if ( false !== $post_types ) {
 				foreach ( $post_types as $post_type ) {
-					if ( class_exists( 'Tour_Operator' ) ) {
+					if ( function_exists( 'tour_operator' ) ) {
 						add_action( 'lsx_to_framework_' . $post_type . '_tab_archive_settings_top', array( $this, 'archive_settings' ), 20 );
 					} else {
 						add_action( 'lsx_framework_' . $post_type . '_tab_content_top', array( $this, 'archive_settings' ), 20 );
@@ -474,7 +474,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 			$default = false;
 		}
 
-		if ( ! class_exists( 'Tour_Operator' ) ) {
+		if ( ! function_exists( 'tour_operator' ) ) {
 			if ( ! array_key_exists( 'display', $tabs ) ) {
 				$tabs['display'] = array(
 					'page_title'        => '',
