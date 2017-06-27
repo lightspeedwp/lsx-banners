@@ -1,3 +1,4 @@
 node_modules
-lsx-banners.sublime-workspace
-package-lock.json
+.sass-cache
+.idea
+*.sublime-workspace
