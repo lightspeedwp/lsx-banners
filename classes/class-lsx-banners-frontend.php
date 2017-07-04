@@ -529,19 +529,16 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	 * a filter to check if a custom title has been added, if so, use that instead of the post title
 	 */
 	public function banner_title( $post_title ) {
-		if ( is_post_type_archive( $this->get_allowed_post_types() ) ) {
-			$post_title = '<h1 class="page-title">' . get_the_archive_title() . '</h1>';
-		}
+		$allowed_post_types = $this->get_allowed_post_types();
+		$allowed_taxonomies = $this->get_allowed_taxonomies();
 
-		if ( is_tax( $this->get_allowed_taxonomies() ) || is_category() ) {
+		if ( is_post_type_archive( $allowed_post_types ) ) {
+			$post_title = '<h1 class="page-title">' . get_the_archive_title() . '</h1>';
+		} elseif ( is_tax( $allowed_taxonomies ) || is_category() ) {
 			$post_title = '<h1 class="page-title">' . single_term_title( '', false ) . '</h1>';
-		}
-
-		if ( is_author() ) {
+		} elseif ( is_author() ) {
 			$post_title = '<h1 class="page-title">' . get_the_archive_title() . '</h1>';
-		}
-
-		if ( apply_filters( 'lsx_banner_enable_title', true ) && ! empty( $this->post_id ) ) {
+		} elseif ( apply_filters( 'lsx_banner_enable_title', true ) && ! empty( $this->post_id ) ) {
 			$new_title = get_post_meta( $this->post_id, 'banner_title', true );
 
 			if ( ! empty( $new_title ) ) {
@@ -588,25 +585,19 @@ class LSX_Banners_Frontend extends LSX_Banners {
 				$content = apply_filters( 'the_content', $content );
 				$content = '<div class="banner-content-from-post">' . $content . '</div>';
 			}
-		}
-
-		if ( is_post_type_archive( $allowed_post_types ) && isset( $this->options[ get_post_type() ] ) && isset( $this->options[ get_post_type() ]['tagline'] ) ) {
+		} elseif ( is_post_type_archive( $allowed_post_types ) && isset( $this->options[ get_post_type() ] ) && isset( $this->options[ get_post_type() ]['tagline'] ) ) {
 			$new_tagline = $this->options[ get_post_type() ]['tagline'];
 
 			if ( ! empty( $new_tagline ) ) {
 				$tagline = '<p class="tagline">' . $new_tagline . '</p>';
 			}
-		}
-
-		if ( is_tax( $allowed_taxonomies ) || is_category() ) {
+		} elseif ( is_tax( $allowed_taxonomies ) || is_category() ) {
 			$new_tagline = get_term_meta( $this->post_id, 'tagline', true );
 
 			if ( ! empty( $new_tagline ) ) {
 				$tagline = '<p class="tagline">' . $new_tagline . '</p>';
 			}
-		}
-
-		if ( apply_filters( 'lsx_banner_enable_subtitle', true ) && ! empty( $this->post_id ) ) {
+		} elseif ( apply_filters( 'lsx_banner_enable_subtitle', true ) && ! empty( $this->post_id ) ) {
 			$new_tagline = get_post_meta( $this->post_id, 'banner_subtitle', true );
 
 			if ( ! empty( $new_tagline ) ) {
