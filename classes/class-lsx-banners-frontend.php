@@ -585,6 +585,14 @@ class LSX_Banners_Frontend extends LSX_Banners {
 				$content = apply_filters( 'the_content', $content );
 				$content = '<div class="banner-content-from-post">' . $content . '</div>';
 			}
+
+			if ( apply_filters( 'lsx_banner_enable_subtitle', true ) && ! empty( $this->post_id ) ) {
+				$new_tagline = get_post_meta( $this->post_id, 'banner_subtitle', true );
+
+				if ( ! empty( $new_tagline ) ) {
+					$tagline = '<p class="tagline">' . $new_tagline . '</p>';
+				}
+			}
 		} elseif ( is_post_type_archive( $allowed_post_types ) && isset( $this->options[ get_post_type() ] ) && isset( $this->options[ get_post_type() ]['tagline'] ) ) {
 			$new_tagline = $this->options[ get_post_type() ]['tagline'];
 
