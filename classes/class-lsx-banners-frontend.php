@@ -48,6 +48,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 
 		add_filter( 'lsx_fonts_css', array( $this, 'customizer_fonts_handler' ), 15 );
 		add_shortcode( 'banner_navigation', 'lsx_banner_navigation' );
+		add_filter( 'wp_kses_allowed_html', array( $this, 'wp_kses_allowed_html' ), 10, 2 );
 	}
 
 	/**
@@ -660,6 +661,19 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		';
 
 		return $css;
+	}
+
+	/**
+	 * Allow extra tags and attributes to wp_kses_post()
+	 */
+	public function wp_kses_allowed_html( $allowedtags, $context ) {
+		if ( ! isset( $allowedtags['a'] ) ) {
+			$allowedtags['a'] = array();
+		}
+
+		$allowedtags['a']['data-extra-top'] = true;
+
+		return $allowedtags;
 	}
 
 }

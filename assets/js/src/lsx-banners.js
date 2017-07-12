@@ -18,7 +18,7 @@ var LSX_Banners = {
 			var $from = jQuery(this),
 				$to = jQuery($from.attr('href')),
 				top = parseInt($to.offset().top),
-				extra = parseInt($from.data('extra-top') ? $from.data('extra-top') : '-160');
+				extra = parseInt($from.data('extra-top') ? $from.data('extra-top') : '-100');
 
 			jQuery('html, body').animate({
 				scrollTop: (top+extra)
