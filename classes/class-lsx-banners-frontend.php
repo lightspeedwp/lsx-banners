@@ -240,6 +240,8 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			$banner_image = apply_filters( 'lsx_banner_placeholder_url', 'https://placeholdit.imgix.net/~text?txtsize=33&txt=1920x600&w=1920&h=600' );
 		}
 
+		$banner_image = apply_filters( 'lsx_banner_image', $banner_image );
+
 		// Check if the content should be disabled or not
 		$title_disable = get_post_meta( $post_id, 'banner_title_disabled', true );
 		$text_disable  = get_post_meta( $post_id, 'banner_text_disabled', true );
