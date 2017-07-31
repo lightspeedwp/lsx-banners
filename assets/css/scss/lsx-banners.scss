@@ -176,14 +176,14 @@
 		}
 	}
 
-	.banner-easing {
-		@include media('>=desktop') {
-			bottom: 30px;
-			left: 50%;
-			position: absolute;
-			transform: translateX(-50%);
-		}
-	}
+	// .banner-easing {
+	// 	@include media('>=desktop') {
+	// 		bottom: 30px;
+	// 		left: 50%;
+	// 		position: absolute;
+	// 		transform: translateX(-50%);
+	// 	}
+	// }
 
 	.btn-scroll-to {
 		border: 2px solid transparent;
@@ -192,7 +192,7 @@
 		font-size: 40px;
 		line-height: 1;
 		padding: 5px 0;
-		margin-top: 30px;
+		margin-top: 2rem;
 		width: 54px;
 
 		&:focus { outline: 0; }
