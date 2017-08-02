@@ -271,12 +271,13 @@ class LSX_API_Manager {
 		});
 
 		$( '.activate[data-product="<?php echo $this->product_slug; ?>"]' ).on( 'click', function() {
-
+		event.preventDefault();
+		console.log('hello');
 		var url = $(this).attr('href');
 		$( window ).on('uix.saved',function() {
 		window.location.href = url;
 		});
-		$('.page-title-action').click();
+		$('button[data-save-object="true"]').click();
 		});
 		});
 		{{/script}}
