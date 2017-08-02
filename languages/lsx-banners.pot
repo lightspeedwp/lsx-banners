@@ -90,11 +90,11 @@ msgstr ""
 msgid "Banners"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:293, classes/class-lsx-banners-admin.php:347, classes/class-placeholders.php:457, includes/settings/post.php:6
+#: classes/class-lsx-banners-admin.php:293, classes/class-lsx-banners-admin.php:347, classes/class-placeholders.php:473, includes/settings/post.php:6
 msgid "Banner"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:299, classes/class-lsx-banners-admin.php:353, classes/class-lsx-banners-admin.php:379, classes/class-placeholders.php:397, classes/class-placeholders.php:412, classes/class-placeholders.php:427, classes/class-placeholders.php:465, classes/class-placeholders.php:482, classes/class-taxonomy-administration.php:90, includes/settings/post.php:14
+#: classes/class-lsx-banners-admin.php:299, classes/class-lsx-banners-admin.php:353, classes/class-lsx-banners-admin.php:379, classes/class-placeholders.php:413, classes/class-placeholders.php:428, classes/class-placeholders.php:443, classes/class-placeholders.php:481, classes/class-placeholders.php:498, classes/class-taxonomy-administration.php:90, includes/settings/post.php:14
 msgid "Choose Image"
 msgstr ""
 
@@ -110,7 +110,7 @@ msgstr ""
 msgid "Banner Image"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:380, classes/class-placeholders.php:398, classes/class-placeholders.php:413, classes/class-placeholders.php:428, classes/class-placeholders.php:466, classes/class-placeholders.php:484, includes/settings/post.php:15
+#: classes/class-lsx-banners-admin.php:380, classes/class-placeholders.php:414, classes/class-placeholders.php:429, classes/class-placeholders.php:444, classes/class-placeholders.php:482, classes/class-placeholders.php:500, includes/settings/post.php:15
 msgid "Delete"
 msgstr ""
 
@@ -138,27 +138,27 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: classes/class-placeholders.php:389
+#: classes/class-placeholders.php:405
 msgid "Banner Placeholder"
 msgstr ""
 
-#: classes/class-placeholders.php:404
+#: classes/class-placeholders.php:420
 msgid "Archive Placeholder"
 msgstr ""
 
-#: classes/class-placeholders.php:419
+#: classes/class-placeholders.php:435
 msgid "Blog Placeholder"
 msgstr ""
 
-#: classes/class-placeholders.php:434
+#: classes/class-placeholders.php:450
 msgid "Disable Placeholder on Blog Posts"
 msgstr ""
 
-#: classes/class-placeholders.php:438
+#: classes/class-placeholders.php:454
 msgid "This disables the placeholder on blog posts."
 msgstr ""
 
-#: classes/class-placeholders.php:473
+#: classes/class-placeholders.php:489
 msgid "Archive Image"
 msgstr ""
 
