@@ -227,7 +227,7 @@ class LSX_API_Manager {
 					- <?php echo $this->button; ?>
 				</h4>
 
-				<?php /*if(is_array($this->messages)) { ?><p><small class="messages" style="font-weight:normal;"><?php echo implode('. ',$this->messages); ?></small></p><?php } */ ?>
+				<?php if ( $this->dev_mode && is_array( $this->messages ) ) { ?><p><small class="messages" style="font-weight:normal;"><?php echo implode( '. ', $this->messages ); ?></small></p><?php }  ?>
 
 			</th>
 		</tr>
@@ -297,6 +297,7 @@ class LSX_API_Manager {
 			$response = $this->query('activation');
 			if(is_object($response) && isset($response->activated) && true === $response->activated){
 				update_option($this->product_slug.'_status','active');
+				$this->status = 'active';
 			}
 		}
 
@@ -306,6 +307,7 @@ class LSX_API_Manager {
 			if('active' === $this->status) {
 				$this->query('deactivation');
 				update_option($this->product_slug.'_status','inactive');
+				$this->status = 'inactive';
 			}
 		}
 	}
@@ -331,8 +333,12 @@ class LSX_API_Manager {
 		if(false === $response){
 			$response = $this->query('status');
 		}
+		if ( $this->dev_mode ) {
+			$this->messages[] = print_r( $response, true );
+		}
 		$status = 'inactive';
 		if(is_object($response)){
+
 			if(isset($response->error)){
 				$this->messages[] = $this->format_error_code($response->code);
 			}elseif(isset($response->status_check)){
@@ -378,6 +384,9 @@ class LSX_API_Manager {
 				return false;
 			}
 			$response = wp_remote_retrieve_body( $request );
+			if ( $this->dev_mode ) {
+				$this->messages[] = print_r( $response, true );
+			}
 			set_transient( $transient_status_id, $response, MINUTE_IN_SECONDS );
 		}
 
