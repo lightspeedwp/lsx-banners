@@ -122,6 +122,10 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			return '';
 		}
 
+		if ( true === apply_filters( 'lsx_banner_disable', false ) ) {
+			return '';
+		}
+
 		/*
 		 * This section gets the image meta, size etc.
 		 */
@@ -465,6 +469,10 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	public function body_class( $classes ) {
 		$banner_disabled = false;
 		$banner_image = false;
+
+		if ( true === apply_filters( 'lsx_banner_disable', false ) ) {
+			return $classes;
+		}
 
 		if ( 0 !== get_the_ID() || is_front_page() || is_home() ) {
 			$post_id = $this->post_id;
