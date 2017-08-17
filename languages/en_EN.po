@@ -86,7 +86,7 @@ msgstr ""
 msgid "Soliloquy Slider"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:262
+#: classes/class-lsx-banners-admin.php:262, classes/class-lsx-banners-admin.php:412
 msgid "Banners"
 msgstr ""
 
@@ -118,23 +118,31 @@ msgstr ""
 msgid "Banner Video URL (mp4)"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:456, classes/class-lsx-banners-admin.php:457
+#: classes/class-lsx-banners-admin.php:417
+msgid "Disable Banners"
+msgstr ""
+
+#: classes/class-lsx-banners-admin.php:421
+msgid "Disable banners globally."
+msgstr ""
+
+#: classes/class-lsx-banners-admin.php:486, classes/class-lsx-banners-admin.php:487
 msgid "Theme Options"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:461
+#: classes/class-lsx-banners-admin.php:491
 msgid "Save Changes"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:509, includes/settings/display.php:4
+#: classes/class-lsx-banners-admin.php:539, includes/settings/display.php:4
 msgid "Placeholders"
 msgstr ""
 
-#: classes/class-lsx-banners-frontend.php:445
+#: classes/class-lsx-banners-frontend.php:459
 msgid "Previous"
 msgstr ""
 
-#: classes/class-lsx-banners-frontend.php:449
+#: classes/class-lsx-banners-frontend.php:463
 msgid "Next"
 msgstr ""
 
@@ -186,23 +194,23 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: includes/settings/api.php:3
+#: includes/settings/api.php:11
 msgid "Settings"
 msgstr ""
 
-#: includes/settings/api.php:4
+#: includes/settings/api.php:12
 msgid "License Keys"
 msgstr ""
 
-#: includes/settings/api.php:25
+#: includes/settings/api.php:35
 msgid "Enter the license keys for your add-ons in the boxes below."
 msgstr ""
 
-#: includes/settings/api.php:30
+#: includes/settings/api.php:40
 msgid "You have not installed any add-ons yet. View our list of add-ons"
 msgstr ""
 
-#: includes/settings/api.php:30
+#: includes/settings/api.php:40
 msgid "here"
 msgstr ""
 

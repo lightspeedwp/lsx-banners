@@ -41,7 +41,6 @@ class LSX_Banners_Admin extends LSX_Banners {
 	 *
 	 */
 	public function admin_init() {
-
 		$this->taxonomy_admin = new LSX_Taxonomy_Admin();
 
 		$allowed_taxonomies = $this->get_allowed_taxonomies();
@@ -52,6 +51,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 				add_action( "{$taxonomy}_edit_form_fields", array( $this, 'add_form_field' ),1,1 );
 			}
 		}
+
 		add_action( 'create_term', array( $this, 'save_meta' ), 10, 2 );
 		add_action( 'edit_term',   array( $this, 'save_meta' ), 10, 2 );
 
@@ -292,9 +292,9 @@ class LSX_Banners_Admin extends LSX_Banners {
 		<tr class="form-field term-banner-wrap">
 			<th scope="row"><label for="banner"><?php esc_html_e( 'Banner', 'lsx-banners' );?></label></th>
 			<td>
-				<input class="input_image_id" type="hidden" name="banner" value="<?php echo $value; ?>">
+				<input class="input_image_id" type="hidden" name="banner" value="<?php echo esc_attr( $value ); ?>">
 				<div class="banner-preview">
-					<?php echo $image_preview; ?>
+					<?php echo wp_kses_post( $image_preview ); ?>
 				</div>
 				<a style="<?php if ( '' !== $value && false !== $value ) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-add"><?php esc_html_e( 'Choose Image', 'lsx-banners' );?></a>
 				<a style="<?php if ( '' === $value || false === $value ) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-remove"><?php esc_html_e( 'Remove Image', 'lsx-banners' );?></a>
@@ -346,9 +346,9 @@ class LSX_Banners_Admin extends LSX_Banners {
 				<tr>
 					<th><label for="banner"><?php esc_html_e( 'Banner','lsx-banners' );?></label></th>
 					<td>
-						<input class="input_image_id" type="hidden" name="banner" value="<?php echo $value; ?>">
+						<input class="input_image_id" type="hidden" name="banner" value="<?php echo esc_attr( $value ); ?>">
 						<div class="banner-preview">
-							<?php echo $image_preview; ?>
+							<?php echo wp_kses_post( $image_preview ); ?>
 						</div>
 						<a style="<?php if ( '' !== $value && false !== $value ) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-add"><?php esc_html_e( 'Choose Image', 'lsx-banners' );?></a>
 						<a style="<?php if ( '' === $value || false === $value ) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-remove"><?php esc_html_e( 'Remove Image', 'lsx-banners' );?></a>
@@ -401,6 +401,29 @@ class LSX_Banners_Admin extends LSX_Banners {
 	<?php
 	}
 
+	/**
+	 * Outputs the display tabs settings.
+	 */
+	public function display_settings( $tab = 'general' ) {
+		if ( 'placeholders' === $tab ) {
+			?>
+			<tr class="form-field">
+				<th scope="row" colspan="2">
+					<h3><?php esc_html_e( 'Banners', 'lsx-banners' ); ?></h3>
+				</th>
+			</tr>
+			<tr class="form-field">
+				<th scope="row">
+					<label for="banners_disabled"><?php esc_html_e( 'Disable Banners', 'lsx-banners' ); ?></label>
+				</th>
+				<td>
+					<input type="checkbox" {{#if banners_disabled}} checked="checked" {{/if}} name="banners_disabled" />
+					<small><?php esc_html_e( 'Disable banners globally.', 'lsx-banners' ); ?></small>
+				</td>
+			</tr>
+			<?php
+		}
+	}
 
 	/**
 	 * Saves the Taxnomy term banner image
@@ -433,6 +456,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 			}
 
 			$post_types = $this->get_allowed_post_types();
+
 			if ( false !== $post_types ) {
 				foreach ( $post_types as $post_type ) {
 					if ( function_exists( 'tour_operator' ) ) {
@@ -441,6 +465,12 @@ class LSX_Banners_Admin extends LSX_Banners {
 						add_action( 'lsx_framework_' . $post_type . '_tab_content_top', array( $this, 'archive_settings' ), 20 );
 					}
 				}
+			}
+
+			if ( function_exists( 'tour_operator' ) ) {
+				add_action( 'lsx_to_framework_display_tab_content', array( $this, 'display_settings' ), 25 );
+			} else {
+				add_action( 'lsx_framework_display_tab_content', array( $this, 'display_settings' ), 25 );
 			}
 		}
 	}
