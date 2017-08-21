@@ -14,7 +14,7 @@
 
 	<?php if ( false !== $display_settings_page ) { ?>
 		<div id="ui-settings" class="ui-tab active">
-			<p><?php esc_html_e('Please enter your user details (email address, API key, username, etc) below as required for the extensions that you have installed.','tour-operator' ); ?></p>
+			<p><?php esc_html_e('Please enter your user details (email address, API key, username, etc) below as required for the extensions that you have installed.','lsx-banners' ); ?></p>
 			<table class="form-table" style="margin-top:-13px !important;">
 				<tbody>
 					<?php do_action( 'lsx_framework_api_tab_content', 'settings' ); ?>
