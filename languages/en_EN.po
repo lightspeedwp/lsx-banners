@@ -30,7 +30,7 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:155, classes/class-lsx-banners-admin.php:467, classes/class-taxonomy-administration.php:30, classes/class-taxonomy-administration.php:130, includes/settings/post.php:21
+#: classes/class-lsx-banners-admin.php:155, classes/class-taxonomy-administration.php:30, includes/settings/post.php:21
 msgid "Tagline"
 msgstr ""
 
@@ -154,7 +154,7 @@ msgstr ""
 msgid "Bottom"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:335, classes/class-lsx-banners-admin.php:485
+#: classes/class-lsx-banners-admin.php:335, classes/class-lsx-banners-admin.php:493
 msgid "Banners"
 msgstr ""
 
@@ -182,27 +182,35 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:458
+#: classes/class-lsx-banners-admin.php:458, classes/class-taxonomy-administration.php:151
 msgid "Banner Video URL (mp4)"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:490
+#: classes/class-lsx-banners-admin.php:467
+msgid "Banner title"
+msgstr ""
+
+#: classes/class-lsx-banners-admin.php:475, classes/class-taxonomy-administration.php:130
+msgid "Banner tagline"
+msgstr ""
+
+#: classes/class-lsx-banners-admin.php:498
 msgid "Disable Banners"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:494
+#: classes/class-lsx-banners-admin.php:502
 msgid "Disable banners globally."
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:559, classes/class-lsx-banners-admin.php:560
+#: classes/class-lsx-banners-admin.php:567, classes/class-lsx-banners-admin.php:568
 msgid "Theme Options"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:564
+#: classes/class-lsx-banners-admin.php:572
 msgid "Save Changes"
 msgstr ""
 
-#: classes/class-lsx-banners-admin.php:612, includes/settings/display.php:4
+#: classes/class-lsx-banners-admin.php:620, includes/settings/display.php:4
 msgid "Placeholders"
 msgstr ""
 
@@ -244,10 +252,6 @@ msgstr ""
 
 #: classes/class-taxonomy-administration.php:84
 msgid "Featured Image"
-msgstr ""
-
-#: classes/class-taxonomy-administration.php:151
-msgid "Video Url (mp4)"
 msgstr ""
 
 #: classes/class-taxonomy-administration.php:188

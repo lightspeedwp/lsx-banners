@@ -464,7 +464,15 @@ class LSX_Banners_Admin extends LSX_Banners {
 		<?php if ( ! function_exists( 'tour_operator' ) ) { ?>
 			<tr class="form-field">
 				<th scope="row">
-					<label for="tagline"> <?php esc_html_e( 'Tagline', 'lsx-banners' ); ?></label>
+					<label for="title"> <?php esc_html_e( 'Banner title', 'lsx-banners' ); ?></label>
+				</th>
+				<td>
+					<input type="text" {{#if title}} value="{{title}}" {{/if}} name="title" />
+				</td>
+			</tr>
+			<tr class="form-field">
+				<th scope="row">
+					<label for="tagline"> <?php esc_html_e( 'Banner tagline', 'lsx-banners' ); ?></label>
 				</th>
 				<td>
 					<input type="text" {{#if tagline}} value="{{tagline}}" {{/if}} name="tagline" />

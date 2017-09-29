@@ -5,7 +5,7 @@
  * @package   LSX Banners
  * @author    LightSpeed
  * @license   GPL3
- * @link      
+ * @link
  * @copyright 2016 LightSpeed
  */
 class LSX_Taxonomy_Admin {
@@ -49,9 +49,9 @@ class LSX_Taxonomy_Admin {
 				add_action( "{$taxonomy}_edit_form_fields", array( $this, 'add_thumbnail_form_field' ),3,1 );
 				add_action( "{$taxonomy}_edit_form_fields", array( $this, 'add_tagline_form_field' ),3,1 );
 				add_action( "{$taxonomy}_edit_form_fields", array( $this, 'add_banner_video_form_field' ),3,1 );
-			}			
+			}
 		}
-	}	
+	}
 	/**
 	 * Output the form field for this metadata when adding a new term
 	 *
@@ -68,7 +68,7 @@ class LSX_Taxonomy_Admin {
 	 * @since 1.0.0
 	 */
 	public function add_thumbnail_form_field($term = false) {
-	
+
 		if(is_object($term)){
 			$value = get_term_meta( $term->term_id, 'thumbnail', true );
 			$image_preview = wp_get_attachment_image_src($value,'thumbnail');
@@ -86,8 +86,8 @@ class LSX_Taxonomy_Admin {
 				<input class="input_image_id" type="hidden" name="thumbnail" value="<?php echo $value; ?>">
 				<div class="thumbnail-preview">
 					<?php echo $image_preview; ?>
-				</div>				
-				<a style="<?php if('' !== $value && false !== $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-add"><?php esc_html_e('Choose Image','lsx-banners');?></a>				
+				</div>
+				<a style="<?php if('' !== $value && false !== $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-add"><?php esc_html_e('Choose Image','lsx-banners');?></a>
 				<a style="<?php if('' === $value || false === $value) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-remove"><?php esc_html_e('Remove Image','lsx-banners');?></a>
 			</td>
 		</tr>
@@ -113,7 +113,7 @@ class LSX_Taxonomy_Admin {
 			}
 		}
 	}
-	
+
 	/**
 	 * Output the form field for this metadata when adding a new term
 	 *
@@ -127,7 +127,7 @@ class LSX_Taxonomy_Admin {
 		}
 		?>
 		<tr class="form-field term-tagline-wrap">
-			<th scope="row"><label for="tagline"><?php esc_html_e('Tagline','lsx-banners');?></label></th>
+			<th scope="row"><label for="tagline"><?php esc_html_e('Banner tagline','lsx-banners');?></label></th>
 			<td>
 				<input name="tagline" id="tagline" type="text" value="<?php echo $value; ?>" size="40" aria-required="true">
 			</td>
@@ -148,14 +148,14 @@ class LSX_Taxonomy_Admin {
 		}
 		?>
 		<tr class="form-field term-youtube-wrap">
-			<th scope="row"><label for="banner_video"><?php esc_html_e('Video Url (mp4)','lsx-banners');?></label></th>
+			<th scope="row"><label for="banner_video"><?php esc_html_e('Banner Video URL (mp4)','lsx-banners');?></label></th>
 			<td>
 				<input name="banner_video" id="banner_video" type="text" value="<?php echo $value; ?>" size="40" aria-required="true">
 			</td>
 		</tr>
 		<?php
-	}	
-	
+	}
+
 	/**
 	 * Output the form field for this metadata when adding a new term
 	 *

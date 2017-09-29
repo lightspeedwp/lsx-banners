@@ -560,7 +560,13 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		$allowed_post_types = $this->get_allowed_post_types();
 		$allowed_taxonomies = $this->get_allowed_taxonomies();
 
-		if ( is_post_type_archive( $allowed_post_types ) ) {
+		if ( is_post_type_archive( $allowed_post_types ) && isset( $this->options[ get_post_type() ] ) && isset( $this->options[ get_post_type() ]['title'] ) ) {
+			$new_title = $this->options[ get_post_type() ]['title'];
+
+			if ( ! empty( $new_title ) ) {
+				$post_title = '<h1 class="page-title">' . $new_title . '</h1>';
+			}
+		} elseif ( is_post_type_archive( $allowed_post_types ) ) {
 			$post_title = '<h1 class="page-title">' . get_the_archive_title() . '</h1>';
 		} elseif ( is_tax( $allowed_taxonomies ) || is_category() ) {
 			$post_title = '<h1 class="page-title">' . single_term_title( '', false ) . '</h1>';
