@@ -201,19 +201,20 @@ class LSX_Banners_Admin extends LSX_Banners {
 
 		$fields[] = array(
 			'id'   => 'banner_bg_color',
-			'name' => esc_html__( 'Background color', 'lsx-banners' ),
+			'name' => esc_html__( 'Banner background color', 'lsx-banners' ),
 			'type' => 'colorpicker',
 		);
 
 		$fields[] = array(
 			'id'   => 'banner_text_color',
-			'name' => esc_html__( 'Text color', 'lsx-banners' ),
+			'name' => esc_html__( 'Banner text color', 'lsx-banners' ),
 			'type' => 'colorpicker',
 		);
 
 		$fields[] = array(
 			'id'   => 'banner_logo',
-			'name' => esc_html__( 'Logo', 'lsx-banners' ),
+			'name' => esc_html__( 'Banner logo', 'lsx-banners' ),
+			'desc' => esc_html__( 'Add a logo to the banner', 'lsx-banners' ),
 			'type' => 'image',
 		);
 
@@ -246,6 +247,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 				array(
 					'id'   => 'button_class',
 					'name' => esc_html__( 'Button class', 'lsx-banners' ),
+					'desc' => esc_html__( 'Available classes: cta-btn, cta-border-btn, secondaty-btn, secondary-border-btn, border-btn, white-border-btn', 'lsx-banners' ),
 					'type' => 'text',
 				),
 				array(
