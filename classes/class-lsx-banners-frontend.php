@@ -210,7 +210,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			}
 
 			// If its the LSX theme, and there is no banner, but there is a featured image, then use that for the banner.
-			if ( 'lsx' === $this->theme && is_singular( array( 'post', 'page' ) ) && false === $banner_image && false === $show_slider && has_post_thumbnail( $this->post_id ) ) {
+			if ( 'lsx' === $this->theme && empty( $bg_color ) && is_singular( array( 'post', 'page' ) ) && false === $banner_image && false === $show_slider && has_post_thumbnail( $this->post_id ) ) {
 				$banner_image = wp_get_attachment_image_src( get_post_thumbnail_id( $this->post_id ), 'lsx-banner' );
 
 				if ( ! empty( $banner_image ) ) {
