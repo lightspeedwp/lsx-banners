@@ -5,9 +5,9 @@
 
 .CMB_Color_Picker .field-item { float: none; }
 
-#lsx-tab-headings { display: block; float: left; width: 10%; }
+#lsx-tab-headings { display: block; float: right; width: 10%; }
 
-#details .cmb_metabox { display: block; float: right; width: 85%; }
+#details .cmb_metabox { display: block; float: left; width: 85%; }
 
 #details .cmb_metabox .cmb_metabox { float: none; width: 98%; }
 
@@ -16,9 +16,9 @@
 /* The Tab Styling */
 body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab-nav li { display: inline-block; }
 
-body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab-nav li:after { content: "|"; display: inline-block; padding: 0 3px 0 8px; }
+body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab-nav li:after { content: "|"; display: inline-block; padding: 0 8px 0 3px; }
 
-body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab-nav li:last-child:after { content: ""; padding-left: 0; }
+body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab-nav li:last-child:after { content: ""; padding-right: 0; }
 
 body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab-nav li a { text-decoration: none; }
 
@@ -29,5 +29,3 @@ body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab-nav li a:focus { bo
 body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab { display: none; }
 
 body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab.active { display: block; }
-
-/*# sourceMappingURL=maps/lsx-banners-admin.css.map */

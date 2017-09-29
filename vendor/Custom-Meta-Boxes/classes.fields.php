@@ -1103,7 +1103,9 @@ class CMB_Select extends CMB_Field {
 
 		parent::enqueue_scripts();
 
-		wp_enqueue_script( 'select2', trailingslashit( CMB_URL ) . 'js/vendor/select2/select2.js', array( 'jquery' ) );
+		if ( ! class_exists('WooCommerce') ) {
+			wp_enqueue_script( 'select2', trailingslashit( CMB_URL ) . 'js/vendor/select2/select2.js', array( 'jquery' ) );
+		}
 		wp_enqueue_script( 'field-select', trailingslashit( CMB_URL ) . 'js/field.select.js', array( 'jquery', 'select2', 'cmb-scripts' ) );
 	}
 
@@ -1716,21 +1718,15 @@ class CMB_Gmap_Field extends CMB_Field {
 
 		parent::enqueue_scripts();
 
-		if(class_exists('Tour_Operator')){
-			$options = get_option('_lsx-to_settings',false);
-			$api_key = $options['api']['googlemaps_key'];
-        }else{
-			$options = get_option('_lsx_lsx-settings',false);
-			$api_key = $options['general']['googlemaps_key'];
-        }
-
-		if(defined('GOOGLEMAPS_API_KEY')) {
-			$api_key = GOOGLEMAPS_API_KEY;
+		$options = get_option('_lsx_lsx-settings',false);
+		$tour_operator = get_option( '_lsx-to_settings', false );
+		if ( false !== $tour_operator ) {
+			$options = $tour_operator;
 		}
 
-		if(false !== $api_key) {
+		if(false !== $options && isset($options['api']['googlemaps_key'])) {
 
-			wp_enqueue_script( 'cmb-google-maps', 'https://maps.googleapis.com/maps/api/js?key='.$api_key.'&libraries=places' );
+			wp_enqueue_script( 'cmb-google-maps', 'https://maps.googleapis.com/maps/api/js?key='.$options['api']['googlemaps_key'].'&libraries=places' );
 			wp_enqueue_script( 'cmb-google-maps-script', trailingslashit( CMB_URL ) . 'js/field-gmap.js', array( 'jquery', 'cmb-google-maps' ) );
 
 			wp_localize_script( 'cmb-google-maps-script', 'CMBGmaps', array(

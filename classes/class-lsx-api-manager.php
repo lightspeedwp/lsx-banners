@@ -5,7 +5,7 @@
  * @package   LSX API Manager
  * @author    LightSpeed
  * @license   GPL3
- * @link      
+ * @link
  * @copyright 2016 LightSpeed
  */
 class LSX_API_Manager {
@@ -153,7 +153,7 @@ class LSX_API_Manager {
 
 			$button_url = '<a data-product="'.$this->product_slug.'" style="margin-top:-5px;" href="';
 			$button_label = '';
-			$admin_url_base = class_exists( 'Tour_Operator' ) ? 'admin.php?page=lsx-to-settings' : 'themes.php?page=lsx-settings';
+			$admin_url_base = function_exists( 'tour_operator' ) ? 'admin.php?page=lsx-to-settings' : 'themes.php?page=lsx-settings';
 			if(false === $this->status || 'inactive' === $this->status){
 				$button_url .= admin_url($admin_url_base.'&action=activate&product='.$this->product_slug);
 				$button_label = 'Activate';
@@ -165,10 +165,10 @@ class LSX_API_Manager {
 			$this->button = $button_url;
 		}
 
-		//add_filter('site_transient_update_plugins', array($this,'injectUpdate'));
-		//add_action( "in_plugin_update_message-".$this->file,array($this,'plugin_update_message'),10,2);
+		add_filter('site_transient_update_plugins', array($this,'injectUpdate'));
+		add_action( "in_plugin_update_message-".$this->file,array($this,'plugin_update_message'),10,2);
 
-		if ( class_exists( 'Tour_Operator' ) ) {
+		if ( function_exists( 'tour_operator' ) ) {
 			add_action( 'lsx_to_framework_api_tab_content', array( $this, 'dashboard_tabs' ), 1, 1 );
 		} else {
 			add_action( 'lsx_framework_api_tab_content', array( $this, 'dashboard_tabs' ), 1, 1 );
@@ -227,7 +227,7 @@ class LSX_API_Manager {
 					- <?php echo $this->button; ?>
 				</h4>
 
-				<?php /*if(is_array($this->messages)) { ?><p><small class="messages" style="font-weight:normal;"><?php echo implode('. ',$this->messages); ?></small></p><?php } */ ?>
+				<?php if ( $this->dev_mode && is_array( $this->messages ) ) { ?><p><small class="messages" style="font-weight:normal;"><?php echo implode( '. ', $this->messages ); ?></small></p><?php }  ?>
 
 			</th>
 		</tr>
@@ -271,12 +271,13 @@ class LSX_API_Manager {
 		});
 
 		$( '.activate[data-product="<?php echo $this->product_slug; ?>"]' ).on( 'click', function() {
-
+		event.preventDefault();
+		console.log('hello');
 		var url = $(this).attr('href');
 		$( window ).on('uix.saved',function() {
 		window.location.href = url;
 		});
-		$('.page-title-action').click();
+		$('button[data-save-object="true"]').click();
 		});
 		});
 		{{/script}}
@@ -296,6 +297,7 @@ class LSX_API_Manager {
 			$response = $this->query('activation');
 			if(is_object($response) && isset($response->activated) && true === $response->activated){
 				update_option($this->product_slug.'_status','active');
+				$this->status = 'active';
 			}
 		}
 
@@ -305,6 +307,7 @@ class LSX_API_Manager {
 			if('active' === $this->status) {
 				$this->query('deactivation');
 				update_option($this->product_slug.'_status','inactive');
+				$this->status = 'inactive';
 			}
 		}
 	}
@@ -330,8 +333,12 @@ class LSX_API_Manager {
 		if(false === $response){
 			$response = $this->query('status');
 		}
+		if ( $this->dev_mode ) {
+			$this->messages[] = print_r( $response, true );
+		}
 		$status = 'inactive';
 		if(is_object($response)){
+
 			if(isset($response->error)){
 				$this->messages[] = $this->format_error_code($response->code);
 			}elseif(isset($response->status_check)){
@@ -377,6 +384,9 @@ class LSX_API_Manager {
 				return false;
 			}
 			$response = wp_remote_retrieve_body( $request );
+			if ( $this->dev_mode ) {
+				$this->messages[] = print_r( $response, true );
+			}
 			set_transient( $transient_status_id, $response, MINUTE_IN_SECONDS );
 		}
 
@@ -482,7 +492,7 @@ class LSX_API_Manager {
 	 * Adds in the "settings" link for the plugins.php page
 	 */
 	public function add_action_links ( $links ) {
-		$admin_url_base = class_exists( 'Tour_Operator' ) ? 'admin.php?page=lsx-to-settings' : 'themes.php?page=lsx-settings';
+		$admin_url_base = function_exists( 'tour_operator' ) ? 'admin.php?page=lsx-to-settings' : 'themes.php?page=lsx-settings';
 		$documentation = $this->product_slug;
 		if(false !== $this->documentation){$documentation = $this->documentation; }
 		$mylinks = array(

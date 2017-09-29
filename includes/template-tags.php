@@ -5,7 +5,7 @@
  * @package   LSX Banners
  * @author    LightSpeed
  * @license   GPL3
- * @link      
+ * @link
  * @copyright 2016 LightSpeed
  */
 
@@ -42,13 +42,13 @@ function lsx_has_banner(){
  */
 function lsx_banner_navigation( $echo = false ) {
 	$atts = array( 'extra-top' => '0' );
-	
+
 	if ( is_array( $echo ) ) {
 		$atts = shortcode_atts( $atts, $echo, 'banner_navigation' );
 	}
-	
-	$return = '<div class="banner-easing"><a href="#main" data-extra-top="'. $atts['extra-top'] .'"><i class="fa fa-arrow-down" aria-hidden="true"></i></a></div>';
-	
+
+	$return = '<div class="banner-easing"><a class="btn-scroll-to" href="#main" data-extra-top="'. $atts['extra-top'] .'"><i class="fa fa-angle-down" aria-hidden="true"></i></a></div>';
+
 	if ( $echo === true ) {
 		echo $return;
 	} else {

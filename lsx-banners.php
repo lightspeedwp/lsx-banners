@@ -3,7 +3,7 @@
  * Plugin Name: LSX Banners
  * Plugin URI:  https://www.lsdev.biz/product/lsx-banners
  * Description: The LSX Banners extension adds advanced banner configuration options to your WordPress site running LSX theme.
- * Version:     1.0.7
+ * Version:     1.1.0
  * Author:      LightSpeed
  * Author URI:  https://www.lsdev.biz/
  * License:     GPL3
@@ -20,7 +20,7 @@ if ( ! defined( 'WPINC' ) ) {
 define('LSX_BANNERS_PATH',  plugin_dir_path( __FILE__ ) );
 define('LSX_BANNERS_CORE',  __FILE__ );
 define('LSX_BANNERS_URL',  plugin_dir_url( __FILE__ ) );
-define('LSX_BANNERS_VER',  '1.0.7' );
+define('LSX_BANNERS_VER',  '1.1.0' );
 
 if(!function_exists('cmb_init')){
 	if (is_file(LSX_BANNERS_PATH.'vendor/Custom-Meta-Boxes/custom-meta-boxes.php')) {
@@ -45,9 +45,9 @@ function lsx_banners_activate_plugin() {
 }
 register_activation_hook( __FILE__, 'lsx_banners_activate_plugin' );
 
-/** 
+/**
  *	Grabs the email and api key from the LSX Search Settings.
- */ 
+ */
 function lsx_banners_options_pages_filter($pages){
 	$pages[] = 'lsx-settings';
 	$pages[] = 'lsx-to-settings';
@@ -57,8 +57,8 @@ add_filter('lsx_api_manager_options_pages','lsx_banners_options_pages_filter',10
 
 function lsx_banners_api_admin_init(){
 	global $lsx_banners_api_manager;
-	
-	if(class_exists('Tour_Operator')) {
+
+	if(function_exists( 'tour_operator' )) {
 		$options = get_option('_lsx-to_settings', false);
 	}else{
 		$options = get_option('_lsx_settings', false);
@@ -68,14 +68,14 @@ function lsx_banners_api_admin_init(){
 	}
 
 	$data = array('api_key'=>'','email'=>'');
-	
+
 	if(false !== $options && isset($options['api'])){
 		if(isset($options['api']['lsx-banners_api_key']) && '' !== $options['api']['lsx-banners_api_key']){
 			$data['api_key'] = $options['api']['lsx-banners_api_key'];
 		}
 		if(isset($options['api']['lsx-banners_email']) && '' !== $options['api']['lsx-banners_email']){
 			$data['email'] = $options['api']['lsx-banners_email'];
-		}		
+		}
 	}
 
 	$instance = get_option( 'lsx_api_instance', false );
@@ -85,7 +85,7 @@ function lsx_banners_api_admin_init(){
 
 	$api_array = array(
 		'product_id'	=>		'LSX Banners',
-		'version'		=>		'1.0.7',
+		'version'		=>		'1.1.0',
 		'instance'		=>		$instance,
 		'email'			=>		$data['email'],
 		'api_key'		=>		$data['api_key'],
@@ -101,7 +101,7 @@ $lsx_banners = new LSX_Banners();
 /* ======================= Deprecated Plugin Class ========================= */
 
 class Lsx_Banners_old {
-	
+
 	/**
 	 * Holds class instance
 	 *
@@ -118,10 +118,10 @@ class Lsx_Banners_old {
 			$lsx_banners = LSX_Banners::get_instance();
 		}
 	}
-	
+
 	/**
 	 * Return an instance of this class.
-	 * 
+	 *
 	 * @return    object    A single instance of this class.
 	 */
 	public static function get_instance() {
@@ -130,5 +130,5 @@ class Lsx_Banners_old {
 			self::$instance = new self;
 		}
 		return self::$instance;
-	}	
+	}
 }

@@ -1,61 +1,22 @@
 /*
- * LSX Banners Admin
+ * lsx-banners-admin.css
  */
 
-/* Variables */
-
-$bg-grey: #f9f9f9;
-$bdr-grey: #cccccc;
-
-/* Placeholders */
-
-%white-box {
-	background-color: $bg-grey;
-	border: 1px solid $bdr-grey;
-	border-radius: 4px;
-	padding: 8px 20px 12px;	
-}
-
-%heading-box {
-	background-color: $bg-grey;
-	margin-bottom: 10px;
-	padding: 6px 0 6px 12px;
-}
-
-%lists {
-	margin-bottom: 20px;
-	margin-left: 35px;
-}
-
-%error-hide {
-	.error {
-		display:none;
-	}
-}
-
-%float-block {
-	display: block;
-	float: left;
-}
-
-%column-layout {
-	.primary,
-	.secondary {
-		@extend %float-block;
-	}
-}
-
-/* General */
- 
 #banners {
 	.CMB_Group_Field {
 		display: block;
 	}
 }
- 
+
 .CMB_Group_Field {
 	&.active {
 		display: block;
+	}
+}
+
+.CMB_Color_Picker {
+	.field-item {
+		float: none;
 	}
 }
 
@@ -64,7 +25,7 @@ $bdr-grey: #cccccc;
 	float: left;
 	width: 10%;
 }
- 
+
 #details .cmb_metabox {
 	display: block;
 	float: right;
@@ -75,7 +36,7 @@ $bdr-grey: #cccccc;
 		width: 98%;
 	}
 }
- 
+
 #lsx-tab-headings {
 	.tab-heading {
 		display: block;
@@ -125,7 +86,7 @@ body.appearance_page_lsx-settings {
 			display:none;
 
 			&.active {
-				display:block;
+				display: block;
 			}
 		}
 	}
