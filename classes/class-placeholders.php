@@ -42,6 +42,12 @@ class LSX_Placeholders {
 	 * Initialize the plugin by setting localization, filters, and administration functions.
 	 */
 	public function __construct($post_types=false) {
+		$this->banner_plugin_disabled = apply_filters( 'lsx_banner_plugin_disable', false );
+
+		// Plugin disable, skip any other test
+		if ( ! empty( $this->banner_plugin_disabled ) ) {
+			return;
+		}
 
 		if(false !== $post_types){ $this->post_types = $post_types; }
 

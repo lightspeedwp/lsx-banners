@@ -29,7 +29,6 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			$this->options = get_option( '_lsx_lsx-settings', false );
 		}
 
-		//Test to see if Tour Operators is active.
 		$lsx_to_options = get_option( '_lsx-to_settings', false );
 
 		if ( ! empty( $lsx_to_options ) ) {
@@ -80,16 +79,28 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		$post_type          = get_post_type();
 
 		$this->post_id = get_queried_object_id();
+		$this->banner_plugin_disabled = apply_filters( 'lsx_banner_plugin_disable', false );
+		$this->banner_disabled = apply_filters( 'lsx_banner_disable', false );
 
-		if ( ! empty( $this->options['display']['banners_disabled'] ) ) {
+		if ( empty( $this->banner_disabled ) ) {
+			$this->banner_disabled = get_post_meta( $this->post_id, 'banner_disabled', true );
+		}
+
+		if ( ! empty( $this->banner_plugin_disabled ) ) {
+			// Plugin disable, skip any other test
+			return;
+		} elseif ( ! empty( $this->options['display']['banners_disabled'] ) || ! empty( $this->banner_disabled ) ) {
 			if ( function_exists( 'lsx_setup' ) ) {
-				remove_action( 'lsx_header_after', 'lsx_page_banner' );
-				remove_action( 'lsx_content_wrap_before', 'lsx_global_header' );
+				// remove_action( 'lsx_header_after', 'lsx_page_banner' );
+				add_filter( 'lsx_page_banner_disable', '__return_true' );
+				// remove_action( 'lsx_content_wrap_before', 'lsx_global_header' );
+				add_filter( 'lsx_global_header_disable', '__return_true' );
 			}
 		} elseif ( is_singular( $allowed_post_types ) || is_post_type_archive( $allowed_post_types ) || is_tax( $allowed_taxonomies ) || is_category() || is_author() || is_404() || is_front_page() || is_home() ) {
 			if ( function_exists( 'lsx_setup' ) ) {
 				$this->theme = 'lsx';
-				remove_action( 'lsx_header_after', 'lsx_page_banner' );
+				// remove_action( 'lsx_header_after', 'lsx_page_banner' );
+				add_filter( 'lsx_page_banner_disable', '__return_true' );
 				add_action( 'lsx_header_after', array( $this, 'banner' ) );
 			} elseif ( class_exists( 'Storefront' ) ) {
 				$this->theme = 'storefront';
@@ -131,15 +142,6 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		$img_group = false;
 		$bg_color = '';
 		$text_color = '';
-
-		if ( true === apply_filters( 'lsx_banner_disable', false ) ) {
-			return '';
-		}
-
-		// If we are using placeholders then the banner section shows all the time, this is when the banner disabled checkbox comes into play.
-		if ( true === $this->placeholder && get_post_meta( $this->post_id, 'banner_disabled', true ) ) {
-			return '';
-		}
 
 		$bg_color = get_post_meta( $post_id, 'banner_bg_color', true );
 		$text_color = get_post_meta( $post_id, 'banner_text_color', true );
@@ -463,12 +465,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	 * Add <body> classes
 	 */
 	public function body_class( $classes ) {
-		$banner_disabled = false;
 		$banner_image = false;
-
-		if ( true === apply_filters( 'lsx_banner_disable', false ) ) {
-			return $classes;
-		}
 
 		if ( 0 !== get_the_ID() || is_front_page() || is_home() ) {
 			$post_id = $this->post_id;
@@ -478,9 +475,8 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			}
 
 			$img_group = get_post_meta( $post_id, 'image_group', true );
-			$banner_disabled = get_post_meta( $post_id, 'banner_disabled', true );
 
-			if ( empty( $banner_disabled ) && ! empty( $img_group ) && is_array( $img_group ) && ! empty( $img_group['banner_image'] ) ) {
+			if ( ! empty( $img_group ) && is_array( $img_group ) && ! empty( $img_group['banner_image'] ) ) {
 				$classes[] = 'page-has-banner';
 				$this->has_banner = true;
 			}
@@ -506,7 +502,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			}
 		}
 
-		if ( true === $this->placeholder && true !== $banner_disabled && '1' !== $banner_disabled && ! is_404() ) {
+		if ( true === $this->placeholder && ! is_404() ) {
 			$classes[] = 'page-has-banner';
 			$this->has_banner = true;
 		}
@@ -526,7 +522,8 @@ class LSX_Banners_Frontend extends LSX_Banners {
 				}
 			}
 
-			remove_action( 'lsx_content_wrap_before', 'lsx_global_header' );
+			// remove_action( 'lsx_content_wrap_before', 'lsx_global_header' );
+			add_filter( 'lsx_global_header_disable', '__return_true' );
 		}
 
 		return $classes;

@@ -5,7 +5,7 @@
  * @package   LSX Banners
  * @author    LightSpeed
  * @license   GPL3
- * @link      
+ * @link
  * @copyright 2016 LightSpeed
  */
 class LSX_Banners {
@@ -16,41 +16,41 @@ class LSX_Banners {
 	 * @var      object|Lsx_Banners
 	 */
 	protected static $instance = null;
-	
+
 	/**
 	 * Holds the name of the theme
 	 *
 	 * @var      string|Lsx_Banners
 	 */
 	public $theme = null;
-	
+
 	/**
 	 * Holds a boolean weather or not to use placeholdit.
 	 *
 	 * @var      string|Lsx_Banners
 	 */
-	public $placeholder = false;	
-	
+	public $placeholder = false;
+
 	/**
 	 * Holds the current objects ID
 	 *
 	 * @var      string|Lsx_Banners
 	 */
 	public $post_id = false;
-	
+
 	/**
 	 * Holds the current banner ID
 	 *
 	 * @var      string|Lsx_Banners
 	 */
-	public $banner_id = false;	
-	
+	public $banner_id = false;
+
 	/**
 	 * Runs on the body_class, to let you know if there is a banner or not.
 	 *
 	 * @var      string|Lsx_Banners
 	 */
-	public $has_banner = false;		
+	public $has_banner = false;
 
 	/**
 	 * Initialize the plugin by setting localization, filters, and administration functions.
@@ -68,11 +68,11 @@ class LSX_Banners {
 
 		if(!class_exists('LSX_Taxonomy_Admin')){
 			require_once( LSX_BANNERS_PATH . 'classes/class-taxonomy-administration.php' );
-		}		
+		}
 
 		if(!class_exists('LSX_Placeholders')){
 			require_once( LSX_BANNERS_PATH . 'classes/class-placeholders.php' );
-			add_action('init',array($this,'init_placeholders'),100);
+			add_action('wp',array($this,'init_placeholders'),100);
 		}
 
 		require_once( LSX_BANNERS_PATH . 'classes/class-lsx-banners-admin.php' );
@@ -91,7 +91,7 @@ class LSX_Banners {
 	 * Set the variables.
 	 */
 	public function set_vars() {
-	}	
+	}
 
 	/**
 	 * Set the placeholders
@@ -113,8 +113,8 @@ class LSX_Banners {
 			$allowed_post_types[] = 'jetpack-portfolio';
 		}
 		return apply_filters( 'lsx_banner_allowed_post_types', $allowed_post_types );
-	}	
-	
+	}
+
 	/**
 	 * retreives the allowed taxonomies
 	 *
@@ -157,5 +157,5 @@ class LSX_Banners {
 			}*/
 		}
 		return $url;
-	}			
+	}
 }
