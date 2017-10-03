@@ -247,7 +247,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 				array(
 					'id'   => 'button_class',
 					'name' => esc_html__( 'Button class', 'lsx-banners' ),
-					'desc' => esc_html__( 'Available classes: cta-btn, cta-border-btn, secondaty-btn, secondary-border-btn, border-btn, white-border-btn', 'lsx-banners' ),
+					'desc' => esc_html__( 'Available classes: cta-btn, cta-border-btn, secondary-btn, secondary-border-btn, tertiary-btn, tertiary-border-btn, border-btn, white-border-btn', 'lsx-banners' ),
 					'type' => 'text',
 				),
 				array(
