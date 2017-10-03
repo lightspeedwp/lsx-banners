@@ -95,7 +95,7 @@ msgid "Button class"
 msgstr ""
 
 #: classes/class-lsx-banners-admin.php:250
-msgid "Available classes: cta-btn, cta-border-btn, secondaty-btn, secondary-border-btn, border-btn, white-border-btn"
+msgid "Available classes: cta-btn, cta-border-btn, secondary-btn, secondary-border-btn, tertiary-btn, tertiary-border-btn, border-btn, white-border-btn"
 msgstr ""
 
 #: classes/class-lsx-banners-admin.php:255
