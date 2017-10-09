@@ -91,3 +91,40 @@ body.appearance_page_lsx-settings {
 		}
 	}
 }
+
+/* Banner Meta box Tabs */
+.meta-box-sortables {
+	#banners {
+		.inside {
+			.tab-toggle {
+				display:inline-block;
+
+				&.active {
+					border: 1px solid #ddd;
+					border-bottom-color: #fdfdfd;
+					background-color: #fdfdfd;
+
+					a {
+						color: #32373c;
+					}
+				}
+
+				a {
+					text-decoration: none;
+					padding: 5px;
+				}
+			}
+
+			.cmb_metabox {
+
+					padding: 0 .9em;
+					border-bottom: 1px solid #ddd;
+					border-right: 1px solid #ddd;
+					border-left: 1px solid #ddd;
+					background-color: #fdfdfd;
+
+			}
+		}
+	}
+}
+

@@ -1,33 +1,73 @@
-/* lsx-banners-admin.css */
-#banners .CMB_Group_Field { display: block; }
+/*
+ * lsx-banners-admin.css
+ */
+#banners .CMB_Group_Field {
+  display: block; }
 
-.CMB_Group_Field.active { display: block; }
+.CMB_Group_Field.active {
+  display: block; }
 
-.CMB_Color_Picker .field-item { float: none; }
+.CMB_Color_Picker .field-item {
+  float: none; }
 
-#lsx-tab-headings { display: block; float: left; width: 10%; }
+#lsx-tab-headings {
+  display: block;
+  float: left;
+  width: 10%; }
 
-#details .cmb_metabox { display: block; float: right; width: 85%; }
+#details .cmb_metabox {
+  display: block;
+  float: right;
+  width: 85%; }
+  #details .cmb_metabox .cmb_metabox {
+    float: none;
+    width: 98%; }
 
-#details .cmb_metabox .cmb_metabox { float: none; width: 98%; }
-
-#lsx-tab-headings .tab-heading { display: block; text-transform: capitalize; padding: 10px 15px; width: 100%; }
+#lsx-tab-headings .tab-heading {
+  display: block;
+  text-transform: capitalize;
+  padding: 10px 15px;
+  width: 100%; }
 
 /* The Tab Styling */
-body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab-nav li { display: inline-block; }
+body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab-nav li {
+  display: inline-block; }
+  body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab-nav li:after {
+    content: "|";
+    display: inline-block;
+    padding: 0 3px 0 8px; }
+  body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab-nav li:last-child:after {
+    content: "";
+    padding-left: 0; }
+  body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab-nav li a {
+    text-decoration: none; }
+    body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab-nav li a.active {
+      color: black;
+      font-weight: bold; }
+    body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab-nav li a:focus {
+      box-shadow: none; }
 
-body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab-nav li:after { content: "|"; display: inline-block; padding: 0 3px 0 8px; }
+body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab {
+  display: none; }
+  body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab.active {
+    display: block; }
 
-body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab-nav li:last-child:after { content: ""; padding-left: 0; }
+/* Banner Meta box Tabs */
+.meta-box-sortables #banners .inside .tab-toggle {
+  display: inline-block; }
+  .meta-box-sortables #banners .inside .tab-toggle.active {
+    border: 1px solid #ddd;
+    border-bottom-color: #fdfdfd;
+    background-color: #fdfdfd; }
+    .meta-box-sortables #banners .inside .tab-toggle.active a {
+      color: #32373c; }
+  .meta-box-sortables #banners .inside .tab-toggle a {
+    text-decoration: none;
+    padding: 5px; }
 
-body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab-nav li a { text-decoration: none; }
-
-body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab-nav li a.active { color: black; font-weight: bold; }
-
-body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab-nav li a:focus { box-shadow: none; }
-
-body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab { display: none; }
-
-body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab.active { display: block; }
-
-/*# sourceMappingURL=maps/lsx-banners-admin.css.map */
+.meta-box-sortables #banners .inside .cmb_metabox {
+  padding: 0 .9em;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  background-color: #fdfdfd; }

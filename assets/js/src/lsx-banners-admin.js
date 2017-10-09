@@ -107,4 +107,38 @@ jQuery(document).ready(function() {
 		window.lsx_thumbnail_subtabs_nav = true;
 	}
 
+
+	// This is for the banner tabs
+	if ( 0 < jQuery('.meta-box-sortables #banners').length ) {
+
+		var tab_headers = [];
+        tab_headers.push('<div class="tab-toggle active" data-trigger="general"><a href="#">General</a></div>');
+        tab_headers.push('<div class="tab-toggle" data-trigger="button"><a href="#">Button</a></div>');
+        tab_headers.push('<div class="tab-toggle" data-trigger="bg_images"><a href="#">BG Images</a></div>');
+        tab_headers.push('<div class="tab-toggle" data-trigger="attributes"><a href="#">Attributes</a></div>');
+
+        jQuery('.meta-box-sortables #banners .inside').prepend( tab_headers );
+
+        jQuery('.meta-box-sortables #banners').find( '#button_group' ).hide();
+        jQuery('.meta-box-sortables #banners').find( '#image_group' ).hide();
+        jQuery('.meta-box-sortables #banners').find( '#image_bg_group' ).hide();
+
+		//Grab all the "Groups"
+		/*jQuery('.cmb-row').children().each( function( e ) {
+			if ( 0 < jQuery(this).find('.field-title').length ) {
+				var anchor = jQuery(this).find('.field-title').parent().attr('id');
+				tab_headers.push('<div class="tab-toggle" data-trigger="'+anchor+'">'+anchor+'</div>');
+			}
+        });*/
+
+		console.log( tab_headers );
+
+        jQuery(document).on('click', '.meta-box-sortables #banners .tab-toggle a:not(.active)', function(e) {
+			jQuery('.meta-box-sortables #banners .tab-toggle a.active').removeClass('active');
+			jQuery(this).addClass('active');
+        });
+
+	}
+
+
 });
