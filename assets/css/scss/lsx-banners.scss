@@ -199,6 +199,14 @@
 
 		& + .banner-content { margin-top: 0; }
 	}
+
+	.page-banner-no-mask {
+		.page-banner {
+			& > .page-banner-image {
+				&:after { display: none; }
+			}
+		}
+	}
 }
 
 @include customizer-banners-banner-colours(#FFF);

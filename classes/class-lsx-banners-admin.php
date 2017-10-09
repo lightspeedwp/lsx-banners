@@ -200,6 +200,12 @@ class LSX_Banners_Admin extends LSX_Banners {
 		}
 
 		$fields[] = array(
+			'id'   => 'banner_mask',
+			'name' => esc_html__( 'Disable banner mask (image overlay)', 'lsx-banners' ),
+			'type' => 'checkbox',
+		);
+
+		$fields[] = array(
 			'id'   => 'banner_bg_color',
 			'name' => esc_html__( 'Banner background color', 'lsx-banners' ),
 			'type' => 'colorpicker',

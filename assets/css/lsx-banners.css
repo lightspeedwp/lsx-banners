@@ -62,6 +62,8 @@
 
 #lsx-banner .lsx-banners-logo + .banner-content { margin-top: 0; }
 
+#lsx-banner .page-banner-no-mask .page-banner > .page-banner-image:after { display: none; }
+
 #lsx-banner .page-banner { color: #FFF; }
 
 #lsx-banner #page-banner-slider .slick-dots > li > button { border-color: #FFF; }

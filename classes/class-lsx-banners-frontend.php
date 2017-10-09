@@ -140,11 +140,10 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		$y_position = 'center';
 		$show_slider = false;
 		$img_group = false;
-		$bg_color = '';
-		$text_color = '';
 
 		$bg_color = get_post_meta( $post_id, 'banner_bg_color', true );
 		$text_color = get_post_meta( $post_id, 'banner_text_color', true );
+		$mask = get_post_meta( $post_id, 'banner_mask', true );
 
 		/*
 		 * This section gets the image meta, size etc.
@@ -365,9 +364,15 @@ class LSX_Banners_Frontend extends LSX_Banners {
 						$style_attr .= 'color: ' . esc_attr( $text_color ) . ';';
 					}
 
+					$class_attr = 'page-banner-wrap';
+
+					if ( ! empty( $mask ) ) {
+						$class_attr .= ' page-banner-no-mask';
+					}
+
 					if ( empty( $show_slider ) ) {
 						?>
-						<div class="page-banner-wrap">
+						<div class="<?php echo esc_attr( $class_attr ); ?>">
 							<div class="page-banner rotating" style="<?php echo esc_attr( $style_attr ); ?>">
 								<?php if ( ! empty( $banner_image ) ) : ?>
 									<div class="page-banner-image" style="background-position: <?php echo esc_attr( $x_position ); ?> <?php echo esc_attr( $y_position ); ?>; background-image:url(<?php echo esc_attr( $banner_image ); ?>);"></div>
@@ -421,7 +426,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 									}
 									?>
 									<div class="page-banner-slide">
-										<div class="page-banner-wrap">
+										<div class="<?php echo esc_attr( $class_attr ); ?>">
 											<div class="page-banner rotating" style="<?php echo esc_attr( $style_attr ); ?>">
 												<div class="page-banner-image" style="background-position: <?php echo esc_attr( $x_position ); ?> <?php echo esc_attr( $y_position ); ?>; background-image:url(<?php echo esc_attr( $slide[0] ); ?>);"></div>
 

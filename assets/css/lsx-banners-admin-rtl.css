@@ -29,3 +29,5 @@ body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab-nav li a:focus { bo
 body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab { display: none; }
 
 body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab.active { display: block; }
+
+/* Banner Meta box Tabs */

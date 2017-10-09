@@ -4,7 +4,8 @@
 
 jQuery(document).ready(function() {
 
-    var lsx_tax_frame;
+	var lsx_tax_frame;
+
 	/*
 	 * Choose Image
 	 */
@@ -19,44 +20,44 @@ jQuery(document).ready(function() {
 			var $this = jQuery(this),
 				$td = $this.parent('td');
 
-            if ( lsx_tax_frame ) {
-                lsx_tax_frame.open();
-                return;
-            }
+			if ( lsx_tax_frame ) {
+				lsx_tax_frame.open();
+				return;
+			}
 
-            lsx_tax_frame = wp.media({
-                title: 'Select your imageimage',
-                button: {
-                    text: 'Insert image'
-                },
-                multiple: false  // Set to true to allow multiple files to be selected
-            });
+			lsx_tax_frame = wp.media({
+				title: 'Select your imageimage',
+				button: {
+					text: 'Insert image'
+				},
+				multiple: false  // Set to true to allow multiple files to be selected
+			});
 
-            // When an image is selected in the media frame...
-            lsx_tax_frame.on( 'select', function() {
+			// When an image is selected in the media frame...
+			lsx_tax_frame.on( 'select', function() {
 
-                // Get media attachment details from the frame state
-                var attachment = lsx_tax_frame.state().get('selection').first().toJSON();
+				// Get media attachment details from the frame state
+				var attachment = lsx_tax_frame.state().get('selection').first().toJSON();
 
-                // Send the attachment URL to our custom image input field.
-                $td.find('.thumbnail-preview, .banner-preview').append('<img width="150" src="' + attachment.url + '" />');
+				// Send the attachment URL to our custom image input field.
+				$td.find('.thumbnail-preview, .banner-preview').append('<img width="150" src="' + attachment.url + '" />');
 
-                // Send the attachment id to our hidden input
-                $td.find('input.input_image_id').val( attachment.id );
-                $td.find('input.input_image').val( attachment.url );
+				// Send the attachment id to our hidden input
+				$td.find('input.input_image_id').val( attachment.id );
+				$td.find('input.input_image').val( attachment.url );
 
-                // Hide the add image link
-                $this.hide();
+				// Hide the add image link
+				$this.hide();
 
-                // Unhide the remove image link
-                $td.find('.lsx-thumbnail-image-delete, .lsx-thumbnail-image-remove').show();
+				// Unhide the remove image link
+				$td.find('.lsx-thumbnail-image-delete, .lsx-thumbnail-image-remove').show();
 
-            });
+			});
 
-            // Finally, open the modal on click
-            lsx_tax_frame.open();
+			// Finally, open the modal on click
+			lsx_tax_frame.open();
 
-            return false;
+			return false;
 
 		});
 
@@ -107,38 +108,34 @@ jQuery(document).ready(function() {
 		window.lsx_thumbnail_subtabs_nav = true;
 	}
 
-
 	// This is for the banner tabs
-	if ( 0 < jQuery('.meta-box-sortables #banners').length ) {
 
-		var tab_headers = [];
-        tab_headers.push('<div class="tab-toggle active" data-trigger="general"><a href="#">General</a></div>');
-        tab_headers.push('<div class="tab-toggle" data-trigger="button"><a href="#">Button</a></div>');
-        tab_headers.push('<div class="tab-toggle" data-trigger="bg_images"><a href="#">BG Images</a></div>');
-        tab_headers.push('<div class="tab-toggle" data-trigger="attributes"><a href="#">Attributes</a></div>');
+	// if ( 0 < jQuery('.meta-box-sortables #banners').length ) {
+	// 	var tab_headers = [];
 
-        jQuery('.meta-box-sortables #banners .inside').prepend( tab_headers );
+	// 	tab_headers.push('<div class="tab-toggle active" data-trigger="general"><a href="#">General</a></div>');
+	// 	tab_headers.push('<div class="tab-toggle" data-trigger="button"><a href="#">Button</a></div>');
+	// 	tab_headers.push('<div class="tab-toggle" data-trigger="bg_images"><a href="#">BG Images</a></div>');
+	// 	tab_headers.push('<div class="tab-toggle" data-trigger="attributes"><a href="#">Attributes</a></div>');
 
-        jQuery('.meta-box-sortables #banners').find( '#button_group' ).hide();
-        jQuery('.meta-box-sortables #banners').find( '#image_group' ).hide();
-        jQuery('.meta-box-sortables #banners').find( '#image_bg_group' ).hide();
+	// 	jQuery('.meta-box-sortables #banners .inside').prepend( tab_headers );
 
-		//Grab all the "Groups"
-		/*jQuery('.cmb-row').children().each( function( e ) {
-			if ( 0 < jQuery(this).find('.field-title').length ) {
-				var anchor = jQuery(this).find('.field-title').parent().attr('id');
-				tab_headers.push('<div class="tab-toggle" data-trigger="'+anchor+'">'+anchor+'</div>');
-			}
-        });*/
+	// 	jQuery('.meta-box-sortables #banners').find( '#button_group' ).hide();
+	// 	jQuery('.meta-box-sortables #banners').find( '#image_group' ).hide();
+	// 	jQuery('.meta-box-sortables #banners').find( '#image_bg_group' ).hide();
 
-		console.log( tab_headers );
+	// 	//Grab all the "Groups"
+	// 	/*jQuery('.cmb-row').children().each( function( e ) {
+	// 		if ( 0 < jQuery(this).find('.field-title').length ) {
+	// 			var anchor = jQuery(this).find('.field-title').parent().attr('id');
+	// 			tab_headers.push('<div class="tab-toggle" data-trigger="'+anchor+'">'+anchor+'</div>');
+	// 		}
+	// 	});*/
 
-        jQuery(document).on('click', '.meta-box-sortables #banners .tab-toggle a:not(.active)', function(e) {
-			jQuery('.meta-box-sortables #banners .tab-toggle a.active').removeClass('active');
-			jQuery(this).addClass('active');
-        });
-
-	}
-
+	// 	jQuery(document).on('click', '.meta-box-sortables #banners .tab-toggle a:not(.active)', function(e) {
+	// 		jQuery('.meta-box-sortables #banners .tab-toggle a.active').removeClass('active');
+	// 		jQuery(this).addClass('active');
+	// 	});
+	// }
 
 });
