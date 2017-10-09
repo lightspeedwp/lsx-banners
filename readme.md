@@ -2,29 +2,6 @@
 
 The LSX Banners extension adds advanced banner configuration options to your WordPress site running LSX theme.
 
-## Changelog
-
-### 1.0.5
-* Fix - Display tagline in blog page
-* Fix - Adjusted the plugin settings link inside the LSX API Class
-
-### 1.0.4
-* Feature - Use Soliloquy HTML in front-end slider when it's a Soliloquy slider selected in back-end
-* Feature - New option to disable the banner title per page/post
-
-### 1.0.3
-* Fix - Init variable as array and not string to avoid PHP fatal error
-
-### 1.0.2
-* Fix - Fixed all prefixes replaces (to_ > lsx_to_, TO_ > LSX_TO_)
-
-### 1.0.1 - 08/12/16
-* Fix - Reduced the access to server (check API key status) using transients
-* Fix - Made the API URLs dev/live dynamic using a prefix "dev-" in the API KEY
-
-### 1.0.0 - 30/11/16
-* First Version
-
 ## Setup
 
 ### 1: Install NPM
