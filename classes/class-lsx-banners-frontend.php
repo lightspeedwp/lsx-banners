@@ -528,7 +528,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			}
 
 			// remove_action( 'lsx_content_wrap_before', 'lsx_global_header' );
-			add_filter( 'lsx_global_header_disable', '__return_true' );
+			// add_filter( 'lsx_global_header_disable', '__return_true' );
 		}
 
 		return $classes;
