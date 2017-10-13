@@ -4,7 +4,9 @@
 
 jQuery(document).ready(function() {
 
-	var lsx_tax_frame;
+	var lsx_media_frame,
+		$lsx_media_box,
+		$lsx_media_button;
 
 	/*
 	 * Choose Image
@@ -17,15 +19,15 @@ jQuery(document).ready(function() {
 			//tb_show('Choose a Featured Image', 'media-upload.php?type=image&feature_image_text_button=1&TB_iframe=1');
 
 			//Save the current object for use in the
-			var $this = jQuery(this),
-				$td = $this.parent('td');
+			$lsx_media_button = jQuery(this),
+			$lsx_media_box = $lsx_media_button.parent('td');
 
-			if ( lsx_tax_frame ) {
-				lsx_tax_frame.open();
+			if ( lsx_media_frame ) {
+				lsx_media_frame.open();
 				return;
 			}
 
-			lsx_tax_frame = wp.media({
+			lsx_media_frame = wp.media({
 				title: 'Select your imageimage',
 				button: {
 					text: 'Insert image'
@@ -34,28 +36,28 @@ jQuery(document).ready(function() {
 			});
 
 			// When an image is selected in the media frame...
-			lsx_tax_frame.on( 'select', function() {
+			lsx_media_frame.on( 'select', function() {
 
 				// Get media attachment details from the frame state
-				var attachment = lsx_tax_frame.state().get('selection').first().toJSON();
+				var attachment = lsx_media_frame.state().get('selection').first().toJSON();
 
 				// Send the attachment URL to our custom image input field.
-				$td.find('.thumbnail-preview, .banner-preview').append('<img width="150" src="' + attachment.url + '" />');
+				$lsx_media_box.find('.thumbnail-preview, .banner-preview').append('<img width="150" src="' + attachment.url + '" />');
 
 				// Send the attachment id to our hidden input
-				$td.find('input.input_image_id').val( attachment.id );
-				$td.find('input.input_image').val( attachment.url );
+				$lsx_media_box.find('input.input_image_id').val( attachment.id );
+				$lsx_media_box.find('input.input_image').val( attachment.url );
 
 				// Hide the add image link
-				$this.hide();
+				$lsx_media_button.hide();
 
 				// Unhide the remove image link
-				$td.find('.lsx-thumbnail-image-delete, .lsx-thumbnail-image-remove').show();
+				$lsx_media_box.find('.lsx-thumbnail-image-delete, .lsx-thumbnail-image-remove').show();
 
 			});
 
 			// Finally, open the modal on click
-			lsx_tax_frame.open();
+			lsx_media_frame.open();
 
 			return false;
 
