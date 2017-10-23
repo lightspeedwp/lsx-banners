@@ -38,6 +38,11 @@
 			<?php $class_active = ( class_exists( 'LSX_Banners' ) || class_exists( 'LSX_Currencies' ) || class_exists( 'LSX_Team' ) || class_exists( 'LSX_Testimonials' ) || class_exists( 'LSX_Projects' ) || class_exists( 'LSX_Services' ) || class_exists( 'LSX_Blog_Customizer' ) ) ? '' : 'active' ?>
 			<li><a href="#ui-sharing" class="<?php echo esc_attr( $class_active ) ?>"><?php esc_html_e( 'Sharing', 'lsx-banners' ); ?></a></li>
 		<?php } ?>
+
+		<?php if ( class_exists( 'LSX_Videos' ) ) { ?>
+			<?php $class_active = ( class_exists( 'LSX_Banners' ) || class_exists( 'LSX_Currencies' ) || class_exists( 'LSX_Team' ) || class_exists( 'LSX_Testimonials' ) || class_exists( 'LSX_Projects' ) || class_exists( 'LSX_Services' ) || class_exists( 'LSX_Blog_Customizer' ) || class_exists( 'LSX_Sharing' ) ) ? '' : 'active' ?>
+			<li><a href="#ui-videos" class="<?php echo esc_attr( $class_active ) ?>"><?php esc_html_e( 'Videos', 'lsx-banners' ); ?></a></li>
+		<?php } ?>
 	</ul>
 
 	<?php if ( class_exists( 'LSX_Banners' ) ) { ?>
@@ -122,6 +127,17 @@
 			<table class="form-table">
 				<tbody>
 					<?php do_action( 'lsx_framework_display_tab_content', 'sharing' ); ?>
+				</tbody>
+			</table>
+		</div>
+	<?php } ?>
+
+	<?php if ( class_exists( 'LSX_Videos' ) ) { ?>
+		<?php $class_active = ( class_exists( 'LSX_Banners' ) || class_exists( 'LSX_Currencies' ) || class_exists( 'LSX_Team' ) || class_exists( 'LSX_Testimonials' ) || class_exists( 'LSX_Projects' ) || class_exists( 'LSX_Services' ) || class_exists( 'LSX_Blog_Customizer' ) || class_exists( 'LSX_Sharing' ) ) ? '' : 'active' ?>
+		<div id="ui-videos" class="ui-tab <?php echo esc_attr( $class_active ) ?>">
+			<table class="form-table">
+				<tbody>
+					<?php do_action( 'lsx_framework_display_tab_content', 'videos' ); ?>
 				</tbody>
 			</table>
 		</div>

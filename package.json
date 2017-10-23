@@ -1,6 +1,6 @@
 {
   "name": "lsx-banners",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Banners for LSX",
   "main": "gulpfile.js",
   "scripts": {
