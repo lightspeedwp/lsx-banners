@@ -43,6 +43,11 @@
 			<?php $class_active = ( class_exists( 'LSX_Banners' ) || class_exists( 'LSX_Currencies' ) || class_exists( 'LSX_Team' ) || class_exists( 'LSX_Testimonials' ) || class_exists( 'LSX_Projects' ) || class_exists( 'LSX_Services' ) || class_exists( 'LSX_Blog_Customizer' ) || class_exists( 'LSX_Sharing' ) ) ? '' : 'active' ?>
 			<li><a href="#ui-videos" class="<?php echo esc_attr( $class_active ) ?>"><?php esc_html_e( 'Videos', 'lsx-banners' ); ?></a></li>
 		<?php } ?>
+
+		<?php if ( class_exists( 'LSX_Search' ) ) { ?>
+			<?php $class_active = ( class_exists( 'LSX_Banners' ) || class_exists( 'LSX_Currencies' ) || class_exists( 'LSX_Team' ) || class_exists( 'LSX_Testimonials' ) || class_exists( 'LSX_Projects' ) || class_exists( 'LSX_Services' ) || class_exists( 'LSX_Blog_Customizer' ) || class_exists( 'LSX_Sharing' ) || class_exists( 'LSX_Videos' ) ) ? '' : 'active' ?>
+			<li><a href="#ui-search" class="<?php echo esc_attr( $class_active ) ?>"><?php esc_html_e( 'Search', 'lsx-banners' ); ?></a></li>
+		<?php } ?>
 	</ul>
 
 	<?php if ( class_exists( 'LSX_Banners' ) ) { ?>
@@ -138,6 +143,17 @@
 			<table class="form-table">
 				<tbody>
 					<?php do_action( 'lsx_framework_display_tab_content', 'videos' ); ?>
+				</tbody>
+			</table>
+		</div>
+	<?php } ?>
+
+	<?php if ( class_exists( 'LSX_Search' ) ) { ?>
+		<?php $class_active = ( class_exists( 'LSX_Banners' ) || class_exists( 'LSX_Currencies' ) || class_exists( 'LSX_Team' ) || class_exists( 'LSX_Testimonials' ) || class_exists( 'LSX_Projects' ) || class_exists( 'LSX_Services' ) || class_exists( 'LSX_Blog_Customizer' ) || class_exists( 'LSX_Sharing' ) || class_exists( 'LSX_Videos' ) ) ? '' : 'active' ?>
+		<div id="ui-search" class="ui-tab <?php echo esc_attr( $class_active ) ?>">
+			<table class="form-table">
+				<tbody>
+					<?php do_action( 'lsx_framework_display_tab_content', 'search' ); ?>
 				</tbody>
 			</table>
 		</div>

@@ -2,6 +2,7 @@
 
 ### 1.1.1
 * Dev - Added compatibility with LSX Videos
+* Dev - Added compatibility with LSX Search
 
 ### 1.1.0
 * Added compatibility with LSX 2.0

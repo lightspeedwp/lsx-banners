@@ -290,6 +290,14 @@ msgstr ""
 msgid "Sharing"
 msgstr ""
 
+#: includes/settings/display.php:44
+msgid "Videos"
+msgstr ""
+
+#: includes/settings/display.php:49
+msgid "Search"
+msgstr ""
+
 #: includes/settings/post.php:33, includes/settings/post.php:42
 msgid "Edit this on the page you have set as the \"blog\""
 msgstr ""
