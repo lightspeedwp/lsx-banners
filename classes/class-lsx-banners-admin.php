@@ -206,15 +206,17 @@ class LSX_Banners_Admin extends LSX_Banners {
 		);
 
 		$fields[] = array(
-			'id'   => 'banner_bg_color',
-			'name' => esc_html__( 'Banner background color', 'lsx-banners' ),
-			'type' => 'colorpicker',
+			'id'      => 'banner_bg_color',
+			'name'    => esc_html__( 'Banner background color', 'lsx-banners' ),
+			'type'    => 'colorpicker',
+			'default' => '#2B3840',
 		);
 
 		$fields[] = array(
-			'id'   => 'banner_text_color',
-			'name' => esc_html__( 'Banner text color', 'lsx-banners' ),
-			'type' => 'colorpicker',
+			'id'      => 'banner_text_color',
+			'name'    => esc_html__( 'Banner text color', 'lsx-banners' ),
+			'type'    => 'colorpicker',
+			'default' => '#FFFFFF',
 		);
 
 		$fields[] = array(
