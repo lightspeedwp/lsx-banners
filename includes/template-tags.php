@@ -34,6 +34,18 @@ function lsx_has_banner(){
 }
 
 /**
+ * Returns a true or false if there is a banner.
+ *
+ * @package 	lsx-banners
+ * @subpackage	template-tag
+ * @category 	conditional
+ */
+function lsx_is_banner_disabled(){
+	global $lsx_banners;
+	return $lsx_banners->frontend->banner_disabled;
+}
+
+/**
  * Down Arrow navigation for the homepage banner
  *
  * @package 	lsx-banners

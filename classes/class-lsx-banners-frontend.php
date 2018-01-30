@@ -16,6 +16,11 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	public $redirects = false;
 
 	/**
+	 * @var boolean
+	 */
+	public $banner_disabled;
+
+	/**
 	 * Initialize the plugin by setting localization, filters, and administration functions.
 	 *
 	 * @since 1.0.0

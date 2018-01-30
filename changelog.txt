@@ -1,5 +1,8 @@
 ## Changelog
 
+### 1.1.2 (development)
+* Dev - Added in a template tag which returns if the current item is disabled - lsx_is_banner_disabled()
+
 ### 1.1.1
 * Dev - Added compatibility with LSX Videos
 * Dev - Added compatibility with LSX Search
