@@ -9,7 +9,7 @@
 					<input class="input_image_id" type="hidden" {{#if banner_id}} value="{{banner_id}}" {{/if}} name="banner_id" />
 					<input class="input_image" type="hidden" {{#if banner}} value="{{banner}}" {{/if}} name="banner" />
 					<div class="thumbnail-preview">
-						{{#if banner}}<img src="{{banner}}" width="150" />{{/if}}	
+						{{#if banner}}<img src="{{banner}}" width="150" />{{/if}}
 					</div>
 					<a {{#if banner}}style="display:none;"{{/if}} class="button-secondary lsx-thumbnail-image-add"><?php esc_html_e( 'Choose Image', 'lsx-banners' ); ?></a>
 					<a {{#unless banner}}style="display:none;"{{/unless}} class="button-secondary lsx-thumbnail-image-delete"><?php esc_html_e( 'Delete', 'lsx-banners' ); ?></a>

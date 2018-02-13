@@ -60,27 +60,27 @@ class LSX_Banners {
 	 * @access private
 	 */
 	public function __construct() {
-		$this->options = get_option('_lsx_settings',false);
+		$this->options = get_option( '_lsx_settings',false );
 		if ( false === $this->options ) {
-			$this->options = get_option('_lsx_lsx-settings',false);
+			$this->options = get_option( '_lsx_lsx-settings',false );
 		}
 		$this->set_vars();
 
-		if(!class_exists('LSX_Taxonomy_Admin')){
+		if ( ! class_exists( 'LSX_Taxonomy_Admin' ) ) {
 			require_once( LSX_BANNERS_PATH . 'classes/class-taxonomy-administration.php' );
 		}
 
-		if(!class_exists('LSX_Placeholders')){
+		if ( ! class_exists( 'LSX_Placeholders' ) ) {
 			require_once( LSX_BANNERS_PATH . 'classes/class-placeholders.php' );
-			add_action('wp',array($this,'init_placeholders'),100);
+			add_action( 'wp',array( $this, 'init_placeholders' ),100 );
 		}
 
 		require_once( LSX_BANNERS_PATH . 'classes/class-lsx-banners-admin.php' );
-		if(class_exists('LSX_Banners_Admin')){
+		if ( class_exists( 'LSX_Banners_Admin' ) ) {
 			$this->admin = new LSX_Banners_Admin();
 		}
 		require_once( LSX_BANNERS_PATH . 'classes/class-lsx-banners-frontend.php' );
-		if(class_exists('LSX_Banners_Frontend')){
+		if ( class_exists( 'LSX_Banners_Frontend' ) ) {
 			$this->frontend = new LSX_Banners_Frontend();
 		}
 
@@ -97,7 +97,7 @@ class LSX_Banners {
 	 * Set the placeholders
 	 */
 	public function init_placeholders() {
-		$this->placeholders = new LSX_Placeholders($this->get_allowed_post_types());
+		$this->placeholders = new LSX_Placeholders( $this->get_allowed_post_types() );
 	}
 
 
@@ -108,8 +108,8 @@ class LSX_Banners {
 	 */
 	public function get_allowed_post_types() {
 		// Example of all available fields
-		$allowed_post_types = array('page','post');
-		if(in_array('jetpack-portfolio', get_post_types())){
+		$allowed_post_types = array( 'page','post' );
+		if ( in_array( 'jetpack-portfolio', get_post_types() ) ) {
 			$allowed_post_types[] = 'jetpack-portfolio';
 		}
 		return apply_filters( 'lsx_banner_allowed_post_types', $allowed_post_types );
@@ -122,26 +122,25 @@ class LSX_Banners {
 	 */
 	public function get_allowed_taxonomies() {
 		// Example of all available fields
-		$allowed_taxonomies = array('category');
+		$allowed_taxonomies = array( 'category' );
 		return apply_filters( 'lsx_banner_allowed_taxonomies', $allowed_taxonomies );
 	}
 
 	/**
 	 * Returns the defulat placeholder url
 	 */
-	public function default_placeholder($url) {
+	public function default_placeholder( $url ) {
 		$post_type = get_post_type();
 		$default_id = false;
-		if(class_exists('Placeholders_Options')){
+		if ( class_exists( 'Placeholders_Options' ) ) {
 			$placeholders = Placeholders_Options::get_single( 'placeholders' );
-			if(false !== $placeholders && is_array($placeholders) && isset($placeholders['image'])){
-				foreach($placeholders['image'] as $placeholder){
-					if(isset($placeholder['post_type']) && $post_type === $placeholder['post_type'] && isset($placeholder['image'])){
+			if ( false !== $placeholders && is_array( $placeholders ) && isset( $placeholders['image'] ) ) {
+				foreach( $placeholders['image'] as $placeholder ) {
+					if ( isset( $placeholder['post_type'] ) && $post_type === $placeholder['post_type'] && isset( $placeholder['image'] ) ) {
 						$url = $placeholder['image']['selection']['url'];
 					}
 				}
 			}
-
 			/*if(false !== $post_type && !is_array($post_type)){
 				$default_id = \lsx\ui\uix::get_setting('lsx-general.general.'.$post_type.'.id');
 			}

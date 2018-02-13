@@ -22,9 +22,9 @@ define( 'LSX_BANNERS_CORE',  __FILE__ );
 define( 'LSX_BANNERS_URL',  plugin_dir_url( __FILE__ ) );
 define( 'LSX_BANNERS_VER',  '1.1.1' );
 
-if ( !function_exists( 'cmb_init' ) ) {
-	if ( is_file(LSX_BANNERS_PATH. 'vendor/Custom-Meta-Boxes/custom-meta-boxes.php') ) {
-		require LSX_BANNERS_PATH. 'vendor/Custom-Meta-Boxes/custom-meta-boxes.php';
+if ( ! function_exists( 'cmb_init' ) ) {
+	if ( is_file( LSX_BANNERS_PATH . 'vendor/Custom-Meta-Boxes/custom-meta-boxes.php' ) ) {
+		require LSX_BANNERS_PATH . 'vendor/Custom-Meta-Boxes/custom-meta-boxes.php';
 	}
 }
 
@@ -39,8 +39,8 @@ if ( ! class_exists( 'LSX_API_Manager' ) ) {
  */
 function lsx_banners_activate_plugin() {
 	$lsx_to_password = get_option( 'lsx_api_instance',false );
-    if ( false === $lsx_to_password ) {
-		update_option('lsx_api_instance',LSX_API_Manager::generatePassword());
+	if ( false === $lsx_to_password ) {
+		update_option( 'lsx_api_instance',LSX_API_Manager::generatePassword() );
 	}
 }
 register_activation_hook( __FILE__, 'lsx_banners_activate_plugin' );
@@ -53,7 +53,7 @@ function lsx_banners_options_pages_filter( $pages ) {
 	$pages[] = 'lsx-to-settings';
 	return $pages;
 }
-add_filter ( 'lsx_api_manager_options_pages','lsx_banners_options_pages_filter',10,1 );
+add_filter( 'lsx_api_manager_options_pages','lsx_banners_options_pages_filter',10,1 );
 
 function lsx_banners_api_admin_init() {
 	global $lsx_banners_api_manager;
@@ -67,13 +67,16 @@ function lsx_banners_api_admin_init() {
 		}
 	}
 
-	$data = array( 'api_key' => '', 'email' => '' );
+	$data = array(
+		'api_key' => '',
+		'email' => ''
+	);
 
 	if ( false !== $options && isset( $options['api'] ) ) {
 		if ( isset( $options['api']['lsx-banners_api_key'] ) && '' !== $options['api']['lsx-banners_api_key'] ) {
 			$data['api_key'] = $options['api']['lsx-banners_api_key'];
 		}
-		if ( isset( $options['api']['lsx-banners_email']) && '' !== $options['api']['lsx-banners_email'] ) {
+		if ( isset( $options['api']['lsx-banners_email'] ) && '' !== $options['api']['lsx-banners_email'] ) {
 			$data['email'] = $options['api']['lsx-banners_email'];
 		}
 	}

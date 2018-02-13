@@ -16,7 +16,7 @@
  * @subpackage	template-tag
  * @category 	image
  */
-function lsx_banner_src(){
+function lsx_banner_src() {
 	global $lsx_banners;
 	$lsx_banners->frontend->banner();
 }
@@ -28,7 +28,7 @@ function lsx_banner_src(){
  * @subpackage	template-tag
  * @category 	conditional
  */
-function lsx_has_banner(){
+function lsx_has_banner() {
 	global $lsx_banners;
 	return $lsx_banners->has_banner;
 }
@@ -40,7 +40,7 @@ function lsx_has_banner(){
  * @subpackage	template-tag
  * @category 	conditional
  */
-function lsx_is_banner_disabled(){
+function lsx_is_banner_disabled() {
 	global $lsx_banners;
 	return $lsx_banners->frontend->banner_disabled;
 }
@@ -53,17 +53,20 @@ function lsx_is_banner_disabled(){
  * @category 	shortcode
  */
 function lsx_banner_navigation( $echo = false ) {
-	$atts = array( 'extra-top' => '0' );
+	$atts = array(
+		'extra-top' => '0'
+	);
 
 	if ( is_array( $echo ) ) {
 		$atts = shortcode_atts( $atts, $echo, 'banner_navigation' );
 	}
 
-	$return = '<div class="banner-easing"><a class="btn-scroll-to" href="#main" data-extra-top="'. $atts['extra-top'] .'"><i class="fa fa-angle-down" aria-hidden="true"></i></a></div>';
+	$return = '<div class="banner-easing"><a class="btn-scroll-to" href="#main" data-extra-top="' . $atts['extra-top'] .'"><i class="fa fa-angle-down" aria-hidden="true"></i></a></div>';
 
-	if ( $echo === true ) {
+	if ( true === $echo ) {
 		echo $return;
 	} else {
 		return $return;
 	}
 }
+
