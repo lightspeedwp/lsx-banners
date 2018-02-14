@@ -85,9 +85,9 @@ class LSX_Taxonomy_Admin {
 		<tr class="form-field term-thumbnail-wrap">
 			<th scope="row"><label for="thumbnail"><?php esc_html_e( 'Featured Image','lsx-banners' );?></label></th>
 			<td>
-				<input class="input_image_id" type="hidden" name="thumbnail" value="<?php echo $value; ?>">
+				<input class="input_image_id" type="hidden" name="thumbnail" value="<?php echo esc_attr( $value ); ?>">
 				<div class="thumbnail-preview">
-					<?php echo $image_preview; ?>
+					<?php echo esc_attr( $image_preview ); ?>
 				</div>
 				<a style="<?php if ( '' !== $value && false !== $value ) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-add"><?php esc_html_e( 'Choose Image','lsx-banners' );?></a>
 				<a style="<?php if ( '' === $value || false === $value ) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-remove"><?php esc_html_e( 'Remove Image','lsx-banners' );?></a>
@@ -131,7 +131,7 @@ class LSX_Taxonomy_Admin {
 		<tr class="form-field term-tagline-wrap">
 			<th scope="row"><label for="tagline"><?php esc_html_e( 'Banner tagline','lsx-banners' );?></label></th>
 			<td>
-				<input name="tagline" id="tagline" type="text" value="<?php echo $value; ?>" size="40" aria-required="true">
+				<input name="tagline" id="tagline" type="text" value="<?php echo esc_attr( $value ); ?>" size="40" aria-required="true">
 			</td>
 		</tr>
 		<?php
@@ -152,7 +152,7 @@ class LSX_Taxonomy_Admin {
 		<tr class="form-field term-youtube-wrap">
 			<th scope="row"><label for="banner_video"><?php esc_html_e( 'Banner Video URL (mp4)','lsx-banners' );?></label></th>
 			<td>
-				<input name="banner_video" id="banner_video" type="text" value="<?php echo $value; ?>" size="40" aria-required="true">
+				<input name="banner_video" id="banner_video" type="text" value="<?php echo esc_attr( $value ); ?>" size="40" aria-required="true">
 			</td>
 		</tr>
 		<?php
@@ -191,7 +191,7 @@ class LSX_Taxonomy_Admin {
 
 					<?php
 						foreach ( $experts as $expert ) {
-							echo '<option value="' . $expert->ID . '"' . selected( $value, $expert->ID, false ) . '>' . $expert->post_title . '</option>';
+							echo '<option value="' . esc_attr( $expert->ID ) . '"' . selected( $value, esc_attr( $expert->ID ), false ) . '>' . $expert->post_title . '</option>';
 						}
 					?>
 				</select>
