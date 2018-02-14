@@ -64,7 +64,7 @@ function lsx_banner_navigation( $echo = false ) {
 	$return = '<div class="banner-easing"><a class="btn-scroll-to" href="#main" data-extra-top="' . $atts['extra-top'] . '"><i class="fa fa-angle-down" aria-hidden="true"></i></a></div>';
 
 	if ( true === $echo ) {
-		echo $return;
+		echo esc_attr( $return );
 	} else {
 		return $return;
 	}

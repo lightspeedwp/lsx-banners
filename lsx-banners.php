@@ -103,35 +103,35 @@ $lsx_banners = new LSX_Banners();
 
 /* ======================= Deprecated Plugin Class ========================= */
 
-class Lsx_Banners_old {
+// class Lsx_Banners_old {
 
-	/**
-	 * Holds class instance
-	 *
-	 * @var      object|Lsx_Banners
-	 */
-	protected static $instance = null;
+// 	/**
+// 	 * Holds class instance
+// 	 *
+// 	 * @var      object|Lsx_Banners
+// 	 */
+// 	protected static $instance = null;
 
-	/**
-	 * Initialize the plugin by setting localization, filters, and administration functions.
-	 */
-	private function __construct() {
-		global $lsx_banners;
-		if ( null === $lsx_banners ) {
-			$lsx_banners = LSX_Banners::get_instance();
-		}
-	}
+// 	/**
+// 	 * Initialize the plugin by setting localization, filters, and administration functions.
+// 	 */
+// 	private function __construct() {
+// 		global $lsx_banners;
+// 		if ( null === $lsx_banners ) {
+// 			$lsx_banners = LSX_Banners::get_instance();
+// 		}
+// 	}
 
-	/**
-	 * Return an instance of this class.
-	 *
-	 * @return    object    A single instance of this class.
-	 */
-	public static function get_instance() {
-		// If the single instance hasn't been set, set it now.
-		if ( null == self::$instance ) {
-			self::$instance = new self;
-		}
-		return self::$instance;
-	}
-}
+// 	/**
+// 	 * Return an instance of this class.
+// 	 *
+// 	 * @return    object    A single instance of this class.
+// 	 */
+// 	public static function get_instance() {
+// 		// If the single instance hasn't been set, set it now.
+// 		if ( null == self::$instance ) {
+// 			self::$instance = new self;
+// 		}
+// 		return self::$instance;
+// 	}
+// }

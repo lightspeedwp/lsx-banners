@@ -78,7 +78,11 @@ Your WordPress website needs to be running PHP version 7.0 or higher in order to
 Yes. Just send us a message via [contact form](https://www.lsdev.biz/contact/) with precise information about what you require.
 
 == Screenshots ==
-1. Screenshot Description 1
+1. The LSX Theme setting has a LSX Banners tab
+2. LSX Banner pannel pt1
+3. LSX Banner pannel pt2
+4. LSX Banner pannel pt3
+5. LSX Banner working on a page
 
 == Changelog ==
 Change Log
