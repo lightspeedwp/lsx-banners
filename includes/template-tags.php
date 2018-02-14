@@ -54,14 +54,14 @@ function lsx_is_banner_disabled() {
  */
 function lsx_banner_navigation( $echo = false ) {
 	$atts = array(
-		'extra-top' => '0'
+		'extra-top' => '0',
 	);
 
 	if ( is_array( $echo ) ) {
 		$atts = shortcode_atts( $atts, $echo, 'banner_navigation' );
 	}
 
-	$return = '<div class="banner-easing"><a class="btn-scroll-to" href="#main" data-extra-top="' . $atts['extra-top'] .'"><i class="fa fa-angle-down" aria-hidden="true"></i></a></div>';
+	$return = '<div class="banner-easing"><a class="btn-scroll-to" href="#main" data-extra-top="' . $atts['extra-top'] . '"><i class="fa fa-angle-down" aria-hidden="true"></i></a></div>';
 
 	if ( true === $echo ) {
 		echo $return;

@@ -135,7 +135,7 @@ class LSX_Banners {
 		if ( class_exists( 'Placeholders_Options' ) ) {
 			$placeholders = Placeholders_Options::get_single( 'placeholders' );
 			if ( false !== $placeholders && is_array( $placeholders ) && isset( $placeholders['image'] ) ) {
-				foreach( $placeholders['image'] as $placeholder ) {
+				foreach ( $placeholders['image'] as $placeholder ) {
 					if ( isset( $placeholder['post_type'] ) && $post_type === $placeholder['post_type'] && isset( $placeholder['image'] ) ) {
 						$url = $placeholder['image']['selection']['url'];
 					}

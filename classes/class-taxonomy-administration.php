@@ -26,10 +26,10 @@ class LSX_Taxonomy_Admin {
 		$this->taxonomies = $taxonomies;
 
 		$this->fields = array(
-			'thumbnail'	=>	esc_html__( 'Thumbnail','lsx-banners' ),
+			'thumbnail'	=> esc_html__( 'Thumbnail','lsx-banners' ),
 			'tagline' => esc_html__( 'Tagline','lsx-banners' ),
 			'expert' =>	esc_html__( 'Expert','lsx-banners' ),
-			'banner_video'	=>	esc_html__( 'Video URL','lsx-banners' ),
+			'banner_video' => esc_html__( 'Video URL','lsx-banners' ),
 		);
 	}
 
@@ -58,7 +58,9 @@ class LSX_Taxonomy_Admin {
 	 * @since 1.0.0
 	 */
 	public function widget_taxonomies( $taxonomies ) {
-		if ( false !== $this->taxonomies ) { $taxonomies = array_merge( $taxonomies,$this->taxonomies ); }
+		if ( false !== $this->taxonomies ) {
+			$taxonomies = array_merge( $taxonomies,$this->taxonomies );
+		}
 		return $taxonomies;
 	}
 
@@ -73,7 +75,7 @@ class LSX_Taxonomy_Admin {
 			$value = get_term_meta( $term->term_id, 'thumbnail', true );
 			$image_preview = wp_get_attachment_image_src( $value,'thumbnail' );
 			if ( is_array( $image_preview ) ) {
-				$image_preview = '<img src="' .$image_preview[0]. '" width="' .$image_preview[1]. '" height="' .$image_preview[2]. '" class="alignnone size-thumbnail wp-image-' .$value. '" />';
+				$image_preview = '<img src="' . $image_preview[0] . '" width="' . $image_preview[1] . '" height="' . $image_preview[2] . '" class="alignnone size-thumbnail wp-image-' . $value . '" />';
 			}
 		} else {
 			$image_preview = false;
@@ -234,6 +236,6 @@ function lsx_get_term_thumbnail( $term_id = false, $size = 'lsx-thumbnail-wide' 
 	if ( false !== $term_id ) {
 		$term_thumbnail_id = get_term_meta( $term_id, 'thumbnail', true );
 		$img = wp_get_attachment_image_src( $term_thumbnail_id,$size );
-		return apply_filters( 'lsx_lazyload_filter_images', '<img alt="thumbnail" class="attachment-responsive wp-post-image lsx-responsive" src="' .$img[0]. '" />' );
+		return apply_filters( 'lsx_lazyload_filter_images', '<img alt="thumbnail" class="attachment-responsive wp-post-image lsx-responsive" src="' . $img[0] . '" />' );
 	}
 }

@@ -69,7 +69,7 @@ function lsx_banners_api_admin_init() {
 
 	$data = array(
 		'api_key' => '',
-		'email' => ''
+		'email' => '',
 	);
 
 	if ( false !== $options && isset( $options['api'] ) ) {
