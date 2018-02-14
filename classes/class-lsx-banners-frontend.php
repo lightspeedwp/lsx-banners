@@ -405,7 +405,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 									<?php endif; ?>
 
 									<?php if ( empty( $text_disable ) && ! empty( $this->banner_content() ) ) : ?>
-										<div class="banner-content"><?php echo ( $this->banner_content() ); ?></div>
+										<div class="banner-content"><?php echo force_balance_tags( $this->banner_content() ); ?></div>
 									<?php endif; ?>
 
 									<?php do_action( 'lsx_banner_container_bottom' ); ?>
