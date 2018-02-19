@@ -1,6 +1,6 @@
 === LSX Banners ===
 Contributors: feedmymedia
-Tags: custom header, featured image, header images, header, banner, caption
+Tags: custom header, featured image, header images, header, banner
 Donate link: https://www.lsdev.biz/product/lsx-banners/
 Requires at least: 4.3
 Tested up to: 4.9.4
@@ -22,8 +22,7 @@ Users will also find that LSX Banners works with Soliloquy Sliders, allowing you
 We offer premium support for this plugin. Premium support that can be purchased via [lsdev.biz](https://www.lsdev.biz/).
 
 = Works with the LSX Theme =
-This plugin requires the fantastic free [theme](https://www.lsdev.biz/product/lsx-wordpress-theme/) .
-
+LSX Banners is an [LSX Theme](https://www.lsdev.biz/product/lsx-wordpress-theme/) powered plugin. It integrates seamlessly with the core LSX functionality to provide you will powerful options for creating your online Projects.
 
 = It's Free, and always ill be =
 We’re firm believers in open source – that’s why we’re releasing the LSX Banners plugin for free, forever. 
@@ -36,15 +35,13 @@ The LSX Banners plugin is actively developed with new features and exciting enha
 Report any bugs via github issues.
 
 == Installation ==
-1. Upload the plugin files to the '/wp-content/plugins/lsx-banners' directory, or install the plugin through the WordPress plugins screen directly.
-2. Activate the plugin through the ‘Plugins’ screen in WordPress
-3. Use the Settings->Banners screen to configure the plugin
+1. Log in to your WordPress website (www.yourwebsiteurl.com/wp-admin).
+2. Navigate to “Plugins”, and select “Add New”.
+3. Upload the .zip file you downloaded and click install now.
+4. When the installation is complete, Activate your plugin.
+5. After installation new Banners options will appear under your LSX Theme options.
 
 == Frequently Asked Questions ==
-= Installation Instructions =
-Upload the plugin files to the /wp-content/plugins/lsx-banners directory, or install the plugin through the WordPress plugins screen directly.
-Activate the plugin through the ‘Plugins’ screen in WordPress
-Use the Settings->Banners screen to configure the plugin
 = What does this plugin do? =
 The LSX Banners plugin allows you to add images to posts and pages in the featured image section, and have that featured image display as a full-width hero banner at the top of the post/page along with the title of the content you are loading.
 = How do I add a new banner? =
