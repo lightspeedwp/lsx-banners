@@ -393,7 +393,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 	 * @param  string  $taxonomy
 	 */
 	public function save_meta( $term_id = 0, $taxonomy = '' ) {
-		$meta = ! empty( $_POST['banner'] ) ? $_POST['banner'] : '';
+		$meta = ! empty( wp_verify_nonce( $_POST['banner'] ) ) ? wp_verify_nonce( $_POST['banner'] ) : '';
 
 		if ( empty( $meta ) ) {
 			delete_term_meta( $term_id, 'banner' );
@@ -523,7 +523,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 	 * @param  string  $taxonomy
 	 */
 	public function save_profile_fields( $user_id ) {
-		$meta = ! empty( $_POST['banner'] ) ? $_POST['banner'] : '';
+		$meta = ! empty( wp_verify_nonce( $_POST['banner'] ) ) ? wp_verify_nonce( $_POST['banner'] ) : '';
 
 		if ( empty( $meta ) ) {
 			delete_user_meta( $user_id, 'banner' );
