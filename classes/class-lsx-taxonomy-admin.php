@@ -106,7 +106,7 @@ class LSX_Taxonomy_Admin {
 	public function save_meta( $term_id = 0, $taxonomy = '' ) {
 		if ( false !== $this->fields ) {
 			foreach ( $this->fields as $slug => $label ) {
-				$thumbnail_meta = ! empty( $_POST[ $slug ] ) ? $_POST[ $slug ]	: '';
+				$thumbnail_meta = ! empty( wp_verify_nonce( $_POST[ $slug ] ) ) ? wp_verify_nonce( $_POST[ $slug ] ) : '';
 				if ( empty( $thumbnail_meta ) ) {
 					delete_term_meta( $term_id, $slug );
 				} else {
@@ -223,7 +223,7 @@ function lsx_has_term_thumbnail( $term_id = false ) {
  */
 function lsx_term_thumbnail( $term_id = false, $size = 'lsx-thumbnail-wide' ) {
 	if ( false !== $term_id ) {
-		echo lsx_get_term_thumbnail( $term_id,$size );
+		echo wp_kses_post( lsx_get_term_thumbnail( $term_id,$size ) );
 	}
 }
 
