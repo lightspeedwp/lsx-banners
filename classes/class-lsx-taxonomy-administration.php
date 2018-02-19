@@ -191,7 +191,7 @@ class LSX_Taxonomy_Admin {
 
 					<?php
 						foreach ( $experts as $expert ) {
-							echo '<option value="' . esc_attr( $expert->ID ) . '"' . selected( $value, esc_attr( $expert->ID ), false ) . '>' . $expert->post_title . '</option>';
+							echo '<option value="' . esc_attr( $expert->ID ) . '"' . selected( $value, esc_attr( $expert->ID ), false ) . '>' . esc_attr( $expert->post_title ) . '</option>';
 						}
 					?>
 				</select>

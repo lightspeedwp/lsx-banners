@@ -67,11 +67,11 @@ class LSX_Banners {
 		$this->set_vars();
 
 		if ( ! class_exists( 'LSX_Taxonomy_Admin' ) ) {
-			require_once( LSX_BANNERS_PATH . 'classes/class-taxonomy-administration.php' );
+			require_once( LSX_BANNERS_PATH . 'classes/class-lsx-taxonomy-administration.php' );
 		}
 
 		if ( ! class_exists( 'LSX_Placeholders' ) ) {
-			require_once( LSX_BANNERS_PATH . 'classes/class-placeholders.php' );
+			require_once( LSX_BANNERS_PATH . 'classes/class-lsx-placeholders.php' );
 			add_action( 'wp',array( $this, 'init_placeholders' ),100 );
 		}
 
