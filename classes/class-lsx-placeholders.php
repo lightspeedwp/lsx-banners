@@ -44,7 +44,7 @@ class LSX_Placeholders {
 	public function __construct( $post_types = false ) {
 		$this->banner_plugin_disabled = apply_filters( 'lsx_banner_plugin_disable', false );
 
-		// Plugin disable, skip any other test
+		// Plugin disable, skip any other test.
 		if ( ! empty( $this->banner_plugin_disabled ) ) {
 			return;
 		}
@@ -63,12 +63,12 @@ class LSX_Placeholders {
 		}
 
 		if ( ! is_admin() ) {
-			add_filter( 'get_post_metadata', array( $this, 'default_post_thumbnail' ) , 11, 3 );
-			add_filter( 'get_term_metadata', array( $this, 'default_term_thumbnail' ) , 11, 3 );
+			add_filter( 'get_post_metadata', array( $this, 'default_post_thumbnail' ), 11, 3 );
+			add_filter( 'get_term_metadata', array( $this, 'default_term_thumbnail' ), 11, 3 );
 
-			add_filter( 'wp_get_attachment_image_src', array( $this, 'super_placeholder_filter' ) , 20, 4 );
-			add_filter( 'wp_calculate_image_srcset_meta', array( $this, 'super_placeholder_srcset_filter' ) , 20, 4 );
-			add_filter( 'wp_calculate_image_srcset', array( $this, 'super_placeholder_calculate_image_srcset_filter' ) , 20, 5 );
+			add_filter( 'wp_get_attachment_image_src', array( $this, 'super_placeholder_filter' ), 20, 4 );
+			add_filter( 'wp_calculate_image_srcset_meta', array( $this, 'super_placeholder_srcset_filter' ), 20, 4 );
+			add_filter( 'wp_calculate_image_srcset', array( $this, 'super_placeholder_calculate_image_srcset_filter' ), 20, 5 );
 		}
 	}
 
@@ -88,10 +88,10 @@ class LSX_Placeholders {
 			$size = 'lsx-thumbnail-single';
 		}
 
-		$options = get_option( '_lsx_settings',false );
+		$options = get_option( '_lsx_settings', false );
 
 		if ( false === $options ) {
-			$options = get_option( '_lsx_lsx-settings',false );
+			$options = get_option( '_lsx_lsx-settings', false );
 		}
 
 		if ( is_array( $size ) && 2 === count( $size ) ) {
@@ -129,7 +129,7 @@ class LSX_Placeholders {
 		$placeholder    = 'https://placeholdit.imgix.net/~text?txtsize=' . $text_size . '&txt=' . urlencode( get_bloginfo( 'name' ) ) . $holdit_width;
 		$placeholder_id = false;
 
-		//First Check for a default, then check if there is one set by post type.
+		// First Check for a default, then check if there is one set by post type.
 		if ( isset( $options['display'] )
 			&& isset( $options['display']['default_placeholder_id'] )
 			&& ! empty( $options['display']['default_placeholder_id'] )
@@ -171,21 +171,21 @@ class LSX_Placeholders {
 	 * The post default placeholder call.
 	 */
 	public function default_post_thumbnail( $meta, $post_id, $meta_key ) {
-		$options = get_option( '_lsx_settings',false );
+		$options = get_option( '_lsx_settings', false );
 		if ( false === $options ) {
-			$options = get_option( '_lsx_lsx-settings',false );
+			$options = get_option( '_lsx_lsx-settings', false );
 		}
 
-		//This ensures our "super" placeholder will always show.
+		// This ensures our "super" placeholder will always show.
 		$placeholder = 'lsx-placeholder';
 		if ( '_thumbnail_id' === $meta_key && false !== $options ) {
 
 			$post_type = get_post_field( 'post_type', $post_id );
 
-			//If the post types posts placeholder has been disabled then skip.
+			// If the post types posts placeholder has been disabled then skip.
 			if ( 'post' === $post_type && isset( $options['display'] ) && isset( $options['display']['disable_blog_placeholder'] ) ) { return $meta; }
 
-			//First Check for a default, then check if there is one set by post type.
+			// First Check for a default, then check if there is one set by post type.
 			if ( isset( $options['display'] )
 			 && isset( $options['display']['default_placeholder_id'] )
 			 && ! empty( $options['display']['default_placeholder_id'] ) ) {
@@ -215,8 +215,7 @@ class LSX_Placeholders {
 			if ( ! empty( $image ) ) {
 				return $meta;
 			}
-			// onlong but here it is. no ID
-
+			// onlong but here it is. no ID.
 			return $placeholder;
 		}
 
@@ -229,13 +228,13 @@ class LSX_Placeholders {
 	public function default_term_thumbnail( $meta, $post_id, $meta_key ) {
 
 		if ( 'thumbnail' === $meta_key ) {
-			$options = get_option( '_lsx_settings',false );
+			$options = get_option( '_lsx_settings', false );
 			if ( false === $options ) {
-				$options = get_option( '_lsx_lsx-settings',false );
+				$options = get_option( '_lsx_lsx-settings', false );
 			}
 			$placeholder = 'lsx-placeholder';
 
-			//First Check for a default, then check if there is one set by post type.
+			// First Check for a default, then check if there is one set by post type.
 			if ( false !== $options
 			 && isset( $options['display'] )
 			 && isset( $options['display']['default_placeholder_id'] )
@@ -251,7 +250,7 @@ class LSX_Placeholders {
 			if ( false !== $image && '' !== $image && ! empty( $image ) ) {
 				return $meta;
 			}
-			// onlong but here it is. no ID
+			// onlong but here it is. no ID.
 			return $placeholder;
 		}
 

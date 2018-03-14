@@ -60,9 +60,9 @@ class LSX_Banners {
 	 * @access private
 	 */
 	public function __construct() {
-		$this->options = get_option( '_lsx_settings',false );
+		$this->options = get_option( '_lsx_settings', false );
 		if ( false === $this->options ) {
-			$this->options = get_option( '_lsx_lsx-settings',false );
+			$this->options = get_option( '_lsx_lsx-settings', false );
 		}
 		$this->set_vars();
 
@@ -72,7 +72,7 @@ class LSX_Banners {
 
 		if ( ! class_exists( 'LSX_Placeholders' ) ) {
 			require_once( LSX_BANNERS_PATH . 'classes/class-lsx-placeholders.php' );
-			add_action( 'wp',array( $this, 'init_placeholders' ),100 );
+			add_action( 'wp', array( $this, 'init_placeholders' ), 100 );
 		}
 
 		require_once( LSX_BANNERS_PATH . 'classes/class-lsx-banners-admin.php' );
@@ -102,13 +102,13 @@ class LSX_Banners {
 
 
 	/**
-	 * retreives the allowed post types
+	 * Retreives the allowed post types
 	 *
 	 * @return array
 	 */
 	public function get_allowed_post_types() {
-		// Example of all available fields
-		$allowed_post_types = array( 'page','post' );
+		// Example of all available fields.
+		$allowed_post_types = array( 'page', 'post' );
 		if ( in_array( 'jetpack-portfolio', get_post_types() ) ) {
 			$allowed_post_types[] = 'jetpack-portfolio';
 		}
@@ -116,12 +116,12 @@ class LSX_Banners {
 	}
 
 	/**
-	 * retreives the allowed taxonomies
+	 * Retreives the allowed taxonomies
 	 *
 	 * @return array
 	 */
 	public function get_allowed_taxonomies() {
-		// Example of all available fields
+		// Example of all available fields.
 		$allowed_taxonomies = array( 'category' );
 		return apply_filters( 'lsx_banner_allowed_taxonomies', $allowed_taxonomies );
 	}

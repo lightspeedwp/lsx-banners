@@ -60,7 +60,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	 * Enques the assets
 	 */
 	public function enqueue_stylescripts() {
-		wp_enqueue_script( 'jquery-touchswipe', LSX_BANNERS_URL . 'assets/js/vendor/jquery.touchSwipe.min.js', array( 'jquery' ) , LSX_BANNERS_VER, true );
+		wp_enqueue_script( 'jquery-touchswipe', LSX_BANNERS_URL . 'assets/js/vendor/jquery.touchSwipe.min.js', array( 'jquery' ), LSX_BANNERS_VER, true );
 
 		wp_enqueue_script( 'lsx-banners', LSX_BANNERS_URL . 'assets/js/lsx-banners.min.js', array( 'jquery', 'jquery-touchswipe' ), LSX_BANNERS_VER, true );
 
@@ -92,7 +92,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		}
 
 		if ( ! empty( $this->banner_plugin_disabled ) ) {
-			// Plugin disable, skip any other test
+			// Plugin disable, skip any other test.
 			return;
 		} elseif ( ! empty( $this->options['display']['banners_disabled'] ) || ! empty( $this->banner_disabled ) ) {
 			if ( function_exists( 'lsx_setup' ) ) {
@@ -180,7 +180,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		$banner_image = false;
 
 		// We change the id to the page with a matching slug ar the post_type archive.
-		// Singular Banners
+		// Singular Banners.
 		if ( is_front_page() || is_home() || is_singular( $this->get_allowed_post_types() ) || in_array( 'blog', get_body_class(), true ) ) {
 			$img_group = get_post_meta( $this->post_id, 'image_group', true );
 			$show_slider = false;
@@ -273,18 +273,18 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			}
 		}
 
-		// If we have enabled the placeholders, then force a placeholdit url
+		// If we have enabled the placeholders, then force a placeholdit url.
 		if ( true === $this->placeholder && empty( $banner_image ) && ! is_404() && empty( $bg_color ) ) {
 			$banner_image = apply_filters( 'lsx_banner_placeholder_url', 'https://placeholdit.imgix.net/~text?txtsize=33&txt=1920x600&w=1920&h=600' );
 		}
 
 		$banner_image = apply_filters( 'lsx_banner_image', $banner_image );
 
-		// Check if the content should be disabled or not
+		// Check if the content should be disabled or not.
 		$title_disable = get_post_meta( $post_id, 'banner_title_disabled', true );
 		$text_disable  = get_post_meta( $post_id, 'banner_text_disabled', true );
 
-		// Embed video
+		// Embed video.
 		$embed_video = get_post_meta( $this->post_id, 'banner_video', true );
 
 		if ( ! empty( $embed_video ) ) {
@@ -292,7 +292,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			$embed_video = '<video src="' . $embed_video . '" ' . ( ! empty( $banner_image ) ? ( 'poster="' . $banner_image . '"' ) : '' ) . ' width="auto" height="auto" autoplay loop preload muted>' . ( ! empty( $banner_image ) ? ( '<img class="disable-lazyload" src="' . $banner_image . '">' ) : '' ) . '</video>';
 		}
 
-		// Envira Gallery
+		// Envira Gallery.
 		$envira_gallery_id = get_post_meta( $this->post_id, 'envira_gallery', true );
 
 		if ( class_exists( 'Envira_Gallery' ) && apply_filters( 'lsx_banners_envira_enable', true ) ) {
@@ -320,7 +320,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			$envira_gallery_id = false;
 		}
 
-		// Soliloquy Slider
+		// Soliloquy Slider.
 		$soliloquy_slider_id = get_post_meta( $this->post_id, 'soliloquy_slider', true );
 
 		if ( class_exists( 'Soliloquy' ) ) {

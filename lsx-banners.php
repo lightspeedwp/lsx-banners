@@ -17,10 +17,10 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'LSX_BANNERS_PATH',  plugin_dir_path( __FILE__ ) );
-define( 'LSX_BANNERS_CORE',  __FILE__ );
-define( 'LSX_BANNERS_URL',  plugin_dir_url( __FILE__ ) );
-define( 'LSX_BANNERS_VER',  '1.1.1' );
+define( 'LSX_BANNERS_PATH', plugin_dir_path( __FILE__ ) );
+define( 'LSX_BANNERS_CORE', __FILE__ );
+define( 'LSX_BANNERS_URL', plugin_dir_url( __FILE__ ) );
+define( 'LSX_BANNERS_VER', '1.1.1' );
 
 if ( ! function_exists( 'cmb_init' ) ) {
 	if ( is_file( LSX_BANNERS_PATH . 'vendor/Custom-Meta-Boxes/custom-meta-boxes.php' ) ) {

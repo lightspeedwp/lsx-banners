@@ -1,6 +1,6 @@
 === LSX Banners ===
 Contributors: feedmymedia
-Tags: custom header, featured image, header images, header, banner
+Tags: LSX Theme, custom header, featured image, header images, banner
 Donate link: https://www.lsdev.biz/product/lsx-banners/
 Requires at least: 4.3
 Tested up to: 4.9.4
