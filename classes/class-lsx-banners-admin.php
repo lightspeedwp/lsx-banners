@@ -234,6 +234,10 @@ class LSX_Banners_Admin extends LSX_Banners {
 			$button_types['form'] = esc_html__( 'Open a modal (Caldera Form)', 'lsx-banners' );
 		}
 
+		if ( class_exists( 'WPForms_Form_Handler' ) ) {
+			$button_types['wpform'] = esc_html__( 'Open a modal (WP Form)', 'lsx-banners' );
+		}
+
 		$fields[] = array(
 			'id'   => 'button_group',
 			'name' => esc_html__( 'Button', 'lsx-banners' ),

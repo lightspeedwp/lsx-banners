@@ -675,8 +675,11 @@ class LSX_Banners_Frontend extends LSX_Banners {
 					if ( 'anchor' === $button_type ) {
 						$button_attr = ' onclick="LSX_Banners.doScroll(this); return false;"';
 					} elseif ( 'form' === $button_type ) {
-						$button_attr = ' onclick="LSX_Banners.openModal(this); return false;"';
+						$button_attr = ' data-toggle="modal"';
 						$button_link = '#cf-modal-' . $button_link;
+					} elseif ( 'wpform' === $button_type ) {
+						$button_attr = ' data-toggle="modal"';
+						$button_link = '#' . $button_link;
 					}
 
 					$button = '<a class="' . $button_class . '" href="' . $button_link . '"' . $button_attr . '>' . $button_text . '</a>';
@@ -772,19 +775,27 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	 * Add form modal
 	 */
 	public function add_form_modal() {
-		$button_group = get_post_meta( get_queried_object_id(), 'button_group', true );
+		$button_group = get_post_meta( get_queried_object()->ID, 'button_group', true );
 
 		if ( empty( $button_group ) || ! is_array( $button_group ) ) {
 			return '';
 		}
 
 		if ( 'form' !== $button_group['button_type'] ) {
-			return '';
+			if ( 'wpform' !== $button_group['button_type'] ) {
+				return '';
+			}
 		}
 
+		$form_kind = $button_group['button_type'];
 		$form_id = $button_group['button_link'];
+
+		if ( 'form' == $form_kind ) {
+			$form_id = 'cf-modal-' . $form_id;
+		}
+
 		?>
-		<div class="lsx-modal modal fade" id="cf-modal-<?php echo esc_attr( $form_id ); ?>" role="dialog">
+		<div class="lsx-modal modal fade" id="<?php echo esc_attr( $form_id ); ?>" role="dialog">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -794,7 +805,16 @@ class LSX_Banners_Frontend extends LSX_Banners {
 					</div>
 
 					<div class="modal-body">
-						<?php echo do_shortcode( '[caldera_form id="' . $form_id . '"]' ); ?>
+						<?php
+							if ( 'form' == $form_kind ) {
+								$form_id = $button_group['button_link'];
+								echo do_shortcode( '[caldera_form id="' . $form_id . '"]' );
+							}
+							if ( 'wpform' == $form_kind ) {
+								echo do_shortcode( '[wpforms id="' . $form_id . '" title="false" description="false"]' );
+							}
+						?>
+
 					</div>
 				</div>
 			</div>
