@@ -21,7 +21,7 @@
   },
   "homepage": "https://bitbucket.org/feedmycode/lsx-banners#readme",
   "devDependencies": {
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.0",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-concat": "^2.6.1",
     "gulp-gettext": "^0.3.0",
@@ -30,7 +30,7 @@
     "gulp-plumber": "^1.2.0",
     "gulp-rename": "^1.3.0",
     "gulp-rtlcss": "^1.2.0",
-    "gulp-sass": "^3.2.1",
+    "gulp-sass": "^4.0.1",
     "gulp-sort": "^2.0.0",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify": "^2.0.1",
@@ -38,5 +38,8 @@
     "gulp-wp-pot": "^2.3.1",
     "jshint": "^2.9.5",
     "map-stream": "^0.0.7"
+  },
+  "dependencies": {
+    "hoek": "^4.2.1"
   }
 }
