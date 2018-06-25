@@ -3,6 +3,10 @@
   "version": "1.1.1",
   "description": "Banners for LSX",
   "main": "gulpfile.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lightspeeddevelopment/lsx-banners.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
