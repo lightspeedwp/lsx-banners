@@ -411,7 +411,11 @@ class LSX_Banners_Frontend extends LSX_Banners {
 									<?php do_action( 'lsx_banner_container_bottom' ); ?>
 								</div>
 
-								<?php if ( function_exists( 'lsx_banner_inner_bottom' ) ) { lsx_banner_inner_bottom(); }; ?>
+								<?php
+									if ( function_exists( 'lsx_banner_inner_bottom' ) ) {
+										lsx_banner_inner_bottom();
+									};
+								?>
 							</div>
 						</div>
 						<?php
