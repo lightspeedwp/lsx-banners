@@ -87,7 +87,7 @@ class LSX_Taxonomy_Admin {
 			<td>
 				<input class="input_image_id" type="hidden" name="thumbnail" value="<?php echo esc_attr( $value ); ?>">
 				<div class="thumbnail-preview">
-					<?php echo esc_attr( $image_preview ); ?>
+					<?php echo wp_kses_post( $image_preview ); ?>
 				</div>
 				<a style="<?php if ( '' !== $value && false !== $value ) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-add"><?php esc_html_e( 'Choose Image', 'lsx-banners' ); ?></a>
 				<a style="<?php if ( '' === $value || false === $value ) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-remove"><?php esc_html_e( 'Remove Image', 'lsx-banners' ); ?></a>
@@ -104,13 +104,15 @@ class LSX_Taxonomy_Admin {
 	 * @param  string  $taxonomy
 	 */
 	public function save_meta( $term_id = 0, $taxonomy = '' ) {
+		if ( ! isset( $_POST['lsx_banners_save_meta'] ) || ! wp_verify_nonce( $_POST['lsx_banners_save_meta'], 'save_term_meta' ) ) {
+			return;
+		}
 		if ( false !== $this->fields ) {
 			foreach ( $this->fields as $slug => $label ) {
-				$thumbnail_meta = ! empty( wp_verify_nonce( $_POST[ $slug ] ) ) ? wp_verify_nonce( $_POST[ $slug ] ) : '';
-				if ( empty( $thumbnail_meta ) ) {
+				if ( empty( $_POST[ $slug ] ) ) {
 					delete_term_meta( $term_id, $slug );
 				} else {
-					update_term_meta( $term_id, $slug, $thumbnail_meta );
+					update_term_meta( $term_id, $slug, $_POST[ $slug ] );
 				}
 			}
 		}
