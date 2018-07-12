@@ -72,7 +72,7 @@ class LSX_Banners {
 
 		if ( ! class_exists( 'LSX_Placeholders' ) ) {
 			require_once( LSX_BANNERS_PATH . 'classes/class-lsx-placeholders.php' );
-			add_action( 'wp', array( $this, 'init_placeholders' ), 100 );
+			add_action( 'init', array( $this, 'init_placeholders' ), 100 );
 		}
 
 		require_once( LSX_BANNERS_PATH . 'classes/class-lsx-banners-admin.php' );

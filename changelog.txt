@@ -3,6 +3,7 @@
 ### 1.1.3
 * Dev - Changed the "Banner" field nonce on the taxonomy term edit pages.
 * Fix - Fixed the edit term "thumbnail" preview.
+* Fix - Fixed the missing placeholder image settings.
 
 ### 1.1.2
 * Dev - Added in a template tag which returns if the current item is disabled - lsx_is_banner_disabled()
