@@ -1,5 +1,6 @@
 ## Changelog
 * Dev - Added in a template tag which returns if the current item is disabled - lsx_is_banner_disabled()
+* Dev - Changed the "Banner" field nonce on the taxonomy term edit pages.
 
 ### 1.1.1
 * Dev - Added compatibility with LSX Videos

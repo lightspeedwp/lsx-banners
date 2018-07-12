@@ -382,6 +382,8 @@ class LSX_Banners_Admin extends LSX_Banners {
 				</div>
 				<a style="<?php if ( '' !== $value && false !== $value ) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-add"><?php esc_html_e( 'Choose Image', 'lsx-banners' ); ?></a>
 				<a style="<?php if ( '' === $value || false === $value ) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-remove"><?php esc_html_e( 'Remove Image', 'lsx-banners' ); ?></a>
+
+				<?php wp_nonce_field( 'save_term_meta', 'lsx_banners_save_meta' ); ?>
 			</td>
 		</tr>
 		<?php
@@ -396,12 +398,15 @@ class LSX_Banners_Admin extends LSX_Banners {
 	 * @param  string  $taxonomy
 	 */
 	public function save_meta( $term_id = 0, $taxonomy = '' ) {
-		$meta = ! empty( wp_verify_nonce( $_POST['banner'] ) ) ? wp_verify_nonce( $_POST['banner'] ) : '';
 
-		if ( empty( $meta ) ) {
+		if ( ! isset( $_POST['lsx_banners_save_meta'] ) || ! wp_verify_nonce( $_POST['lsx_banners_save_meta'], 'save_term_meta' ) ) {
+			return;
+		}
+
+		if ( empty( $_POST['banner'] ) ) {
 			delete_term_meta( $term_id, 'banner' );
 		} else {
-			update_term_meta( $term_id, 'banner', $meta );
+			update_term_meta( $term_id, 'banner', $_POST['banner'] );
 		}
 	}
 
