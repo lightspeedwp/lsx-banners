@@ -145,6 +145,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		$y_position = 'center';
 		$show_slider = false;
 		$img_group = false;
+		$banner_size = 'full';
 
 		$bg_color = get_post_meta( $post_id, 'banner_bg_color', true );
 		$text_color = get_post_meta( $post_id, 'banner_text_color', true );
@@ -174,6 +175,10 @@ class LSX_Banners_Frontend extends LSX_Banners {
 
 			if ( isset( $image_bg_group['banner_y'] ) && ! empty( $image_bg_group['banner_y'] ) ) {
 				$y_position = $image_bg_group['banner_y'];
+			}
+
+			if ( isset( $image_bg_group['banner_size'] ) && ! empty( $image_bg_group['banner_size'] ) ) {
+				$banner_size = $image_bg_group['banner_size'];
 			}
 		}
 
@@ -205,7 +210,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 				}
 
 				if ( ! empty( $banner_image_id ) ) {
-					$banner_image = wp_get_attachment_image_src( $banner_image_id, 'lsx-banner' );
+					$banner_image = wp_get_attachment_image_src( $banner_image_id, $banner_size );
 
 					if ( ! empty( $banner_image ) ) {
 						$banner_image = $banner_image[0];
@@ -217,7 +222,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 
 			// If its the LSX theme, and there is no banner, but there is a featured image, then use that for the banner.
 			if ( 'lsx' === $this->theme && empty( $bg_color ) && is_singular( array( 'post', 'page' ) ) && false === $banner_image && false === $show_slider && has_post_thumbnail( $this->post_id ) ) {
-				$banner_image = wp_get_attachment_image_src( get_post_thumbnail_id( $this->post_id ), 'lsx-banner' );
+				$banner_image = wp_get_attachment_image_src( get_post_thumbnail_id( $this->post_id ), $banner_size );
 
 				if ( ! empty( $banner_image ) ) {
 					$banner_image = $banner_image[0];
@@ -241,7 +246,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 
 		// If its a taxonomy, then get the image from out term meta.
 		if ( ( is_category() || is_tax( $this->get_allowed_taxonomies() ) ) && ! empty( $this->banner_id ) ) {
-			$banner_image = wp_get_attachment_image_src( $this->banner_id, 'lsx-banner' );
+			$banner_image = wp_get_attachment_image_src( $this->banner_id, $banner_size );
 
 			if ( ! empty( $banner_image ) ) {
 				$banner_image = $banner_image[0];
@@ -258,7 +263,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 
 		// If its a author archive, then get the image from out user meta.
 		if ( is_author() && ! empty( $this->banner_id ) ) {
-			$banner_image = wp_get_attachment_image_src( $this->banner_id, 'lsx-banner' );
+			$banner_image = wp_get_attachment_image_src( $this->banner_id, $banner_size );
 
 			if ( ! empty( $banner_image ) ) {
 				$banner_image = $banner_image[0];
@@ -425,11 +430,11 @@ class LSX_Banners_Frontend extends LSX_Banners {
 							<?php
 								foreach ( $img_group['banner_image'] as $key => $value ) {
 									if ( is_array( $value ) ) {
-										$slide   = wp_get_attachment_image_src( $value['image_id'], 'lsx-banner' );
+										$slide   = wp_get_attachment_image_src( $value['image_id'], $banner_size );
 										$title   = $value['image_title'];
 										$content = $value['image_text'];
 									} else {
-										$slide   = wp_get_attachment_image_src( $value, 'lsx-banner' );
+										$slide   = wp_get_attachment_image_src( $value, $banner_size );
 										$title   = get_the_title( $post_id );
 										$content = $this->banner_content();
 									}
