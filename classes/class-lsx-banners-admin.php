@@ -290,6 +290,19 @@ class LSX_Banners_Admin extends LSX_Banners {
 			),
 		);
 
+
+		$image_sizes = array(
+			'full'   => esc_html__( 'Full', 'lsx-banners' ),
+			'medium'  => esc_html__( 'Medium', 'lsx-banners' ),
+			'thumbnail' => esc_html__( 'Thumbnail', 'lsx-banners' ),
+		);
+		$additional_image_sizes = wp_get_additional_image_sizes();
+		if ( !empty( $additional_image_sizes ) && is_array( $additional_image_sizes ) ) {
+			foreach ( $additional_image_sizes as $ais_key => $ais_values ) {
+				$image_sizes[ $ais_key ] = ucwords( str_replace( '-', ' ', $ais_key ) );
+			}
+		}
+
 		$fields[] = array(
 			'id'   => 'image_bg_group',
 			'name' => esc_html__( 'Attributes', 'lsx-banners' ),
@@ -338,6 +351,15 @@ class LSX_Banners_Admin extends LSX_Banners {
 						'bottom' => esc_html__( 'Bottom', 'lsx-banners' ),
 						'Center' => esc_html__( 'Center', 'lsx-banners' ),
 					),
+				),
+				array(
+					'id'         => 'banner_size',
+					'name'       => esc_html__( 'Image Size', 'lsx-banners' ),
+					'type'       => 'select',
+					'allow_none' => true,
+					'sortable'   => false,
+					'repeatable' => false,
+					'options'    => $image_sizes,
 				),
 			),
 		);
