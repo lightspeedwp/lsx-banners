@@ -5,7 +5,7 @@ Donate link: https://www.lsdev.biz/product/lsx-banners/
 Requires at least: 4.3
 Tested up to: 4.9.4
 Requires PHP: 7.0
-Stable tag: 1.1.2
+Stable tag: 1.1.4
 License: GPLv3
 
 LightSpeed’s LSX Banner Extension plugin is here to help you add advanced banner configuration options to your Wordpress site running LSX Theme.
@@ -82,6 +82,12 @@ Yes. Just send us a message via [contact form](https://www.lsdev.biz/contact/) w
 5. LSX Banner working on a page
 
 == Changelog ==
+
+### 1.1.4
+* Dev - Added in an "image size" dropdown to the banner metabox panel so you can choose your image size for posts and page banners
+* Dev - Changed the Taxonomy banners to call a full image by default.
+* Dev - Making sure slick.min.js slider is present, this is usually when using LSX banners with a non LSX theme.
+* Dev - Added in a way to allow the "CMB" field vendor to be excluded.  `define( 'LSX_BANNER_DISABLE_CMB', true );`
 
 ### 1.1.3
 * Dev - Changed the "Banner" field nonce on the taxonomy term edit pages.
