@@ -4,6 +4,7 @@
 * Dev - Added in an "image size" dropdown to the banner metabox panel so you can choose your image size for posts and page banners
 * Dev - Changed the Taxonomy banners to call a full image by default.
 * Dev - Making sure slick.min.js slider is present, this is usually when using LSX banners with a non LSX theme.
+* Dev - Added in a way to allow the "CMB" field vendor to be excluded.  `define( 'LSX_BANNER_DISABLE_CMB', true );`
 
 ### 1.1.3
 * Dev - Changed the "Banner" field nonce on the taxonomy term edit pages.

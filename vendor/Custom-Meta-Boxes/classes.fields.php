@@ -1492,7 +1492,6 @@ class CMB_Group_Field extends CMB_Field {
 
 				$class = _cmb_field_class_for_type( $f['type'] );
 				$this->add_field( new $class( $f['id'], $f['name'], array(), $f ) );
-
 			}
 		}
 
