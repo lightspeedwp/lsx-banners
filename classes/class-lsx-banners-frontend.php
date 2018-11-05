@@ -357,6 +357,12 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			$soliloquy_slider_id = false;
 		}
 
+		//This is where the title postition is determined.
+		$title_position = get_post_meta( $this->post_id, 'title_position', true );
+		if ( false === $title_position || '' === $title_position ) {
+			$title_position = 'centered';
+		}
+
 		if ( ! empty( $show_slider ) || ! empty( $banner_image ) || ! empty( $embed_video ) || ! empty( $bg_color ) ) {
 			?>
 			<div id="lsx-banner">

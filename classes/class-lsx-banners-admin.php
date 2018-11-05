@@ -146,6 +146,18 @@ class LSX_Banners_Admin extends LSX_Banners {
 				'name' => esc_html__( 'Title', 'lsx-banners' ),
 				'type' => 'text',
 			);
+			$fields[] = array(
+				'id'         => 'title_position',
+				'name'       => esc_html__( 'Title Position', 'lsx-banners' ),
+				'type'       => 'select',
+				'allow_none' => false,
+				'sortable'   => false,
+				'repeatable' => false,
+				'options'    => array(
+					'centered' => __( 'Centered', 'lsx-banners' ),
+					'bottom'   => __( 'Bottom', 'lsx-banners' )
+				),
+			);
 		}
 
 		if ( $subtitle_enabled ) {

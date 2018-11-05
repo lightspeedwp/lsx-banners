@@ -1,5 +1,8 @@
 ## Changelog
 
+### 1.1.5
+* Dev - Added in an option to set a title position
+
 ### 1.1.4
 * Dev - Added in an "image size" dropdown to the banner metabox panel so you can choose your image size for posts and page banners
 * Dev - Changed the Taxonomy banners to call a full image by default.
