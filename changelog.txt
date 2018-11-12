@@ -2,6 +2,7 @@
 
 ### 1.1.5
 * Dev - Added in an option to set a title position
+* Dev - Fixed the add new banner css
 
 ### 1.1.4
 * Dev - Added in an "image size" dropdown to the banner metabox panel so you can choose your image size for posts and page banners
