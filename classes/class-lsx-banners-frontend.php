@@ -393,6 +393,13 @@ class LSX_Banners_Frontend extends LSX_Banners {
 						?>
 						<div class="<?php echo esc_attr( $class_attr ); ?>">
 							<div class="page-banner rotating" style="<?php echo esc_attr( $style_attr ); ?>">
+
+								<?php
+									if ( function_exists( 'lsx_banner_inner_top' ) ) {
+										lsx_banner_inner_top();
+									};
+								?>
+
 								<?php if ( ! empty( $banner_image ) ) : ?>
 									<div class="page-banner-image" style="background-position: <?php echo esc_attr( $x_position ); ?> <?php echo esc_attr( $y_position ); ?>; background-image:url(<?php echo esc_attr( $banner_image ); ?>);"></div>
 								<?php endif; ?>
