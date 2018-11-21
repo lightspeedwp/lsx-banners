@@ -1,5 +1,8 @@
 ## Changelog
 
+### 1.1.6
+* Dev - Added function for changing the breadcrumbs to the top of the banner
+
 ### 1.1.5
 * Dev - Added in an option to set a title position
 * Dev - Fixed the add new banner css

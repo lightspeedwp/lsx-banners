@@ -3,7 +3,7 @@
  * Plugin Name: LSX Banners
  * Plugin URI:  https://www.lsdev.biz/product/lsx-banners
  * Description: The LSX Banners extension adds advanced banner configuration options to your WordPress site running LSX theme.
- * Version:     1.1.4
+ * Version:     1.1.6
  * Author:      LightSpeed
  * Author URI:  https://www.lsdev.biz/
  * License:     GPL3
@@ -20,7 +20,7 @@ if ( ! defined( 'WPINC' ) ) {
 define( 'LSX_BANNERS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'LSX_BANNERS_CORE', __FILE__ );
 define( 'LSX_BANNERS_URL', plugin_dir_url( __FILE__ ) );
-define( 'LSX_BANNERS_VER', '1.1.4' );
+define( 'LSX_BANNERS_VER', '1.1.6' );
 
 if ( ! function_exists( 'cmb_init' ) && is_file( LSX_BANNERS_PATH . 'vendor/Custom-Meta-Boxes/custom-meta-boxes.php' ) && ! defined( 'LSX_BANNER_DISABLE_CMB' ) ) {
 	require LSX_BANNERS_PATH . 'vendor/Custom-Meta-Boxes/custom-meta-boxes.php';
