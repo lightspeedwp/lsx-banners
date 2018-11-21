@@ -155,7 +155,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 				'repeatable' => false,
 				'options'    => array(
 					'centered' => __( 'Centered', 'lsx-banners' ),
-					'bottom'   => __( 'Bottom', 'lsx-banners' )
+					'bottom'   => __( 'Bottom', 'lsx-banners' ),
 				),
 			);
 		}
