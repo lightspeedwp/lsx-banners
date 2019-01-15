@@ -1,5 +1,11 @@
 ## Changelog
 
+### 2.1.0
+* Dev - Added in a Zoho Form field, which allows you to connect another Zoho enabled form to your current Zoho enabled form.
+
+### 2.0.0
+* Dev - Updated the Zoho CRM API to v2
+
 ### 1.1.6
 * Dev - Added function for changing the breadcrumbs to the top of the banner
 
