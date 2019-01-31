@@ -1,3 +1,4 @@
+asdfasdfasdfasdf
 <div class="uix-field-wrapper">
 	<ul class="ui-tab-nav">
 		<?php if ( class_exists( 'LSX_Banners' ) ) { ?>
@@ -47,6 +48,11 @@
 		<?php if ( class_exists( 'LSX_Search' ) ) { ?>
 			<?php $class_active = ( class_exists( 'LSX_Banners' ) || class_exists( 'LSX_Currencies' ) || class_exists( 'LSX_Team' ) || class_exists( 'LSX_Testimonials' ) || class_exists( 'LSX_Projects' ) || class_exists( 'LSX_Services' ) || class_exists( 'LSX_Blog_Customizer' ) || class_exists( 'LSX_Sharing' ) || class_exists( 'LSX_Videos' ) ) ? '' : 'active'; ?>
 			<li><a href="#ui-search" class="<?php echo esc_attr( $class_active ); ?>"><?php esc_html_e( 'Search', 'lsx-banners' ); ?></a></li>
+		<?php } ?>
+
+		<?php if ( class_exists( 'lsx\member_directory\classes\Core' ) ) { ?>
+			<?php $class_active = ( class_exists( 'LSX_Banners' ) || class_exists( 'LSX_Currencies' ) || class_exists( 'LSX_Team' ) || class_exists( 'LSX_Testimonials' ) || class_exists( 'LSX_Projects' ) || class_exists( 'LSX_Services' ) || class_exists( 'LSX_Blog_Customizer' ) || class_exists( 'LSX_Sharing' ) || class_exists( 'LSX_Videos' ) || class_exists( 'LSX_Videos' ) || class_exists( 'LSX_Search' ) ) ? '' : 'active'; ?>
+			<li><a href="#ui-member-directory" class="<?php echo esc_attr( $class_active ); ?>"><?php esc_html_e( 'Member Directory', 'lsx-banners' ); ?></a></li>
 		<?php } ?>
 	</ul>
 
@@ -154,6 +160,17 @@
 			<table class="form-table">
 				<tbody>
 					<?php do_action( 'lsx_framework_display_tab_content', 'search' ); ?>
+				</tbody>
+			</table>
+		</div>
+	<?php } ?>
+
+	<?php if ( class_exists( 'lsx\member_directory\classes\Core' ) ) { ?>
+		<?php $class_active = ( class_exists( 'LSX_Banners' ) || class_exists( 'LSX_Currencies' ) || class_exists( 'LSX_Team' ) || class_exists( 'LSX_Testimonials' ) || class_exists( 'LSX_Projects' ) || class_exists( 'LSX_Services' ) || class_exists( 'LSX_Blog_Customizer' ) || class_exists( 'LSX_Sharing' ) || class_exists( 'LSX_Videos' ) || class_exists( 'LSX_Search' ) ) ? '' : 'active'; ?>
+		<div id="ui-member-directory" class="ui-tab <?php echo esc_attr( $class_active ); ?>">
+			<table class="form-table">
+				<tbody>
+				<?php do_action( 'lsx_framework_display_tab_content', 'member-directory' ); ?>
 				</tbody>
 			</table>
 		</div>
