@@ -157,6 +157,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		 * This section gets the image meta, size etc.
 		 */
 		$image_bg_group = get_post_meta( $post_id, 'image_bg_group', true );
+		$image_bg_group = apply_filters( 'lsx_banner_bg_group', $image_bg_group, $post_id );
 
 		if ( ! empty( $image_bg_group ) && is_array( $image_bg_group ) ) {
 			if ( isset( $image_bg_group['banner_full_height'] ) ) {

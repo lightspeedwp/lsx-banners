@@ -2,6 +2,7 @@
 
 ### 2.1.1
 * Fix - Updated the uix-core.js to remove the Cyclic error when saving the theme options
+* Dev - Added in a filter to allow the alteration to the image_bg_group values. 'lsx_banner_bg_group'
 
 ### 2.1.0
 * Dev - Added in a Zoho Form field, which allows you to connect another Zoho enabled form to your current Zoho enabled form.
