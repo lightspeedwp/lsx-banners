@@ -191,7 +191,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		// Singular Banners.
 		if ( is_front_page() || is_home() || is_singular( $this->get_allowed_post_types() ) || in_array( 'blog', get_body_class(), true ) ) {
 			$img_group = get_post_meta( $this->post_id, 'image_group', true );
-			$img_group = apply_filters( 'image_group', $img_group, $this->post_id );
+			$img_group = apply_filters( 'lsx_banner_image_group', $img_group, $this->post_id );
 
 			$show_slider = false;
 
