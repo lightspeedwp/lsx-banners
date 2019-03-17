@@ -2,6 +2,7 @@
 
 ### 1.1.7
 * Dev - Added in a theme option to allow enabling banners on the events page
+* Dev - Added in an options to allow the use the The Events Calendar generated title in the banner.
 
 ### 1.1.6
 * Dev - Added function for changing the breadcrumbs to the top of the banner

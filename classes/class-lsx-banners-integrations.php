@@ -11,6 +11,12 @@
 class LSX_Banners_Integrations {
 
 	/**
+	 * Hold the current plugin options
+	 * @var array
+	 */
+	public $options = array();
+
+	/**
 	 * Holds the plugins integration post types
 	 *
 	 * @var      array|Lsx_Banners
@@ -26,6 +32,7 @@ class LSX_Banners_Integrations {
 	 */
 	public function __construct( ) {
 		add_filter( 'lsx_banner_allowed_post_types', array( $this, 'lsx_banner_allowed_post_types' ), 10, 1 );
+		add_filter( 'lsx_banner_title', array( $this, 'banner_title' ), 30, 1 );
 
 		if ( false !== $this->post_types ) {
 			foreach ( $this->post_types as $post_type ) {
@@ -35,6 +42,22 @@ class LSX_Banners_Integrations {
 					add_action( 'lsx_framework_' . $post_type . '_tab_content_top', array( $this, 'enable_banners_setting' ), 20 );
 				}
 			}
+		}
+
+		$this->set_options();
+	}
+
+	public function set_options() {
+		$this->options = get_option( '_lsx_settings', false );
+
+		if ( false === $this->options ) {
+			$this->options = get_option( '_lsx_lsx-settings', false );
+		}
+
+		$lsx_to_options = get_option( '_lsx-to_settings', false );
+
+		if ( ! empty( $lsx_to_options ) ) {
+			$this->options = $lsx_to_options;
 		}
 	}
 
@@ -53,22 +76,63 @@ class LSX_Banners_Integrations {
 			?>
 			<tr class="form-field">
 				<th scope="row">
-					<label for="banners_enabled"><?php esc_html_e( 'Enable Banners', 'lsx-banners' ); ?></label>
+					<label for="banners_plugin_title"><?php esc_html_e( 'Dynamic Title', 'lsx-banners' ); ?></label>
 				</th>
 				<td>
-					<input type="checkbox" {{#if banners_enabled}} checked="checked" {{/if}} name="banners_enabled" />
+					<input type="checkbox" {{#if banners_plugin_title}} checked="checked" {{/if}} name="banners_plugin_title" />
+					<small><?php esc_html_e( 'Check this option to use the dynamic title generate by the plugin.', 'lsx-banners' ); ?></small>
 				</td>
 			</tr>
 			<?php
 		}
 	}
 
-	public function enable_banners( $enable, $post_type ) {
-		print_r('hello');
+	public function banner_title( $title ) {
+		if ( is_post_type_archive( $this->post_types ) ) {
+			$current_post_type = get_post_type();
 
-		if ( in_array( $post_type, $this->post_types ) ) {
+			switch ( $current_post_type ) {
+				case 'tribe_events':
+					$title = $this->get_tribe_events_title();
+					break;
 
+				default;
+			}
 		}
-		return $enable;
+		return $title;
+	}
+
+	/**
+	 * Returns the Tribe events title
+	 * @return string
+	 */
+	public function get_tribe_events_title() {
+		$title = '';
+		if ( isset( $this->options['tribe_events'] ) ) {
+			//Check if we should use the dynamic title or if the title is set use it.
+			if ( isset( $this->options['tribe_events']['banners_plugin_title'] ) && 'on' === $this->options['tribe_events']['banners_plugin_title'] ) {
+				$title = tribe_get_events_title();
+				// We make sure the title lower down the page is disabled if using the dynamic title
+				add_filter( 'tribe_get_events_title', array( $this, 'disable_post_type_title' ), 200, 1 );
+
+			} else if ( '' !== $this->options['tribe_events']['banners_plugin_title'] ) {
+				$title = $this->options['tribe_events']['banners_plugin_title'];
+			}
+
+			if ( '' !== $title ) {
+				$title = '<h1 class="page-title">' . $title . '</h1>';
+			}
+		}
+		return $title;
+	}
+
+	/**
+	 * Disable the events title for the post archive if the dynamic setting is active.
+	 * @param $title
+	 *
+	 * @return string
+	 */
+	public function disable_post_type_title ( $title ) {
+		return '';
 	}
 }
