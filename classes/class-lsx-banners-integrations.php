@@ -89,7 +89,7 @@ class LSX_Banners_Integrations {
 
 	public function banner_title( $title ) {
 
-		if ( is_post_type_archive( $this->post_types ) ) {
+		if ( is_post_type_archive( $this->post_types ) || is_singular( $this->post_types ) ) {
 			$current_post_type = get_post_type();
 
 			if ( class_exists( 'Tribe__Events__Main' )
@@ -105,6 +105,7 @@ class LSX_Banners_Integrations {
 				default;
 			}
 		}
+
 		return $title;
 	}
 
@@ -120,6 +121,9 @@ class LSX_Banners_Integrations {
 				$title = tribe_get_events_title();
 				// We make sure the title lower down the page is disabled if using the dynamic title
 				add_filter( 'tribe_get_events_title', array( $this, 'disable_post_type_title' ), 200, 1 );
+				if ( is_singular( 'tribe_events' ) ) {
+					add_filter( 'the_title', array( $this, 'disable_post_type_title' ), 200, 1 );
+				}
 
 			} else if ( '' !== $this->options['tribe_events']['banners_plugin_title'] ) {
 				$title = $this->options['tribe_events']['banners_plugin_title'];
