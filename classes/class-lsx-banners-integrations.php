@@ -88,8 +88,14 @@ class LSX_Banners_Integrations {
 	}
 
 	public function banner_title( $title ) {
+
 		if ( is_post_type_archive( $this->post_types ) ) {
 			$current_post_type = get_post_type();
+
+			if ( class_exists( 'Tribe__Events__Main' )
+				 && ( tribe_is_day() || tribe_is_list_view() || tribe_is_month() ) ) {
+					$current_post_type = 'tribe_events';
+			}
 
 			switch ( $current_post_type ) {
 				case 'tribe_events':

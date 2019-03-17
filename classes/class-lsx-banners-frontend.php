@@ -244,8 +244,14 @@ class LSX_Banners_Frontend extends LSX_Banners {
 				$banner_image = $archive_banner;
 			}
 
-			if ( isset( $this->options[ get_post_type() ] ) && ! empty( $this->options[ get_post_type() ]['banner'] ) ) {
-				$banner_image = $this->options[ get_post_type() ]['banner'];
+			$post_type = get_post_type();
+			if ( class_exists( 'Tribe__Events__Main' )
+			     && ( tribe_is_day() || tribe_is_list_view() || tribe_is_month() ) ) {
+				$post_type = 'tribe_events';
+			}
+
+			if ( isset( $this->options[ $post_type ] ) && ! empty( $this->options[ $post_type ]['banner'] ) ) {
+				$banner_image = $this->options[ $post_type ]['banner'];
 			}
 		}
 
