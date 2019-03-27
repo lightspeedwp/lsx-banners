@@ -1,14 +1,14 @@
 === LSX Banners ===
 Contributors: feedmymedia
-Tags: LSX Theme, custom header, featured image, header images, banner
-Donate link: https://www.lsdev.biz/product/lsx-banners/
+Tags: LSX Theme, Gutenberg, featured image, header images, banner
+Donate link: https://www.donate.lsdev.biz/
 Requires at least: 4.3
-Tested up to: 4.9.4
+Tested up to: 5.1.1
 Requires PHP: 7.0
 Stable tag: 1.1.6
 License: GPLv3
 
-LightSpeed’s LSX Banner Extension plugin is here to help you add advanced banner configuration options to your Wordpress site running LSX Theme.
+LightSpeed’s [LSX Banner Extension plugin](https://lsx.lsdev.biz/extensions/banners/) is here to help you add advanced banner configuration options to your Wordpress site running LSX Theme.
 
 == Description ==
 LightSpeed’s LSX Banner Extension plugin is here to help you add advanced banner configuration options to your Wordpress site running LSX Theme.
@@ -22,20 +22,25 @@ Users will also find that LSX Banners works with Soliloquy Sliders, allowing you
 We offer premium support for this plugin. Premium support that can be purchased via [lsdev.biz](https://www.lsdev.biz/).
 
 = Works with the LSX Theme =
-LSX Banners is an [LSX Theme](https://www.lsdev.biz/product/lsx-wordpress-theme/) powered plugin. It integrates seamlessly with the core LSX functionality to provide you will powerful options for creating your online Projects.
+LSX Banners is an [LSX Theme](https://lsx.lsdev.biz/) powered plugin. It integrates seamlessly with the core LSX functionality to provide you will powerful options for creating your online Projects.
 
-= It's Free, and always ill be =
+= Gutenberg Compatible =
+Our LSX Banners plugin has been upgraded to work seamlessly with the new WordPress Gutenberg editor. 
+
+= It's Free, and always will be =
 We’re firm believers in open source – that’s why we’re releasing the LSX Banners plugin for free, forever. 
 
 = Support =
-We offer premium support for this plugin. Premium support that can be purchased via [lsdev.biz](https://www.lsdev.biz/).
+We offer premium support for this plugin. Premium support that can be purchased via [lsdev.biz](https://www.lsdev.biz/services/support/).
+
+Looking for an example of the LSX Banner Extension in action? Check out our [LSX Banner demo](https://lsx.lsdev.biz/extensions/banners/) for more information on available features.
 
 = Actively Developed =
 The LSX Banners plugin is actively developed with new features and exciting enhancements all the time. Keep track on the LSX Banners GitHub repository.
 Report any bugs via github issues.
 
 == Installation ==
-1. Log in to your WordPress website (www.yourwebsiteurl.com/wp-admin).
+1. Log in to your WordPress website (www.yourwebsiteurl.com/wp-admin/).
 2. Navigate to “Plugins”, and select “Add New”.
 3. Upload the .zip file you downloaded and click install now.
 4. When the installation is complete, Activate your plugin.
@@ -62,13 +67,13 @@ For help setting up and configuring the LSX Banners plugin please refer to our [
 = Where can I get support? =
 For help with add-ons from LightSpeed, use our support package plan.
 = Your plugin doesn’t work =
-The problem is likely with your theme. This plugin only works with the [LSX Theme](https://www.lsdev.biz/product/lsx-wordpress-theme/).
+The problem is likely with your theme. This plugin only works with the [LSX Theme](https://lsx.lsdev.biz/).
 = Will the LSX Banners plugin work with my theme? =
-No; the LSX Banners plugin requires some styling and functionality only available for the [LSX Theme](https://www.lsdev.biz/product/lsx-wordpress-theme/). You need to install the [LSX Theme](https://www.lsdev.biz/product/lsx-wordpress-theme/) for this extension to work properly.
+No. The LSX Banners plugin requires some styling and functionality only available for the [LSX Theme](https://lsx.lsdev.biz/). You need to install the LSX Theme for this extension to work properly.
 = Where can I report bugs or contribute to the project? =
-Bugs can be reported either in our support account or preferably on the LSX Banners [GitHub repository](https://github.com/lightspeeddevelopment/lsx-banners).
+Bugs can be reported either in our support account or preferably on the LSX Banners [GitHub repository](https://github.com/lightspeeddevelopment/lsx-banners/).
 = The LSX Banners plugin is awesome! Can I contribute? =
-Yes you can! Join in on our [GitHub repository](https://github.com/lightspeeddevelopment/lsx-banners)  🙂
+Yes you can! Join in on our [GitHub repository](https://github.com/lightspeeddevelopment/lsx-banners/)  🙂
 = What are the server requirements for running the LSX Theme and the LSX Banners plugin? =
 Your WordPress website needs to be running PHP version 7.0 or higher in order to make use of the LSX theme and related plugins.
 = I need custom functionality for this plugin. Can you build it? =
@@ -150,6 +155,3 @@ Yes. Just send us a message via [contact form](https://www.lsdev.biz/contact/) w
 
 ### 1.0.0
 * First Version
-
-== Upgrade Notice ==
-Upgrade Notice
