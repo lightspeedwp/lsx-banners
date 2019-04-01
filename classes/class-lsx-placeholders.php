@@ -108,25 +108,26 @@ class LSX_Placeholders {
 					break;
 
 				case 'lsx-thumbnail-single':
-					$holdit_width = '&w=750&h=350';
+					$holdit_width = '750x350';
 					break;
 
 				case 'lsx-thumbnail-square':
-					$holdit_width = '&w=350&h=350';
+					$holdit_width = '350x350';
 					break;
 
 				case 'lsx-banner':
-					$holdit_width = '&w=1920&h=600';
+					$holdit_width = '1920x600';
 					break;
 
 				case 'lsx-thumbnail-wide':
 				default:
-					$holdit_width = '&w=350&h=230';
+					$holdit_width = '350x230';
 					break;
 			}
 		}
 
-		$placeholder    = 'https://placeholdit.imgix.net/~text?txtsize=' . $text_size . '&txt=' . urlencode( get_bloginfo( 'name' ) ) . $holdit_width;
+
+		$placeholder    = 'https://place-hold.it/' . $holdit_width . '/cccccc/969696.jpeg&text=' . urlencode( get_bloginfo( 'name' ) ) . '&bold&fontsize=' . $text_size;
 		$placeholder_id = false;
 
 		// First Check for a default, then check if there is one set by post type.

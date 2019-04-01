@@ -291,7 +291,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 
 		// If we have enabled the placeholders, then force a placeholdit url.
 		if ( true === $this->placeholder && empty( $banner_image ) && ! is_404() && empty( $bg_color ) ) {
-			$banner_image = apply_filters( 'lsx_banner_placeholder_url', 'https://placeholdit.imgix.net/~text?txtsize=33&txt=1920x600&w=1920&h=600' );
+			$banner_image = apply_filters( 'lsx_banner_placeholder_url', 'https://place-hold.it/1920x600/aaa/969696.jpeg&text=1920x600&bold&fontsize=33' );
 		}
 
 		$banner_image = apply_filters( 'lsx_banner_image', $banner_image );
