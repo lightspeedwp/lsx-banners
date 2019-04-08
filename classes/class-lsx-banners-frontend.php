@@ -244,7 +244,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 				$banner_image = $archive_banner;
 			}
 
-			$post_type = get_post_type();
+			$post_type = get_query_var('post_type');
 			if ( class_exists( 'Tribe__Events__Main' )
 			     && ( tribe_is_day() || tribe_is_list_view() || tribe_is_month() ) ) {
 				$post_type = 'tribe_events';
