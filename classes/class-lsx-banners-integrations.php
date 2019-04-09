@@ -33,6 +33,7 @@ class LSX_Banners_Integrations {
 	public function __construct( ) {
 		add_filter( 'lsx_banner_allowed_post_types', array( $this, 'lsx_banner_allowed_post_types' ), 10, 1 );
 		add_filter( 'lsx_banner_title', array( $this, 'banner_title' ), 30, 1 );
+		add_filter( 'lsx_banner_tagline', array( $this, 'banner_tagline' ), 30, 1 );
 
 		if ( false !== $this->post_types ) {
 			foreach ( $this->post_types as $post_type ) {
@@ -110,7 +111,7 @@ class LSX_Banners_Integrations {
 	}
 
 	/**
-	 * Returns the Tribe events title
+	 * Returns the Tribe events meta as the tagline.
 	 * @return string
 	 */
 	public function get_tribe_events_title() {
@@ -143,6 +144,47 @@ class LSX_Banners_Integrations {
 	 * @return string
 	 */
 	public function disable_post_type_title ( $title ) {
+		add_filter( 'tribe_events_event_schedule_details', array( $this, 'disable_post_meta' ), 200, 1 );
 		return '';
 	}
+
+	/**
+	 * Disable the events title for the post archive if the dynamic setting is active.
+	 * @param $title
+	 *
+	 * @return string
+	 */
+	public function disable_post_meta ( $title ) {
+		return '';
+	}
+
+	/**
+	 * Adds the Tribe events meta to the banner tagline
+	 * @param $tagline
+	 *
+	 * @return string
+	 */
+	public function banner_tagline( $tagline ) {
+
+		if ( is_singular( $this->post_types ) ) {
+			$current_post_type = get_post_type();
+
+			if ( class_exists( 'Tribe__Events__Main' )
+			     && ( tribe_is_event() ) ) {
+				$current_post_type = 'tribe_events';
+			}
+
+			switch ( $current_post_type ) {
+				case 'tribe_events':
+					$tagline = tribe_events_event_schedule_details( get_the_ID(), '<p class="tagline" >', '</p>' );
+					break;
+
+				default;
+			}
+		}
+
+		return $tagline;
+	}
+
+	//apply_filters( 'tribe_events_event_schedule_details', $schedule, $event->ID, $before, $after )
 }

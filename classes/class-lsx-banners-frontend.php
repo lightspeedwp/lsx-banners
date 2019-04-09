@@ -666,6 +666,8 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			}
 		}
 
+		$tagline = apply_filters( 'lsx_banner_tagline', $tagline );
+
 		if ( ! empty( $tagline ) ) {
 			echo wp_kses_post( $tagline );
 		}
