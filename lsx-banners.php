@@ -30,4 +30,3 @@ if ( ! function_exists( 'cmb_init' ) && is_file( LSX_BANNERS_PATH . 'vendor/Cust
 
 require_once( LSX_BANNERS_PATH . 'classes/class-lsx-banners.php' );
 $lsx_banners = new LSX_Banners();
-
