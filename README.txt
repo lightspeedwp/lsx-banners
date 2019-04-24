@@ -5,7 +5,7 @@ Donate link: https://www.donate.lsdev.biz/
 Requires at least: 4.3
 Tested up to: 5.1.1
 Requires PHP: 7.0
-Stable tag: 1.1.6
+Stable tag: 1.1.7
 License: GPLv3
 
 LightSpeed’s [LSX Banner Extension plugin](https://lsx.lsdev.biz/extensions/banners/) is here to help you add advanced banner configuration options to your Wordpress site running LSX Theme.
