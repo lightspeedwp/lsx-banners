@@ -45,7 +45,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		add_action( 'wp_head', array( $this, 'init' ) );
 
 		if ( ! is_admin() ) {
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_stylescripts' ), 999 );
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_stylescripts' ), 5 );
 		} else {
 			add_filter( 'lsx_customizer_colour_selectors_banner', array( $this, 'customizer_colours_handler' ), 15, 2 );
 		}
