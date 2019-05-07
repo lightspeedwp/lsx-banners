@@ -91,6 +91,7 @@ class LSX_Taxonomy_Admin {
 				</div>
 				<a style="<?php if ( '' !== $value && false !== $value ) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-add"><?php esc_html_e( 'Choose Image', 'lsx-banners' ); ?></a>
 				<a style="<?php if ( '' === $value || false === $value ) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-remove"><?php esc_html_e( 'Remove Image', 'lsx-banners' ); ?></a>
+				<?php wp_nonce_field( 'lsx_banners_save_term_thumbnail', 'lsx_banners_term_thumbnail_nonce' ); ?>
 			</td>
 		</tr>
 		<?php
@@ -104,7 +105,7 @@ class LSX_Taxonomy_Admin {
 	 * @param  string  $taxonomy
 	 */
 	public function save_meta( $term_id = 0, $taxonomy = '' ) {
-		if ( ! isset( $_POST['lsx_banners_save_meta'] ) || ! wp_verify_nonce( $_POST['lsx_banners_save_meta'], 'save_term_meta' ) ) {
+		if ( ! check_admin_referer( 'lsx_banners_save_term_thumbnail', 'lsx_banners_term_thumbnail_nonce' ) ) {
 			return;
 		}
 		if ( false !== $this->fields ) {
