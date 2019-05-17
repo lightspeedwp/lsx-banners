@@ -43,9 +43,9 @@ class LSX_Taxonomy_Admin {
 
 		if ( false !== $this->taxonomies ) {
 			add_action( 'create_term', array( $this, 'save_meta' ), 10, 2 );
-			add_action( 'edit_term', array( $this, 'save_meta' ), 10, 2 );
 			foreach ( $this->taxonomies as $taxonomy ) {
 				//add_action( "{$taxonomy}_add_form_fields",  array( $this, 'add_thumbnail_form_field'  ),3 );
+				add_action( "edit_{$taxonomy}", array( $this, 'save_meta' ), 10, 2 );
 				add_action( "{$taxonomy}_edit_form_fields", array( $this, 'add_thumbnail_form_field' ), 3, 1 );
 				add_action( "{$taxonomy}_edit_form_fields", array( $this, 'add_tagline_form_field' ), 3, 1 );
 				add_action( "{$taxonomy}_edit_form_fields", array( $this, 'add_banner_video_form_field' ), 3, 1 );
@@ -105,6 +105,7 @@ class LSX_Taxonomy_Admin {
 	 * @param  string  $taxonomy
 	 */
 	public function save_meta( $term_id = 0, $taxonomy = '' ) {
+		
 		if ( ! check_admin_referer( 'lsx_banners_save_term_thumbnail', 'lsx_banners_term_thumbnail_nonce' ) ) {
 			return;
 		}
