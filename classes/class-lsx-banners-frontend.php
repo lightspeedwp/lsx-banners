@@ -92,7 +92,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		if ( empty( $this->banner_disabled ) ) {
 			$this->banner_disabled = get_post_meta( $this->post_id, 'banner_disabled', true );
 		}
-
+		
 		if ( ! empty( $this->banner_plugin_disabled ) ) {
 			// Plugin disable, skip any other test.
 			return;
@@ -100,7 +100,6 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			if ( function_exists( 'lsx_setup' ) ) {
 				// remove_action( 'lsx_header_after', 'lsx_page_banner' );
 				add_filter( 'lsx_page_banner_disable', '__return_true' );
-				// remove_action( 'lsx_content_wrap_before', 'lsx_global_header' );
 				add_filter( 'lsx_global_header_disable', '__return_true' );
 			}
 		} elseif ( is_singular( $allowed_post_types ) || is_post_type_archive( $allowed_post_types ) || is_tax( $allowed_taxonomies ) || is_category() || is_author() || is_404() || is_front_page() || is_home() ) {
