@@ -126,7 +126,6 @@ class LSX_Placeholders {
 			}
 		}
 
-
 		$placeholder    = 'https://place-hold.it/' . $holdit_width . '/cccccc/969696.jpeg&text=' . urlencode( get_bloginfo( 'name' ) ) . '&bold&fontsize=' . $text_size;
 		$placeholder_id = false;
 
