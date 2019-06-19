@@ -33,21 +33,4 @@ If you are experiencing issues with the LSX Banners Plugin & have experience wit
 
 ## Contributing to the LSX Banners Plugin
 
-If you're a developer who's spotted a bug issue and have a fix, or simply have functionality you think would extend our core theme, we are always happy to accept your contribution! Visit the [LSX Banners Plugin on Github](https://github.com/lightspeeddevelopment/lsx-banners/) and submit a Pull Request with your updates.```
-
-## Post Type Archives
-All you need to do is to create a "page" with the same "slug" as the post type archives slug, then upload the page to upload a banner image etc.
-
-## Adding additional content to your banner
-```add_action('lsx_banner_top','your_function_name');```
-```add_action('lsx_banner_bottom','your_function_name');```
-```add_action('lsx_banner_content','your_function_name');```
-
-### Inside lsx_banner_content()
-```add_action('lsx_banner_container_top','your_function_name');```
-```add_action('lsx_banner_container_bottom','your_function_name');```
-
-## Modifying the slider settings
-You will have 1 variable, an array as follows.
-```array('transition' => 'slide','interval' => '6000',);```
-```add_filter('lsx_banner_slider_settings','your_function_name',1,10);```
+If you're a developer who's spotted a bug issue and have a fix, or simply have functionality you think would extend our core theme, we are always happy to accept your contribution! Visit the [LSX Banners Plugin on Github](https://github.com/lightspeeddevelopment/lsx-banners/) and submit a Pull Request with your updates.
