@@ -5,7 +5,7 @@ Tags: LSX Theme, Gutenberg, Banner Hero Images, Hero Image Block, Hero Image Plu
 Requires at least: 4.7
 Tested up to: 5.2.2
 Requires PHP: 7.0
-Stable tag: 1.1.7
+Stable tag: 1.2.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
