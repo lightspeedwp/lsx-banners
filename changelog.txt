@@ -7,6 +7,7 @@
 * Dev - Added in a filter to allow the overwriting of the banner tagline for 3rd Party integration "lsx_banner_tagline"
 * Dev - Moved the Start and End date to the banner tagline for The Events Calendar
 * Dev - Restricted the save meta function for term fields to the taxonomies.
+* Dev - Removing the restriction on the WooCommerce pages.
 
 ### 1.1.6
 * Dev - Added function for changing the breadcrumbs to the top of the banner
