@@ -1,66 +1,36 @@
-# LSX Banners
+<p align="center"><a target="_blank" href="https://lsx.lsdev.biz/"><img width="100px;" src="https://lsx.lsdev.biz/wp-content/uploads/2019/02/lsx-banner-icon.svg" alt="LSX Banners"></a>
+</p>
+<h1 align="center">LSX Banners</h1>
 
-The LSX Banners extension adds advanced banner configuration options to your WordPress site running LSX theme.
+<p align="center">
+    <a href="http://gulpjs.com/"><img src="https://img.shields.io/badge/built%20with-gulp.js-green.svg" alt="Built with gulp.js"></a> 
+    <a href="https://travis-ci.org/lightspeeddevelopment/lsx-banners"><img src="https://travis-ci.org/lightspeeddevelopment/lsx-banners.svg?branch=master" alt="Build Status"></a>
+    <a href="https://lsx.lsdev.biz/"><img src="https://lsx.lsdev.biz/wp-content/uploads/2019/06/Designed-for-LSX-Theme-blue.png" alt="Made for LSX"></a>
+</p>
 
-## Setup
+The [LSX Banner Extension](https://lsx.lsdev.biz/extensions/banners/) is here to help you add advanced banner configuration options to your WordPress site running LSX Theme. 
 
-### 1: Install NPM
-https://nodejs.org/en/
+The plugin features customized banner options for each page on your site. This feature makes adding text to your banner super simple, also you can add buttons that can be transformed in call to actions.
 
-### 2: Install Gulp
-`npm install`
+## Works with the LSX Theme
+Our modern and lightweight [theme](https://lsx.lsdev.biz/) works perfectly with the Blog Customizer, improving internal linking, website SEO and user experience! 
 
-This will run the package.json file and download the list of modules to a "node_modules" folder in the plugin.
+## Gutenberg Compatible Plugin
+Have you updated to the new WordPress Gutenberg editor? We've got you covered! The LSX Banners Plugin has been optimised for the Gutenberg update. Check out our [release post](https://lsx.lsdev.biz/lsx-blocks-available-on-wordpress-org/) on the update for more information.
 
-### 3: Gulp Commands
-`gulp watch`
-`gulp compile-css`
-`gulp compile-js`
-`gulp wordpress-lang`
+## It's free, and always will be.
+We’re firm believers in open source - that’s why the [LSX Banners](https://lsx.lsdev.biz/extensions/banners/) is free, and that won't change. We are constantly maintaining and updating our extension so you have the latest and greatest abilities on your LSX Theme powered site. 
 
-## Enable Functionality Via Filters
+## LSX Banners Documentation
 
-Enable the use of a placeholder service,  currently placeholdit
+We have created extensive documentation on all of the LSX Banners Plugin functionality. This means a hassle free installation and setup with no code requirements. Go to the [LSX Banners Documentation](https://lsx.lsdev.biz/documentation/banners/).
 
-```add_filter('lsx_banner_enable_placeholder', function( $bool ) { return true; });```
+## LSX Banners Help & Support
 
-Customize the placeholder service.
+We offer premium support for this plugin. Premium support that can be purchased [via our website](https://www.lsdev.biz/services/support/).
 
-```add_filter('lsx_banner_placeholder_url', function( $url ) { return 'https://placeholdit.imgix.net/~text?txtsize=33&txt=1920%20600&w=1920&h=600'; });```
+If you are experiencing issues with the LSX Banners Plugin & have experience with Github, please log any bug issues you are having on the [LSX Banners Github Issues](https://github.com/lightspeeddevelopment/lsx-banners/issues/) page.
 
-Enable the Use of a custom title
+## Contributing to the LSX Banners Plugin
 
-```add_filter('lsx_banner_enable_title', function( $bool ) { return true; });```
-
-Enable the Use of a subtitle
-
-```add_filter('lsx_banner_enable_subtitle', function( $bool ) { return true; });```
-
-Disable the title of the banner on a per post basis
-
-```add_filter('lsx_banner_disable_title', function( $bool ) { return true; });```
-
-Disable the content of the banner on a per post basis
-
-```add_filter('lsx_banner_disable_text', function( $bool ) { return true; });```
-
-If your theme has bootstrap included, then you can enable the slider with the following filter.
-
-```add_filter('lsx_banner_enable_sliders', function( $bool ) { return true; });```
-
-## Post Type Archives
-All you need to do is to create a "page" with the same "slug" as the post type archives slug, then upload the page to upload a banner image etc.
-
-## Adding additional content to your banner
-```add_action('lsx_banner_top','your_function_name');```
-```add_action('lsx_banner_bottom','your_function_name');```
-```add_action('lsx_banner_content','your_function_name');```
-
-### Inside lsx_banner_content()
-```add_action('lsx_banner_container_top','your_function_name');```
-```add_action('lsx_banner_container_bottom','your_function_name');```
-
-## Modifying the slider settings
-You will have 1 variable, an array as follows.
-```array('transition' => 'slide','interval' => '6000',);```
-```add_filter('lsx_banner_slider_settings','your_function_name',1,10);```
+If you're a developer who's spotted a bug issue and have a fix, or simply have functionality you think would extend our core theme, we are always happy to accept your contribution! Visit the [LSX Banners Plugin on Github](https://github.com/lightspeeddevelopment/lsx-banners/) and submit a Pull Request with your updates.

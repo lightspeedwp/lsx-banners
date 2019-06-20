@@ -1,6 +1,6 @@
 ## Changelog
 
-### 1.1.7
+### 1.2.0 - 19th June 2019 
 * Dev - Added in a theme option to allow enabling banners on the events page
 * Dev - Added in an options to allow the use the The Events Calendar generated title in the post type archive and single banner.
 * Fix - Fixed the post type banner not showing on archives with "no posts"
@@ -8,6 +8,7 @@
 * Dev - Moved the Start and End date to the banner tagline for The Events Calendar
 * Dev - Restricted the save meta function for term fields to the taxonomies.
 * Dev - Removing the restriction on the WooCommerce pages.
+* Dev - Removing the commented out text
 
 ### 1.1.6
 * Dev - Added function for changing the breadcrumbs to the top of the banner

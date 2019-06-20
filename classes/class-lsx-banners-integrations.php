@@ -30,7 +30,7 @@ class LSX_Banners_Integrations {
 	 *
 	 * @access private
 	 */
-	public function __construct( ) {
+	public function __construct() {
 		add_filter( 'lsx_banner_allowed_post_types', array( $this, 'lsx_banner_allowed_post_types' ), 10, 1 );
 		add_filter( 'lsx_banner_title', array( $this, 'banner_title' ), 30, 1 );
 		add_filter( 'lsx_banner_tagline', array( $this, 'banner_tagline' ), 30, 1 );
@@ -125,7 +125,6 @@ class LSX_Banners_Integrations {
 				if ( is_singular( 'tribe_events' ) ) {
 					add_filter( 'the_title', array( $this, 'disable_post_type_title' ), 200, 1 );
 				}
-
 			} else if ( '' !== $this->options['tribe_events']['banners_plugin_title'] ) {
 				$title = $this->options['tribe_events']['banners_plugin_title'];
 			}
@@ -143,7 +142,7 @@ class LSX_Banners_Integrations {
 	 *
 	 * @return string
 	 */
-	public function disable_post_type_title ( $title ) {
+	public function disable_post_type_title( $title ) {
 		add_filter( 'tribe_events_event_schedule_details', array( $this, 'disable_post_meta' ), 200, 1 );
 		return '';
 	}
@@ -154,7 +153,7 @@ class LSX_Banners_Integrations {
 	 *
 	 * @return string
 	 */
-	public function disable_post_meta ( $title ) {
+	public function disable_post_meta( $title ) {
 		return '';
 	}
 
@@ -170,7 +169,7 @@ class LSX_Banners_Integrations {
 			$current_post_type = get_post_type();
 
 			if ( class_exists( 'Tribe__Events__Main' )
-			     && ( tribe_is_event() ) ) {
+			&& ( tribe_is_event() ) ) {
 				$current_post_type = 'tribe_events';
 			}
 
@@ -186,5 +185,5 @@ class LSX_Banners_Integrations {
 		return $tagline;
 	}
 
-	//apply_filters( 'tribe_events_event_schedule_details', $schedule, $event->ID, $before, $after )
+	// apply_filters( 'tribe_events_event_schedule_details', $schedule, $event->ID, $before, $after )
 }
