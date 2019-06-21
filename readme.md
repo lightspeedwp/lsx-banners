@@ -13,7 +13,7 @@ The [LSX Banner Extension](https://lsx.lsdev.biz/extensions/banners/) is here to
 The plugin features customized banner options for each page on your site. This feature makes adding text to your banner super simple, also you can add buttons that can be transformed in call to actions.
 
 ## Works with the LSX Theme
-Our modern and lightweight [theme](https://lsx.lsdev.biz/) works perfectly with the Blog Customizer, improving internal linking, website SEO and user experience! 
+Our modern and lightweight [theme](https://lsx.lsdev.biz/) works perfectly with LSX Banners, improving internal linking, website SEO and user experience! 
 
 ## Gutenberg Compatible Plugin
 Have you updated to the new WordPress Gutenberg editor? We've got you covered! The LSX Banners Plugin has been optimised for the Gutenberg update. Check out our [release post](https://lsx.lsdev.biz/lsx-blocks-available-on-wordpress-org/) on the update for more information.
