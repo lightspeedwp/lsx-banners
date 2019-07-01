@@ -809,7 +809,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	 * Add form modal
 	 */
 	public function add_form_modal() {
-		$button_group = get_post_meta( get_queried_object()->ID, 'button_group', true );
+		$button_group = get_post_meta( get_queried_object_id(), 'button_group', true );
 
 		if ( empty( $button_group ) || ! is_array( $button_group ) ) {
 			return '';
