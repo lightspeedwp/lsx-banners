@@ -1,8 +1,8 @@
 === LSX Banners ===
 Contributors: feedmymedia
 Donate link: https://donate.lsdev.biz/
-Tags: LSX, Gutenberg, Banner Hero Images, Hero Image Block, Hero Image Plugin
-Requires at least: 4.7
+Tags: lsx, gutenberg, banner hero images, hero image block, hero image plugin
+Requires at least: 4.9
 Tested up to: 5.2.2
 Requires PHP: 7.0
 Stable tag: 1.2.0
