@@ -30,7 +30,7 @@ body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab { display: none; }
 
 body.appearance_page_lsx-settings .uix-field-wrapper .ui-tab.active { display: block; }
 
-.cmb-file-wrap, .cmb-file-wrap-placeholder { min-width:150px; min-height:150px; }
+.cmb-file-wrap, .cmb-file-wrap-placeholder { min-width: 150px; min-height: 150px; }
 
 /* Banner Meta box Tabs */
 
