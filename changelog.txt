@@ -1,5 +1,8 @@
 ## Changelog
 
+### 1.2.1 - 
+* Fix - Fixed the post type archive titles
+
 ### 1.2.0 - 19th June 2019 
 * Dev - Added in a theme option to allow enabling banners on the events page
 * Dev - Added in an options to allow the use the The Events Calendar generated title in the post type archive and single banner.

@@ -147,6 +147,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		$show_slider = false;
 		$img_group = false;
 		$banner_size = 'full';
+		$title = get_the_title( $post_id );
 
 		$bg_color = get_post_meta( $post_id, 'banner_bg_color', true );
 		$text_color = get_post_meta( $post_id, 'banner_text_color', true );
@@ -191,7 +192,6 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		if ( is_front_page() || is_home() || is_singular( $this->get_allowed_post_types() ) || in_array( 'blog', get_body_class(), true ) ) {
 			$img_group = get_post_meta( $this->post_id, 'image_group', true );
 			$img_group = apply_filters( 'lsx_banner_image_group', $img_group, $this->post_id );
-
 			$show_slider = false;
 
 			if ( ! empty( $img_group ) && is_array( $img_group ) && ! empty( $img_group['banner_image'] ) ) {
@@ -252,6 +252,8 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			if ( isset( $this->options[ $post_type ] ) && ! empty( $this->options[ $post_type ]['banner'] ) ) {
 				$banner_image = $this->options[ $post_type ]['banner'];
 			}
+
+			$title = get_the_archive_title();
 		}
 
 		// If its a taxonomy, then get the image from out term meta.
@@ -371,6 +373,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		}
 
 		if ( ! empty( $show_slider ) || ! empty( $banner_image ) || ! empty( $embed_video ) || ! empty( $bg_color ) ) {
+			add_filter( 'lsx_global_header_disable', '__return_true' );
 			?>
 			<div id="lsx-banner">
 				<?php
@@ -423,7 +426,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 									<?php do_action( 'lsx_banner_container_top' ); ?>
 
 									<?php if ( empty( $title_disable ) ) : ?>
-										<?php $title = apply_filters( 'lsx_banner_title', '<h1 class="page-title">' . get_the_title( $post_id ) . '</h1>' ); ?>
+										<?php $title = apply_filters( 'lsx_banner_title', '<h1 class="page-title">' . $title . '</h1>' ); ?>
 
 										<?php if ( ! empty( $title ) ) : ?>
 											<header class="page-header">
