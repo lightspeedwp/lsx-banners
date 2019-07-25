@@ -209,4 +209,16 @@
 	}
 }
 
+.gutenberg-compatible-template.page-has-banner,
+.using-gutenberg.page-has-banner,
+.archive.page-has-banner  {
+	.breadcrumbs-container {
+		+ #lsx-banner {
+			@include media('<=tablet') {
+				margin-top: 50px;
+			}
+		}
+	}
+}
+
 @include customizer-banners-banner-colours(#FFF);

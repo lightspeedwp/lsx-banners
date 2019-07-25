@@ -64,6 +64,8 @@
 
 #lsx-banner .page-banner-no-mask .page-banner > .page-banner-image:after { display: none; }
 
+@media (max-width: 992px) { .gutenberg-compatible-template.page-has-banner .breadcrumbs-container + #lsx-banner, .using-gutenberg.page-has-banner .breadcrumbs-container + #lsx-banner, .archive.page-has-banner .breadcrumbs-container + #lsx-banner { margin-top: 50px; } }
+
 #lsx-banner .page-banner { color: #FFF; }
 
 #lsx-banner #page-banner-slider .slick-dots > li > button { border-color: #FFF; }
