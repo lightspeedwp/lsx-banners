@@ -79,14 +79,15 @@ class LSX_Banners_Admin extends LSX_Banners {
 	 * @since 1.0.0
 	 */
 	public function add_taxonomies( $taxonomies ) {
-		$allowed_taxonomies = $this->get_allowed_taxonomies();
+		if ( function_exists( 'get_allowed_taxonomies' ) ) {
+			$allowed_taxonomies = $this->get_allowed_taxonomies();
 
-		if ( false !== $taxonomies && is_array( $taxonomies ) ) {
-			$taxonomies = array_merge( $taxonomies, $allowed_taxonomies );
-		} else {
-			$taxonomies = $allowed_taxonomies;
+			if ( false !== $taxonomies && is_array( $taxonomies ) ) {
+				$taxonomies = array_merge( $taxonomies, $allowed_taxonomies );
+			} elseif( is_array( $allowed_taxonomies ) ) {
+				$taxonomies = $allowed_taxonomies;
+			}
 		}
-
 		return $taxonomies;
 	}
 
