@@ -2,6 +2,8 @@
 
 ### 1.2.1 - 
 * Fix - Fixed the post type archive titles
+* Fix - Fixed the taxonomy admin class.
+* Dev - Blog improvements to match new structure for the LSX Blog Customizer.
 
 ### 1.2.0 - 19th June 2019 
 * Dev - Added in a theme option to allow enabling banners on the events page

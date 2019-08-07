@@ -84,7 +84,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 
 			if ( false !== $taxonomies && is_array( $taxonomies ) ) {
 				$taxonomies = array_merge( $taxonomies, $allowed_taxonomies );
-			} elseif( is_array( $allowed_taxonomies ) ) {
+			} elseif ( is_array( $allowed_taxonomies ) ) {
 				$taxonomies = $allowed_taxonomies;
 			}
 		}
