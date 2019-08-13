@@ -23,7 +23,9 @@ class LSX_Taxonomy_Admin {
 	 */
 	public function __construct( $taxonomies = false ) {
 		add_action( 'admin_init', array( $this, 'init' ), 100 );
-		$this->taxonomies = $taxonomies;
+		if ( false !== $taxonomies ) {
+			$this->taxonomies = $taxonomies;
+		}
 
 		$this->fields = array(
 			'thumbnail'	=> esc_html__( 'Thumbnail', 'lsx-banners' ),
