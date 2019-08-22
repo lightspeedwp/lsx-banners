@@ -1,6 +1,9 @@
 ## Changelog
 
-### 1.2.1 - 
+### 1.2.3 - 
+# Fix - Show banners from featured image on old non gutenberg posts correctly.
+
+### 1.2.1 - Aug 6, 2019
 * Fix - Fixed the post type archive titles
 * Fix - Fixed the taxonomy admin class.
 * Dev - Blog improvements to match new structure for the LSX Blog Customizer.
