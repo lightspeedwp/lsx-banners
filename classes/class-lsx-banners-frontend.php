@@ -108,7 +108,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 				//remove_action( 'lsx_header_after', 'lsx_page_banner' );
 				$img_group = get_post_meta( $this->post_id, 'image_group', true );
 				$img_group = array_filter( $img_group );
-				if ( ( is_single( $allowed_post_types ) ) || ( is_singular( $allowed_post_types ) ) ) {
+				if ( ( is_single( $allowed_post_types ) ) || ( is_singular( 'post' ) ) ) {
 					if ( ! empty( $img_group ) ) {
 						add_filter( 'lsx_page_banner_disable', '__return_true' );
 						add_action( 'lsx_header_after', array( $this, 'banner' ) );
