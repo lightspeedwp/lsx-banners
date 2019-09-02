@@ -1,5 +1,8 @@
 ## Changelog
 
+### 1.2.3 - In Development
+# Dev - Adding the .gitattributes file to remove unnecessary files from the WordPress version.
+
 ### 1.2.2 - Aug 23, 2019
 # Fix - Show banners from featured image on old non gutenberg posts correctly.
 
