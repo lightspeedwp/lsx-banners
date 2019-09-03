@@ -49,7 +49,7 @@ class LSX_Banners_Admin extends LSX_Banners {
 				//add_action( "{$taxonomy}_add_form_fields",  array( $this, 'add_form_field'  ),1 );
 				add_action( "{$taxonomy}_edit_form_fields", array( $this, 'add_form_field' ), 5, 1 );
 			}
-		}		
+		}
 		add_action( 'create_term', array( $this, 'save_meta' ), 10, 2 );
 		add_action( 'edit_term', array( $this, 'save_meta' ), 10, 2 );
 
