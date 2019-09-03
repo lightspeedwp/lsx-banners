@@ -1,10 +1,11 @@
 ## Changelog
 
 ### 1.2.3 - In Development
-# Dev - Adding the .gitattributes file to remove unnecessary files from the WordPress version.
+* Dev - Adding the .gitattributes file to remove unnecessary files from the WordPress version.
+* Fix - Changed the admin class to only run admin_init when it is not an AJAX request.
 
 ### 1.2.2 - Aug 23, 2019
-# Fix - Show banners from featured image on old non gutenberg posts correctly.
+* Fix - Show banners from featured image on old non gutenberg posts correctly.
 
 ### 1.2.1 - Aug 6, 2019
 * Fix - Fixed the post type archive titles

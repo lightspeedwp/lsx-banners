@@ -26,7 +26,9 @@ class LSX_Banners_Admin extends LSX_Banners {
 
 		$this->set_vars();
 
-		add_action( 'admin_init', array( $this, 'admin_init' ) );
+		if ( ! wp_doing_ajax() ) {
+			add_action( 'admin_init', array( $this, 'admin_init' ) );
+		}
 		add_filter( 'cmb_meta_boxes', array( $this, 'metaboxes' ) );
 		add_filter( 'lsx_taxonomy_admin_taxonomies', array( $this, 'add_taxonomies' ), 10, 1 );
 
@@ -41,16 +43,13 @@ class LSX_Banners_Admin extends LSX_Banners {
 	 **/
 	public function admin_init() {
 		$this->taxonomy_admin = new LSX_Taxonomy_Admin();
-
 		$allowed_taxonomies = $this->get_allowed_taxonomies();
-
 		if ( is_array( $allowed_taxonomies ) ) {
 			foreach ( $allowed_taxonomies as $taxonomy ) {
 				//add_action( "{$taxonomy}_add_form_fields",  array( $this, 'add_form_field'  ),1 );
 				add_action( "{$taxonomy}_edit_form_fields", array( $this, 'add_form_field' ), 5, 1 );
 			}
-		}
-
+		}		
 		add_action( 'create_term', array( $this, 'save_meta' ), 10, 2 );
 		add_action( 'edit_term', array( $this, 'save_meta' ), 10, 2 );
 
