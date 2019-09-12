@@ -105,9 +105,18 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		} elseif ( is_singular( $allowed_post_types ) || is_post_type_archive( $allowed_post_types ) || is_tax( $allowed_taxonomies ) || is_category() || is_author() || is_404() || is_front_page() || is_home() ) {
 			if ( function_exists( 'lsx_setup' ) ) {
 				$this->theme = 'lsx';
-				// remove_action( 'lsx_header_after', 'lsx_page_banner' );
-				add_filter( 'lsx_page_banner_disable', '__return_true' );
-				add_action( 'lsx_header_after', array( $this, 'banner' ) );
+				//remove_action( 'lsx_header_after', 'lsx_page_banner' );
+				$img_group = get_post_meta( $this->post_id, 'image_group', true );
+				$img_group = array_filter( $img_group );
+				if ( ( is_single( $allowed_post_types ) ) || ( is_singular( 'post' ) ) ) {
+					if ( ! empty( $img_group ) ) {
+						add_filter( 'lsx_page_banner_disable', '__return_true' );
+						add_action( 'lsx_header_after', array( $this, 'banner' ) );
+					}
+				} else {
+					add_filter( 'lsx_page_banner_disable', '__return_true' );
+					add_action( 'lsx_header_after', array( $this, 'banner' ) );
+				}
 			} elseif ( class_exists( 'Storefront' ) ) {
 				$this->theme = 'storefront';
 				add_action( 'storefront_before_content', array( $this, 'banner' ) );

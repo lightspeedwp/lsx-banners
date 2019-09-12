@@ -74,7 +74,6 @@ class LSX_Banners {
 			require_once( LSX_BANNERS_PATH . 'classes/class-lsx-placeholders.php' );
 			add_action( 'init', array( $this, 'init_placeholders' ), 100 );
 		}
-
 		require_once( LSX_BANNERS_PATH . 'classes/class-lsx-banners-admin.php' );
 		if ( class_exists( 'LSX_Banners_Admin' ) ) {
 			$this->admin = new LSX_Banners_Admin();
