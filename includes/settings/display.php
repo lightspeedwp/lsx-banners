@@ -1,4 +1,3 @@
-asdfasdfasdfasdf
 <div class="uix-field-wrapper">
 	<ul class="ui-tab-nav">
 		<?php if ( class_exists( 'LSX_Banners' ) ) { ?>

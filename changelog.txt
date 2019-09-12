@@ -1,9 +1,10 @@
 ## Changelog
 
-### 1.2.1 - 
+### 1.2.1 - In Development
 * Fix - Fixed the post type archive titles
 * Fix - Fixed the taxonomy admin class.
 * Dev - Blog improvements to match new structure for the LSX Blog Customizer.
+* Dev - Added in the lazy loading for term images
 
 ### 1.2.0 - 19th June 2019 
 * Dev - Added in a theme option to allow enabling banners on the events page
