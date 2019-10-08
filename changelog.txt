@@ -1,5 +1,8 @@
 ## Changelog
 
+### 1.2.5
+* Fix - Fixed PHP warning notices with variables.
+
 ### 1.2.4
 * Dev - Added in the lazy loading for term images
 

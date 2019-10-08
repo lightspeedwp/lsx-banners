@@ -107,6 +107,9 @@ class LSX_Banners_Frontend extends LSX_Banners {
 				$this->theme = 'lsx';
 				//remove_action( 'lsx_header_after', 'lsx_page_banner' );
 				$img_group = get_post_meta( $this->post_id, 'image_group', true );
+				if ( ! is_array( $img_group ) ) {
+					$img_group = array( $img_group );
+				}
 				$img_group = array_filter( $img_group );
 				if ( ( is_single( $allowed_post_types ) ) || ( is_singular( 'post' ) ) ) {
 					if ( ! empty( $img_group ) ) {
