@@ -2,6 +2,7 @@
 
 ### 1.2.5
 * Fix - Fixed PHP warning notices with variables.
+* Fix - Fixed the 'Undefined index: banners_plugin_title' error.
 
 ### 1.2.4
 * Dev - Added in the lazy loading for term images

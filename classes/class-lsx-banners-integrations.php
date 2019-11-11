@@ -125,7 +125,7 @@ class LSX_Banners_Integrations {
 				if ( is_singular( 'tribe_events' ) ) {
 					add_filter( 'the_title', array( $this, 'disable_post_type_title' ), 200, 1 );
 				}
-			} else if ( '' !== $this->options['tribe_events']['banners_plugin_title'] ) {
+			} elseif ( ( isset( $this->options['tribe_events']['banners_plugin_title'] ) ) && ( '' !== $this->options['tribe_events']['banners_plugin_title'] ) ) {
 				$title = $this->options['tribe_events']['banners_plugin_title'];
 			}
 
