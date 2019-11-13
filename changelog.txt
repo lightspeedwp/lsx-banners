@@ -1,11 +1,10 @@
 ## Changelog
 
-### 1.2.5
+
+### 1.2.4 - 13 November 2019
+* Dev - Added in the lazy loading for term images
 * Fix - Fixed PHP warning notices with variables.
 * Fix - Fixed the 'Undefined index: banners_plugin_title' error.
-
-### 1.2.4
-* Dev - Added in the lazy loading for term images
 
 ### 1.2.3 - September 03
 * Dev - Adding the .gitattributes file to remove unnecessary files from the WordPress version.
