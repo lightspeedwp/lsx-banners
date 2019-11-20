@@ -751,7 +751,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	public function banner_post_content() {
 		$content = '';
 
-		if ( is_front_page() ) {
+		if ( is_front_page() && false === apply_filters( 'lsx_banners_disable_banner_post_content', false ) ) {
 			$content = get_post( $this->post_id );
 			$content = $content->post_content;
 
