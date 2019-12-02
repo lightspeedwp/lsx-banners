@@ -587,7 +587,6 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	 */
 	public function banner_part_logo() {
 		$logo = get_post_meta( $this->post_id, 'banner_logo', true );
-
 		if ( ! empty( $logo ) ) {
 			$logo = wp_get_attachment_image_src( $logo, 'full' );
 
