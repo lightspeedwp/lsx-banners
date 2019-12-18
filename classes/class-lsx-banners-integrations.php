@@ -120,8 +120,6 @@ class LSX_Banners_Integrations {
 			//Check if we should use the dynamic title or if the title is set use it.
 			if ( isset( $this->options['tribe_events']['banners_plugin_title'] ) && 'on' === $this->options['tribe_events']['banners_plugin_title'] ) {
 				$title = tribe_get_events_title();
-				// We make sure the title lower down the page is disabled if using the dynamic title
-				add_filter( 'tribe_get_events_title', array( $this, 'disable_post_type_title' ), 200, 1 );
 				if ( is_singular( 'tribe_events' ) ) {
 					add_filter( 'the_title', array( $this, 'disable_post_type_title' ), 200, 1 );
 				}
@@ -134,17 +132,6 @@ class LSX_Banners_Integrations {
 			}
 		}
 		return $title;
-	}
-
-	/**
-	 * Disable the events title for the post archive if the dynamic setting is active.
-	 * @param $title
-	 *
-	 * @return string
-	 */
-	public function disable_post_type_title( $title ) {
-		add_filter( 'tribe_events_event_schedule_details', array( $this, 'disable_post_meta' ), 200, 1 );
-		return '';
 	}
 
 	/**
