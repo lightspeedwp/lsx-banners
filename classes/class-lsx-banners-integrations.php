@@ -120,9 +120,6 @@ class LSX_Banners_Integrations {
 			//Check if we should use the dynamic title or if the title is set use it.
 			if ( isset( $this->options['tribe_events']['banners_plugin_title'] ) && 'on' === $this->options['tribe_events']['banners_plugin_title'] ) {
 				$title = tribe_get_events_title();
-				if ( is_singular( 'tribe_events' ) ) {
-					add_filter( 'the_title', array( $this, 'disable_post_type_title' ), 200, 1 );
-				}
 			} elseif ( ( isset( $this->options['tribe_events']['banners_plugin_title'] ) ) && ( '' !== $this->options['tribe_events']['banners_plugin_title'] ) ) {
 				$title = $this->options['tribe_events']['banners_plugin_title'];
 			}
