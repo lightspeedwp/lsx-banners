@@ -3,6 +3,7 @@
 ### 1.2.5 - (in development)
 * Dev - added in a 'lsx_banners_disable_banner_post_content' filter to disable the Homepage banner content
 * Dev - Removing the troublesome title function
+* Fix - Fixed issue `PHP Deprecated: dbx_post_advanced is deprecated since version 3.7.0! Use add_meta_boxes instead`.
 
 ### 1.2.4 - 13 November 2019
 * Dev - Added in the lazy loading for term images
