@@ -3,7 +3,7 @@ Contributors: feedmymedia
 Donate link: https://donate.lsdev.biz/
 Tags: lsx, gutenberg, banner hero images, hero image block, hero image plugin
 Requires at least: 4.9
-Tested up to: 5.2.2
+Tested up to: 5.4
 Requires PHP: 7.0
 Stable tag: 1.2.4
 License: GPLv3
@@ -17,7 +17,7 @@ The plugin features customized banner options for each page on your site. This f
 Our modern and lightweight [theme](https://lsx.lsdev.biz/) works perfectly with LSX Banners, improving internal linking, website SEO and user experience! 
 
 == Gutenberg Compatible Plugin ==
-Have you updated to the new WordPress Gutenberg editor? We've got you covered! The LSX Banners Plugin has been optimised for the Gutenberg update. Check out our [release post](https://lsx.lsdev.biz/lsx-blocks-available-on-wordpress-org/) on the update for more information.
+Have you updated to the new WordPress Gutenberg editor? We've got you covered! The LSX Banners Plugin has been optimized for the Gutenberg update. Check out our [release post](https://lsx.lsdev.biz/lsx-blocks-available-on-wordpress-org/) on the update for more information.
 
 == It's free, and always will be. ==
 We’re firm believers in open source - that’s why the [LSX Banners](https://lsx.lsdev.biz/extensions/banners/) is free, and that won't change. We are constantly maintaining and updating our extension so you have the latest and greatest abilities on your LSX Theme powered site. 
@@ -38,7 +38,7 @@ If you're a developer who's spotted a bug issue and have a fix, or simply have f
 
 == Screenshots ==
 1. The LSX Theme setting has a LSX Banners tab
-2. LSX Banner pannel pt1
-3. LSX Banner pannel pt2
-4. LSX Banner pannel pt3
+2. LSX Banner panel pt1
+3. LSX Banner panel pt2
+4. LSX Banner panel pt3
 5. LSX Banner working on a page
