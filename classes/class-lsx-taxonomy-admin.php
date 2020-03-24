@@ -107,8 +107,7 @@ class LSX_Taxonomy_Admin {
 	 * @param  string  $taxonomy
 	 */
 	public function save_meta( $term_id = 0, $taxonomy = '' ) {
-
-		if ( ! check_admin_referer( 'lsx_banners_save_term_thumbnail', 'lsx_banners_term_thumbnail_nonce' ) ) {
+		if ( ! wp_verify_nonce( sanitize_text_field( $_REQUEST['lsx_banners_term_thumbnail_nonce'] ), 'lsx_banners_save_term_thumbnail' ) ) {
 			return;
 		}
 		if ( false !== $this->fields ) {
