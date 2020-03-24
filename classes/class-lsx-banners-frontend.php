@@ -107,9 +107,6 @@ class LSX_Banners_Frontend extends LSX_Banners {
 				$this->theme = 'lsx';
 				//remove_action( 'lsx_header_after', 'lsx_page_banner' );
 				$img_group = get_post_meta( $this->post_id, 'image_group', true );
-				if ( ! is_array( $img_group ) ) {
-					$img_group = array( $img_group );
-				}
 				$img_group = array_filter( $img_group );
 				if ( ( is_single( $allowed_post_types ) ) || ( is_singular( 'post' ) ) ) {
 					if ( ! empty( $img_group ) ) {
@@ -587,6 +584,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	 */
 	public function banner_part_logo() {
 		$logo = get_post_meta( $this->post_id, 'banner_logo', true );
+
 		if ( ! empty( $logo ) ) {
 			$logo = wp_get_attachment_image_src( $logo, 'full' );
 
@@ -750,7 +748,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	public function banner_post_content() {
 		$content = '';
 
-		if ( is_front_page() && false === apply_filters( 'lsx_banners_disable_banner_post_content', false ) ) {
+		if ( is_front_page() ) {
 			$content = get_post( $this->post_id );
 			$content = $content->post_content;
 
