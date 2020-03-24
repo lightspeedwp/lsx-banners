@@ -8,6 +8,7 @@
 
 ### Changed
 - Removing the troublesome title function.
+- Updated the `check_admin_referrer` to a 'wp_verify_nonce` field.
 
 ### Fixed
 - Fixed PHP warning notices with variables.

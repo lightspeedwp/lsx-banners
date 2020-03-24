@@ -670,3 +670,15 @@ class LSX_Banners_Admin extends LSX_Banners {
 	}
 
 }
+ult'	 		=> $default,
+					);
+
+					$default = false;
+				}
+			}
+		}
+
+		return $tabs;
+	}
+
+}
