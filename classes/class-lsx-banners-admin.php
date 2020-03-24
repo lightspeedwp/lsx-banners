@@ -668,17 +668,4 @@ class LSX_Banners_Admin extends LSX_Banners {
 
 		return $tabs;
 	}
-
-}
-ult'	 		=> $default,
-					);
-
-					$default = false;
-				}
-			}
-		}
-
-		return $tabs;
-	}
-
 }
