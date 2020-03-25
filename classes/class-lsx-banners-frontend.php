@@ -196,8 +196,6 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			$img_group = apply_filters( 'lsx_banner_image_group', $img_group, $this->post_id );
 			$show_slider = false;
 
-			var_dump($img_group);
-
 			if ( ! empty( $img_group ) && is_array( $img_group ) && ! empty( $img_group['banner_image'] ) ) {
 
 				if ( ! is_array( $img_group['banner_image'] ) ) {
@@ -247,7 +245,8 @@ class LSX_Banners_Frontend extends LSX_Banners {
 				&& tribe_is_event_query() ) {
 					$post_type = 'tribe_events';
 				}
-				if ( isset( $this->options[ $post_type ] ) && ! empty( $this->options[ $post_type ]['banner'] ) ) {
+				var_dump( $this->options[ $post_type ]['banner'] );
+				if ( isset( $this->options[ $post_type ] ) && ! empty( $this->options[ $post_type ]['banner'] ) && '' !== $this->options[ $post_type ]['banner'] ) {
 					$banner_image = $this->options[ $post_type ]['banner'];
 				}
 			}
