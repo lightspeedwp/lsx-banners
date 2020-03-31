@@ -241,11 +241,9 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			// Default to the post archive banner.
 			if ( false === $banner_image ) {
 				$post_type = get_query_var( 'post_type' );
-				if ( class_exists( 'Tribe__Events__Main' )
-				&& tribe_is_event_query() ) {
+				if ( class_exists( 'Tribe__Events__Main' ) && tribe_is_event_query() ) {
 					$post_type = 'tribe_events';
 				}
-				var_dump( $this->options[ $post_type ]['banner'] );
 				if ( isset( $this->options[ $post_type ] ) && ! empty( $this->options[ $post_type ]['banner'] ) && '' !== $this->options[ $post_type ]['banner'] ) {
 					$banner_image = $this->options[ $post_type ]['banner'];
 				}
@@ -260,8 +258,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			}
 
 			$post_type = get_query_var( 'post_type' );
-			if ( class_exists( 'Tribe__Events__Main' )
-			&& tribe_is_event_query() ) {
+			if ( class_exists( 'Tribe__Events__Main' ) && tribe_is_event_query() ) {
 				$post_type = 'tribe_events';
 			}
 			if ( isset( $this->options[ $post_type ] ) && ! empty( $this->options[ $post_type ]['banner'] ) ) {
