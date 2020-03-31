@@ -6,6 +6,7 @@
 ### Added
 - Added in the lazy loading for term images.
 - Added in a `lsx_banners_disable_banner_post_content` filter to disable the Homepage banner content.
+- Added in a statement to allow the single items to default to the archive banner if needed.
 
 ### Changed
 - Removing the troublesome title function.

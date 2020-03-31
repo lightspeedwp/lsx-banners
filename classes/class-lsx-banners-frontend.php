@@ -29,27 +29,20 @@ class LSX_Banners_Frontend extends LSX_Banners {
 	 */
 	public function __construct() {
 		$this->options = get_option( '_lsx_settings', false );
-
 		if ( false === $this->options ) {
 			$this->options = get_option( '_lsx_lsx-settings', false );
 		}
-
 		$lsx_to_options = get_option( '_lsx-to_settings', false );
-
 		if ( ! empty( $lsx_to_options ) ) {
 			$this->options = $lsx_to_options;
 		}
-
 		$this->set_vars();
-
 		add_action( 'wp_head', array( $this, 'init' ) );
-
 		if ( ! is_admin() ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_stylescripts' ), 5 );
 		} else {
 			add_filter( 'lsx_customizer_colour_selectors_banner', array( $this, 'customizer_colours_handler' ), 15, 2 );
-		}
-
+		}	
 		add_filter( 'lsx_fonts_css', array( $this, 'customizer_fonts_handler' ), 15 );
 		add_shortcode( 'banner_navigation', 'lsx_banner_navigation' );
 		add_filter( 'wp_kses_allowed_html', array( $this, 'wp_kses_allowed_html' ), 10, 2 );
@@ -204,6 +197,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			$show_slider = false;
 
 			if ( ! empty( $img_group ) && is_array( $img_group ) && ! empty( $img_group['banner_image'] ) ) {
+
 				if ( ! is_array( $img_group['banner_image'] ) ) {
 					$banner_image_id = $img_group['banner_image'];
 				} else {
@@ -243,6 +237,17 @@ class LSX_Banners_Frontend extends LSX_Banners {
 					$banner_image = false;
 				}
 			}
+
+			// Default to the post archive banner.
+			if ( false === $banner_image ) {
+				$post_type = get_query_var( 'post_type' );
+				if ( class_exists( 'Tribe__Events__Main' ) && tribe_is_event_query() ) {
+					$post_type = 'tribe_events';
+				}
+				if ( isset( $this->options[ $post_type ] ) && ! empty( $this->options[ $post_type ]['banner'] ) && '' !== $this->options[ $post_type ]['banner'] ) {
+					$banner_image = $this->options[ $post_type ]['banner'];
+				}
+			}
 		}
 
 		if ( is_post_type_archive( $this->get_allowed_post_types() ) ) {
@@ -253,11 +258,9 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			}
 
 			$post_type = get_query_var( 'post_type' );
-			if ( class_exists( 'Tribe__Events__Main' )
-			&& ( tribe_is_day() || tribe_is_list_view() || tribe_is_month() ) ) {
+			if ( class_exists( 'Tribe__Events__Main' ) && tribe_is_event_query() ) {
 				$post_type = 'tribe_events';
 			}
-
 			if ( isset( $this->options[ $post_type ] ) && ! empty( $this->options[ $post_type ]['banner'] ) ) {
 				$banner_image = $this->options[ $post_type ]['banner'];
 			}
