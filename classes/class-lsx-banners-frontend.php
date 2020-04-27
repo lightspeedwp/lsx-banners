@@ -384,6 +384,11 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			$title_position = 'centered';
 		}
 
+		// Cart and Checkout won't have banners of any kind.
+		if ( function_exists( 'is_woocommerce' ) && ( is_checkout() || is_cart() ) ) {
+			return;
+		}
+
 		if ( ! empty( $show_slider ) || ! empty( $banner_image ) || ! empty( $embed_video ) || ! empty( $bg_color ) ) {
 			add_filter( 'lsx_global_header_disable', '__return_true' );
 			?>
