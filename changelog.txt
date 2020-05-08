@@ -1,5 +1,10 @@
 # Change log
 
+## [[1.2.5]]
+
+### Changed
+- Removed banners from Woocommerce Checkout and Cart pages.
+
 
 ## [[1.2.4]](https://github.com/lightspeeddevelopment/lsx-banners/releases/tag/1.2.4) - 2020-03-30
 
