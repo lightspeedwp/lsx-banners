@@ -3,9 +3,9 @@ Contributors: feedmymedia
 Donate link: https://donate.lsdev.biz/
 Tags: lsx, gutenberg, banner hero images, hero image block, hero image plugin
 Requires at least: 4.9
-Tested up to: 5.4
+Tested up to: 5.4.1
 Requires PHP: 7.0
-Stable tag: 1.2.4
+Stable tag: 1.2.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
