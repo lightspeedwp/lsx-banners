@@ -1,12 +1,13 @@
 # Change log
 
-## [[1.2.5]] - In development
+## [[1.2.5]] - 2020-05-21
 
 ### Changed
 - Removed banners from Woocommerce Checkout and Cart pages.
 
 ### Security
 - Testing plugin with WordPress latest version 5.4.1
+- Fixing formatting errors to meet with WordPress standars.
 
 
 ## [[1.2.4]](https://github.com/lightspeeddevelopment/lsx-banners/releases/tag/1.2.4) - 2020-03-30
