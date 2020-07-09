@@ -42,7 +42,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_stylescripts' ), 5 );
 		} else {
 			add_filter( 'lsx_customizer_colour_selectors_banner', array( $this, 'customizer_colours_handler' ), 15, 2 );
-		}	
+		}
 		add_filter( 'lsx_fonts_css', array( $this, 'customizer_fonts_handler' ), 15 );
 		add_shortcode( 'banner_navigation', 'lsx_banner_navigation' );
 		add_filter( 'wp_kses_allowed_html', array( $this, 'wp_kses_allowed_html' ), 10, 2 );
@@ -382,6 +382,11 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		$title_position = get_post_meta( $this->post_id, 'title_position', true );
 		if ( false === $title_position || '' === $title_position ) {
 			$title_position = 'centered';
+		}
+
+		// Cart and Checkout won't have banners of any kind.
+		if ( function_exists( 'is_woocommerce' ) && ( is_checkout() || is_cart() ) ) {
+			return;
 		}
 
 		if ( ! empty( $show_slider ) || ! empty( $banner_image ) || ! empty( $embed_video ) || ! empty( $bg_color ) ) {
