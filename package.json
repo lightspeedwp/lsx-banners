@@ -44,7 +44,7 @@
     "extend": "^3.0.2",
     "fstream": "^1.0.12",
     "hoek": "^4.2.1",
-    "lodash": "^4.17.13",
+    "lodash": "^4.17.19",
     "minimist": "^1.2.3",
     "tar": "^2.2.2",
     "tunnel-agent": "^0.6.0"
