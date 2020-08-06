@@ -33,7 +33,7 @@
     "gulp-sourcemaps": "^2.6.5",
     "gulp-uglify": "^2.0.1",
     "gulp-util": "^3.0.8",
-    "gulp-wp-pot": "^2.3.5",
+    "gulp-wp-pot": "^2.4.3",
     "jshint": "^2.10.2",
     "map-stream": "^0.0.7"
   },
