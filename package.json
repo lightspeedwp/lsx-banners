@@ -8,7 +8,9 @@
     "url": "git+https://bitbucket.org/feedmycode/lsx-banners"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "keywords": [
     "lsx",
@@ -47,6 +49,8 @@
     "lodash": "^4.17.19",
     "minimist": "^1.2.5",
     "tar": "^6.0.2",
-    "tunnel-agent": "^0.6.0"
-  }
+    "tunnel-agent": "^0.6.0",
+    "snyk": "^1.373.1"
+  },
+  "snyk": true
 }
