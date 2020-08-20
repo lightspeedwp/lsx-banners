@@ -12,9 +12,9 @@
 /**
  * A template tag to output the banner bg src
  *
- * @package 	lsx-banners
- * @subpackage	template-tag
- * @category 	image
+ * @package     lsx-banners
+ * @subpackage  template-tag
+ * @category    image
  */
 function lsx_banner_src() {
 	global $lsx_banners;
@@ -24,9 +24,9 @@ function lsx_banner_src() {
 /**
  * Returns a true or false if there is a banner.
  *
- * @package 	lsx-banners
- * @subpackage	template-tag
- * @category 	conditional
+ * @package     lsx-banners
+ * @subpackage  template-tag
+ * @category    conditional
  */
 function lsx_has_banner() {
 	global $lsx_banners;
@@ -36,9 +36,9 @@ function lsx_has_banner() {
 /**
  * Returns a true or false if there is a banner.
  *
- * @package 	lsx-banners
- * @subpackage	template-tag
- * @category 	conditional
+ * @package     lsx-banners
+ * @subpackage  template-tag
+ * @category    conditional
  */
 function lsx_is_banner_disabled() {
 	global $lsx_banners;
@@ -48,9 +48,9 @@ function lsx_is_banner_disabled() {
 /**
  * Down Arrow navigation for the homepage banner
  *
- * @package 	lsx-banners
- * @subpackage	template-tag
- * @category 	shortcode
+ * @package     lsx-banners
+ * @subpackage  template-tag
+ * @category    shortcode
  */
 function lsx_banner_navigation( $echo = false ) {
 	$atts = array(

@@ -183,7 +183,8 @@ class LSX_Placeholders {
 			$post_type = get_post_field( 'post_type', $post_id );
 
 			// If the post types posts placeholder has been disabled then skip.
-			if ( 'post' === $post_type && isset( $options['display'] ) && isset( $options['display']['disable_blog_placeholder'] ) ) { return $meta; }
+			if ( 'post' === $post_type && isset( $options['display'] ) && isset( $options['display']['disable_blog_placeholder'] ) ) {
+				return $meta; }
 
 			// First Check for a default, then check if there is one set by post type.
 			if ( isset( $options['display'] )
@@ -419,7 +420,8 @@ class LSX_Placeholders {
 	 */
 	public function display_settings( $tab = false ) {
 
-		if ( 'placeholders' !== $tab ) { return false; }
+		if ( 'placeholders' !== $tab ) {
+			return false; }
 
 		if ( class_exists( 'LSX_Banners' ) ) { ?>
 			<tr class="form-field banner-placeholder-wrap">
@@ -476,7 +478,7 @@ class LSX_Placeholders {
 				<small><?php esc_html_e( 'This disables the placeholder on blog posts.', 'lsx-banners' ); ?></small>
 			</td>
 		</tr>
-	<?php
+		<?php
 	}
 
 	/**
@@ -487,7 +489,8 @@ class LSX_Placeholders {
 	 * @return null
 	 */
 	public function placeholder_settings( $post_type = false, $tab = false ) {
-		if ( 'placeholders' !== $tab ) {return false;}
+		if ( 'placeholders' !== $tab ) {
+			return false;}
 		?>
 		<?php if ( class_exists( 'LSX_Banners' ) ) { ?>
 			<tr class="form-field banner-placeholder-wrap">
@@ -523,6 +526,6 @@ class LSX_Placeholders {
 
 			</td>
 		</tr>
-	<?php
+		<?php
 	}
 }

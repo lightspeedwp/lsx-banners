@@ -28,9 +28,9 @@ class LSX_Taxonomy_Admin {
 		}
 
 		$this->fields = array(
-			'thumbnail'	=> esc_html__( 'Thumbnail', 'lsx-banners' ),
+			'thumbnail' => esc_html__( 'Thumbnail', 'lsx-banners' ),
 			'tagline' => esc_html__( 'Tagline', 'lsx-banners' ),
-			'expert' =>	esc_html__( 'Expert', 'lsx-banners' ),
+			'expert' => esc_html__( 'Expert', 'lsx-banners' ),
 			'banner_video' => esc_html__( 'Video URL', 'lsx-banners' ),
 		);
 	}
@@ -46,7 +46,7 @@ class LSX_Taxonomy_Admin {
 		if ( false !== $this->taxonomies ) {
 			add_action( 'create_term', array( $this, 'save_meta' ), 10, 2 );
 			foreach ( $this->taxonomies as $taxonomy ) {
-				//add_action( "{$taxonomy}_add_form_fields",  array( $this, 'add_thumbnail_form_field'  ),3 );
+				// add_action( "{$taxonomy}_add_form_fields",  array( $this, 'add_thumbnail_form_field'  ),3 );
 				add_action( "edit_{$taxonomy}", array( $this, 'save_meta' ), 10, 2 );
 				add_action( "{$taxonomy}_edit_form_fields", array( $this, 'add_thumbnail_form_field' ), 3, 1 );
 				add_action( "{$taxonomy}_edit_form_fields", array( $this, 'add_tagline_form_field' ), 3, 1 );
@@ -91,8 +91,16 @@ class LSX_Taxonomy_Admin {
 				<div class="thumbnail-preview">
 					<?php echo wp_kses_post( $image_preview ); ?>
 				</div>
-				<a style="<?php if ( '' !== $value && false !== $value ) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-add"><?php esc_html_e( 'Choose Image', 'lsx-banners' ); ?></a>
-				<a style="<?php if ( '' === $value || false === $value ) { ?>display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-remove"><?php esc_html_e( 'Remove Image', 'lsx-banners' ); ?></a>
+				<a style="
+				<?php
+				if ( '' !== $value && false !== $value ) {
+					?>
+					display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-add"><?php esc_html_e( 'Choose Image', 'lsx-banners' ); ?></a>
+				<a style="
+				<?php
+				if ( '' === $value || false === $value ) {
+					?>
+					display:none;<?php } ?>" class="button-secondary lsx-thumbnail-image-remove"><?php esc_html_e( 'Remove Image', 'lsx-banners' ); ?></a>
 				<?php wp_nonce_field( 'lsx_banners_save_term_thumbnail', 'lsx_banners_term_thumbnail_nonce' ); ?>
 			</td>
 		</tr>
@@ -103,8 +111,8 @@ class LSX_Taxonomy_Admin {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param  int     $term_id
-	 * @param  string  $taxonomy
+	 * @param  int    $term_id
+	 * @param  string $taxonomy
 	 */
 	public function save_meta( $term_id = 0, $taxonomy = '' ) {
 		if ( ! wp_verify_nonce( sanitize_text_field( $_REQUEST['lsx_banners_term_thumbnail_nonce'] ), 'lsx_banners_save_term_thumbnail' ) ) {
@@ -195,9 +203,9 @@ class LSX_Taxonomy_Admin {
 					<option value=""><?php esc_html_e( 'None', 'lsx-banners' ); ?></option>
 
 					<?php
-						foreach ( $experts as $expert ) {
-							echo '<option value="' . esc_attr( $expert->ID ) . '"' . selected( $value, esc_attr( $expert->ID ), false ) . '>' . esc_attr( $expert->post_title ) . '</option>';
-						}
+					foreach ( $experts as $expert ) {
+						echo '<option value="' . esc_attr( $expert->ID ) . '"' . selected( $value, esc_attr( $expert->ID ), false ) . '>' . esc_attr( $expert->post_title ) . '</option>';
+					}
 					?>
 				</select>
 			</td>
@@ -209,7 +217,7 @@ class LSX_Taxonomy_Admin {
 /**
  * Checks if the current term has a thumbnail
  *
- * @param	$term_id
+ * @param   $term_id
  */
 function lsx_has_term_thumbnail( $term_id = false ) {
 	if ( false !== $term_id ) {
@@ -224,7 +232,7 @@ function lsx_has_term_thumbnail( $term_id = false ) {
 /**
  * Outputs the current terms thumbnail
  *
- * @param	$term_id string
+ * @param   $term_id string
  */
 function lsx_term_thumbnail( $term_id = false, $size = 'lsx-thumbnail-wide' ) {
 	if ( false !== $term_id ) {
@@ -235,12 +243,12 @@ function lsx_term_thumbnail( $term_id = false, $size = 'lsx-thumbnail-wide' ) {
 /**
  * Outputs the current terms thumbnail
  *
- * @param	$term_id string
+ * @param   $term_id string
  */
 function lsx_get_term_thumbnail( $term_id = false, $size = 'lsx-thumbnail-wide' ) {
 	if ( false !== $term_id ) {
 		$term_thumbnail_id = get_term_meta( $term_id, 'thumbnail', true );
-		$img               = wp_get_attachment_image_src( $term_thumbnail_id,$size );
+		$img               = wp_get_attachment_image_src( $term_thumbnail_id, $size );
 		$image_url         = $img[0];
 		$img               = '<img alt="thumbnail" class="attachment-responsive wp-post-image lsx-responsive" src="' . $image_url . '" />';
 		$img               = apply_filters( 'lsx_lazyload_slider_images', $img, $term_thumbnail_id, $size, false, $image_url );

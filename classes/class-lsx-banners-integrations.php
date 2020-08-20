@@ -12,6 +12,7 @@ class LSX_Banners_Integrations {
 
 	/**
 	 * Hold the current plugin options
+	 *
 	 * @var array
 	 */
 	public $options = array();
@@ -112,12 +113,13 @@ class LSX_Banners_Integrations {
 
 	/**
 	 * Returns the Tribe events meta as the tagline.
+	 *
 	 * @return string
 	 */
 	public function get_tribe_events_title() {
 		$title = '';
 		if ( isset( $this->options['tribe_events'] ) ) {
-			//Check if we should use the dynamic title or if the title is set use it.
+			// Check if we should use the dynamic title or if the title is set use it.
 			if ( isset( $this->options['tribe_events']['banners_plugin_title'] ) && 'on' === $this->options['tribe_events']['banners_plugin_title'] ) {
 				$title = tribe_get_events_title();
 			} elseif ( ( isset( $this->options['tribe_events']['banners_plugin_title'] ) ) && ( '' !== $this->options['tribe_events']['banners_plugin_title'] ) ) {
@@ -133,6 +135,7 @@ class LSX_Banners_Integrations {
 
 	/**
 	 * Disable the events title for the post archive if the dynamic setting is active.
+	 *
 	 * @param $title
 	 *
 	 * @return string
@@ -143,6 +146,7 @@ class LSX_Banners_Integrations {
 
 	/**
 	 * Adds the Tribe events meta to the banner tagline
+	 *
 	 * @param $tagline
 	 *
 	 * @return string

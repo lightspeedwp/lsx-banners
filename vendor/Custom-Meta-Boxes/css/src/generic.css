@@ -1,8 +1,8 @@
 .CMB_Title h3 {
 	font-size: 14px;
-    padding: 5px 0px;
-    margin: 0;
-    line-height: 1.4;
+	padding: 5px 0px;
+	margin: 0;
+	line-height: 1.4;
 }
 
 .cmb_metabox .field-item {
@@ -123,8 +123,8 @@
 	margin-bottom: 11px;
 	margin-top: 0;
 	width: 265px;
-    display: inline-block;
-    vertical-align: top;
+	display: inline-block;
+	vertical-align: top;
 }
 
 .cmb_metabox .field-title label {
@@ -134,7 +134,7 @@
 }
 .cmb_metabox .select2-search-choice-close {
 	-webkit-transition: none;
-	        transition: none;
+			transition: none;
 	top: 3px;
 }
 

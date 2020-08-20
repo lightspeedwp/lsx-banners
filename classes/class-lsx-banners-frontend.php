@@ -59,9 +59,12 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		}
 		wp_enqueue_script( 'lsx-banners', LSX_BANNERS_URL . 'assets/js/lsx-banners.min.js', array( 'jquery', 'slick', 'jquery-touchswipe' ), LSX_BANNERS_VER, true );
 
-		$params = apply_filters( 'lsx_banners_js_params', array(
-			'ajax_url' => admin_url( 'admin-ajax.php' ),
-		));
+		$params = apply_filters(
+			'lsx_banners_js_params',
+			array(
+				'ajax_url' => admin_url( 'admin-ajax.php' ),
+			)
+		);
 
 		wp_localize_script( 'lsx-banners', 'lsx_banners_params', $params );
 
@@ -71,7 +74,6 @@ class LSX_Banners_Frontend extends LSX_Banners {
 
 	/**
 	 * Initializes the variables we need.
-	 *
 	 */
 	public function init() {
 		$allowed_post_types = $this->get_allowed_post_types();
@@ -102,7 +104,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 		} elseif ( is_singular( $allowed_post_types ) || is_post_type_archive( $allowed_post_types ) || is_tax( $allowed_taxonomies ) || is_category() || is_author() || is_404() || is_front_page() || is_home() ) {
 			if ( function_exists( 'lsx_setup' ) ) {
 				$this->theme = 'lsx';
-				//remove_action( 'lsx_header_after', 'lsx_page_banner' );
+				// remove_action( 'lsx_header_after', 'lsx_page_banner' );
 				$img_group = get_post_meta( $this->post_id, 'image_group', true );
 				if ( false === $img_group ) {
 					$img_group = array();
@@ -385,7 +387,7 @@ class LSX_Banners_Frontend extends LSX_Banners {
 			$soliloquy_slider_id = false;
 		}
 
-		//This is where the title postition is determined.
+		// This is where the title postition is determined.
 		$title_position = get_post_meta( $this->post_id, 'title_position', true );
 		if ( false === $title_position || '' === $title_position ) {
 			$title_position = 'centered';
@@ -405,34 +407,34 @@ class LSX_Banners_Frontend extends LSX_Banners {
 
 					$style_attr = '';
 
-					if ( ! empty( $height ) ) {
-						$style_attr .= 'min-height: ' . esc_attr( $height ) . ';';
-					}
+				if ( ! empty( $height ) ) {
+					$style_attr .= 'min-height: ' . esc_attr( $height ) . ';';
+				}
 
-					if ( ! empty( $bg_color ) ) {
-						$style_attr .= 'background-color: ' . esc_attr( $bg_color ) . ';';
-					}
+				if ( ! empty( $bg_color ) ) {
+					$style_attr .= 'background-color: ' . esc_attr( $bg_color ) . ';';
+				}
 
-					if ( ! empty( $text_color ) ) {
-						$style_attr .= 'color: ' . esc_attr( $text_color ) . ';';
-					}
+				if ( ! empty( $text_color ) ) {
+					$style_attr .= 'color: ' . esc_attr( $text_color ) . ';';
+				}
 
 					$class_attr = 'page-banner-wrap';
 
-					if ( ! empty( $mask ) ) {
-						$class_attr .= ' page-banner-no-mask';
-					}
+				if ( ! empty( $mask ) ) {
+					$class_attr .= ' page-banner-no-mask';
+				}
 
-					if ( empty( $show_slider ) ) {
-						?>
+				if ( empty( $show_slider ) ) {
+					?>
 						<div class="<?php echo esc_attr( $class_attr ); ?>">
 							<div class="page-banner rotating" style="<?php echo esc_attr( $style_attr ); ?>">
 
-								<?php
-									if ( function_exists( 'lsx_banner_inner_top' ) ) {
-										lsx_banner_inner_top();
-									};
-								?>
+							<?php
+							if ( function_exists( 'lsx_banner_inner_top' ) ) {
+								lsx_banner_inner_top();
+							};
+							?>
 
 								<?php if ( ! empty( $banner_image ) ) : ?>
 									<div class="page-banner-image" style="background-position: <?php echo esc_attr( $x_position ); ?> <?php echo esc_attr( $y_position ); ?>; background-image:url(<?php echo esc_attr( $banner_image ); ?>);"></div>
@@ -447,9 +449,9 @@ class LSX_Banners_Frontend extends LSX_Banners {
 								<?php endif; ?>
 
 								<div class="container">
-									<?php do_action( 'lsx_banner_container_top' ); ?>
+								<?php do_action( 'lsx_banner_container_top' ); ?>
 
-									<?php if ( empty( $title_disable ) ) : ?>
+								<?php if ( empty( $title_disable ) ) : ?>
 										<?php $title = apply_filters( 'lsx_banner_title', '<h1 class="page-title">' . $title . '</h1>' ); ?>
 
 										<?php if ( ! empty( $title ) ) : ?>
@@ -459,45 +461,45 @@ class LSX_Banners_Frontend extends LSX_Banners {
 										<?php endif; ?>
 									<?php endif; ?>
 
-									<?php if ( empty( $text_disable ) && ! empty( $this->banner_content() ) ) : ?>
+								<?php if ( empty( $text_disable ) && ! empty( $this->banner_content() ) ) : ?>
 										<div class="banner-content"><?php echo wp_kses_post( force_balance_tags( $this->banner_content() ) ); ?></div>
 									<?php endif; ?>
 
-									<?php do_action( 'lsx_banner_container_bottom' ); ?>
+								<?php do_action( 'lsx_banner_container_bottom' ); ?>
 								</div>
 
 								<?php
-									if ( function_exists( 'lsx_banner_inner_bottom' ) ) {
-										lsx_banner_inner_bottom();
-									};
+								if ( function_exists( 'lsx_banner_inner_bottom' ) ) {
+									lsx_banner_inner_bottom();
+								};
 								?>
 							</div>
 						</div>
 						<?php
-					} else {
-						?>
+				} else {
+					?>
 						<div id="page-banner-slider">
-							<?php
-								foreach ( $img_group['banner_image'] as $key => $value ) {
-									if ( is_array( $value ) ) {
-										$slide   = wp_get_attachment_image_src( $value['image_id'], $banner_size );
-										$title   = $value['image_title'];
-										$content = $value['image_text'];
-									} else {
-										$slide   = wp_get_attachment_image_src( $value, $banner_size );
-										$title   = get_the_title( $post_id );
-										$content = $this->banner_content();
-									}
-									?>
+						<?php
+						foreach ( $img_group['banner_image'] as $key => $value ) {
+							if ( is_array( $value ) ) {
+								$slide   = wp_get_attachment_image_src( $value['image_id'], $banner_size );
+								$title   = $value['image_title'];
+								$content = $value['image_text'];
+							} else {
+								$slide   = wp_get_attachment_image_src( $value, $banner_size );
+								$title   = get_the_title( $post_id );
+								$content = $this->banner_content();
+							}
+							?>
 									<div class="page-banner-slide">
 										<div class="<?php echo esc_attr( $class_attr ); ?>">
 											<div class="page-banner rotating" style="<?php echo esc_attr( $style_attr ); ?>">
 												<div class="page-banner-image" style="background-position: <?php echo esc_attr( $x_position ); ?> <?php echo esc_attr( $y_position ); ?>; background-image:url(<?php echo esc_attr( $slide[0] ); ?>);"></div>
 
 												<div class="container">
-													<?php do_action( 'lsx_banner_container_top' ); ?>
+											<?php do_action( 'lsx_banner_container_top' ); ?>
 
-													<?php if ( empty( $title_disable ) ) : ?>
+											<?php if ( empty( $title_disable ) ) : ?>
 														<?php $title = apply_filters( 'lsx_banner_title', '<h1 class="page-title">' . $title . '</h1>' ); ?>
 
 														<?php if ( ! empty( $title ) ) : ?>
@@ -507,21 +509,21 @@ class LSX_Banners_Frontend extends LSX_Banners {
 														<?php endif; ?>
 													<?php endif; ?>
 
-													<?php if ( empty( $text_disable ) && ! empty( $content ) ) : ?>
+											<?php if ( empty( $text_disable ) && ! empty( $content ) ) : ?>
 														<div class="banner-content"><?php echo wp_kses_post( force_balance_tags( $content ) ); ?></div>
 													<?php endif; ?>
 
-													<?php do_action( 'lsx_banner_container_bottom' ); ?>
+											<?php do_action( 'lsx_banner_container_bottom' ); ?>
 												</div>
 											</div>
 										</div>
 									</div>
-									<?php
-								}
-							?>
+								<?php
+						}
+						?>
 						</div>
 						<?php
-					}
+				}
 
 					do_action( 'lsx_banner_bottom' );
 				?>
@@ -654,11 +656,11 @@ class LSX_Banners_Frontend extends LSX_Banners {
 				ob_start();
 				lsx_banner_content();
 				$retval = ob_get_clean();
-			break;
+				break;
 
 			default:
 				$retval = apply_filters( 'lsx_banner_content', '' );
-			break;
+				break;
 		}
 
 		return $retval;
@@ -867,13 +869,13 @@ class LSX_Banners_Frontend extends LSX_Banners {
 
 					<div class="modal-body">
 						<?php
-							if ( 'form' == $form_kind ) {
-								$form_id = $button_group['button_link'];
-								echo do_shortcode( '[caldera_form id="' . $form_id . '"]' );
-							}
-							if ( 'wpform' == $form_kind ) {
-								echo do_shortcode( '[wpforms id="' . $form_id . '" title="false" description="false"]' );
-							}
+						if ( 'form' == $form_kind ) {
+							$form_id = $button_group['button_link'];
+							echo do_shortcode( '[caldera_form id="' . $form_id . '"]' );
+						}
+						if ( 'wpform' == $form_kind ) {
+							echo do_shortcode( '[wpforms id="' . $form_id . '" title="false" description="false"]' );
+						}
 						?>
 
 					</div>

@@ -17,11 +17,11 @@
 .CMB_Title h2 {
 	margin: 0 !important;
 	padding: 0 !important;
-    font-size: 1.1em !important;
-    margin: 0 !important;	
-    text-transform: uppercase !important;
-    font-weight:bold !important;
-    
+	font-size: 1.1em !important;
+	margin: 0 !important;
+	text-transform: uppercase !important;
+	font-weight:bold !important;
+
 }
 
 
@@ -35,16 +35,16 @@
 
 .CMB_Color_Picker:before,
 .CMB_Color_Picker:after {
-    content: "";
-    display: table;
+	content: "";
+	display: table;
 }
 
 .CMB_Color_Picker:after {
-    clear: both;
+	clear: both;
 }
 
 .CMB_Color_Picker {
-    zoom: 1;
+	zoom: 1;
 }
 
 
@@ -94,4 +94,3 @@ div.time-picker li.selected { background: #0063CE; color: #fff; }
 		width:100px;
 	}
 }
-
