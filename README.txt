@@ -5,7 +5,7 @@ Tags: lsx, gutenberg, banner hero images, hero image block, hero image plugin
 Requires at least: 5.3
 Tested up to: 5.5
 Requires PHP: 7.2
-Stable tag: 1.2.5
+Stable tag: 1.2.5.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
