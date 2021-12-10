@@ -23,6 +23,11 @@ define( 'LSX_BANNERS_URL', plugin_dir_url( __FILE__ ) );
 define( 'LSX_BANNERS_VER', '1.2.5' );
 
 if ( ! function_exists( 'cmb_init' ) && is_file( LSX_BANNERS_PATH . 'vendor/Custom-Meta-Boxes/custom-meta-boxes.php' ) && ! defined( 'LSX_BANNER_DISABLE_CMB' ) ) {
+
+	if ( isset( $_GET['post'] ) && 'popup' === get_post_type( $_GET['post'] ) ) {
+		return;
+	}
+
 	require LSX_BANNERS_PATH . 'vendor/Custom-Meta-Boxes/custom-meta-boxes.php';
 }
 
